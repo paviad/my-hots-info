@@ -11,4 +11,5 @@ public class PlayerEntry {
     public string Name { get; set; } = null!;
     public int BattleTag { get; set; }
     public DateTimeOffset TimestampCreated { get; init; }
+    public ICollection<ReplayCharacter> ReplayCharacters { get; init; } = [];
 }

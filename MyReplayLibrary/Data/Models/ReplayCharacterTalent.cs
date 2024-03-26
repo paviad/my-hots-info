@@ -8,5 +8,4 @@ public class ReplayCharacterTalent {
     public PlayerEntry Player { get; init; } = null!;
     public ReplayEntry Replay { get; init; } = null!;
     public ReplayCharacter ReplayCharacter { get; init; } = null!;
-
 }

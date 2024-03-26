@@ -68,4 +68,10 @@
 	  <ProjectReference Include="..\MyReplayLibrary\MyReplayLibrary.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="ReplaysPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

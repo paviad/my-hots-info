@@ -1,23 +1,21 @@
-﻿using System.IO;
-using System.IO.IsolatedStorage;
-using System.Text;
+﻿using System.Reflection;
 
 namespace MyReplayLibrary;
 
 public class ScannedFileList {
-    private const string FilePath = "scanned_file_list.txt";
-    private readonly HashSet<string> _scannedFiles = [];
-    private readonly IsolatedStorageFile _isoStore;
+    private const string FileName = "scanned_file_list.txt";
+    private readonly HashSet<string> _scannedFiles;
+    private readonly string _filePath;
 
     public ScannedFileList() {
-        _isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User
-                                                 | IsolatedStorageScope.Application, null, null);
-        using var f = _isoStore.OpenFile(FilePath, FileMode.OpenOrCreate);
-        using var sr = new StreamReader(f);
-
-        while (sr.ReadLine() is { } line) {
-            _scannedFiles.Add(line);
+        //var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var basePath = AppDomain.CurrentDomain.BaseDirectory;
+        _filePath = Path.Combine(basePath, FileName);
+        if (!File.Exists(_filePath)) {
+            File.AppendAllText(_filePath, "");
         }
+
+        _scannedFiles = [.. File.ReadAllLines(_filePath)];
     }
 
     public bool Contains(string replay) {
@@ -26,8 +24,6 @@ public class ScannedFileList {
 
     public void Add(string replay) {
         _scannedFiles.Add(replay);
-        using var f = _isoStore.OpenFile(FilePath, FileMode.Append);
-        using var sr = new StreamWriter(f);
-        sr.WriteLine(replay);
+        File.AppendAllLines(_filePath, [replay]);
     }
 }

@@ -12,6 +12,37 @@ namespace MyReplayLibrary.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "BuildNumbers",
+                columns: table => new
+                {
+                    Buildnumber1 = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Builddate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Version = table.Column<string>(type: "TEXT", maxLength: 450, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BuildNumbers", x => x.Buildnumber1);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HeroTalentInformations",
+                columns: table => new
+                {
+                    Character = table.Column<string>(type: "TEXT", maxLength: 450, nullable: false),
+                    ReplayBuildFirst = table.Column<int>(type: "INTEGER", nullable: false),
+                    TalentId = table.Column<int>(type: "INTEGER", maxLength: 450, nullable: false),
+                    ReplayBuildLast = table.Column<int>(type: "INTEGER", nullable: false),
+                    TalentTier = table.Column<int>(type: "INTEGER", nullable: false),
+                    TalentName = table.Column<string>(type: "TEXT", maxLength: 450, nullable: false),
+                    TalentDescription = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HeroTalentInformations", x => new { x.Character, x.ReplayBuildFirst, x.TalentId });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Players",
                 columns: table => new
                 {
@@ -57,7 +88,8 @@ namespace MyReplayLibrary.Data.Migrations
                     IsAutoSelect = table.Column<bool>(type: "INTEGER", nullable: false),
                     CharacterId = table.Column<string>(type: "TEXT", maxLength: 450, nullable: false),
                     CharacterLevel = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsWinner = table.Column<bool>(type: "INTEGER", nullable: false)
+                    IsWinner = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsMe = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -282,6 +314,12 @@ namespace MyReplayLibrary.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BuildNumbers");
+
+            migrationBuilder.DropTable(
+                name: "HeroTalentInformations");
+
             migrationBuilder.DropTable(
                 name: "ReplayCharacterDraftOrders");
 

@@ -14,23 +14,38 @@ namespace MyHotsInfo {
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
-            builder.Services.AddDbContext<ReplayDbContext>(opts => {
-                var dir = @"c:\myprojects\myhotsinfo";
-                var fn = Path.Combine(dir, "my.db");
-                opts.UseSqlite($"Data Source={fn};foreign keys=true;");
-            });
+            builder.Services.AddDbContextFactory<ReplayDbContext>((svcp, opts) => {
+                var prefs = Preferences.Default;
+                const string defaultConnectionString = @"Data Source=c:\myprojects\myhotsinfo\my.db;foreign keys=true;";
+                var connectionString = prefs.Get("DefaultConnection", defaultConnectionString);
+                opts.UseSqlite(connectionString);
+            }, ServiceLifetime.Scoped);
+
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<ReplaysPage>();
 
             var mauiApp = builder.Build();
 
-            MigrateDb(mauiApp);
+            try {
+                if (Preferences.Get("ConnectionStringSet", false)) {
+                    MigrateDb(mauiApp);
+                }
+            }
+            catch {
+                Preferences.Remove("ConnectionStringSet");
+            }
 
             return mauiApp;
         }
 
         private static void MigrateDb(MauiApp mauiApp) {
+            if (!Preferences.Default.ContainsKey("ConnectionStringSet")) {
+                return;
+            }
+
             using var scope = mauiApp.Services.CreateScope();
             var dc = scope.ServiceProvider.GetRequiredService<ReplayDbContext>();
             dc.Database.Migrate();

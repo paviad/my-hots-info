@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:myHotsInfo="clr-namespace:MyHotsInfo"
+             x:Class="MyHotsInfo.ReplaysPage">
+    <ContentPage.BindingContext>
+        <myHotsInfo:ReplaysPageViewModel></myHotsInfo:ReplaysPageViewModel>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="Replays"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <ListView ItemsSource="{Binding Replays}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <TableView>
+                                <TableSection>
+                                    <TextCell Text="{Binding TimestampReplay}"></TextCell>
+                                    <TextCell Text="{Binding MapId}"></TextCell>
+                                    <TextCell Text="{Binding ReplayLength}"></TextCell>
+                                </TableSection>
+                            </TableView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

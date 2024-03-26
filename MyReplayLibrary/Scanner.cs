@@ -1,4 +1,8 @@
 ﻿using System.Diagnostics;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
+using System.Text;
+using System.Text.RegularExpressions;
 using Heroes.ReplayParser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -7,8 +11,27 @@ using MyReplayLibrary.Data.Models;
 
 namespace MyReplayLibrary;
 
-public class Scanner(ReplayDbContext dc, TimeProvider timeProvider, ILogger<Scanner> logger, ScannedFileList scannedFileList) {
-    public async Task Scan(string accountId, int region) {
+public partial class Scanner(
+    IDbContextFactory<ReplayDbContext> dcFactory,
+    TimeProvider timeProvider,
+    ILogger<Scanner> logger,
+    ScannedFileList scannedFileList) {
+    public List<(string Account, int Region)> GetAllFolders() {
+        var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string[] hots = ["Heroes of the Storm", "Accounts"];
+        var intPath = Path.Combine([basePath, .. hots]);
+        var dirs = Directory.GetDirectories(intPath).Select(Path.GetFileName);
+        var pairs =
+            from d in dirs
+            let pidPath = Path.Combine([basePath, .. hots, d])
+            let pids = Directory.GetDirectories(pidPath, "*-*").Select(Path.GetFileName)
+            from pid in pids
+            let reg = int.Parse(pid.Split('-')[0])
+            select (Account: d, Region: reg);
+        return pairs.ToList();
+    }
+
+    public async Task Scan(string accountId, int region, bool watch, CancellationToken cancellationToken = default) {
         var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         string[] hots = ["Heroes of the Storm", "Accounts", accountId];
         var intPath = Path.Combine([basePath, .. hots]);
@@ -19,6 +42,7 @@ public class Scanner(ReplayDbContext dc, TimeProvider timeProvider, ILogger<Scan
         var replays = Directory.GetFiles(finalPath, "*.StormReplay");
 
         int count = 0, max = replays.Length;
+        string? processed = null;
 
         foreach (var replay in replays.Reverse()) {
             count++;
@@ -26,41 +50,32 @@ public class Scanner(ReplayDbContext dc, TimeProvider timeProvider, ILogger<Scan
                 continue;
             }
 
-            scannedFileList.Add(replay);
+            if (processed is not null) {
+                scannedFileList.Add(processed);
+            }
+
+            processed = replay;
 
             logger.LogInformation("Scanning {replay} ({count}/{max})", replay, count, max);
-            var mdp = DataParser.ParseReplay(replay, false, ParseOptions.MinimalParsing);
 
-            if (mdp.Item1 != DataParser.ReplayParseResult.Success) {
-                logger.LogInformation("... failed to parse");
-                continue;
-            }
+            await ScanOneReplay(replay, cancellationToken);
+        }
 
-            var replayHash = mdp.Item2.HashReplay();
+        // One last time
+        if (processed is not null) {
+            scannedFileList.Add(processed);
+        }
 
-            if (!((GameMode[])[GameMode.StormLeague, GameMode.QuickMatch]).Contains(mdp.Item2.GameMode)) {
-                logger.LogInformation("... game mode {mode}", mdp.Item2.GameMode);
-                continue;
-            }
+        if (watch) {
+            logger.LogInformation("Watching for new replays...");
 
-            if (dc.Replays.Any(r => r.ReplayHash == replayHash)) {
-                logger.LogInformation("... already scanned");
-                continue;
-            }
-
-            var dp = DataParser.ParseReplay(replay, false, ParseOptions.FullParsing);
-
-            if (dp.Item1 != DataParser.ReplayParseResult.Success) {
-                logger.LogInformation("... failed to parse (fully)");
-                continue;
-            }
-
-            await using var transaction = await dc.Database.BeginTransactionAsync();
-            await AddReplay(dp.Item2);
-            await transaction.CommitAsync();
-            logger.LogInformation($"... done");
+            await Watch(finalPath, cancellationToken);
         }
     }
+
+    [GeneratedRegex(@"[/\\]\d+-Hero-\d+-(?<pid>\d+)[/\\]")]
+    private static partial Regex PlayerIdRegex();
+
 
     private static (bool, List<int>) SanityDupCheck(ReplayDbContext dc, ReplayEntry replay) {
         var sw = new Stopwatch();
@@ -89,15 +104,15 @@ public class Scanner(ReplayDbContext dc, TimeProvider timeProvider, ILogger<Scan
         return (dupDetected, dups);
     }
 
-    private async Task AddReplay(Replay replayParseData) {
+    private async Task<int?> AddReplay(ReplayDbContext dc, Replay replayParseData, int myPlayerId) {
         var replayHash = replayParseData.HashReplay();
 
         if (!((GameMode[])[GameMode.StormLeague, GameMode.QuickMatch]).Contains(replayParseData.GameMode)) {
-            return;
+            return null;
         }
 
         if (dc.Replays.Any(r => r.ReplayHash == replayHash)) {
-            return;
+            return null;
         }
 
         var now = timeProvider.GetUtcNow();
@@ -189,6 +204,7 @@ public class Scanner(ReplayDbContext dc, TimeProvider timeProvider, ILogger<Scan
                     ? replayParseData.Players[i].CharacterLevel
                     : 0,
                 IsWinner = replayParseData.Players[i].IsWinner,
+                IsMe = plr.BattleNetId == myPlayerId,
             };
 
             if (draftOrder != -1) {
@@ -366,20 +382,161 @@ public class Scanner(ReplayDbContext dc, TimeProvider timeProvider, ILogger<Scan
 
             await dc.SaveChangesAsync();
         }
+
+        return replay.Id;
     }
 
-    public List<(string Account, int Region)> GetAllFolders() {
-        var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        string[] hots = ["Heroes of the Storm", "Accounts"];
-        var intPath = Path.Combine([basePath, .. hots]);
-        var dirs = Directory.GetDirectories(intPath).Select(Path.GetFileName);
-        var pairs =
-            from d in dirs
-            let pidPath = Path.Combine([basePath, .. hots, d])
-            let pids = Directory.GetDirectories(pidPath, "*-*").Select(Path.GetFileName)
-            from pid in pids
-            let reg = int.Parse(pid.Split('-')[0])
-            select (Account: d, Region: reg);
-        return pairs.ToList();
+    private async Task<int?> ScanOneReplay(string replay, CancellationToken cancellationToken) {
+        var mdp = DataParser.ParseReplay(replay, false, ParseOptions.MinimalParsing);
+
+        if (mdp.Item1 != DataParser.ReplayParseResult.Success) {
+            logger.LogInformation("... failed to parse");
+            return null;
+        }
+
+        var replayHash = mdp.Item2.HashReplay();
+
+        if (!((GameMode[])[GameMode.StormLeague, GameMode.QuickMatch]).Contains(mdp.Item2.GameMode)) {
+            logger.LogInformation("... game mode {mode}", mdp.Item2.GameMode);
+            return null;
+        }
+
+        await using var dc = await dcFactory.CreateDbContextAsync(cancellationToken);
+
+        if (dc.Replays.Any(r => r.ReplayHash == replayHash)) {
+            logger.LogInformation("... already scanned");
+            return null;
+        }
+
+        var dp = DataParser.ParseReplay(replay, false, ParseOptions.FullParsing);
+
+        if (dp.Item1 != DataParser.ReplayParseResult.Success) {
+            logger.LogInformation("... failed to parse (fully)");
+            return null;
+        }
+
+        await using var transaction = await dc.Database.BeginTransactionAsync(cancellationToken);
+        try {
+            var match = PlayerIdRegex().Match(replay);
+            var myPlayerId = match.Success ? int.Parse(match.Groups["pid"].Value) : -1;
+            var replayId = await AddReplay(dc, dp.Item2, myPlayerId);
+            await transaction.CommitAsync(cancellationToken);
+            logger.LogInformation("... done");
+            return replayId;
+        }
+        catch (Exception e) {
+            await transaction.RollbackAsync(cancellationToken);
+            logger.LogWarning(e, "... failed");
+        }
+
+        return null;
+    }
+
+    private async Task Watch(string s, CancellationToken cancellationToken) {
+        var subj = new Subject<string>();
+        var inp = subj.GroupBy(z => z)
+            .SelectMany(z => z.Throttle(TimeSpan.FromSeconds(1)));
+
+        var fsw = new FileSystemWatcher(s, "*.StormReplay");
+
+        var subs = inp.SelectMany(async fn => {
+            scannedFileList.Add(fn);
+            logger.LogInformation("Scanning {replay} {fsw}", fn, fsw.EnableRaisingEvents);
+            try {
+                var replayId = await ScanOneReplay(fn, cancellationToken);
+                if (replayId is not null) {
+                    await LogReplay(replayId.Value);
+                }
+            }
+            catch (Exception x) {
+                logger.LogWarning(x, "Unable to parse new replay {path}", fn);
+            }
+
+            return true;
+        }).Subscribe();
+
+        logger.LogInformation("Setting up file system watch on {path}", s);
+
+        fsw.Created += FswCreated;
+        fsw.Changed += FswChanged;
+        fsw.Renamed += FswRenamed;
+        fsw.Error += FswError;
+        fsw.EnableRaisingEvents = true;
+        fsw.Disposed += FswDisposed;
+
+        await Task.Delay(-1, cancellationToken);
+
+        subs.Dispose();
+
+        return;
+
+        void FswDisposed(object? sender, EventArgs e) {
+            logger.LogWarning("File system watcher disposed");
+        }
+
+        void FswCreated(object sender, FileSystemEventArgs e) {
+            try {
+                logger.LogInformation("{changeType} {path}", e.ChangeType, e.FullPath);
+                subj.OnNext(e.FullPath);
+            }
+            catch (Exception exception) {
+                logger.LogWarning(exception, "Error in file system watcher");
+            }
+        }
+
+        void FswChanged(object sender, FileSystemEventArgs e) {
+            try {
+                subj.OnNext(e.FullPath);
+                logger.LogInformation("{changeType} {path}", e.ChangeType, e.FullPath);
+            }
+            catch (Exception exception) {
+                logger.LogWarning(exception, "Error in file system watcher");
+            }
+        }
+
+        void FswRenamed(object sender, RenamedEventArgs e) {
+            try {
+                subj.OnNext(e.FullPath);
+                logger.LogInformation("{changeType} {oldPath} -> {path}", e.ChangeType, e.OldFullPath, e.FullPath);
+            }
+            catch (Exception exception) {
+                logger.LogWarning(exception, "Error in file system watcher");
+            }
+        }
+
+        void FswError(object sender, ErrorEventArgs e) {
+            logger.LogWarning(e.GetException(), "Error event from file system watcher");
+        }
+    }
+
+    private async Task LogReplay(int replayId) {
+        await using var dc = await dcFactory.CreateDbContextAsync();
+        var replay = await dc.Replays
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.Player)
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterTalents)
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterMatchAwards)
+            .AsSplitQuery()
+            .SingleAsync(r => r.Id == replayId);
+
+        var mvp = replay.ReplayCharacters.Single(r => r.ReplayCharacterMatchAwards.Any(z => z.MatchAwardType == MatchAwardType.MVP)).Player;
+
+        var sb = new StringBuilder();
+        sb.AppendLine($"""
+                       Game Time: {replay.TimestampReplay}
+                       Map: {replay.MapId}
+                       Mvp: {mvp.Name}#{mvp.BattleTag}
+                       """);
+        sb.AppendLine("Winning Team:");
+        sb.AppendLine("-----------------");
+        foreach (var rc in replay.ReplayCharacters.Where(r => r.IsWinner)) {
+            sb.AppendLine($"   {rc.Player.Name}#{rc.Player.BattleTag} - {rc.CharacterId}");
+        }
+        sb.AppendLine("Losing Team:");
+        sb.AppendLine("-----------------");
+        foreach (var rc in replay.ReplayCharacters.Where(r => !r.IsWinner)) {
+            sb.AppendLine($"   {rc.Player.Name}#{rc.Player.BattleTag} - {rc.CharacterId}");
+        }
+
+        logger.LogInformation(sb.ToString());
     }
 }

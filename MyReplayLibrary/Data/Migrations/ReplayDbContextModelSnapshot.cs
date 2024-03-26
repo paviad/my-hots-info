@@ -15,7 +15,62 @@ namespace MyReplayLibrary.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
+            modelBuilder
+                .UseCollation("NOCASE")
+                .HasAnnotation("ProductVersion", "8.0.3");
+
+            modelBuilder.Entity("MyReplayLibrary.Data.Models.BuildNumber", b =>
+                {
+                    b.Property<int>("Buildnumber1")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("Builddate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Buildnumber1");
+
+                    b.ToTable("BuildNumbers");
+                });
+
+            modelBuilder.Entity("MyReplayLibrary.Data.Models.HeroTalentInformation", b =>
+                {
+                    b.Property<string>("Character")
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ReplayBuildFirst")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TalentId")
+                        .HasMaxLength(450)
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ReplayBuildLast")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TalentDescription")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TalentName")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TalentTier")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Character", "ReplayBuildFirst", "TalentId");
+
+                    b.ToTable("HeroTalentInformations");
+                });
 
             modelBuilder.Entity("MyReplayLibrary.Data.Models.PlayerEntry", b =>
                 {
@@ -65,6 +120,9 @@ namespace MyReplayLibrary.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsAutoSelect")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsMe")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsWinner")
@@ -275,7 +333,7 @@ namespace MyReplayLibrary.Data.Migrations
             modelBuilder.Entity("MyReplayLibrary.Data.Models.ReplayCharacter", b =>
                 {
                     b.HasOne("MyReplayLibrary.Data.Models.PlayerEntry", "Player")
-                        .WithMany()
+                        .WithMany("ReplayCharacters")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -415,6 +473,11 @@ namespace MyReplayLibrary.Data.Migrations
                     b.Navigation("Player");
 
                     b.Navigation("Replay");
+                });
+
+            modelBuilder.Entity("MyReplayLibrary.Data.Models.PlayerEntry", b =>
+                {
+                    b.Navigation("ReplayCharacters");
                 });
 
             modelBuilder.Entity("MyReplayLibrary.Data.Models.ReplayCharacter", b =>

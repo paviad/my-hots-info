@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "MyHotsCli": {
-      "commandName": "Project",
-      "commandLineArgs": "qp sty"
-    }
-  }
-}

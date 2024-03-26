@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Heroes.ReplayParser;
-using Microsoft.VisualBasic;
 
 namespace MyReplayLibrary.Data.Models;
 

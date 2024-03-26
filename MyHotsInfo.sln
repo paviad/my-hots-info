@@ -7,9 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHotsInfo", "MyHotsInfo\My
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heroes.ReplayParser", "Heroes.ReplayParser\Heroes.ReplayParser\Heroes.ReplayParser.csproj", "{DBC8EE33-736A-4F11-BB28-DF561F05C92E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyReplayLibrary", "MyReplayLibrary\MyReplayLibrary.csproj", "{60D9249A-D4FD-4E05-B867-0660E9AFF9FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyReplayLibrary", "MyReplayLibrary\MyReplayLibrary.csproj", "{60D9249A-D4FD-4E05-B867-0660E9AFF9FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHotsCli", "MyHotsCli\MyHotsCli.csproj", "{30D8C372-4645-476E-9C44-E91B5C062C4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHotsCli", "MyHotsCli\MyHotsCli.csproj", "{30D8C372-4645-476E-9C44-E91B5C062C4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CascLibCore", "CascLibCore\CascLibCore.csproj", "{ED4EAA04-6714-40F4-97CC-460842ABE850}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CascScraperCore", "CascScraperCore\CascScraperCore.csproj", "{D518E4F7-51A0-4359-9971-D2FCAF830C09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotsScraper", "HotsScraper\HotsScraper.csproj", "{5CE427E3-69BD-4CDD-82E9-1E7350ED3E98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +41,18 @@ Global
 		{30D8C372-4645-476E-9C44-E91B5C062C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30D8C372-4645-476E-9C44-E91B5C062C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30D8C372-4645-476E-9C44-E91B5C062C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED4EAA04-6714-40F4-97CC-460842ABE850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED4EAA04-6714-40F4-97CC-460842ABE850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED4EAA04-6714-40F4-97CC-460842ABE850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED4EAA04-6714-40F4-97CC-460842ABE850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D518E4F7-51A0-4359-9971-D2FCAF830C09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D518E4F7-51A0-4359-9971-D2FCAF830C09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D518E4F7-51A0-4359-9971-D2FCAF830C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D518E4F7-51A0-4359-9971-D2FCAF830C09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CE427E3-69BD-4CDD-82E9-1E7350ED3E98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CE427E3-69BD-4CDD-82E9-1E7350ED3E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CE427E3-69BD-4CDD-82E9-1E7350ED3E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CE427E3-69BD-4CDD-82E9-1E7350ED3E98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

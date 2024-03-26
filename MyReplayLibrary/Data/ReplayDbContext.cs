@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyReplayLibrary.Data.Models;
-using SharpCompress.Common;
 
 namespace MyReplayLibrary.Data;
 
@@ -13,6 +12,8 @@ public class ReplayDbContext(DbContextOptions<ReplayDbContext> opts) : DbContext
     public DbSet<ReplayCharacterTalent> ReplayCharacterTalents { get; init; } = null!;
     public DbSet<ReplayCharacterScoreResult> ReplayCharacterScoreResults { get; init; } = null!;
     public DbSet<ReplayCharacterMatchAward> ReplayCharacterMatchAwards { get; init; } = null!;
+    public DbSet<HeroTalentInformation> HeroTalentInformations { get; init; } = null!;
+    public DbSet<BuildNumber> BuildNumbers { get; init; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         modelBuilder.UseCollation("NOCASE");
@@ -33,7 +34,7 @@ public class ReplayDbContext(DbContextOptions<ReplayDbContext> opts) : DbContext
                 r.PlayerId,
             });
             e.HasOne(r => r.Replay).WithMany(r => r.ReplayCharacters).HasForeignKey(r => r.ReplayId).OnDelete(DeleteBehavior.Cascade);
-            e.HasOne(r => r.Player).WithMany().HasForeignKey(r => r.PlayerId).OnDelete(DeleteBehavior.Cascade);
+            e.HasOne(r => r.Player).WithMany(r => r.ReplayCharacters).HasForeignKey(r => r.PlayerId).OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<ReplayCharacterScoreResult>(e => {
@@ -100,6 +101,18 @@ public class ReplayDbContext(DbContextOptions<ReplayDbContext> opts) : DbContext
                     r.ReplayId,
                     r.PlayerId,
                 });
+        });
+
+        modelBuilder.Entity<HeroTalentInformation>(e => {
+            e.HasKey(e => new {
+                e.Character,
+                e.ReplayBuildFirst,
+                e.TalentId,
+            });
+        });
+
+        modelBuilder.Entity<BuildNumber>(entity => {
+            entity.HasKey(e => e.Buildnumber1);
         });
     }
 }

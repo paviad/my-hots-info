@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HotsScraper\HotsScraper.csproj" />
     <ProjectReference Include="..\MyReplayLibrary\MyReplayLibrary.csproj" />
   </ItemGroup>
 
