@@ -16,6 +16,13 @@ public partial class Scanner(
     TimeProvider timeProvider,
     ILogger<Scanner> logger,
     ScannedFileList scannedFileList) {
+    private readonly GameMode[] _validGameModes = [
+        GameMode.StormLeague,
+        GameMode.ARAM,
+        GameMode.QuickMatch,
+        GameMode.UnrankedDraft,
+    ];
+
     public List<(string Account, int Region)> GetAllFolders() {
         var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         string[] hots = ["Heroes of the Storm", "Accounts"];
@@ -82,13 +89,14 @@ public partial class Scanner(
         sw.Start();
         var dt1 = replay.TimestampReplay.AddSeconds(-15);
         var dt2 = replay.TimestampReplay.AddSeconds(15);
-        var sanityDupCheck = (from r in dc.Replays
-                              join rc in dc.ReplayCharacters on r.Id equals rc.ReplayId
-                              where r.TimestampReplay >= dt1 && r.TimestampReplay <= dt2
-                              select new {
-                                  rc.PlayerId,
-                                  rc.ReplayId,
-                              })
+        var sanityDupCheck = (
+                from r in dc.Replays
+                join rc in dc.ReplayCharacters on r.Id equals rc.ReplayId
+                where r.TimestampReplay >= dt1 && r.TimestampReplay <= dt2
+                select new {
+                    rc.PlayerId,
+                    rc.ReplayId,
+                })
             .ToLookup(x => x.PlayerId, x => x.ReplayId);
 
         var dups = replay.ReplayCharacters
@@ -107,7 +115,7 @@ public partial class Scanner(
     private async Task<int?> AddReplay(ReplayDbContext dc, Replay replayParseData, int myPlayerId) {
         var replayHash = replayParseData.HashReplay();
 
-        if (!((GameMode[])[GameMode.StormLeague, GameMode.QuickMatch]).Contains(replayParseData.GameMode)) {
+        if (!_validGameModes.Contains(replayParseData.GameMode)) {
             return null;
         }
 
@@ -386,6 +394,39 @@ public partial class Scanner(
         return replay.Id;
     }
 
+    private async Task LogReplay(int replayId) {
+        await using var dc = await dcFactory.CreateDbContextAsync();
+        var replay = await dc.Replays
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.Player)
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterTalents)
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterMatchAwards)
+            .AsSplitQuery()
+            .SingleAsync(r => r.Id == replayId);
+
+        var mvp = replay.ReplayCharacters
+            .Single(r => r.ReplayCharacterMatchAwards.Any(z => z.MatchAwardType == MatchAwardType.MVP)).Player;
+
+        var sb = new StringBuilder();
+        sb.AppendLine($"""
+                       Game Time: {replay.TimestampReplay}
+                       Map: {replay.MapId}
+                       Mvp: {mvp.Name}#{mvp.BattleTag}
+                       """);
+        sb.AppendLine("Winning Team:");
+        sb.AppendLine("-----------------");
+        foreach (var rc in replay.ReplayCharacters.Where(r => r.IsWinner)) {
+            sb.AppendLine($"   {rc.Player.Name}#{rc.Player.BattleTag} - {rc.CharacterId}");
+        }
+
+        sb.AppendLine("Losing Team:");
+        sb.AppendLine("-----------------");
+        foreach (var rc in replay.ReplayCharacters.Where(r => !r.IsWinner)) {
+            sb.AppendLine($"   {rc.Player.Name}#{rc.Player.BattleTag} - {rc.CharacterId}");
+        }
+
+        logger.LogInformation(sb.ToString());
+    }
+
     private async Task<int?> ScanOneReplay(string replay, CancellationToken cancellationToken) {
         var mdp = DataParser.ParseReplay(replay, false, ParseOptions.MinimalParsing);
 
@@ -396,7 +437,7 @@ public partial class Scanner(
 
         var replayHash = mdp.Item2.HashReplay();
 
-        if (!((GameMode[])[GameMode.StormLeague, GameMode.QuickMatch]).Contains(mdp.Item2.GameMode)) {
+        if (!_validGameModes.Contains(mdp.Item2.GameMode)) {
             logger.LogInformation("... game mode {mode}", mdp.Item2.GameMode);
             return null;
         }
@@ -507,36 +548,5 @@ public partial class Scanner(
         void FswError(object sender, ErrorEventArgs e) {
             logger.LogWarning(e.GetException(), "Error event from file system watcher");
         }
-    }
-
-    private async Task LogReplay(int replayId) {
-        await using var dc = await dcFactory.CreateDbContextAsync();
-        var replay = await dc.Replays
-            .Include(r => r.ReplayCharacters).ThenInclude(r => r.Player)
-            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterTalents)
-            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterMatchAwards)
-            .AsSplitQuery()
-            .SingleAsync(r => r.Id == replayId);
-
-        var mvp = replay.ReplayCharacters.Single(r => r.ReplayCharacterMatchAwards.Any(z => z.MatchAwardType == MatchAwardType.MVP)).Player;
-
-        var sb = new StringBuilder();
-        sb.AppendLine($"""
-                       Game Time: {replay.TimestampReplay}
-                       Map: {replay.MapId}
-                       Mvp: {mvp.Name}#{mvp.BattleTag}
-                       """);
-        sb.AppendLine("Winning Team:");
-        sb.AppendLine("-----------------");
-        foreach (var rc in replay.ReplayCharacters.Where(r => r.IsWinner)) {
-            sb.AppendLine($"   {rc.Player.Name}#{rc.Player.BattleTag} - {rc.CharacterId}");
-        }
-        sb.AppendLine("Losing Team:");
-        sb.AppendLine("-----------------");
-        foreach (var rc in replay.ReplayCharacters.Where(r => !r.IsWinner)) {
-            sb.AppendLine($"   {rc.Player.Name}#{rc.Player.BattleTag} - {rc.CharacterId}");
-        }
-
-        logger.LogInformation(sb.ToString());
     }
 }
