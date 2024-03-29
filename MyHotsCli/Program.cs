@@ -44,6 +44,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                 services.AddSingleton<ScannedFileList>();
                 services.AddScoped<Scanner>();
                 services.AddScoped<PlayerQuery>();
+                services.AddSingleton<Ocr>();
             });
 
         var host = builder.Build();
@@ -162,30 +163,66 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
             var playerQuery = scope.ServiceProvider.GetRequiredService<PlayerQuery>();
             playerQuery.GameMode = gm;
             var results = await playerQuery.QueryByName(name);
-            var space = false;
-            foreach (var playerRecord in results) {
-                if (space) {
-                    Console.WriteLine();
-                }
-
-                space = true;
-                Console.WriteLine($"""
-                                   Stats for {playerRecord.BattleTag}
-                                   ----------------------------------------------------------------------------------------------------------
-                                   They Played | Games      | They Won     | We Won Together | We Lost Together | We Beat Them | They Beat Us
-                                   ----------------------------------------------------------------------------------------------------------
-                                   """);
-                var t = playerRecord.Totals;
-                Console.WriteLine(
-                    $"{"Overall",-12}| {t.NumGames,-11}| {t.Wins,-13}| {t.WeWon,-16}| {t.WeLost,-17}| {t.WeBeatThem,-13}| {t.TheyBeatUs,-13}");
-                foreach (var resultRecord in playerRecord.ByHero) {
-                    var z = resultRecord.Value;
-                    var hero = resultRecord.Key;
-                    Console.WriteLine(
-                        $"{hero,-12}| {z.NumGames,-11}| {z.Wins,-13}| {z.WeWon,-16}| {z.WeLost,-17}| {z.WeBeatThem,-13}| {z.TheyBeatUs,-13}");
-                }
-            }
+            ShowNameQueryResults(results);
         }, _gameModeOption, nameArgument);
+    }
+
+    private static void ShowNameQueryResultsOneLinePerHero(List<PlayerQuery.PlayerRecord> results) {
+        foreach (var v in Enumerate()) {
+            Console.WriteLine($"{v}");
+        }
+
+        IEnumerable<string> Enumerate() {
+            foreach (var playerRecord in results) {
+                var name = playerRecord.BattleTag;
+                var games = playerRecord.Totals.NumGames;
+                var wins = playerRecord.Totals.Wins;
+                var winRate = 1.0 * wins / games;
+                var r = $"{name}:{winRate:P1}";
+                var overall = $"{r,-30}";
+
+                var q =
+                    from resultRecord in playerRecord.ByHero
+                    let hero = resultRecord.Key
+                    let z = resultRecord.Value
+                    let games1 = z.NumGames
+                    let wins1 = z.Wins
+                    let winRate1 = 1.0 * wins1 / games1
+                    orderby games1 descending
+                    let r1 = $"{hero}:{winRate1:P1}"
+                    select $"{r1,-30}";
+
+                var m = string.Join("", q.Take(3));
+
+                yield return $"{overall}{m}";
+            }
+        }
+    }
+
+    private static void ShowNameQueryResults(List<PlayerQuery.PlayerRecord> results) {
+        var space = false;
+        foreach (var playerRecord in results) {
+            if (space) {
+                Console.WriteLine();
+            }
+
+            space = true;
+            Console.WriteLine($"""
+                               Stats for {playerRecord.BattleTag}
+                               ----------------------------------------------------------------------------------------------------------
+                               They Played | Games      | They Won     | We Won Together | We Lost Together | We Beat Them | They Beat Us
+                               ----------------------------------------------------------------------------------------------------------
+                               """);
+            var t = playerRecord.Totals;
+            Console.WriteLine(
+                $"{"Overall",-12}| {t.NumGames,-11}| {t.Wins,-13}| {t.WeWon,-16}| {t.WeLost,-17}| {t.WeBeatThem,-13}| {t.TheyBeatUs,-13}");
+            foreach (var resultRecord in playerRecord.ByHero) {
+                var z = resultRecord.Value;
+                var hero = resultRecord.Key;
+                Console.WriteLine(
+                    $"{hero,-12}| {z.NumGames,-11}| {z.Wins,-13}| {z.WeWon,-16}| {z.WeLost,-17}| {z.WeBeatThem,-13}| {z.TheyBeatUs,-13}");
+            }
+        }
     }
 
     private static void SetupQreplayCommand(RootCommand rootCommand, IServiceProvider svcp) {
@@ -283,10 +320,10 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
         scanCommand.AddOption(rescanOption);
         rootCommand.AddCommand(scanCommand);
 
-        scanCommand.SetHandler(async (list, account, region, seq, watch, rescanOption) => {
+        scanCommand.SetHandler(async (list, account, region, seq, watch, rescan) => {
             using var scope = svcp.CreateScope();
             var scanner = scope.ServiceProvider.GetRequiredService<Scanner>();
-            if (rescanOption) {
+            if (rescan) {
                 var scannedFileList = scope.ServiceProvider.GetRequiredService<ScannedFileList>();
                 scannedFileList.Reset();
             }
@@ -307,11 +344,30 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                 var acct = pairs[seq.Value - 1].Account;
                 var reg = pairs[seq.Value - 1].Region;
                 Console.WriteLine("Scanning account {0}, region {1}", acct, reg);
-                await scanner.Scan(acct, reg, watch);
+                await scanner.Scan(acct, reg, watch, replayCallback: ReplayCallback, screenShotCallback: ScreenshotCallback);
             }
             else {
                 Console.WriteLine("Scanning account {0}, region {1}", account!, region!.Value);
-                await scanner.Scan(account, region.Value, watch);
+                await scanner.Scan(account, region.Value, watch, replayCallback: ReplayCallback, screenShotCallback: ScreenshotCallback);
+            }
+
+            return;
+
+            async Task ScreenshotCallback(List<string> names) {
+                using var scp2 = svcp.CreateScope();
+                var playerQuery = scp2.ServiceProvider.GetRequiredService<PlayerQuery>();
+                foreach (var name in names) {
+                    var results = await playerQuery.QueryByName(name);
+                    ShowNameQueryResultsOneLinePerHero(results);
+                }
+            }
+
+            async Task ReplayCallback(int replayId) {
+                using var scp2 = svcp.CreateScope();
+                var playerQuery = scp2.ServiceProvider.GetRequiredService<PlayerQuery>();
+                var replay = await playerQuery.GetReplay(replayId);
+                var summary = Scanner.GetReplaySummary(replay);
+                Console.WriteLine($"{summary}");
             }
         }, listOption, accountOption, regionOption, seqOption, watchOption, rescanOption);
 
@@ -324,7 +380,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
             var flg1 = lst;
             var flg2 = !(acct is null || reg is null);
             var flg3 = seq is not null;
-            var ok = ((bool[]) [flg1, flg2, flg3]).Count(r => r) == 1;
+            var ok = ((bool[])[flg1, flg2, flg3]).Count(r => r) == 1;
             if (!ok) {
                 cr.ErrorMessage = "Must specify either --list or --seq or both --account and --region";
             }

@@ -288,3 +288,41 @@ Options:
 ## MAUI
 
 The folder `MyHotsInfo` is a (mostly) blank MAUI app.
+
+## OCR
+
+### Build
+
+Adapted from `https://github.com/charlesw/tesseract/blob/master/docs/Compling_tesseract_and_leptonica.md`
+
+```
+vcpkg install giflib:x86-windows-static libjpeg-turbo:x86-windows-static liblzma:x86-windows-static libpng:x86-windows-static tiff:x86-windows-static zlib:x86-windows-static icu:x86-windows-static pango:x86-windows-static
+vcpkg install giflib:x64-windows-static libjpeg-turbo:x64-windows-static liblzma:x64-windows-static libpng:x64-windows-static tiff:x64-windows-static zlib:x64-windows-static icu:x64-windows-static pango:x64-windows-static
+```
+
+```
+git clone https://github.com/DanBloomberg/leptonica.git & cd leptonica	
+git checkout -b 1.82.0 1.82.0
+mkdir vs16-x86 & cd vs16-x86
+cmake .. -G "Visual Studio 17 2022" -A Win32 -DSW_BUILD=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_TOOLCHAIN_FILE=%VCPKG_HOME%\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x86-windows-static -DCMAKE_INSTALL_PREFIX=..\..\build\x86
+@REM cmake ..\..\..\leptonica -G "Visual Studio 17 2022" -A Win32 -DSW_BUILD=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_TOOLCHAIN_FILE=%VCPKG_HOME%\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x86-windows-static -DCMAKE_INSTALL_PREFIX=..\..\x86
+cmake --build . --config Release --target install
+cd ..
+mkdir vs16-x64 & cd vs16-x64
+cmake .. -G "Visual Studio 17 2022" -A x64 -DSW_BUILD=OFF -DBUILD_SHARED_LIBS=ON  -DCMAKE_TOOLCHAIN_FILE=%VCPKG_HOME%\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static -DCMAKE_INSTALL_PREFIX=..\..\build\x64
+@REM cmake ..\..\..\leptonica -G "Visual Studio 17 2022" -A x64 -DSW_BUILD=OFF -DBUILD_SHARED_LIBS=ON  -DCMAKE_TOOLCHAIN_FILE=%VCPKG_HOME%\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static -DCMAKE_INSTALL_PREFIX=..\..\x64
+cmake --build . --config Release --target install
+
+git clone https://github.com/tesseract-ocr/tesseract.git
+cd tesserct
+git checkout -b 5.2.0 5.2.0
+mkdir vs17-x86 & cd vs17-x86
+cmake .. -G "Visual Studio 17 2022" -A Win32 -DSW_BUILD=OFF -DBUILD_SHARED_LIBS=ON -DCMAKE_TOOLCHAIN_FILE=%VCPKG_HOME%\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x86-windows-static -DCMAKE_INSTALL_PREFIX=..\..\build\x86
+@REM cmake ..\..\..\tesseract -G "Visual Studio 17 2022" -A Win32 -DAUTO_OPTIMIZE=OFF -DSW_BUILD=OFF -DBUILD_TRAINING_TOOLS=OFF -DCMAKE_INSTALL_PREFIX=..\..\x86
+cmake --build . --config Release --target install
+cd ..
+mkdir vs17-x64 & cd vs17-x64
+cmake .. -G "Visual Studio 17 2022" -A x64 -DSW_BUILD=OFF -DBUILD_SHARED_LIBS=ON  -DCMAKE_TOOLCHAIN_FILE=%VCPKG_HOME%\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows-static -DCMAKE_INSTALL_PREFIX=..\..\build\x64
+@REM cmake ..\..\..\tesseract -G "Visual Studio 17 2022" -A x64   -DAUTO_OPTIMIZE=OFF -DSW_BUILD=OFF -DBUILD_TRAINING_TOOLS=OFF -DCMAKE_INSTALL_PREFIX=..\..\x64
+cmake --build . --config Release --target install
+```

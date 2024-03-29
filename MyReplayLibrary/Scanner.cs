@@ -15,6 +15,7 @@ public partial class Scanner(
     IDbContextFactory<ReplayDbContext> dcFactory,
     TimeProvider timeProvider,
     ILogger<Scanner> logger,
+    Ocr ocr,
     ScannedFileList scannedFileList) {
     private readonly GameMode[] _validGameModes = [
         GameMode.StormLeague,
@@ -68,7 +69,8 @@ public partial class Scanner(
         return pairs.ToList();
     }
 
-    public async Task Scan(string accountId, int region, bool watch, CancellationToken cancellationToken = default) {
+    public async Task Scan(string accountId, int region, bool watch, Func<int, Task>? replayCallback = null,
+        Func<List<string>, Task>? screenShotCallback = null, CancellationToken cancellationToken = default) {
         var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         string[] hots = ["Heroes of the Storm", "Accounts", accountId];
         var intPath = Path.Combine([basePath, .. hots]);
@@ -76,6 +78,7 @@ public partial class Scanner(
         var euDir = dirs.Single(r => Path.GetFileName(r).StartsWith($"{region}-"));
         string[] endPaths = ["Replays", "Multiplayer"];
         var finalPath = Path.Combine([euDir, .. endPaths]);
+
         var replays = Directory.GetFiles(finalPath, "*.StormReplay");
 
         int count = 0, max = replays.Length;
@@ -106,9 +109,14 @@ public partial class Scanner(
         if (watch) {
             logger.LogInformation("Watching for new replays...");
 
-            await Watch(finalPath, cancellationToken);
+            var t2 = WatchScreenshots(screenShotCallback ?? NoOp, cancellationToken);
+            var t1 = Watch(finalPath, replayCallback ?? NoOp, cancellationToken);
+
+            await Task.WhenAll(t1, t2);
         }
     }
+
+    private static Task NoOp<T>(T _) => Task.CompletedTask;
 
     [GeneratedRegex(@"[/\\]\d+-Hero-\d+-(?<pid>\d+)[/\\]")]
     private static partial Regex PlayerIdRegex();
@@ -424,20 +432,6 @@ public partial class Scanner(
         return replay.Id;
     }
 
-    private async Task LogReplay(int replayId) {
-        await using var dc = await dcFactory.CreateDbContextAsync();
-        var replay = await dc.Replays
-            .Include(r => r.ReplayCharacters).ThenInclude(r => r.Player)
-            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterTalents)
-            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterMatchAwards)
-            .AsSplitQuery()
-            .SingleAsync(r => r.Id == replayId);
-
-        var message = GetReplaySummary(replay);
-
-        logger.LogInformation(message);
-    }
-
     private async Task<int?> ScanOneReplay(string replay, CancellationToken cancellationToken) {
         var mdp = DataParser.ParseReplay(replay, false, ParseOptions.MinimalParsing);
 
@@ -484,7 +478,7 @@ public partial class Scanner(
         return null;
     }
 
-    private async Task Watch(string s, CancellationToken cancellationToken) {
+    private async Task Watch(string s, Func<int, Task> callBack, CancellationToken cancellationToken) {
         var subj = new Subject<string>();
         var inp = subj.GroupBy(z => z)
             .SelectMany(z => z.Throttle(TimeSpan.FromSeconds(1)));
@@ -497,7 +491,8 @@ public partial class Scanner(
             try {
                 var replayId = await ScanOneReplay(fn, cancellationToken);
                 if (replayId is not null) {
-                    await LogReplay(replayId.Value);
+                    await callBack(replayId.Value);
+                    //await LogReplay(replayId.Value);
                 }
             }
             catch (Exception x) {
@@ -515,8 +510,11 @@ public partial class Scanner(
         fsw.Error += FswError;
         fsw.EnableRaisingEvents = true;
         fsw.Disposed += FswDisposed;
+        fsw.Deleted += FswDeleted;
 
         await Task.Delay(-1, cancellationToken);
+
+        logger.LogWarning("Exited Watch");
 
         subs.Dispose();
 
@@ -538,8 +536,8 @@ public partial class Scanner(
 
         void FswChanged(object sender, FileSystemEventArgs e) {
             try {
-                subj.OnNext(e.FullPath);
                 logger.LogInformation("{changeType} {path}", e.ChangeType, e.FullPath);
+                subj.OnNext(e.FullPath);
             }
             catch (Exception exception) {
                 logger.LogWarning(exception, "Error in file system watcher");
@@ -558,6 +556,97 @@ public partial class Scanner(
 
         void FswError(object sender, ErrorEventArgs e) {
             logger.LogWarning(e.GetException(), "Error event from file system watcher");
+        }
+
+        void FswDeleted(object sender, FileSystemEventArgs e) {
+            logger.LogInformation("{changeType} {path}", e.ChangeType, e.FullPath);
+        }
+    }
+
+
+    private async Task WatchScreenshots(Func<List<string>, Task> callBack, CancellationToken cancellationToken) {
+        var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string[] hots = ["Heroes of the Storm", "Screenshots"];
+        var s = Path.Combine([basePath, .. hots]);
+        var subj = new Subject<string>();
+        var inp = subj.GroupBy(z => z)
+            .SelectMany(z => z.Throttle(TimeSpan.FromSeconds(1)));
+
+        var fsw = new FileSystemWatcher(s, "*.jpg");
+
+        var subs = inp.SelectMany(async fn => {
+            logger.LogInformation("Scanning screenshot {fileName}", fn);
+            try {
+                var rc = await ocr.OcrScreenshot(fn);
+                await callBack(rc);
+                //var msg = string.Join("\n", rc.Select(z => $"   {z}"));
+                //logger.LogInformation("Players in this game:\n{msg}", msg);
+            }
+            catch (Exception x) {
+                logger.LogWarning(x, "Unable to read screenshot {path}", fn);
+            }
+
+            return true;
+        }).Subscribe();
+
+        logger.LogInformation("Setting up file system watch on {path}", s);
+
+        fsw.Created += FswCreated;
+        fsw.Changed += FswChanged;
+        fsw.Renamed += FswRenamed;
+        fsw.Error += FswError;
+        fsw.EnableRaisingEvents = true;
+        fsw.Disposed += FswDisposed;
+        fsw.Deleted += FswDeleted;
+
+        await Task.Delay(-1, cancellationToken);
+
+        logger.LogWarning("Exited WatchScreenshots");
+
+        subs.Dispose();
+
+        return;
+
+        void FswDisposed(object? sender, EventArgs e) {
+            logger.LogWarning("File system watcher disposed");
+        }
+
+        void FswCreated(object sender, FileSystemEventArgs e) {
+            try {
+                logger.LogInformation("{changeType} {path}", e.ChangeType, e.FullPath);
+                subj.OnNext(e.FullPath);
+            }
+            catch (Exception exception) {
+                logger.LogWarning(exception, "Error in file system watcher");
+            }
+        }
+
+        void FswChanged(object sender, FileSystemEventArgs e) {
+            try {
+                logger.LogInformation("{changeType} {path}", e.ChangeType, e.FullPath);
+                subj.OnNext(e.FullPath);
+            }
+            catch (Exception exception) {
+                logger.LogWarning(exception, "Error in file system watcher");
+            }
+        }
+
+        void FswRenamed(object sender, RenamedEventArgs e) {
+            try {
+                subj.OnNext(e.FullPath);
+                logger.LogInformation("{changeType} {oldPath} -> {path}", e.ChangeType, e.OldFullPath, e.FullPath);
+            }
+            catch (Exception exception) {
+                logger.LogWarning(exception, "Error in file system watcher");
+            }
+        }
+
+        void FswError(object sender, ErrorEventArgs e) {
+            logger.LogWarning(e.GetException(), "Error event from file system watcher");
+        }
+
+        void FswDeleted(object sender, FileSystemEventArgs e) {
+            logger.LogInformation("{changeType} {path}", e.ChangeType, e.FullPath);
         }
     }
 }

@@ -5,10 +5,8 @@ using MyReplayLibrary.Talents.Options;
 
 namespace MyReplayLibrary.Talents;
 
-public static class TalentsLib
-{
-    public static bool DeleteInternal(DeleteOptions opts, ReplayDbContext dc)
-    {
+public static class TalentsLib {
+    public static bool DeleteInternal(DeleteOptions opts, ReplayDbContext dc) {
         var q = dc.HeroTalentInformations
             .Where(x => x.ReplayBuildFirst == opts.Build)
             .Where(x => x.Character == opts.Hero)
@@ -16,14 +14,13 @@ public static class TalentsLib
 
         var talents = q.ToList();
 
-        if (talents.Any(x => x.ReplayBuildFirst == opts.Build))
-        {
+        if (talents.Any(x => x.ReplayBuildFirst == opts.Build)) {
             return true;
         }
 
         var range = dc.HeroTalentInformations
-                .Where(x => x.Character == opts.Hero)
-                .FirstOrDefault(x => x.ReplayBuildFirst <= opts.Build && x.ReplayBuildLast >= opts.Build);
+            .Where(x => x.Character == opts.Hero)
+            .FirstOrDefault(x => x.ReplayBuildFirst <= opts.Build && x.ReplayBuildLast >= opts.Build);
         Console.Error.Write($"Build {opts.Build} doesn't match the start of a build range, ");
         Console.Error.Write(
             range != null
@@ -32,28 +29,23 @@ public static class TalentsLib
         return false;
     }
 
-    public static Dictionary<int, List<DiffEntry>> DiffInternal(DiffOptions opts, ReplayDbContext dc)
-    {
+    public static Dictionary<int, List<DiffEntry>> DiffInternal(DiffOptions opts, ReplayDbContext dc) {
         var q = dc.HeroTalentInformations.AsQueryable();
-        if (!string.IsNullOrEmpty(opts.Hero))
-        {
+        if (!string.IsNullOrEmpty(opts.Hero)) {
             q = q.Where(x => x.Character == opts.Hero);
         }
 
-        if (opts.MinBuild.HasValue)
-        {
+        if (opts.MinBuild.HasValue) {
             var minBuild = opts.MinBuild.Value;
             q = q.Where(x => x.ReplayBuildLast >= minBuild);
         }
 
-        if (opts.MaxBuild.HasValue)
-        {
+        if (opts.MaxBuild.HasValue) {
             var maxBuild = opts.MaxBuild.Value;
             q = q.Where(x => x.ReplayBuildFirst <= maxBuild);
         }
 
-        if (opts.TalentId is not null)
-        {
+        if (opts.TalentId is not null) {
             var talentId = opts.TalentId;
             q = q.Where(x => x.TalentId == talentId);
         }
@@ -65,39 +57,30 @@ public static class TalentsLib
 
         var diffList = new Dictionary<int, List<DiffEntry>>();
 
-        foreach (var kvp in byHeroByRange)
-        {
-            foreach (var range in kvp.Value.Triplewise((a, b, c) => (a, b, c)))
-            {
-                foreach (var t in range.b!)
-                {
+        foreach (var kvp in byHeroByRange) {
+            foreach (var range in kvp.Value.Triplewise((a, b, c) => (a, b, c))) {
+                foreach (var t in range.b!) {
                     var matchPrev = range.a?.SingleOrDefault(x => x.TalentName == t.TalentName);
                     var matchNext1 = range.c?.Where(x => x.TalentName == t.TalentName).ToList();
-                    if (matchNext1?.Count > 1)
-                    {
+                    if (matchNext1?.Count > 1) {
                         matchNext1 = matchNext1.Where(x => x.TalentTier == t.TalentTier).ToList();
                     }
 
                     var matchNext = matchNext1?.SingleOrDefault();
 
-                    if (matchNext == null)
-                    {
+                    if (matchNext == null) {
                         var extendedToNext = range.c?.Any(x => x.ReplayBuildLast == t.ReplayBuildLast) ?? false;
-                        if (t.ReplayBuildLast == 1000000 || extendedToNext)
-                        {
+                        if (t.ReplayBuildLast == 1000000 || extendedToNext) {
                             matchNext = t;
                         }
                     }
 
                     DiffEntry? diffEntry = null;
 
-                    void SetDiffExists(Action<DiffEntry> act)
-                    {
-                        if (diffEntry == null)
-                        {
+                    void SetDiffExists(Action<DiffEntry> act) {
+                        if (diffEntry == null) {
                             var nextRange = matchNext?.ReplayBuildFirst ?? range.c?.FirstOrDefault()?.ReplayBuildFirst;
-                            diffEntry = new DiffEntry
-                            {
+                            diffEntry = new DiffEntry {
                                 Talent = t,
                                 NextTalent = matchNext,
                                 NextRange = nextRange,
@@ -107,33 +90,26 @@ public static class TalentsLib
                         act(diffEntry);
                     }
 
-                    if (range.a != null && matchPrev == null)
-                    {
+                    if (range.a != null && matchPrev == null) {
                         SetDiffExists(x => x.IsNew = true);
                     }
 
-                    if (matchNext != null)
-                    {
-                        if (matchNext.TalentTier != t.TalentTier)
-                        {
+                    if (matchNext != null) {
+                        if (matchNext.TalentTier != t.TalentTier) {
                             SetDiffExists(x => x.IsTierChanged = true);
                         }
 
                         if (matchNext.TalentDescription != t.TalentDescription &&
-                            opts.OutputType == OutputType.Extended)
-                        {
+                            opts.OutputType == OutputType.Extended) {
                             SetDiffExists(x => x.IsDescriptionChanged = true);
                         }
                     }
-                    else
-                    {
+                    else {
                         SetDiffExists(x => x.IsRemovedInNext = true);
                     }
 
-                    if (diffEntry != null)
-                    {
-                        if (!diffList.TryGetValue(t.ReplayBuildFirst, out var value))
-                        {
+                    if (diffEntry != null) {
+                        if (!diffList.TryGetValue(t.ReplayBuildFirst, out var value)) {
                             value = [];
                             diffList[t.ReplayBuildFirst] = value;
                         }
@@ -147,22 +123,19 @@ public static class TalentsLib
         return diffList;
     }
 
-    public static void ExtendInternal(ExtendOptions opts, ReplayDbContext dc)
-    {
+    public static void ExtendInternal(ExtendOptions opts, ReplayDbContext dc) {
         var builds = dc.BuildNumbers.Select(x => x.Buildnumber1).OrderBy(x => x).ToList();
         var q = dc.HeroTalentInformations
             .Where(
-                x => x.ReplayBuildFirst <= opts.MinBuild && x.ReplayBuildLast >= opts.MinBuild ||
-                     x.ReplayBuildFirst <= opts.MaxBuild && x.ReplayBuildFirst > opts.MinBuild)
+                x => (x.ReplayBuildFirst <= opts.MinBuild && x.ReplayBuildLast >= opts.MinBuild) ||
+                     (x.ReplayBuildFirst <= opts.MaxBuild && x.ReplayBuildFirst > opts.MinBuild))
             .AsQueryable();
 
-        if (!string.IsNullOrEmpty(opts.Hero))
-        {
+        if (!string.IsNullOrEmpty(opts.Hero)) {
             q = q.Where(x => x.Character == opts.Hero);
         }
 
-        if (opts.TalentId is not null)
-        {
+        if (opts.TalentId is not null) {
             var talentId = opts.TalentId;
             q = q.Where(x => x.TalentId == talentId);
         }
@@ -182,8 +155,7 @@ public static class TalentsLib
 
         var trueLast = builds.Last(x => x <= opts.MaxBuild);
 
-        startTalents.ForEach(x =>
-        {
+        startTalents.ForEach(x => {
             x.ReplayBuildLast = trueLast;
         });
 
@@ -191,10 +163,8 @@ public static class TalentsLib
 
         var nextBuild = builds.First(x => x > opts.MaxBuild);
 
-        foreach (var t in toSplit)
-        {
-            var newTalent = new HeroTalentInformation
-            {
+        foreach (var t in toSplit) {
+            var newTalent = new HeroTalentInformation {
                 ReplayBuildFirst = nextBuild,
                 ReplayBuildLast = t.ReplayBuildLast,
                 Character = t.Character,
@@ -209,53 +179,43 @@ public static class TalentsLib
         dc.HeroTalentInformations.RemoveRange(toSplit);
     }
 
-    public static List<HeroTalentInformation> GetInternal(GetOptions opts, ReplayDbContext dc)
-    {
+    public static List<HeroTalentInformation> GetInternal(GetOptions opts, ReplayDbContext dc) {
         var latest = false;
         var q = dc.HeroTalentInformations.AsQueryable();
-        if (!string.IsNullOrEmpty(opts.Hero))
-        {
+        if (!string.IsNullOrEmpty(opts.Hero)) {
             q = q.Where(x => x.Character == opts.Hero);
         }
 
-        if (!string.IsNullOrEmpty(opts.Build))
-        {
-            if (opts.Build == "latest")
-            {
+        if (!string.IsNullOrEmpty(opts.Build)) {
+            if (opts.Build == "latest") {
                 latest = true;
             }
-            else
-            {
+            else {
                 var build = opts.Build == "current" ? 1000000 : int.Parse(opts.Build);
                 q = q.Where(x => x.ReplayBuildFirst <= build && x.ReplayBuildLast >= build);
             }
         }
 
-        if (opts.MinBuild.HasValue)
-        {
+        if (opts.MinBuild.HasValue) {
             var minBuild = opts.MinBuild.Value;
             q = q.Where(x => x.ReplayBuildLast >= minBuild);
         }
 
-        if (opts.MaxBuild.HasValue)
-        {
+        if (opts.MaxBuild.HasValue) {
             var maxBuild = opts.MaxBuild.Value;
             q = q.Where(x => x.ReplayBuildFirst <= maxBuild);
         }
 
-        if (opts.TalentId is not null)
-        {
+        if (opts.TalentId is not null) {
             var talentId = opts.TalentId;
             q = q.Where(x => x.TalentId == talentId);
         }
 
         var talents = q.ToList();
 
-        if (latest)
-        {
+        if (latest) {
             var g = talents.GroupBy(
-                    x => new
-                    {
+                    x => new {
                         x.Character,
                         x.TalentId,
                     },
@@ -268,19 +228,17 @@ public static class TalentsLib
         return talents;
     }
 
-    public static bool InsertInternal(InsertOptions opts, ReplayDbContext dc)
-    {
+    public static bool InsertInternal(InsertOptions opts, ReplayDbContext dc) {
         var q = dc.HeroTalentInformations
             .Where(
                 x => x.ReplayBuildFirst == opts.Build ||
-                     (opts.IncludeLater ?? false) && x.ReplayBuildFirst > opts.Build)
+                     ((opts.IncludeLater ?? false) && x.ReplayBuildFirst > opts.Build))
             .Where(x => x.Character == opts.Hero)
             .AsQueryable();
 
         var talents = q.ToList();
 
-        if (talents.All(x => x.ReplayBuildFirst != opts.Build))
-        {
+        if (talents.All(x => x.ReplayBuildFirst != opts.Build)) {
             var range = dc.HeroTalentInformations
                 .Where(x => x.Character == opts.Hero)
                 .FirstOrDefault(x => x.ReplayBuildFirst <= opts.Build && x.ReplayBuildLast >= opts.Build);
@@ -300,10 +258,8 @@ public static class TalentsLib
             .GroupBy(x => x.ReplayBuildFirst)
             .ToDictionary(x => x.Key, x => x.Max(y => y.ReplayBuildLast))
             .Select(kvp => (ReplayBuildFirst: kvp.Key, ReplayBuildLast: kvp.Value));
-        foreach (var (replayBuildFirst, replayBuildLast) in ranges)
-        {
-            var newTalent = new HeroTalentInformation
-            {
+        foreach (var (replayBuildFirst, replayBuildLast) in ranges) {
+            var newTalent = new HeroTalentInformation {
                 ReplayBuildFirst = replayBuildFirst,
                 ReplayBuildLast = replayBuildLast,
                 Character = opts.Hero,
@@ -318,8 +274,7 @@ public static class TalentsLib
         return true;
     }
 
-    public static void NewBuildInternal(NewBuildOptions opts, ReplayDbContext dc)
-    {
+    public static void NewBuildInternal(NewBuildOptions opts, ReplayDbContext dc) {
         int[] tierLevels = [1, 4, 7, 10, 13, 16, 20];
         var ser = new XmlSerializer(typeof(TalentUpdatePackage));
         using var f = File.OpenText(opts.Path);
@@ -335,8 +290,7 @@ public static class TalentsLib
         alarakDeadlyCharge20.TalentName += " (Lvl 20)";
 
         var currentTalents = GetInternal(
-            new GetOptions
-            {
+            new GetOptions {
                 Build = "current",
             },
             dc);
@@ -355,10 +309,8 @@ public static class TalentsLib
 
         var builds = dc.BuildNumbers.OrderBy(x => x).ToList();
 
-        if (builds.All(x => x.Buildnumber1 != tup.Build))
-        {
-            var newBuildNumber = new BuildNumber
-            {
+        if (builds.All(x => x.Buildnumber1 != tup.Build)) {
+            var newBuildNumber = new BuildNumber {
                 Builddate = tup.Date,
                 Buildnumber1 = tup.Build,
                 Version = tup.Version,
@@ -368,13 +320,11 @@ public static class TalentsLib
 
         var lastBuild = builds.LastOrDefault(x => x.Buildnumber1 < tup.Build)?.Buildnumber1 ?? 0;
 
-        foreach (var v in changed)
-        {
+        foreach (var v in changed) {
             var dbTalent = dicCurrentRef[v];
             var newRef = dicNewRef[v];
             dbTalent.ReplayBuildLast = lastBuild;
-            var dbUpdateTalent = new HeroTalentInformation
-            {
+            var dbUpdateTalent = new HeroTalentInformation {
                 TalentDescription = newRef.TalentDescription,
                 TalentTier = tierLevels[newRef.Tier - 1],
                 TalentName = newRef.TalentName,
@@ -387,11 +337,9 @@ public static class TalentsLib
             dc.HeroTalentInformations.Add(dbUpdateTalent);
         }
 
-        foreach (var v in newTalents)
-        {
+        foreach (var v in newTalents) {
             var newRef = dicNewRef[v];
-            var dbTalent = new HeroTalentInformation
-            {
+            var dbTalent = new HeroTalentInformation {
                 TalentDescription = newRef.TalentDescription,
                 TalentTier = tierLevels[newRef.Tier - 1],
                 TalentName = newRef.TalentName,
@@ -404,15 +352,13 @@ public static class TalentsLib
             dc.HeroTalentInformations.Add(dbTalent);
         }
 
-        foreach (var v in removedTalents)
-        {
+        foreach (var v in removedTalents) {
             var dbTalent = dicCurrentRef[v];
             dbTalent.ReplayBuildLast = lastBuild;
         }
     }
 
-    public static void SplitInternal(SplitOptions opts, ReplayDbContext dc)
-    {
+    public static void SplitInternal(SplitOptions opts, ReplayDbContext dc) {
         // say we got a range of 0-2000 and we want to split it to 0-400 and 500-2000
         // we want all ranges that include 400 and 500, so all ranges where first<400
         // or last>500. So if we got a range of 400-450 we dont touch it but if we
@@ -421,17 +367,15 @@ public static class TalentsLib
         var q = dc.HeroTalentInformations
             .Where(
                 x =>
-                    x.ReplayBuildFirst < opts.MinBuild && x.ReplayBuildLast > opts.MinBuild ||
-                    x.ReplayBuildFirst < opts.MaxBuild && x.ReplayBuildLast > opts.MaxBuild)
+                    (x.ReplayBuildFirst < opts.MinBuild && x.ReplayBuildLast > opts.MinBuild) ||
+                    (x.ReplayBuildFirst < opts.MaxBuild && x.ReplayBuildLast > opts.MaxBuild))
             .AsQueryable();
 
-        if (!string.IsNullOrEmpty(opts.Hero))
-        {
+        if (!string.IsNullOrEmpty(opts.Hero)) {
             q = q.Where(x => x.Character == opts.Hero);
         }
 
-        if (opts.TalentId is not null)
-        {
+        if (opts.TalentId is not null) {
             var talentId = opts.TalentId;
             q = q.Where(x => x.TalentId == talentId);
         }
@@ -439,8 +383,7 @@ public static class TalentsLib
         var talents = q.ToList();
 
         var newTalents = talents.Select(
-            x => new HeroTalentInformation
-            {
+            x => new HeroTalentInformation {
                 ReplayBuildFirst = opts.MaxBuild,
                 ReplayBuildLast = x.ReplayBuildLast,
                 Character = x.Character,
@@ -452,8 +395,7 @@ public static class TalentsLib
 
         dc.HeroTalentInformations.AddRange(newTalents);
 
-        talents.ForEach(x =>
-        {
+        talents.ForEach(x => {
             x.ReplayBuildLast = opts.MinBuild;
         });
     }
