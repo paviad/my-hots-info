@@ -274,16 +274,22 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
         seqOption.AddAlias("-s");
         var watchOption = new Option<bool>("--watch");
         watchOption.AddAlias("-w");
+        var rescanOption = new Option<bool>("--rescan", "Clear scan cache, will rescan all files");
         scanCommand.AddOption(listOption);
         scanCommand.AddOption(accountOption);
         scanCommand.AddOption(regionOption);
         scanCommand.AddOption(seqOption);
         scanCommand.AddOption(watchOption);
+        scanCommand.AddOption(rescanOption);
         rootCommand.AddCommand(scanCommand);
 
-        scanCommand.SetHandler(async (list, account, region, seq, watch) => {
+        scanCommand.SetHandler(async (list, account, region, seq, watch, rescanOption) => {
             using var scope = svcp.CreateScope();
             var scanner = scope.ServiceProvider.GetRequiredService<Scanner>();
+            if (rescanOption) {
+                var scannedFileList = scope.ServiceProvider.GetRequiredService<ScannedFileList>();
+                scannedFileList.Reset();
+            }
             if (list) {
                 var pairs = scanner.GetAllFolders();
                 var count = 1;
@@ -307,7 +313,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                 Console.WriteLine("Scanning account {0}, region {1}", account!, region!.Value);
                 await scanner.Scan(account, region.Value, watch);
             }
-        }, listOption, accountOption, regionOption, seqOption, watchOption);
+        }, listOption, accountOption, regionOption, seqOption, watchOption, rescanOption);
 
         scanCommand.AddValidator(cr => {
             var lst = cr.GetValueForOption(listOption);

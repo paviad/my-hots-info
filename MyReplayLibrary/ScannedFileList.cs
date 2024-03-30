@@ -26,4 +26,8 @@ public class ScannedFileList {
         _scannedFiles.Add(replay);
         File.AppendAllLines(_filePath, [replay]);
     }
+
+    public void Reset() {
+        File.Delete(_filePath);
+    }
 }
