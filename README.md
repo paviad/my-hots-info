@@ -104,7 +104,7 @@ Options:
 ```
 Stats for Jaimyth#2203
 ----------------------------------------------------------------------------------------------------------
-Hero        | Games      | They Won     | We Won Together | We Lost Together | We Beat Them | They Beat Us
+They Played | Games      | They Won     | We Won Together | We Lost Together | We Beat Them | They Beat Us
 ----------------------------------------------------------------------------------------------------------
 Overall     | 10         | 5            | 2               | 3                | 2            | 3
 Greymane    | 6          | 4            | 2               | 0                | 2            | 2
@@ -132,7 +132,7 @@ Options:
 ```
 Stats for Qhira
 ----------------------------------------------------------------------------------------------------------
-Hero        | Games      | They Won     | We Won Together | We Lost Together | We Beat Them | They Beat Us
+We Played   | Games      | They Won     | We Won Together | We Lost Together | We Beat Them | They Beat Us
 ----------------------------------------------------------------------------------------------------------
 Overall     | 14         | 8            | 5               | 3                | 3            | 3
 Chromie     | 4          | 2            | 1               | 1                | 1            | 1

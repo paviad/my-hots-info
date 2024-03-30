@@ -133,7 +133,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                 Console.WriteLine($"""
                                    Stats for {playerRecord.Hero}
                                    ----------------------------------------------------------------------------------------------------------
-                                   Hero        | Games      | They Won     | We Won Together | We Lost Together | We Beat Them | They Beat Us
+                                   We Played   | Games      | They Won     | We Won Together | We Lost Together | We Beat Them | They Beat Us
                                    ----------------------------------------------------------------------------------------------------------
                                    """);
                 var t = playerRecord.Totals;
@@ -172,7 +172,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                 Console.WriteLine($"""
                                    Stats for {playerRecord.BattleTag}
                                    ----------------------------------------------------------------------------------------------------------
-                                   Hero        | Games      | They Won     | We Won Together | We Lost Together | We Beat Them | They Beat Us
+                                   They Played | Games      | They Won     | We Won Together | We Lost Together | We Beat Them | They Beat Us
                                    ----------------------------------------------------------------------------------------------------------
                                    """);
                 var t = playerRecord.Totals;
