@@ -1,4 +1,5 @@
 ﻿using System.CommandLine;
+using Heroes.ReplayParser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MyReplayLibrary;
 using MyReplayLibrary.Data;
+using MyReplayLibrary.Data.Models;
 using MyReplayLibrary.Talents;
 using MyReplayLibrary.Talents.Options;
 
@@ -65,9 +67,12 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
         SetupQheroCommand(rootCommand, svcp);
         SetupQallCommand(rootCommand, svcp);
         SetupScrapeCommand(rootCommand, svcp);
+        SetupQreplayCommand(rootCommand, svcp);
 
         await rootCommand.InvokeAsync(args);
     }
+
+    private static ReplayCharacter Me(ReplayEntry z) => z.ReplayCharacters.Single(y => y.IsMe);
 
     private static async Task MigrateDb(IServiceProvider svcp) {
         using var scope = svcp.CreateScope();
@@ -183,6 +188,80 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
         }, _gameModeOption, nameArgument);
     }
 
+    private static void SetupQreplayCommand(RootCommand rootCommand, IServiceProvider svcp) {
+        var qreplayCommand = new Command("qr", "Query replay info");
+
+        var qreplayListCommand = new Command("list", "List replays");
+        var sinceOption = new Option<string?>("--since");
+        sinceOption.AddAlias("-s");
+        qreplayListCommand.AddOption(sinceOption);
+        var toOption = new Option<string?>("--to");
+        toOption.AddAlias("-t");
+        qreplayListCommand.AddOption(toOption);
+        var skipOption = new Option<int?>("--skip");
+        qreplayListCommand.AddOption(skipOption);
+        var takeOption = new Option<int?>("--take");
+        qreplayListCommand.AddOption(takeOption);
+        var heroOption = new Option<string?>("--hero");
+        qreplayListCommand.AddOption(heroOption);
+        var mapOption = new Option<string?>("--map");
+        qreplayListCommand.AddOption(mapOption);
+        var winOption = new Option<bool?>("--win");
+        qreplayListCommand.AddOption(winOption);
+        qreplayCommand.Add(qreplayListCommand);
+
+        var qreplayShowCommand = new Command("show", "Show details of a single replay");
+        var idArgument = new Argument<int>("id");
+        qreplayShowCommand.AddArgument(idArgument);
+        qreplayCommand.Add(qreplayShowCommand);
+
+        rootCommand.AddCommand(qreplayCommand);
+
+        qreplayListCommand.AddValidator(cr => { });
+        qreplayShowCommand.AddValidator(cr => { });
+
+        qreplayListCommand.SetHandler(async (gm, since, to, skip, take, hero1, map1, win1) => {
+            using var scope = svcp.CreateScope();
+            var playerQuery = scope.ServiceProvider.GetRequiredService<PlayerQuery>();
+            playerQuery.GameMode = gm;
+            var results = await playerQuery.ListReplays(since, to, skip, take, hero1, map1, win1);
+            Console.WriteLine("""
+                              ----------------------------------------------------------------------------------------------------------
+                              Id     | Date/Time          | Mode | Map         | Hero        | Length    | Win? | MVP?
+                              ----------------------------------------------------------------------------------------------------------
+                              """);
+            foreach (var z in results) {
+                var dateTime = z.TimestampReplay;
+                var gameMode = z.GameMode switch {
+                    GameMode.QuickMatch => "QM",
+                    GameMode.UnrankedDraft => "UD",
+                    GameMode.StormLeague => "SL",
+                    GameMode.ARAM => "ARAM",
+                    _ => z.GameMode.ToString()[..2],
+                };
+                var map = z.MapId.Split(' ')[0];
+                var me = Me(z);
+                var hero = me.CharacterId switch {
+                    "The Lost Vikings" => "Vikings",
+                    _ => me.CharacterId,
+                };
+                var length = z.ReplayLength;
+                var win = me.IsWinner ? "Yes" : "";
+                var mvp = me.ReplayCharacterMatchAwards.Any(r => r.MatchAwardType == MatchAwardType.MVP) ? "Yes" : "";
+                Console.WriteLine(
+                    $"{z.Id,-7}| {dateTime,-19}| {gameMode,-5}| {map,-12}| {hero,-12}| {length,-10}| {win,-5}| {mvp}");
+            }
+        }, _gameModeOption, sinceOption, toOption, skipOption, takeOption, heroOption, mapOption, winOption);
+
+        qreplayShowCommand.SetHandler(async id => {
+            using var scope = svcp.CreateScope();
+            var playerQuery = scope.ServiceProvider.GetRequiredService<PlayerQuery>();
+            var replay = await playerQuery.GetReplay(id);
+            var summary = Scanner.GetReplaySummary(replay);
+            Console.WriteLine($"{summary}");
+        }, idArgument);
+    }
+
     private static void SetupScanCommand(RootCommand rootCommand, IServiceProvider svcp) {
         var scanCommand = new Command("scan", "Scan replay folder");
         var listOption = new Option<bool>("--list");
@@ -239,7 +318,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
             var flg1 = lst;
             var flg2 = !(acct is null || reg is null);
             var flg3 = seq is not null;
-            var ok = ((bool[])[flg1, flg2, flg3]).Count(r => r) == 1;
+            var ok = ((bool[]) [flg1, flg2, flg3]).Count(r => r) == 1;
             if (!ok) {
                 cr.ErrorMessage = "Must specify either --list or --seq or both --account and --region";
             }

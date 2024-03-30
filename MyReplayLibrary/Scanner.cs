@@ -23,6 +23,36 @@ public partial class Scanner(
         GameMode.UnrankedDraft,
     ];
 
+    public static string GetReplaySummary(ReplayEntry replay) {
+        var mvp = replay.ReplayCharacters
+            .Single(r => r.ReplayCharacterMatchAwards.Any(z => z.MatchAwardType == MatchAwardType.MVP)).Player;
+
+        var sb = new StringBuilder();
+        sb.AppendLine($"""
+                       Id: {replay.Id}
+                       Game Time: {replay.TimestampReplay}
+                       Game Mode: {replay.GameMode}
+                       Map: {replay.MapId}
+                       Mvp: {mvp.Name}#{mvp.BattleTag}
+                       """);
+        sb.AppendLine("Winning Team:");
+        sb.AppendLine("-----------------");
+        foreach (var rc in replay.ReplayCharacters.Where(r => r.IsWinner)) {
+            var btag = $"{rc.Player.Name}#{rc.Player.BattleTag}";
+            sb.AppendLine($"   {btag,-20} - {rc.CharacterId}");
+        }
+
+        sb.AppendLine("Losing Team:");
+        sb.AppendLine("-----------------");
+        foreach (var rc in replay.ReplayCharacters.Where(r => !r.IsWinner)) {
+            var btag = $"{rc.Player.Name}#{rc.Player.BattleTag}";
+            sb.AppendLine($"   {btag,-20} - {rc.CharacterId}");
+        }
+
+        var message = sb.ToString();
+        return message;
+    }
+
     public List<(string Account, int Region)> GetAllFolders() {
         var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         string[] hots = ["Heroes of the Storm", "Accounts"];
@@ -403,28 +433,9 @@ public partial class Scanner(
             .AsSplitQuery()
             .SingleAsync(r => r.Id == replayId);
 
-        var mvp = replay.ReplayCharacters
-            .Single(r => r.ReplayCharacterMatchAwards.Any(z => z.MatchAwardType == MatchAwardType.MVP)).Player;
+        var message = GetReplaySummary(replay);
 
-        var sb = new StringBuilder();
-        sb.AppendLine($"""
-                       Game Time: {replay.TimestampReplay}
-                       Map: {replay.MapId}
-                       Mvp: {mvp.Name}#{mvp.BattleTag}
-                       """);
-        sb.AppendLine("Winning Team:");
-        sb.AppendLine("-----------------");
-        foreach (var rc in replay.ReplayCharacters.Where(r => r.IsWinner)) {
-            sb.AppendLine($"   {rc.Player.Name}#{rc.Player.BattleTag} - {rc.CharacterId}");
-        }
-
-        sb.AppendLine("Losing Team:");
-        sb.AppendLine("-----------------");
-        foreach (var rc in replay.ReplayCharacters.Where(r => !r.IsWinner)) {
-            sb.AppendLine($"   {rc.Player.Name}#{rc.Player.BattleTag} - {rc.CharacterId}");
-        }
-
-        logger.LogInformation(sb.ToString());
+        logger.LogInformation(message);
     }
 
     private async Task<int?> ScanOneReplay(string replay, CancellationToken cancellationToken) {

@@ -1,4 +1,5 @@
-﻿using Heroes.ReplayParser;
+﻿using System.Collections;
+using Heroes.ReplayParser;
 using Microsoft.EntityFrameworkCore;
 using MyReplayLibrary.Data;
 using MyReplayLibrary.Data.Models;
@@ -56,7 +57,8 @@ public class PlayerQuery(ReplayDbContext dc) {
             .Select(r => r.Replay)
             .ToListAsync();
 
-        var rc = from h in heros
+        var rc =
+            from h in heros
             let anal = AnalyzeHero(h)
             select new HeroRecord(h, anal.total, anal.byHero);
 
@@ -110,7 +112,8 @@ public class PlayerQuery(ReplayDbContext dc) {
             .Select(r => r.Replay)
             .ToListAsync();
 
-        var rc = from p in players
+        var rc =
+            from p in players
             let tag = $"{p.Name}#{p.BattleTag}"
             let anal = AnalyzePid(p.Id)
             select new PlayerRecord(tag, anal.total, anal.byHero);
@@ -172,4 +175,51 @@ public class PlayerQuery(ReplayDbContext dc) {
     public record PlayerRecord(string BattleTag, ResultRecord Totals, Dictionary<string, ResultRecord> ByHero);
 
     public record HeroRecord(string Hero, ResultRecord Totals, Dictionary<string, ResultRecord> ByHero);
+
+    public async Task<IEnumerable<ReplayEntry>> ListReplays(string? since, string? to, int? skip, int? take, string? hero, string? map, bool? win) {
+        IQueryable<ReplayEntry> q = dc.Replays
+            .OrderByDescending(z => z.TimestampReplay)
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.Player)
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterTalents)
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterMatchAwards);
+
+        if (_gm is not null) {
+            q = q.Where(r => r.GameMode == _gm.Value);
+        }
+
+        if (skip.HasValue) {
+            q = q.Skip(skip.Value);
+        }
+
+        if (take.HasValue) {
+            q = q.Take(take.Value);
+        }
+
+        if (hero is not null) {
+            q = q.Where(z => z.ReplayCharacters.Any(r => r.IsMe && EF.Functions.Like(r.CharacterId, hero)));
+        }
+
+        if (map is not null) {
+            q = q.Where(z => EF.Functions.Like(z.MapId, map));
+        }
+
+        if (win is not null) {
+            q = q.Where(z => z.ReplayCharacters.Any(r => r.IsMe && r.IsWinner == win.Value));
+        }
+
+        var replays = await q.AsSplitQuery().ToListAsync();
+
+        return replays;
+    }
+
+    public async Task<ReplayEntry> GetReplay(int id) {
+        var replay = await dc.Replays
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.Player)
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterTalents)
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterMatchAwards)
+            .AsSplitQuery()
+            .SingleAsync(r => r.Id == id);
+
+        return replay;
+    }
 }
