@@ -1,58 +1,48 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.Text;
 
-namespace CASCExplorer
-{
-    public class AgentRootHandler : RootHandlerBase
-    {
-        public AgentRootHandler(BinaryReader stream, BackgroundWorkerEx worker)
-        {
-            worker?.ReportProgress(0, "Loading \"root\"...");
+namespace CascLibCore;
 
-            var hash = Encoding.ASCII.GetString(stream.ReadBytes((int)stream.BaseStream.Length)); // what is this for?
+public class AgentRootHandler : RootHandlerBase {
+    public AgentRootHandler(BinaryReader stream, BackgroundWorkerEx? worker) {
+        worker?.ReportProgress(0, "Loading \"root\"...");
 
-            worker?.ReportProgress(100);
-        }
+        var hash = Encoding.ASCII.GetString(stream.ReadBytes((int)stream.BaseStream.Length)); // what is this for?
 
-        public override void Clear()
-        {
-            Root.Entries.Clear();
-            CASCFile.FileNames.Clear();
-        }
+        worker?.ReportProgress(100);
+    }
 
-        public override void Dump() { }
+    public override void Clear() {
+        Root.Entries.Clear();
+        CASCFile.FileNames.Clear();
+    }
 
-        public override IEnumerable<KeyValuePair<ulong, RootEntry>> GetAllEntries()
-        {
-            yield break;
-        }
+    public override void Dump() { }
 
-        public override IEnumerable<RootEntry> GetAllEntries(ulong hash)
-        {
-            yield break;
-        }
+    public override IEnumerable<KeyValuePair<ulong, RootEntry>> GetAllEntries() {
+        yield break;
+    }
 
-        // Returns only entries that match current locale and content flags
-        public override IEnumerable<RootEntry> GetEntries(ulong hash)
-        {
-            yield break;
-        }
+    public override IEnumerable<RootEntry> GetAllEntries(ulong hash) {
+        yield break;
+    }
 
-        public override void LoadListFile(string path, BackgroundWorkerEx worker = null) { }
+    // Returns only entries that match current locale and content flags
+    public override IEnumerable<RootEntry> GetEntries(ulong hash) {
+        yield break;
+    }
 
-        protected override CASCFolder CreateStorageTree()
-        {
-            var root = new CASCFolder("root");
+    public override void LoadListFile(string path, BackgroundWorkerEx? worker = null) { }
 
-            CountSelect = 0;
+    protected override CASCFolder CreateStorageTree() {
+        var root = new CASCFolder("root");
 
-            // Cleanup fake names for unknown files
-            CountUnknown = 0;
+        CountSelect = 0;
 
-            Logger.WriteLine("AgentRootHandler: {0} file names missing for locale {1}", CountUnknown, Locale);
+        // Cleanup fake names for unknown files
+        CountUnknown = 0;
 
-            return root;
-        }
+        Logger.WriteLine("AgentRootHandler: {0} file names missing for locale {1}", CountUnknown, Locale);
+
+        return root;
     }
 }

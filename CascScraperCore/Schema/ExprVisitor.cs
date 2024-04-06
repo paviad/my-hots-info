@@ -96,13 +96,13 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
         return new ResultType(GetDecimal(context.GetText()));
     }
 
-    private static XmlNode GetMember2(arithmeticParser.Indexed_variableContext theVar, XmlNode cobj) {
+    private static XmlNode? GetMember2(arithmeticParser.Indexed_variableContext theVar, XmlNode cobj) {
         var name = theVar.GetText();
         if (theVar.index() != null) {
             // indexed
             var index = theVar.index().GetText();
             var array = theVar.variable().GetText();
-            XmlNode cobj2 = null;
+            XmlNode? cobj2 = null;
             try {
                 cobj2 = cobj.SelectSingleNode($"./{array}[@index='{index}']");
             }
@@ -159,19 +159,13 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
         return rc;
     }
 
-    private static XmlNode FindObjectCatalog(XmlDocument doc, string ctype, string cid) {
-        var candidates = doc.DocumentElement.SelectNodes($"/Catalog/*[@id=\"{cid}\"]");
-        if (candidates.Count == 1) {
-            return candidates[0];
-        }
-
-        if (candidates.Count > 1) {
-            return candidates
-                .Cast<XmlNode>()
-                .FirstOrDefault(x => x.Name.StartsWith($"C{ctype}"));
-        }
-
-        return null;
+    private static XmlNode? FindObjectCatalog(XmlDocument doc, string ctype, string cid) {
+        var candidates = doc.DocumentElement?.SelectNodes($"/Catalog/*[@id=\"{cid}\"]");
+        return candidates?.Count switch {
+            1 => candidates[0],
+            > 1 => candidates.Cast<XmlNode>().FirstOrDefault(x => x.Name.StartsWith($"C{ctype}")),
+            _ => null,
+        };
     }
 
     private decimal GetConst(string value) {

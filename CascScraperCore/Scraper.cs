@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 using Antlr4.Runtime;
-using CASCExplorer;
+using CascLibCore;
 using CascScraperCore.Schema;
 using HeroInfoExtractor.Schema;
 using HtmlAgilityPack;
@@ -113,12 +113,12 @@ public partial class Scraper {
 
         var ser2 = new XmlSerializer(typeof(Catalog));
         using (var f2 = GetFileStream(_cfTalentData)) {
-            var catalog2 = (Catalog)ser2.Deserialize(f2);
+            var catalog2 = (Catalog)ser2.Deserialize(f2 ?? throw new InvalidOperationException($"Can't open {_cfTalentData.FullName}"))!;
             _talentGenericDic = catalog2.CTalent.ToDictionary(x => x.id);
         }
 
         using (var f3 = GetFileStream(_cfButtonData)) {
-            var catalog3 = (Catalog)ser2.Deserialize(f3);
+            var catalog3 = (Catalog)ser2.Deserialize(f3 ?? throw new InvalidOperationException($"Can't open {_cfButtonData.FullName}"))!;
             _buttonGenericDic = catalog3.CButton.ToDictionary(x => x.id);
         }
 
@@ -142,7 +142,7 @@ public partial class Scraper {
         foreach (DataRow row in dt.Rows) {
             var fields = row.ItemArray.Select(
                 field =>
-                    string.Concat("\"", field.ToString().Replace("\"", "\"\""), "\""));
+                    string.Concat("\"", field!.ToString()!.Replace("\"", "\"\""), "\""));
             sb.AppendLine(string.Join(",", fields));
         }
 
@@ -226,7 +226,7 @@ public partial class Scraper {
 
     private void DoHero(Stream f, Dictionary<string, string> locStrings) {
         var ser = new XmlSerializer(typeof(Catalog));
-        var catalog = (Catalog)ser.Deserialize(f);
+        var catalog = (Catalog)ser.Deserialize(f)!;
         f.Seek(0, SeekOrigin.Begin);
         var xdoc = new XmlDocument();
         xdoc.Load(f);
@@ -241,9 +241,9 @@ public partial class Scraper {
             switch (heroName) {
                 case "Cho":
                 case "Gall": {
-                    var portraitPaired = xdoc.SelectSingleNode($"//CHero[@id='{theHero.id}']/PortraitPaired")
-                        .Attributes["value"].Value;
-                    HeroImages[heroName] = GetImage(portraitPaired);
+                    var portraitPaired = xdoc.SelectSingleNode($"//CHero[@id='{theHero.id}']/PortraitPaired")?
+                        .Attributes?["value"]?.Value;
+                    HeroImages[heroName] = GetImage(portraitPaired ?? throw new InvalidOperationException("Can't find Cho/Gall hero portrait"));
                     break;
                 }
                 case "Anduin":
@@ -296,18 +296,18 @@ public partial class Scraper {
                     var icon = buttonDic[iconKey];
 
                     talentName = (icon?.Name?.Count ?? 0) != 0
-                        ? locStrings[icon.Name[0].value]
+                        ? locStrings[icon!.Name![0].value]
                         : locStrings[$"Button/Name/{iconKey}"];
 
                     // talentName = locStrings[$"Button/Name/{iconKey}"];
 
-                    if (icon.Tooltip.Count > 1) {
+                    if (icon?.Tooltip.Count > 1) {
                         Console.WriteLine("wtf?");
                     }
 
-                    talentDescription = icon.Tooltip.Count == 0
+                    talentDescription = icon?.Tooltip.Count == 0
                         ? locStrings[$"Button/Tooltip/{iconKey}"]
-                        : locStrings[icon.Tooltip[0].value];
+                        : locStrings[icon!.Tooltip[0].value];
 
                     iconPath = icon.Icon[0].value;
                 }
@@ -388,8 +388,8 @@ public partial class Scraper {
 
                 var button = buttonDic[buttonKey];
                 var buttonIcon = button.Icon[0].value;
-                var abilName = (button?.Name?.Count ?? 0) != 0
-                    ? locStrings[button.Name[0].value]
+                var abilName = (button.Name?.Count ?? 0) != 0
+                    ? locStrings[button!.Name![0].value]
                     : locStrings[$"Button/Name/{buttonKey}"];
 
                 var imageBytes = GetImage(buttonIcon);
@@ -414,12 +414,12 @@ public partial class Scraper {
                     if (heroName is "Cho" or "Gall") {
                         // special cases for cho and gall
                         var parentUnit = xLayout.SelectSingleNode("./ancestor::CUnit");
-                        if (parentUnit.Attributes["id"].Value != $"Hero{heroName}") {
+                        if (parentUnit?.Attributes?["id"]?.Value != $"Hero{heroName}") {
                             continue;
                         }
                     }
 
-                    var slot = xLayout.Attributes["Slot"].Value;
+                    var slot = xLayout.Attributes?["Slot"]?.Value;
 
                     switch (slot) {
                         case "Ability1":
@@ -472,7 +472,7 @@ public partial class Scraper {
         }
     }
 
-    private Stream ExtractFile(CASCFile file) {
+    private Stream? ExtractFile(CASCFile file) {
         try {
             return _casc.OpenFile(file.Hash);
         }
@@ -508,7 +508,7 @@ public partial class Scraper {
 
     private byte[] GetAllBytes(CASCFile cfIcon) {
         using var f = GetFileStream(cfIcon);
-        using var reader = new BinaryReader(f);
+        using var reader = new BinaryReader(f ?? throw new InvalidOperationException($"Can't open {cfIcon.FullName}"));
         using var ms = new MemoryStream();
         const int bufferSize = 4096;
         var buffer = new byte[bufferSize];
@@ -550,7 +550,7 @@ public partial class Scraper {
     private List<string> GetAllLines(CASCFile cascFile) {
         var cascLoc = CASCFolder.GetFiles(new[] { cascFile }).First();
         using var f = ExtractFile(cascLoc);
-        var cascLines = ReadAllLines(f).ToList();
+        var cascLines = ReadAllLines(f ?? throw new InvalidOperationException($"Can't open {cascLoc.FullName}")).ToList();
         return cascLines;
     }
 
@@ -565,14 +565,14 @@ public partial class Scraper {
 
         foreach (var heroDir in heroesDirs) {
             var heroDirBare = Path.GetFileName(heroDir);
-            var cfHeroDir = (CASCFolder)_cfHeroes.GetEntry(heroDir);
-            if (cfHeroDir.GetEntry($"{heroDirBare}.xml") is not CASCFile cfHero) {
+            var cfHeroDir = _cfHeroes.GetEntry(heroDir) as CASCFolder;
+            if (cfHeroDir?.GetEntry($"{heroDirBare}.xml") is not CASCFile cfHero) {
                 // Not a hero
                 continue;
             }
 
             using var fn = GetFileStream(cfHero);
-            DoHero(fn, locStrings);
+            DoHero(fn ?? throw new InvalidOperationException($"Can't open {cfHero.FullName}"), locStrings);
         }
     }
 
@@ -580,8 +580,8 @@ public partial class Scraper {
         if (abilKey == "HeroGenericSpellShield") {
             var refDoc = _referenceCatalog["Effect"];
             const string key = "HeroGenericSpellShieldApplyPlayerCooldown";
-            var xCooldown2 = refDoc.SelectSingleNode($"//CEffectModifyPlayer[@id='{key}']/Cost");
-            var xTimeUse = xCooldown2.SelectSingleNode("./Cooldown/TimeUse").Attributes["value"].Value;
+            var xCooldown2 = refDoc.SelectSingleNode($"//CEffectModifyPlayer[@id='{key}']/Cost")!;
+            var xTimeUse = xCooldown2.SelectSingleNode("./Cooldown/TimeUse")!.Attributes!["value"]!.Value;
             return int.Parse(xTimeUse);
         }
 
@@ -592,7 +592,7 @@ public partial class Scraper {
             if (cdMaybe == null) {
                 var xCooldown2 = xdoc.SelectSingleNode($"//CEffectModifyPlayer[@id='{key1}']/Cost");
                 if (xCooldown2 != null) {
-                    var xTimeUse = xCooldown2.SelectSingleNode("./Cooldown/TimeUse").Attributes["value"].Value;
+                    var xTimeUse = xCooldown2.SelectSingleNode("./Cooldown/TimeUse")!.Attributes!["value"]!.Value;
                     return int.Parse(xTimeUse);
                 }
             }
@@ -602,7 +602,7 @@ public partial class Scraper {
 
             var xAbilEffect = xdoc.SelectSingleNode($"//CAbilEffectInstant[@id='{key1}']/Cost/Cooldown");
             if (xAbilEffect != null) {
-                var xTimeUse = xAbilEffect.Attributes?["TimeUse"].Value;
+                var xTimeUse = xAbilEffect.Attributes?["TimeUse"]?.Value;
                 if (xTimeUse != null) {
                     return int.Parse(xTimeUse);
                 }
@@ -621,7 +621,7 @@ public partial class Scraper {
             int? GetValueOrConstant(string cdStringVal) {
                 int? rc = null;
                 if (cdStringVal.StartsWith('$')) {
-                    cdStringVal = xAbil.SelectSingleNode($"//const[@id='{cdStringVal}']").Attributes["value"].Value;
+                    cdStringVal = xAbil.SelectSingleNode($"//const[@id='{cdStringVal}']")!.Attributes!["value"]!.Value;
                 }
 
                 if (int.TryParse(cdStringVal, out var chargeCd)) {
@@ -637,7 +637,7 @@ public partial class Scraper {
 
             var chargeNode = xAbil.SelectSingleNode("./Cost/Charge/TimeUse");
             if (chargeNode != null) {
-                var cdStringVal = chargeNode.Attributes["value"].Value;
+                var cdStringVal = chargeNode.Attributes!["value"]!.Value;
                 return GetValueOrConstant(cdStringVal) ?? 0;
             }
 
@@ -647,18 +647,19 @@ public partial class Scraper {
 
             var cdNodes = new[] { cdExpireNode, cdOffNode, cdNormalNode };
             foreach (var cdNode in cdNodes) {
-                if (cdNode?.Attributes?["TimeUse"] is null) {
+                var cdStringVal = cdNode?.Attributes?["TimeUse"]?.Value;
+                if (cdStringVal is null) {
                     continue;
                 }
 
-                return GetValueOrConstant(cdNode.Attributes["TimeUse"].Value) ?? 0;
+                return GetValueOrConstant(cdStringVal) ?? 0;
             }
         }
 
         return 0;
     }
 
-    private Stream GetFileStream(CASCFile cascFile) {
+    private Stream? GetFileStream(CASCFile cascFile) {
         var cascLoc = CASCFolder.GetFiles(new[] { cascFile }).First();
         return ExtractFile(cascLoc);
     }
@@ -676,6 +677,10 @@ public partial class Scraper {
         var locStrings = _allGameStrings;
 
         using var f = GetFileStream(_cfMapData);
+        if (f is null) {
+            throw new InvalidOperationException($"Can't open {_cfMapData.FullName}");
+        }
+
         f.Seek(0, SeekOrigin.Begin);
         var xdoc = new XmlDocument();
         xdoc.Load(f);
@@ -739,16 +744,16 @@ public partial class Scraper {
         var heroesDirs = GetDirectories(_cfHeromods);
 
         foreach (var heroDir in heroesDirs) {
-            var cfHeroDir = (CASCFolder)_cfHeromods.GetEntry(heroDir);
-            var cfHeroEnusStormdata = (CASCFolder)cfHeroDir.GetEntry("enus.stormdata");
-            var cfHeroLocalizedData = (CASCFolder)cfHeroEnusStormdata.GetEntry("LocalizedData");
-            var cfHeroGameStrings = (CASCFile)cfHeroLocalizedData.GetEntry("GameStrings.txt");
+            var cfHeroDir = (CASCFolder)_cfHeromods.GetEntry(heroDir)!;
+            var cfHeroEnusStormdata = (CASCFolder)cfHeroDir.GetEntry("enus.stormdata")!;
+            var cfHeroLocalizedData = (CASCFolder)cfHeroEnusStormdata.GetEntry("LocalizedData")!;
+            var cfHeroGameStrings = (CASCFile)cfHeroLocalizedData.GetEntry("GameStrings.txt")!;
 
             var locLines = GetAllLines(cfHeroGameStrings);
             var locStrings = locLines.Select(x => x.Split('='))
                 .ToDictionary(x => x[0], x => string.Join("=", x.Skip(1)));
 
-            var cfHeroBaseStormdata = (CASCFolder)cfHeroDir.GetEntry("base.stormdata");
+            var cfHeroBaseStormdata = (CASCFolder)cfHeroDir.GetEntry("base.stormdata")!;
 
             if (cfHeroBaseStormdata.GetEntry("GameData.xml") is not CASCFile cfConfig) {
                 // Not a hero
@@ -757,17 +762,17 @@ public partial class Scraper {
 
             var ser4 = new XmlSerializer(typeof(Includes));
             using var f4 = GetFileStream(cfConfig);
-            var catalog4 = (Includes)ser4.Deserialize(f4);
+            var catalog4 = (Includes)ser4.Deserialize(f4 ?? throw new InvalidOperationException($"Can't open {cfConfig.FullName}"))!;
 
             var heroName = catalog4.Catalog[0].Path[9..]; // Skip GameData/
-            var cfHeroGameData = (CASCFolder)cfHeroBaseStormdata.GetEntry("GameData");
+            var cfHeroGameData = (CASCFolder)cfHeroBaseStormdata.GetEntry("GameData")!;
             if (cfHeroGameData.GetEntry(heroName) is not CASCFile cfHero) {
                 // Not a hero
                 continue;
             }
 
             using var fn = GetFileStream(cfHero);
-            DoHero(fn, locStrings);
+            DoHero(fn ?? throw new InvalidOperationException($"Can't open {cfHero.FullName}"), locStrings);
         }
     }
 
@@ -812,7 +817,7 @@ public partial class Scraper {
                     (dNode.ParentNode ?? doc.DocumentNode).ReplaceChild(textNode, dNode);
                 }
                 else if (gconst != null) {
-                    var val = catalog.SelectSingleNode($"//const[@id='{gconst}']").Attributes["value"].Value;
+                    var val = catalog.SelectSingleNode($"//const[@id='{gconst}']")?.Attributes?["value"]?.Value;
                     var textNode = doc.CreateTextNode(val);
                     (dNode.ParentNode ?? doc.DocumentNode).ReplaceChild(textNode, dNode);
                 }
@@ -838,53 +843,58 @@ public partial class Scraper {
 
         _allGameStrings = GetAllGameStrings();
 
-        var cfVersions = (CASCFolder)_fldr.GetEntry("Versions");
+        var cfVersions = (CASCFolder)_fldr.GetEntry("Versions")!;
         var versions = cfVersions.Entries.Values.Select(x => int.Parse(x.Name[4..])).ToList();
         BuildNumber = versions.Max();
-        var cfSpecificVersion = (CASCFolder)cfVersions.GetEntry($"Base{BuildNumber}");
-        var cfHeroesApp = (CASCFolder)cfSpecificVersion.GetEntry("Heroes.app");
-        var cfContent = (CASCFolder)cfHeroesApp.GetEntry("Contents");
-        var cfInfoPlist = (CASCFile)cfContent.GetEntry("Info.plist");
+        var cfSpecificVersion = (CASCFolder)cfVersions.GetEntry($"Base{BuildNumber}")!;
+        var cfHeroesApp = (CASCFolder)cfSpecificVersion.GetEntry("Heroes.app")!;
+        var cfContent = (CASCFolder)cfHeroesApp.GetEntry("Contents")!;
+        var cfInfoPlist = (CASCFile)cfContent.GetEntry("Info.plist")!;
         using (var fnInfoPlist = GetFileStream(cfInfoPlist)) {
             var xmlDoc = new XmlDocument();
-            xmlDoc.Load(fnInfoPlist);
+            xmlDoc.Load(fnInfoPlist ?? throw new InvalidOperationException($"Can't open {cfInfoPlist.FullName}"));
 
-            var dict = xmlDoc.SelectSingleNode("//dict");
+            var dict = xmlDoc.SelectSingleNode("//dict")!;
             foreach (XmlNode node in dict.ChildNodes) {
                 if (node.InnerText == "BlizzardFileVersion") {
-                    var nextNode = node.NextSibling;
+                    var nextNode = node.NextSibling!;
                     BuildVersion = nextNode.InnerText;
                 }
             }
         }
 
-        var cfMods = (CASCFolder)_fldr.GetEntry("mods");
-        _cfHeromods = (CASCFolder)cfMods.GetEntry("heromods");
+        var cfMods = (CASCFolder)_fldr.GetEntry("mods")!;
+        _cfHeromods = (CASCFolder)cfMods.GetEntry("heromods")!;
 
-        var cfHeroesdataStormmod = (CASCFolder)cfMods.GetEntry("heroesdata.stormmod");
-        var cfBaseStormdata = (CASCFolder)cfHeroesdataStormmod.GetEntry("base.stormdata");
-        var cfGameData = (CASCFolder)cfBaseStormdata.GetEntry("GameData");
+        var cfHeroesdataStormmod = (CASCFolder)cfMods.GetEntry("heroesdata.stormmod")!;
+        var cfBaseStormdata = (CASCFolder)cfHeroesdataStormmod.GetEntry("base.stormdata")!;
+        var cfGameData = (CASCFolder)cfBaseStormdata.GetEntry("GameData")!;
 
-        var cfCoreStormmod = (CASCFolder)cfMods.GetEntry("core.stormmod");
-        var cfCoreBaseStormdata = (CASCFolder)cfCoreStormmod.GetEntry("base.stormdata");
-        var cfCoreGameData = (CASCFolder)cfCoreBaseStormdata.GetEntry("GameData");
+        var cfCoreStormmod = (CASCFolder)cfMods.GetEntry("core.stormmod")!;
+        var cfCoreBaseStormdata = (CASCFolder)cfCoreStormmod.GetEntry("base.stormdata")!;
+        var cfCoreGameData = (CASCFolder)cfCoreBaseStormdata.GetEntry("GameData")!;
 
         void MergeDocs(XmlDocument docDest, XmlDocument docSrc) {
+            if (docSrc.DocumentElement?.ChildNodes == null) {
+                return;
+            }
+
             foreach (XmlNode childNode in docSrc.DocumentElement.ChildNodes) {
-                docDest.DocumentElement.AppendChild(docDest.ImportNode(childNode, true));
+                docDest.DocumentElement?.AppendChild(docDest.ImportNode(childNode, true));
             }
         }
 
         void LoadDoc(string arg) {
-            var cfGeneric = (CASCFile)cfGameData.GetEntry($"{arg}Data.xml");
-            using var fn = GetFileStream(cfGeneric);
+            var name = $"{arg}Data.xml";
+            var cfGeneric = cfGameData.GetEntry(name) as CASCFile;
+            using var fn = GetFileStream(cfGeneric ?? throw new InvalidOperationException($"Can't open {name}"));
             _referenceCatalog[arg] = new XmlDocument();
-            _referenceCatalog[arg].Load(fn);
+            _referenceCatalog[arg].Load(fn ?? throw new InvalidOperationException($"Can't open {cfGeneric.FullName}"));
 
-            var cfCore = (CASCFile)cfCoreGameData.GetEntry($"{arg}Data.xml");
-            using var fnCore = GetFileStream(cfCore);
+            var cfCore = cfCoreGameData.GetEntry(name) as CASCFile;
+            using var fnCore = GetFileStream(cfCore ?? throw new InvalidOperationException($"Can't open {name}"));
             var coreDoc = new XmlDocument();
-            coreDoc.Load(fnCore);
+            coreDoc.Load(fnCore ?? throw new InvalidOperationException($"Can't open {cfCore.FullName}"));
 
             MergeDocs(_referenceCatalog[arg], coreDoc);
         }
@@ -894,17 +904,17 @@ public partial class Scraper {
         }
 
 
-        _cfHeroes = (CASCFolder)cfGameData.GetEntry("Heroes");
-        _cfButtonData = (CASCFile)cfGameData.GetEntry("ButtonData.xml");
-        _cfTalentData = (CASCFile)cfGameData.GetEntry("TalentData.xml");
-        _cfMapData = (CASCFile)cfGameData.GetEntry("MapData.xml");
-        var cfEnusStormdata = (CASCFolder)cfHeroesdataStormmod.GetEntry("enus.stormdata");
-        var cfLocalizedData = (CASCFolder)cfEnusStormdata.GetEntry("LocalizedData");
-        _cfGameStrings = (CASCFile)cfLocalizedData.GetEntry("GameStrings.txt");
-        var cfHeroesStormmod = (CASCFolder)cfMods.GetEntry("heroes.stormmod");
-        var cfBaseStormassets = (CASCFolder)cfHeroesStormmod.GetEntry("base.stormassets");
-        var cfAssets = (CASCFolder)cfBaseStormassets.GetEntry("Assets");
-        _cfTextures = (CASCFolder)cfAssets.GetEntry("Textures");
+        _cfHeroes = (CASCFolder)cfGameData.GetEntry("Heroes")!;
+        _cfButtonData = (CASCFile)cfGameData.GetEntry("ButtonData.xml")!;
+        _cfTalentData = (CASCFile)cfGameData.GetEntry("TalentData.xml")!;
+        _cfMapData = (CASCFile)cfGameData.GetEntry("MapData.xml")!;
+        var cfEnusStormdata = (CASCFolder)cfHeroesdataStormmod.GetEntry("enus.stormdata")!;
+        var cfLocalizedData = (CASCFolder)cfEnusStormdata.GetEntry("LocalizedData")!;
+        _cfGameStrings = (CASCFile)cfLocalizedData.GetEntry("GameStrings.txt")!;
+        var cfHeroesStormmod = (CASCFolder)cfMods.GetEntry("heroes.stormmod")!;
+        var cfBaseStormassets = (CASCFolder)cfHeroesStormmod.GetEntry("base.stormassets")!;
+        var cfAssets = (CASCFolder)cfBaseStormassets.GetEntry("Assets")!;
+        _cfTextures = (CASCFolder)cfAssets.GetEntry("Textures")!;
     }
 
     private decimal ParseRef(string gref, XmlDocument catalog) {
@@ -928,14 +938,14 @@ public partial class Scraper {
     }
 
     private void PopulateActorUnits(XmlDocument cata) {
-        var globalActorUnits = cata.SelectNodes("//CActorUnit");
+        var globalActorUnits = cata.SelectNodes("//CActorUnit")!;
         foreach (XmlNode actorUnit in globalActorUnits) {
             var unitName = actorUnit?.Attributes?["unitName"]?.Value;
             if (unitName is null) {
                 continue;
             }
 
-            var xMinimapIcon = actorUnit.SelectSingleNode("./MinimapIcon");
+            var xMinimapIcon = actorUnit!.SelectSingleNode("./MinimapIcon");
             var minimapIconPath = xMinimapIcon?.Attributes?["value"]?.Value;
             if (minimapIconPath != null) {
                 var minimapIcon = GetImage(minimapIconPath);
@@ -952,11 +962,11 @@ public partial class Scraper {
             var heroIconPath = xHeroIcon?.Attributes?["value"]?.Value;
             var substitutions = new Dictionary<string, string> {
                 {
-                    "Assets\\Textures\\ui_mission_laserdrill_icon.dds",
-                    "Assets\\Textures\\storm_temp_ui_mission_laserdrill_icon.dds"
+                    @"Assets\Textures\ui_mission_laserdrill_icon.dds",
+                    @"Assets\Textures\storm_temp_ui_mission_laserdrill_icon.dds"
                 }, {
-                    "Assets\\Textures\\ui_targetportrait_hero_MankirksWife.dds",
-                    "Assets\\Textures\\ui_targetportrait_hero_malganis.dds"
+                    @"Assets\Textures\ui_targetportrait_hero_MankirksWife.dds",
+                    @"Assets\Textures\ui_targetportrait_hero_malganis.dds"
                 },
             };
             if (heroIconPath != null) {

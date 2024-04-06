@@ -1,25 +1,14 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace CASCExplorer
-{
-    public class PerfCounter : IDisposable
-    {
-        private readonly string _name;
-        private readonly Stopwatch _sw;
+namespace CascLibCore;
 
-        public PerfCounter(string name)
-        {
-            _name = name;
-            _sw = Stopwatch.StartNew();
-        }
+public class PerfCounter(string name) : IDisposable {
+    private readonly Stopwatch _sw = Stopwatch.StartNew();
 
-        public void Dispose()
-        {
-            _sw.Stop();
+    public void Dispose() {
+        _sw.Stop();
 
-            Console.WriteLine("{0} completed in {1}", _name, _sw.Elapsed);
-            Logger.WriteLine("{0} completed in {1}", _name, _sw.Elapsed);
-        }
+        Console.WriteLine("{0} completed in {1}", name, _sw.Elapsed);
+        Logger.WriteLine("{0} completed in {1}", name, _sw.Elapsed);
     }
 }

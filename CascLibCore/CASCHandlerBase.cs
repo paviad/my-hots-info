@@ -1,267 +1,208 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.Text;
 
-namespace CASCExplorer
-{
-    public abstract class CASCHandlerBase
-    {
-        protected static readonly Jenkins96 Hasher = new Jenkins96();
+namespace CascLibCore;
 
-        protected readonly Dictionary<int, Stream> DataStreams = new Dictionary<int, Stream>();
-        protected CDNIndexHandler CDNIndex;
-        protected LocalIndexHandler LocalIndex;
+public abstract class CASCHandlerBase {
+    protected static readonly Jenkins96 Hasher = new();
 
-        public CASCHandlerBase(CASCConfig config, BackgroundWorkerEx worker)
-        {
-            Config = config;
+    protected readonly Dictionary<int, Stream> DataStreams = [];
+    protected CDNIndexHandler CDNIndex;
+    protected LocalIndexHandler LocalIndex;
 
-            Logger.WriteLine("CASCHandlerBase: loading CDN indices...");
+    protected CASCHandlerBase(CASCConfig config, BackgroundWorkerEx? worker) {
+        Config = config;
 
-            using (var _ = new PerfCounter("CDNIndexHandler.Initialize()"))
-            {
-                CDNIndex = CDNIndexHandler.Initialize(config, worker);
-            }
+        Logger.WriteLine("CASCHandlerBase: loading CDN indices...");
 
-            Logger.WriteLine("CASCHandlerBase: loaded {0} CDN indexes", CDNIndex.Count);
-
-            if (!config.OnlineMode)
-            {
-                CDNIndexHandler.Cache.Enabled = false;
-
-                Logger.WriteLine("CASCHandlerBase: loading local indices...");
-
-                using (var _ = new PerfCounter("LocalIndexHandler.Initialize()"))
-                {
-                    LocalIndex = LocalIndexHandler.Initialize(config, worker);
-                }
-
-                Logger.WriteLine("CASCHandlerBase: loaded {0} local indexes", LocalIndex.Count);
-            }
+        using (var _ = new PerfCounter("CDNIndexHandler.Initialize()")) {
+            CDNIndex = CDNIndexHandler.Initialize(config, worker);
         }
 
-        public CASCConfig Config { get; protected set; }
+        Logger.WriteLine("CASCHandlerBase: loaded {0} CDN indexes", CDNIndex.Count);
 
-        public abstract bool FileExists(int fileDataId);
-        public abstract bool FileExists(string file);
-        public abstract bool FileExists(ulong hash);
+        if (!config.OnlineMode) {
+            CDNIndexHandler.Cache.Enabled = false;
 
-        public abstract Stream OpenFile(int filedata);
-        public abstract Stream OpenFile(string name);
-        public abstract Stream OpenFile(ulong hash);
+            Logger.WriteLine("CASCHandlerBase: loading local indices...");
 
-        public Stream OpenFile(MD5Hash key)
-        {
-            try
-            {
-                if (Config.OnlineMode)
-                {
-                    return OpenFileOnline(key);
-                }
-
-                return OpenFileLocal(key);
+            using (var _ = new PerfCounter("LocalIndexHandler.Initialize()")) {
+                LocalIndex = LocalIndexHandler.Initialize(config, worker);
             }
-            catch
-            {
+
+            Logger.WriteLine("CASCHandlerBase: loaded {0} local indexes", LocalIndex.Count);
+        }
+    }
+
+    public CASCConfig Config { get; }
+
+    public abstract bool FileExists(int fileDataId);
+    public abstract bool FileExists(string file);
+    public abstract bool FileExists(ulong hash);
+
+    public abstract Stream? OpenFile(int filedata);
+    public abstract Stream? OpenFile(string name);
+    public abstract Stream? OpenFile(ulong hash);
+
+    public Stream OpenFile(MD5Hash key) {
+        try {
+            if (Config.OnlineMode) {
                 return OpenFileOnline(key);
             }
+
+            return OpenFileLocal(key);
         }
+        catch {
+            return OpenFileOnline(key);
+        }
+    }
 
-        public void SaveFileTo(string fullName, string extractPath) => SaveFileTo(
-            Hasher.ComputeHash(fullName),
-            extractPath,
-            fullName);
+    public void SaveFileTo(string fullName, string extractPath) => SaveFileTo(
+        Hasher.ComputeHash(fullName),
+        extractPath,
+        fullName);
 
-        public abstract void SaveFileTo(ulong hash, string extractPath, string fullName);
+    public abstract void SaveFileTo(ulong hash, string extractPath, string fullName);
 
-        public void SaveFileTo(MD5Hash key, string path, string name)
-        {
-            try
-            {
-                if (Config.OnlineMode)
-                {
-                    ExtractFileOnline(key, path, name);
-                }
-                else
-                {
-                    ExtractFileLocal(key, path, name);
-                }
-            }
-            catch
-            {
+    public void SaveFileTo(MD5Hash key, string path, string name) {
+        try {
+            if (Config.OnlineMode) {
                 ExtractFileOnline(key, path, name);
             }
-        }
-
-        protected static BinaryReader OpenInstallFile(EncodingHandler enc, CASCHandlerBase casc)
-        {
-            EncodingEntry encInfo;
-
-            if (!enc.GetEntry(casc.Config.InstallMD5, out encInfo))
-            {
-                throw new FileNotFoundException("encoding info for install file missing!");
-            }
-
-            //ExtractFile(encInfo.Key, ".", "install");
-
-            return new BinaryReader(casc.OpenFile(encInfo.Key));
-        }
-
-        protected abstract void ExtractFileOnline(MD5Hash key, string path, string name);
-
-        protected void ExtractFileOnlineInternal(IndexEntry idxInfo, MD5Hash key, string path, string name)
-        {
-            if (idxInfo != null)
-            {
-                using (var s = CDNIndex.OpenDataFile(idxInfo))
-                using (var blte = new BLTEHandler(s, key))
-                {
-                    blte.ExtractToFile(path, name);
-                }
-            }
-            else
-            {
-                using (var s = CDNIndex.OpenDataFileDirect(key))
-                using (var blte = new BLTEHandler(s, key))
-                {
-                    blte.ExtractToFile(path, name);
-                }
+            else {
+                ExtractFileLocal(key, path, name);
             }
         }
+        catch {
+            ExtractFileOnline(key, path, name);
+        }
+    }
 
-        protected abstract Stream GetLocalDataStream(MD5Hash key);
-
-        protected Stream GetLocalDataStreamInternal(IndexEntry idxInfo, MD5Hash key)
-        {
-            if (idxInfo == null)
-            {
-                throw new Exception("local index missing");
-            }
-
-            var dataStream = GetDataStream(idxInfo.Index);
-            dataStream.Position = idxInfo.Offset;
-
-            using (var reader = new BinaryReader(dataStream, Encoding.ASCII, true))
-            {
-                var md5 = reader.ReadBytes(16);
-                Array.Reverse(md5);
-
-                if (!key.EqualsTo(md5))
-                {
-                    throw new Exception("local data corrupted");
-                }
-
-                var size = reader.ReadInt32();
-
-                if (size != idxInfo.Size)
-                {
-                    throw new Exception("local data corrupted");
-                }
-
-                //byte[] unkData1 = reader.ReadBytes(2);
-                //byte[] unkData2 = reader.ReadBytes(8);
-                dataStream.Position += 10;
-
-                var data = reader.ReadBytes(idxInfo.Size - 30);
-
-                return new MemoryStream(data);
-            }
+    protected static BinaryReader OpenInstallFile(EncodingHandler enc, CASCHandlerBase casc) {
+        if (!enc.GetEntry(casc.Config.InstallMD5, out var encInfo)) {
+            throw new FileNotFoundException("encoding info for install file missing!");
         }
 
-        protected BinaryReader OpenDownloadFile(EncodingHandler enc, CASCHandlerBase casc)
-        {
-            EncodingEntry encInfo;
+        //ExtractFile(encInfo.Key, ".", "install");
 
-            if (!enc.GetEntry(casc.Config.DownloadMD5, out encInfo))
-            {
-                throw new FileNotFoundException("encoding info for download file missing!");
-            }
+        return new BinaryReader(casc.OpenFile(encInfo.Key));
+    }
 
-            //ExtractFile(encInfo.Key, ".", "download");
+    protected abstract void ExtractFileOnline(MD5Hash key, string path, string name);
 
-            return new BinaryReader(casc.OpenFile(encInfo.Key));
+    protected void ExtractFileOnlineInternal(IndexEntry? idxInfo, MD5Hash key, string path, string name) {
+        if (idxInfo != null) {
+            using var s = CDNIndex.OpenDataFile(idxInfo);
+            using var blte = new BLTEHandler(s, key);
+            blte.ExtractToFile(path, name);
+        }
+        else {
+            using var s = CDNIndex.OpenDataFileDirect(key);
+            using var blte = new BLTEHandler(s, key);
+            blte.ExtractToFile(path, name);
+        }
+    }
+
+    protected abstract Stream GetLocalDataStream(MD5Hash key);
+
+    protected Stream GetLocalDataStreamInternal(IndexEntry? idxInfo, MD5Hash key) {
+        if (idxInfo == null) {
+            throw new Exception("local index missing");
         }
 
-        protected BinaryReader OpenEncodingFile(CASCHandlerBase casc)
-        {
-            //ExtractFile(Config.EncodingKey, ".", "encoding");
+        var dataStream = GetDataStream(idxInfo.Index);
+        dataStream.Position = idxInfo.Offset;
 
-            return new BinaryReader(casc.OpenFile(casc.Config.EncodingKey));
+        using var reader = new BinaryReader(dataStream, Encoding.ASCII, true);
+        var md5 = reader.ReadBytes(16);
+        Array.Reverse(md5);
+
+        if (!key.EqualsTo(md5)) {
+            throw new Exception("local data corrupted");
         }
 
-        protected Stream OpenFileLocalInternal(IndexEntry idxInfo, MD5Hash key)
-        {
-            if (idxInfo != null)
-            {
-                using (var s = CDNIndex.OpenDataFile(idxInfo))
-                using (var blte = new BLTEHandler(s, key))
-                {
-                    return blte.OpenFile(true);
-                }
-            }
+        var size = reader.ReadInt32();
 
-            using (var s = CDNIndex.OpenDataFileDirect(key))
-            using (var blte = new BLTEHandler(s, key))
-            {
-                return blte.OpenFile(true);
-            }
+        if (size != idxInfo.Size) {
+            throw new Exception("local data corrupted");
         }
 
-        protected abstract Stream OpenFileOnline(MD5Hash key);
+        //byte[] unkData1 = reader.ReadBytes(2);
+        //byte[] unkData2 = reader.ReadBytes(8);
+        dataStream.Position += 10;
 
-        protected BinaryReader OpenRootFile(EncodingHandler enc, CASCHandlerBase casc)
-        {
-            EncodingEntry encInfo;
+        var data = reader.ReadBytes(idxInfo.Size - 30);
 
-            if (!enc.GetEntry(casc.Config.RootMD5, out encInfo))
-            {
-                throw new FileNotFoundException("encoding info for root file missing!");
-            }
+        return new MemoryStream(data);
+    }
 
-            //ExtractFile(encInfo.Key, ".", "root");
-
-            return new BinaryReader(casc.OpenFile(encInfo.Key));
+    protected BinaryReader OpenDownloadFile(EncodingHandler enc, CASCHandlerBase casc) {
+        if (!enc.GetEntry(casc.Config.DownloadMD5, out var encInfo)) {
+            throw new FileNotFoundException("encoding info for download file missing!");
         }
 
-        private void ExtractFileLocal(MD5Hash key, string path, string name)
-        {
-            var stream = GetLocalDataStream(key);
+        //ExtractFile(encInfo.Key, ".", "download");
 
-            using (var blte = new BLTEHandler(stream, key))
-            {
-                blte.ExtractToFile(path, name);
-            }
+        return new BinaryReader(casc.OpenFile(encInfo.Key));
+    }
+
+    protected BinaryReader OpenEncodingFile(CASCHandlerBase casc) {
+        //ExtractFile(Config.EncodingKey, ".", "encoding");
+
+        return new BinaryReader(casc.OpenFile(casc.Config.EncodingKey));
+    }
+
+    protected Stream OpenFileLocalInternal(IndexEntry? idxInfo, MD5Hash key) {
+        if (idxInfo != null) {
+            using var s = CDNIndex.OpenDataFile(idxInfo);
+            using var blte = new BLTEHandler(s, key);
+            return blte.OpenFile(true);
         }
 
-        private Stream GetDataStream(int index)
-        {
-            Stream stream;
+        using (var s = CDNIndex.OpenDataFileDirect(key))
+        using (var blte = new BLTEHandler(s, key)) {
+            return blte.OpenFile(true);
+        }
+    }
 
-            if (DataStreams.TryGetValue(index, out stream))
-            {
-                return stream;
-            }
+    protected abstract Stream OpenFileOnline(MD5Hash key);
 
-            var dataFolder = CASCGame.GetDataFolder(Config.GameType);
+    protected BinaryReader OpenRootFile(EncodingHandler enc, CASCHandlerBase casc) {
+        if (!enc.GetEntry(casc.Config.RootMD5, out var encInfo)) {
+            throw new FileNotFoundException("encoding info for root file missing!");
+        }
 
-            var dataFile = Path.Combine(Config.BasePath, dataFolder, "data", string.Format("data.{0:D3}", index));
+        //ExtractFile(encInfo.Key, ".", "root");
 
-            stream = new FileStream(dataFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        return new BinaryReader(casc.OpenFile(encInfo.Key));
+    }
 
-            DataStreams[index] = stream;
+    private void ExtractFileLocal(MD5Hash key, string path, string name) {
+        var stream = GetLocalDataStream(key);
 
+        using var blte = new BLTEHandler(stream, key);
+        blte.ExtractToFile(path, name);
+    }
+
+    private Stream GetDataStream(int index) {
+        if (DataStreams.TryGetValue(index, out var stream)) {
             return stream;
         }
 
-        private Stream OpenFileLocal(MD5Hash key)
-        {
-            var stream = GetLocalDataStream(key);
+        var dataFolder = CASCGame.GetDataFolder(Config.GameType);
 
-            using (var blte = new BLTEHandler(stream, key))
-            {
-                return blte.OpenFile(true);
-            }
-        }
+        var dataFile = Path.Combine(Config.BasePath, dataFolder, "data", $"data.{index:D3}");
+
+        stream = new FileStream(dataFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+
+        DataStreams[index] = stream;
+
+        return stream;
+    }
+
+    private Stream OpenFileLocal(MD5Hash key) {
+        var stream = GetLocalDataStream(key);
+
+        using var blte = new BLTEHandler(stream, key);
+        return blte.OpenFile(true);
     }
 }

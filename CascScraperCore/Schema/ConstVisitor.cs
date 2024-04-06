@@ -56,19 +56,19 @@ internal class ConstVisitor : constBaseVisitor<decimal> {
         var docs = new[] { _heroCatalog }.Concat(_referenceCatalog.Values);
         foreach (var doc in docs) {
             var constNodes = doc.SelectNodes($"//const[@id='{value}']");
-            if (constNodes.Count == 0) {
+            if ((constNodes?.Count ?? 0) == 0) {
                 Console.WriteLine("wtf");
                 return 0;
             }
 
-            if (constNodes.Count > 1) {
+            if (constNodes?.Count > 1) {
                 Console.WriteLine("wtf");
                 return 0;
             }
 
-            var constNode = constNodes[0];
-            var evalAsExpression = constNode.Attributes["evaluateAsExpression"]?.Value == "1";
-            var val = constNode.Attributes["value"];
+            var constNode = constNodes![0];
+            var evalAsExpression = constNode!.Attributes!["evaluateAsExpression"]?.Value == "1";
+            var val = constNode.Attributes["value"]!;
             return evalAsExpression
                 ? ParseConst(val.Value)
                 : decimal.Parse(val.Value);
