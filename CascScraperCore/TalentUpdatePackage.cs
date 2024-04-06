@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace CascScraperCore;
 
-namespace CascScraper
-{
-    public class TalentUpdatePackage
-    {
-        public int Build { get; set; }
-        public string Version { get; set; }
-        public DateTime Date { get; set; }
-        public List<TalentInfo> TalentInfoList { get; set; }
-    }
+public class TalentUpdatePackage {
+    public int Build { get; set; }
+    public string Version { get; set; }
+    public DateTime Date { get; set; }
+    public List<MapInfo> MapInfoList { get; set; }
+    public List<TalentInfo> TalentInfoList { get; set; }
 }

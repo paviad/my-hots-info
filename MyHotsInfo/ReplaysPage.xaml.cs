@@ -31,7 +31,8 @@ public partial class ReplaysPage : ContentPage {
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterMatchAwards)
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterDraftOrder)
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterScoreResult)
-            .Take(10)
+            .OrderByDescending(r => r.TimestampReplay)
+            .Take(40)
             .AsSplitQuery()
             .ToListAsync();
 

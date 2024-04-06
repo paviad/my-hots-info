@@ -57,6 +57,72 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\Maps\map_alteracpass.png" />
+	  <None Remove="Resources\Images\Maps\map_blackheartsbay.png" />
+	  <None Remove="Resources\Images\Maps\map_blackheartssimple.png" />
+	  <None Remove="Resources\Images\Maps\map_boe.png" />
+	  <None Remove="Resources\Images\Maps\map_braxisholdout.png" />
+	  <None Remove="Resources\Images\Maps\map_braxisoutpost.png" />
+	  <None Remove="Resources\Images\Maps\map_cursedhollow.png" />
+	  <None Remove="Resources\Images\Maps\map_dmsh.png" />
+	  <None Remove="Resources\Images\Maps\map_dmsn.png" />
+	  <None Remove="Resources\Images\Maps\map_dodgebrawl.png" />
+	  <None Remove="Resources\Images\Maps\map_dragonshire.png" />
+	  <None Remove="Resources\Images\Maps\map_efb.png" />
+	  <None Remove="Resources\Images\Maps\map_efbh.png" />
+	  <None Remove="Resources\Images\Maps\map_gardenofterror.png" />
+	  <None Remove="Resources\Images\Maps\map_gardensimple.png" />
+	  <None Remove="Resources\Images\Maps\map_hanamura.png" />
+	  <None Remove="Resources\Images\Maps\map_hauntedmines.png" />
+	  <None Remove="Resources\Images\Maps\map_industrialdistrict.png" />
+	  <None Remove="Resources\Images\Maps\map_lostcavern.png" />
+	  <None Remove="Resources\Images\Maps\map_lunarfestival.png" />
+	  <None Remove="Resources\Images\Maps\map_shrines.png" />
+	  <None Remove="Resources\Images\Maps\map_shrinessimple.png" />
+	  <None Remove="Resources\Images\Maps\map_silvercity.png" />
+	  <None Remove="Resources\Images\Maps\map_skytemple.png" />
+	  <None Remove="Resources\Images\Maps\map_skytemplesimple.png" />
+	  <None Remove="Resources\Images\Maps\map_tombspiderqueen.png" />
+	  <None Remove="Resources\Images\Maps\map_towersofdoom.png" />
+	  <None Remove="Resources\Images\Maps\map_trialgrounds.png" />
+	  <None Remove="Resources\Images\Maps\map_volskaya.png" />
+	  <None Remove="Resources\Images\Maps\map_warheadjunction.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Maps\map_alteracpass.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_blackheartsbay.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_blackheartssimple.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_boe.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_braxisholdout.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_braxisoutpost.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_cursedhollow.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_dmsh.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_dmsn.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_dodgebrawl.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_dragonshire.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_efb.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_efbh.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_gardenofterror.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_gardensimple.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_hanamura.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_hauntedmines.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_industrialdistrict.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_lostcavern.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_lunarfestival.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_shrines.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_shrinessimple.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_silvercity.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_skytemple.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_skytemplesimple.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_tombspiderqueen.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_towersofdoom.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_trialgrounds.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_volskaya.png" />
+	  <MauiImage Include="Resources\Images\Maps\map_warheadjunction.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.3" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
