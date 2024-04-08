@@ -22,68 +22,72 @@
             Style="{StaticResource Headline}"
             SemanticProperties.HeadingLevel="Level1" />
 
-        <Grid RowDefinitions="1*" ColumnDefinitions="*,*" Grid.Row="1">
-            <ScrollView>
-                <CollectionView
-                    ItemsSource="{Binding Replays}"
-                    SelectionMode="Single"
-                    SelectedItem="{Binding SelectedReplay, Mode=OneWayToSource}">
-                    <CollectionView.Header>
+        <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="1">
+            <CollectionView VerticalScrollBarVisibility="Always"
+                ItemsSource="{Binding Replays}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedReplay, Mode=OneWayToSource}">
+
+                <CollectionView.Header>
+                    <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,*">
+                        <Label Text="Date" />
+                        <Label Text="Map" Grid.Column="1" />
+                        <Label Text="Length" Grid.Column="2" />
+                    </Grid>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
                         <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,*">
-                            <Label Text="Date" />
-                            <Label Text="Map" Grid.Column="1" />
-                            <Label Text="Length" Grid.Column="2" />
+                            <Label Text="{Binding TimestampReplay}" />
+                            <Label Text="{Binding MapId}" Grid.Column="1" />
+                            <Label Text="{Binding ReplayLength}" Grid.Column="2" />
                         </Grid>
-                    </CollectionView.Header>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,*">
-                                <Label Text="{Binding TimestampReplay}" />
-                                <Label Text="{Binding MapId}" Grid.Column="1" />
-                                <Label Text="{Binding ReplayLength}" Grid.Column="2" />
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ScrollView>
-            <Grid Grid.Column="1"
-                  IsVisible="{Binding SelectedReplay, Converter={StaticResource NullToBooleanConverter}}">
-                <VerticalStackLayout>
-                    <Label Text="Match Details" />
-                    <Image Source="{Binding MapName}" Margin="5" HeightRequest="150" />
-                    <BoxView HeightRequest="1" Color="Gray" HorizontalOptions="FillAndExpand" />
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Duration: " />
-                                <Span Text="{Binding SelectedReplay.ReplayLength}" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Version: " />
-                                <Span Text="{Binding SelectedReplay.ReplayBuild}" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Border Stroke="White">
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ScrollView Grid.Column="1">
+                <Grid
+                    IsVisible="{Binding SelectedReplay, Converter={StaticResource NullToBooleanConverter}}">
+                    <VerticalStackLayout>
                         <Grid>
-                            <CollectionView ItemsSource="{Binding SelectedReplay.ReplayCharacters }">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid RowDefinitions="Auto" ColumnDefinitions="*,*">
-                                            <Label Text="{Binding Player.Name}" />
-                                            <Label Text="{Binding CharacterId}" Grid.Column="1" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
+                            <Image Source="{Binding MapName}" Margin="5" HeightRequest="150" />
+                            <Label Text="{Binding Result}" HorizontalOptions="Center" VerticalOptions="Center"
+                                   FontSize="20" />
                         </Grid>
-                    </Border>
-                </VerticalStackLayout>
-            </Grid>
+                        <BoxView HeightRequest="1" Color="Gray" HorizontalOptions="FillAndExpand" />
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Duration: " />
+                                    <Span Text="{Binding SelectedReplay.ReplayLength}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Version: " />
+                                    <Span Text="{Binding SelectedReplay.ReplayBuild}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Border Stroke="White">
+                            <Grid>
+                                <CollectionView ItemsSource="{Binding SelectedReplay.ReplayCharacters }">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid RowDefinitions="Auto" ColumnDefinitions="*,*">
+                                                <Label Text="{Binding Player.Name}" />
+                                                <Label Text="{Binding CharacterId}" Grid.Column="1" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+                </Grid>
+            </ScrollView>
         </Grid>
     </Grid>
 

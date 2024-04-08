@@ -6,9 +6,6 @@ using MyReplayLibrary.Data.Models;
 namespace MyHotsInfo;
 
 public sealed class ReplaysPageViewModel : INotifyPropertyChanged {
-    private string? _mapName;
-    private ReplayEntry? _selectedReplay;
-
     private readonly Dictionary<string, string> _mapDic = new() {
         ["Blackheart's Bay"] = "map_blackheartsbay.png",
         ["Cursed Hollow"] = "map_cursedhollow.png",
@@ -38,6 +35,10 @@ public sealed class ReplaysPageViewModel : INotifyPropertyChanged {
         ["Alterac Pass"] = "map_alteracpass.png",
     };
 
+    private string _result;
+    private string? _mapName;
+    private ReplayEntry? _selectedReplay;
+
     public ObservableCollection<ReplayEntry> Replays { get; set; } = [];
 
     public ReplayEntry? SelectedReplay {
@@ -49,6 +50,19 @@ public sealed class ReplaysPageViewModel : INotifyPropertyChanged {
 
             _selectedReplay = value;
             MapName = _mapDic.GetValueOrDefault(value!.MapId);
+            Result = value.ReplayCharacters.Single(r => r.IsMe).IsWinner ? "Victory" : "Defeat";
+            OnPropertyChanged();
+        }
+    }
+
+    public string Result {
+        get => _result;
+        set {
+            if (value == _result) {
+                return;
+            }
+
+            _result = value;
             OnPropertyChanged();
         }
     }

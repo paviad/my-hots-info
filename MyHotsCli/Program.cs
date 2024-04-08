@@ -63,7 +63,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
     }
 
     private static async Task Main(string[] args) {
-        var host = BuildHost();
+        using var host = BuildHost();
         var svcp = host.Services;
         await MigrateDb(svcp);
 
@@ -351,6 +351,8 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                 cr.ErrorMessage = "Can't specify --list together with --watch";
             }
         });
+
+        return;
 
         async Task WatchOrRunOnce(bool watch, CancellationTokenSource cts, CancellationToken token, Task t1) {
             if (watch) {

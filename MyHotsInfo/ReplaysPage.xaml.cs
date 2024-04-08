@@ -32,7 +32,7 @@ public partial class ReplaysPage : ContentPage {
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterDraftOrder)
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterScoreResult)
             .OrderByDescending(r => r.TimestampReplay)
-            .Take(40)
+            //.Take(40)
             .AsSplitQuery()
             .ToListAsync();
 

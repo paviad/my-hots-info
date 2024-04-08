@@ -16,13 +16,22 @@ public partial class Scanner(
     TimeProvider timeProvider,
     ILogger<Scanner> logger,
     Ocr ocr,
-    ScannedFileList scannedFileList) {
+    ScannedFileList scannedFileList) : IDisposable {
     private readonly GameMode[] _validGameModes = [
         GameMode.StormLeague,
         GameMode.ARAM,
         GameMode.QuickMatch,
         GameMode.UnrankedDraft,
     ];
+
+    private FileSystemWatcher? _fswReplays;
+
+    private FileSystemWatcher? _fswScreenshots;
+
+    public void Dispose() {
+        _fswReplays?.Dispose();
+        _fswScreenshots?.Dispose();
+    }
 
     public static string GetReplaySummary(ReplayEntry replay) {
         var mvp = replay.ReplayCharacters
@@ -171,7 +180,7 @@ public partial class Scanner(
             MapId = mapId,
             ReplayLength = replayParseData.ReplayLength,
             ReplayHash = replayHash,
-            TimestampReplay = replayParseData.Timestamp,
+            TimestampReplay = new DateTimeOffset(replayParseData.Timestamp),
             TimestampCreated = now,
         };
 
@@ -483,11 +492,11 @@ public partial class Scanner(
         var inp = subj.GroupBy(z => z)
             .SelectMany(z => z.Throttle(TimeSpan.FromSeconds(1)));
 
-        var fsw = new FileSystemWatcher(s, "*.StormReplay");
+        _fswReplays = new FileSystemWatcher(s, "*.StormReplay");
 
         var subs = inp.SelectMany(async fn => {
             scannedFileList.Add(fn);
-            logger.LogInformation("Scanning {replay} {fsw}", fn, fsw.EnableRaisingEvents);
+            logger.LogInformation("Scanning {replay} {fsw}", fn, _fswReplays.EnableRaisingEvents);
             try {
                 var replayId = await ScanOneReplay(fn, cancellationToken);
                 if (replayId is not null) {
@@ -504,19 +513,22 @@ public partial class Scanner(
 
         logger.LogInformation("Setting up file system watch on {path}", s);
 
-        fsw.Created += FswCreated;
-        fsw.Changed += FswChanged;
-        fsw.Renamed += FswRenamed;
-        fsw.Error += FswError;
-        fsw.EnableRaisingEvents = true;
-        fsw.Disposed += FswDisposed;
-        fsw.Deleted += FswDeleted;
+        _fswReplays.Created += FswCreated;
+        _fswReplays.Changed += FswChanged;
+        _fswReplays.Renamed += FswRenamed;
+        _fswReplays.Error += FswError;
+        _fswReplays.EnableRaisingEvents = true;
+        _fswReplays.Disposed += FswDisposed;
+        _fswReplays.Deleted += FswDeleted;
 
-        await Task.Delay(-1, cancellationToken);
+        try {
+            await Task.Delay(-1, cancellationToken);
+        }
+        finally {
+            logger.LogWarning("Exited Watch");
 
-        logger.LogWarning("Exited Watch");
-
-        subs.Dispose();
+            subs.Dispose();
+        }
 
         return;
 
@@ -572,7 +584,7 @@ public partial class Scanner(
         var inp = subj.GroupBy(z => z)
             .SelectMany(z => z.Throttle(TimeSpan.FromSeconds(1)));
 
-        var fsw = new FileSystemWatcher(s, "*.jpg");
+        _fswScreenshots = new FileSystemWatcher(s, "*.jpg");
 
         var subs = inp.SelectMany(async fn => {
             logger.LogInformation("Scanning screenshot {fileName}", fn);
@@ -591,19 +603,22 @@ public partial class Scanner(
 
         logger.LogInformation("Setting up file system watch on {path}", s);
 
-        fsw.Created += FswCreated;
-        fsw.Changed += FswChanged;
-        fsw.Renamed += FswRenamed;
-        fsw.Error += FswError;
-        fsw.EnableRaisingEvents = true;
-        fsw.Disposed += FswDisposed;
-        fsw.Deleted += FswDeleted;
+        _fswScreenshots.Created += FswCreated;
+        _fswScreenshots.Changed += FswChanged;
+        _fswScreenshots.Renamed += FswRenamed;
+        _fswScreenshots.Error += FswError;
+        _fswScreenshots.EnableRaisingEvents = true;
+        _fswScreenshots.Disposed += FswDisposed;
+        _fswScreenshots.Deleted += FswDeleted;
 
-        await Task.Delay(-1, cancellationToken);
+        try {
+            await Task.Delay(-1, cancellationToken);
+        }
+        finally {
+            logger.LogWarning("Exited WatchScreenshots");
 
-        logger.LogWarning("Exited WatchScreenshots");
-
-        subs.Dispose();
+            subs.Dispose();
+        }
 
         return;
 
