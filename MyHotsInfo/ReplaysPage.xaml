@@ -13,6 +13,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <myHotsInfo:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+            <myHotsInfo:HeroToImageConverter x:Key="HeroToImageConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -23,7 +24,8 @@
             SemanticProperties.HeadingLevel="Level1" />
 
         <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="1">
-            <CollectionView VerticalScrollBarVisibility="Always"
+            <CollectionView
+                VerticalScrollBarVisibility="Always"
                 ItemsSource="{Binding Replays}"
                 SelectionMode="Single"
                 SelectedItem="{Binding SelectedReplay, Mode=OneWayToSource}">
@@ -76,9 +78,16 @@
                                 <CollectionView ItemsSource="{Binding SelectedReplay.ReplayCharacters }">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
-                                            <Grid RowDefinitions="Auto" ColumnDefinitions="*,*">
-                                                <Label Text="{Binding Player.Name}" />
-                                                <Label Text="{Binding CharacterId}" Grid.Column="1" />
+                                            <Grid RowDefinitions="Auto" ColumnDefinitions="*,Auto,*">
+                                                <Label
+                                                    Text="{Binding Player.Name}" HorizontalTextAlignment="End"
+                                                    VerticalTextAlignment="Center" Margin="0,0,10,0" />
+                                                <Image
+                                                    Source="{Binding CharacterId, Converter={StaticResource HeroToImageConverter}}"
+                                                    HeightRequest="32" Grid.Column="1" />
+                                                <Label
+                                                    Text="{Binding CharacterId}" Grid.Column="2"
+                                                    VerticalTextAlignment="Center" Margin="5,0,0,0" />
                                             </Grid>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>

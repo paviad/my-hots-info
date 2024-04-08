@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CascLibCore\CascLibCore.csproj" />
     <ProjectReference Include="..\CascScraperCore\CascScraperCore.csproj" />
+    <ProjectReference Include="..\MyHotsInfo.Extensions\MyHotsInfo.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MyReplayLibrary.Data;
 using MyReplayLibrary.Data.Models;
 
@@ -13,7 +12,7 @@ public partial class ReplaysPage : ContentPage {
         TalentName = "<Unknown>",
     };
 
-    private ReplaysPageViewModel? _vm;
+    private readonly ReplaysPageViewModel? _vm;
 
     public ReplaysPage(ReplayDbContext dc) {
         _dc = dc;
@@ -21,7 +20,17 @@ public partial class ReplaysPage : ContentPage {
 
         _vm = BindingContext as ReplaysPageViewModel;
 
-        _task = InitAsync();
+        _task = InternalInitAsync();
+        return;
+
+        async Task InternalInitAsync() {
+            try {
+                await InitAsync();
+            }
+            catch (Exception x) {
+                await DisplayAlert("Error", $"Couldn't fetch replays {x}", "Dismiss");
+            }
+        }
     }
 
     private async Task InitAsync() {
@@ -32,7 +41,7 @@ public partial class ReplaysPage : ContentPage {
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterDraftOrder)
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterScoreResult)
             .OrderByDescending(r => r.TimestampReplay)
-            //.Take(40)
+            .Take(40)
             .AsSplitQuery()
             .ToListAsync();
 

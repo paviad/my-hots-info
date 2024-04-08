@@ -12,7 +12,7 @@ public class ReplayEntry {
     public string MapId { get; init; } = null!;
     public TimeSpan ReplayLength { get; init; }
     public DateTime TimestampReplay { get; init; }
-    public DateTimeOffset TimestampCreated { get; init; }
+    public DateTime TimestampCreated { get; init; }
     public ICollection<ReplayCharacter> ReplayCharacters { get; init; } = [];
     public ICollection<ReplayTeamObjective> ReplayTeamObjectives { get; init; } = [];
 }

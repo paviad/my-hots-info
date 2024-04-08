@@ -170,7 +170,7 @@ public partial class Scanner(
             return null;
         }
 
-        var now = timeProvider.GetUtcNow();
+        var now = timeProvider.GetUtcNow().UtcDateTime;
 
         var mapId = replayParseData.Map;
 
@@ -180,7 +180,7 @@ public partial class Scanner(
             MapId = mapId,
             ReplayLength = replayParseData.ReplayLength,
             ReplayHash = replayHash,
-            TimestampReplay = new DateTimeOffset(replayParseData.Timestamp),
+            TimestampReplay = replayParseData.Timestamp,
             TimestampCreated = now,
         };
 

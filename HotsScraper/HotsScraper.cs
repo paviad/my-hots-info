@@ -1,12 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 using CascScraperCore;
+using MyHotsInfo.Extensions;
 
 namespace HotsScraper;
 
-public class HotsScraper {
+public partial class HotsScraper {
     private string _outputPath = null!;
     private readonly Scraper _scraper = new();
-    private readonly string _badChars = Regex.Escape("- '‘’:,!.\"”?()");
 
     public void Scrape(string outputPath) {
         _outputPath = outputPath;
@@ -67,7 +67,7 @@ public class HotsScraper {
     }
 
     private string PrepareForImageUrl(string input) {
-        return Regex.Replace(input, $"[{_badChars}]", "").ToLower();
+        return input.Strip();
     }
 
     private void SaveMapImages() {
