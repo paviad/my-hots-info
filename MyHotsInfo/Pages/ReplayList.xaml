@@ -4,23 +4,27 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:myHotsInfo="clr-namespace:MyHotsInfo"
-             x:Class="MyHotsInfo.ReplaysPage">
+             xmlns:pages="clr-namespace:MyHotsInfo.Pages"
+             xmlns:utils="clr-namespace:MyHotsInfo.Utils"
+             xmlns:xaml="clr-namespace:Microsoft.Maui.Controls.Xaml;assembly=Microsoft.Maui.Controls.Xaml"
+             xmlns:models="clr-namespace:MyReplayLibrary.Data.Models;assembly=MyReplayLibrary"
+             x:DataType="pages:ReplayListViewModel"
+             x:Class="MyHotsInfo.Pages.ReplayList">
     <ContentPage.BindingContext>
-        <myHotsInfo:ReplaysPageViewModel />
+        <pages:ReplayListViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <myHotsInfo:NullToBooleanConverter x:Key="NullToBooleanConverter" />
-            <myHotsInfo:HeroToImageConverter x:Key="HeroToImageConverter" />
+            <utils:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+            <utils:HeroToImageConverter x:Key="HeroToImageConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*" ColumnDefinitions="*" Padding="30,0">
         <Label
             Text="Replays"
-            Style="{StaticResource Headline}"
+            Style="{xaml:StaticResource Headline}"
             SemanticProperties.HeadingLevel="Level1" />
 
         <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="1">
@@ -38,7 +42,7 @@
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:ReplayEntry">
                         <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,*">
                             <Label Text="{Binding TimestampReplay}" />
                             <Label Text="{Binding MapId}" Grid.Column="1" />
@@ -52,7 +56,11 @@
                     IsVisible="{Binding SelectedReplay, Converter={StaticResource NullToBooleanConverter}}">
                     <VerticalStackLayout>
                         <Grid>
-                            <Image Source="{Binding MapName}" Margin="5" HeightRequest="150" />
+                            <ImageButton
+                                Source="{Binding MapName}"
+                                Margin="5"
+                                HeightRequest="150"
+                                Clicked="GoToReplayClicked" />
                             <Label Text="{Binding Result}" HorizontalOptions="Center" VerticalOptions="Center"
                                    FontSize="20" />
                         </Grid>
@@ -77,14 +85,14 @@
                             <Grid>
                                 <CollectionView ItemsSource="{Binding SelectedReplay.ReplayCharacters }">
                                     <CollectionView.ItemTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate x:DataType="models:ReplayCharacter">
                                             <Grid RowDefinitions="Auto" ColumnDefinitions="*,Auto,*">
                                                 <Label
                                                     Text="{Binding Player.Name}" HorizontalTextAlignment="End"
                                                     VerticalTextAlignment="Center" Margin="0,0,10,0" />
                                                 <Image
                                                     Source="{Binding CharacterId, Converter={StaticResource HeroToImageConverter}}"
-                                                    HeightRequest="32" Grid.Column="1" />
+                                                    HeightRequest="28" Grid.Column="1" />
                                                 <Label
                                                     Text="{Binding CharacterId}" Grid.Column="2"
                                                     VerticalTextAlignment="Center" Margin="5,0,0,0" />

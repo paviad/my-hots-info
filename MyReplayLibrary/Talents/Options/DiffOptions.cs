@@ -2,7 +2,7 @@
 
 public class DiffOptions : GlobalOptions
 {
-    public string Hero { get; set; }
+    public string? Hero { get; set; }
 
     public int? TalentId { get; set; }
 

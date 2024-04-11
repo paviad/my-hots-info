@@ -3,10 +3,12 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using MyReplayLibrary.Data.Models;
 
-namespace MyHotsInfo;
+namespace MyHotsInfo.Pages;
 
-public sealed class ReplaysPageViewModel : INotifyPropertyChanged {
-    private readonly Dictionary<string, string> _mapDic = new() {
+public sealed class ReplayListViewModel : INotifyPropertyChanged
+{
+    private readonly Dictionary<string, string> _mapDic = new()
+    {
         ["Blackheart's Bay"] = "map_blackheartsbay.png",
         ["Cursed Hollow"] = "map_cursedhollow.png",
         ["Dragon Shire"] = "map_dragonshire.png",
@@ -35,16 +37,19 @@ public sealed class ReplaysPageViewModel : INotifyPropertyChanged {
         ["Alterac Pass"] = "map_alteracpass.png",
     };
 
-    private string _result;
+    private string? _result;
     private string? _mapName;
     private ReplayEntry? _selectedReplay;
 
     public ObservableCollection<ReplayEntry> Replays { get; set; } = [];
 
-    public ReplayEntry? SelectedReplay {
+    public ReplayEntry? SelectedReplay
+    {
         get => _selectedReplay;
-        set {
-            if (Equals(value, _selectedReplay)) {
+        set
+        {
+            if (Equals(value, _selectedReplay))
+            {
                 return;
             }
 
@@ -55,10 +60,13 @@ public sealed class ReplaysPageViewModel : INotifyPropertyChanged {
         }
     }
 
-    public string Result {
+    public string? Result
+    {
         get => _result;
-        set {
-            if (value == _result) {
+        set
+        {
+            if (value == _result)
+            {
                 return;
             }
 
@@ -67,10 +75,13 @@ public sealed class ReplaysPageViewModel : INotifyPropertyChanged {
         }
     }
 
-    public string? MapName {
+    public string? MapName
+    {
         get => _mapName;
-        set {
-            if (value == _mapName) {
+        set
+        {
+            if (value == _mapName)
+            {
                 return;
             }
 
@@ -81,17 +92,8 @@ public sealed class ReplaysPageViewModel : INotifyPropertyChanged {
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null) {
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    private bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null) {
-        if (EqualityComparer<T>.Default.Equals(field, value)) {
-            return false;
-        }
-
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
     }
 }

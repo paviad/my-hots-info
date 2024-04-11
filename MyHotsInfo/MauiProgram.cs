@@ -1,8 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using MyHotsInfo.Pages;
+using MyHotsInfo.Utils;
+using MyReplayLibrary;
 using MyReplayLibrary.Data;
 
-namespace MyHotsInfo {
+namespace MyHotsInfo
+{
     public static class MauiProgram {
         public static MauiApp CreateMauiApp() {
             var builder = MauiApp.CreateBuilder();
@@ -24,8 +28,15 @@ namespace MyHotsInfo {
                 opts.UseSqlite(connectionString);
             }, ServiceLifetime.Scoped);
 
-            builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<ReplaysPage>();
+            builder.Services.AddSingleton<ReplayList>();
+            builder.Services.AddSingleton<ReplayPage>();
+            builder.Services.AddSingleton<Prematch>();
+            builder.Services.AddScoped<Scanner>();
+            builder.Services.AddScoped<PlayerQuery>();
+            builder.Services.AddSingleton<Ocr>();
+            builder.Services.AddSingleton<ScannedFileList>();
+            builder.Services.AddSingleton(_ => TimeProvider.System);
+            builder.Services.AddSingleton<MyNavigator>();
 
             var mauiApp = builder.Build();
 

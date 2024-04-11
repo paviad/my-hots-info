@@ -4,7 +4,7 @@ public class NewBuildOptions : GlobalOptions
 {
     public bool? DryRun { get; set; }
 
-    public string Path { get; set; }
+    public string? Path { get; set; }
 
-    public string TargetImagePath { get; set; }
+    public string? TargetImagePath { get; set; }
 }

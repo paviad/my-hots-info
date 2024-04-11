@@ -1,4 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
@@ -495,7 +496,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="ReplaysPage.xaml">
+	  <Compile Update="Pages\Prematch.xaml.cs">
+	    <DependentUpon>Prematch.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\ReplaySummary.xaml.cs">
+	    <DependentUpon>ReplaySummary.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\ReplayList.xaml.cs">
+	    <DependentUpon>ReplayList.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\Prematch.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ReplaySummary.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ReplayList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

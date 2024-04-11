@@ -4,7 +4,7 @@ public class InsertOptions : GlobalOptions
 {
     public bool? DryRun { get; set; }
 
-    public string Hero { get; set; }
+    public string? Hero { get; set; }
 
     public int TalentId { get; set; }
 
@@ -12,9 +12,9 @@ public class InsertOptions : GlobalOptions
 
     public bool? IncludeLater { get; set; }
 
-    public string TalentName { get; set; }
+    public string? TalentName { get; set; }
 
     public int TalentTier { get; set; }
 
-    public string TalentDescription { get; set; }
+    public string? TalentDescription { get; set; }
 }

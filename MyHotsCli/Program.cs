@@ -285,7 +285,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                 var pairs = scanner.GetAllFolders();
                 var count = 1;
                 foreach (var pair in pairs) {
-                    Console.WriteLine("{2}. Account {0}, Region {1}", pair.Account, pair.Region, count++);
+                    Console.WriteLine("{2}. Account {0}, Region {1} ({3} replays)", pair.Account, pair.Region, count++, pair.NumReplays);
                 }
             }
             else if (seq is not null) {

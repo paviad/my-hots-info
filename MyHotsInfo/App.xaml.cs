@@ -1,9 +1,12 @@
-﻿namespace MyHotsInfo {
+﻿using MyHotsInfo.Utils;
+
+namespace MyHotsInfo
+{
     public partial class App : Application {
-        public App() {
+        public App(IServiceProvider svcp, MyNavigator myNavigator) {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            MainPage = new AppShell(svcp, myNavigator);
         }
     }
 }

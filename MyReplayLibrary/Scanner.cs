@@ -63,7 +63,7 @@ public partial class Scanner(
         return message;
     }
 
-    public List<(string Account, int Region)> GetAllFolders() {
+    public List<(string Account, int Region, int NumReplays)> GetAllFolders() {
         var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         string[] hots = ["Heroes of the Storm", "Accounts"];
         var intPath = Path.Combine([basePath, .. hots]);
@@ -71,10 +71,13 @@ public partial class Scanner(
         var pairs =
             from d in dirs
             let pidPath = Path.Combine([basePath, .. hots, d])
-            let pids = Directory.GetDirectories(pidPath, "*-*").Select(Path.GetFileName)
-            from pid in pids
+            let pidsFull = Directory.GetDirectories(pidPath, "*-*")
+            from pid1 in pidsFull
+            let pid = Path.GetFileName(pid1)
+            let path = Path.Combine(pid1, "Replays", "Multiplayer")
             let reg = int.Parse(pid.Split('-')[0])
-            select (Account: d, Region: reg);
+            let num = Directory.GetFiles(path, "*.StormReplay").Length
+            select (Account: d, Region: reg, NumReplays: num);
         return pairs.ToList();
     }
 

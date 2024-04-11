@@ -88,7 +88,7 @@ public class PlayerQuery(ReplayDbContext dc) {
         }
     }
 
-    public async Task<List<PlayerRecord>> QueryByName(string name) {
+    public async Task<List<PlayerRecord>> QueryByName(string name, bool caseSensitive = false) {
         List<PlayerEntry> players;
         if (name.Contains('#')) {
             var parts = name.Split('#');
@@ -100,6 +100,9 @@ public class PlayerQuery(ReplayDbContext dc) {
         }
         else {
             players = await dc.Players.Where(r => EF.Functions.Like(r.Name, name)).ToListAsync();
+            if (caseSensitive) {
+                players = players.Where(r => r.Name.StartsWith(name)).ToList();
+            }
         }
 
         var pids = players.Select(r => r.Id).ToList();
@@ -172,7 +175,7 @@ public class PlayerQuery(ReplayDbContext dc) {
 
     public record ResultRecord(int NumGames, int Wins, int WeWon, int WeLost, int WeBeatThem, int TheyBeatUs);
 
-    public record PlayerRecord(string BattleTag, ResultRecord Totals, Dictionary<string, ResultRecord> ByHero);
+    public record PlayerRecord(string? BattleTag, ResultRecord Totals, Dictionary<string, ResultRecord> ByHero);
 
     public record HeroRecord(string Hero, ResultRecord Totals, Dictionary<string, ResultRecord> ByHero);
 
@@ -217,6 +220,8 @@ public class PlayerQuery(ReplayDbContext dc) {
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.Player)
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterTalents)
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterMatchAwards)
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterDraftOrder)
+            .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterScoreResult)
             .AsSplitQuery()
             .SingleAsync(r => r.Id == id);
 

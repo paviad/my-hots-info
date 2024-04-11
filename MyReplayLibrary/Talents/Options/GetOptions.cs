@@ -2,9 +2,9 @@
 
 public class GetOptions : GlobalOptions
 {
-    public string Hero { get; set; }
+    public string? Hero { get; set; }
 
-    public string Build { get; set; }
+    public string? Build { get; set; }
 
     public int? TalentId { get; set; }
 
