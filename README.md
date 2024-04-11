@@ -2,7 +2,17 @@
 
 Clone the repo into `C:\MyProjects\MyHotsInfo` the path is hard coded in some places. You may clone to another location, but update the source code accordingly.
 
-# Usage
+# MAUI Application
+
+When starting the MAUI application it will first prompt you to pick the database file location.
+
+Thereafter it will present the list of 40 most recent replays, and identify the most likely account and region, and will begin monitoring for new replays, and new screenshots.
+
+When a screenshot is taken of a draft screen (by default using F12), the app will try to detect the names on the screenshot and display what it knows about them in a *Prematch* screen.
+
+When a game is ended, and a new replay is created, it will show a match summary window.
+
+# CLI Usage
 
 `MyHotsCli` is the command line tool, it is the only thing that has some working functionality.
 
