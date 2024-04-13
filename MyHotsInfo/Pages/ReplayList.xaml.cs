@@ -72,10 +72,20 @@ public partial class ReplayList : ContentPage {
                     r.Replay.ReplayBuild <= z.ReplayBuildLast)))
             .ToDictionary(r => r.r, r => r.Item2 ?? _unknownTalent);
 
+        _vm?.Replays.Clear();
         _replays.ForEach(r => _vm?.Replays.Add(r));
     }
 
     private void GoToReplayClicked(object? sender, EventArgs e) {
         _myNavigator.GoToReplay(_vm!.SelectedReplay!.Id);
+    }
+
+    private async void Refresh_Click(object? sender, EventArgs e) {
+        try {
+            await InitAsync();
+        }
+        catch (Exception exception) {
+            await DisplayAlert("Error", $"Unable to init replay list {exception}", "Dismiss");
+        }
     }
 }

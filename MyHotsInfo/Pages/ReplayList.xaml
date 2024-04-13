@@ -22,9 +22,8 @@
     </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*" ColumnDefinitions="*" Padding="30,0">
-        <Label
+        <Button Clicked="Refresh_Click"
             Text="Replays"
-            Style="{xaml:StaticResource Headline}"
             SemanticProperties.HeadingLevel="Level1" />
 
         <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="1">
@@ -91,7 +90,7 @@
                                                     Text="{Binding Player.Name}" HorizontalTextAlignment="End"
                                                     VerticalTextAlignment="Center" Margin="0,0,10,0" />
                                                 <Image
-                                                    Source="{Binding CharacterId, Converter={StaticResource HeroToImageConverter}}"
+                                                    Source="{Binding CharacterId, Converter={StaticResource HeroToImageConverter}, ConverterParameter='circle'}"
                                                     HeightRequest="28" Grid.Column="1" />
                                                 <Label
                                                     Text="{Binding CharacterId}" Grid.Column="2"
