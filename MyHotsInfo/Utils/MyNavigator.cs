@@ -6,14 +6,14 @@ public class MyNavigator {
     private readonly SynchronizationContext? _sync = SynchronizationContext.Current;
 
     public void GoToReplay(int replayId, bool replace = false) {
-        var pref = replace ? "../" : "";
+        var pref = replace ? "//Replays/" : "//Replays/";
         Do(async () => {
             await Shell.Current.GoToAsync($"{pref}Replay?id={replayId}");
         });
     }
 
     public void GoToPrematch(List<string> names, bool replace = false) {
-        var pref = replace ? "../" : "";
+        var pref = replace ? "//Replays/" : "//Replays/";
         Do(async () => {
             ShellNavigationQueryParameters navParams = new() {
                 { "names", names },

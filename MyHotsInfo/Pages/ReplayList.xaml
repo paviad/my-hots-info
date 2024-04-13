@@ -23,7 +23,7 @@
 
     <Grid RowDefinitions="Auto,*" ColumnDefinitions="*" Padding="30,0">
         <Button Clicked="Refresh_Click"
-            Text="Replays"
+            Text="Refresh" HorizontalOptions="Center"
             SemanticProperties.HeadingLevel="Level1" />
 
         <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="1">
