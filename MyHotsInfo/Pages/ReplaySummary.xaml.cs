@@ -1,22 +1,13 @@
-﻿using MyHotsInfo.Utils;
-using MyReplayLibrary;
+﻿using MyReplayLibrary;
 
 namespace MyHotsInfo.Pages;
 
 public partial class ReplayPage : ContentPage, IQueryAttributable {
     private readonly IServiceProvider _svcp;
-    private readonly MyNavigator _myNavigator;
-    public ReplayPage(IServiceProvider svcp, MyNavigator myNavigator) {
+
+    public ReplayPage(IServiceProvider svcp) {
         _svcp = svcp;
-        _myNavigator = myNavigator;
         InitializeComponent();
-    }
-
-    protected override void OnNavigatedTo(NavigatedToEventArgs args) {
-    }
-
-    private void ImageButton_OnClicked(object? sender, EventArgs e) {
-        //_myNavigator.GoToReplay(ReplayId - 1, true);
     }
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query) {

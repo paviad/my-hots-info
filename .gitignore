@@ -8,3 +8,4 @@ launchSettings.json
 Ocr/build/
 *.traineddata
 BugRepro/
+publish/

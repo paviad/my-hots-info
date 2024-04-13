@@ -31,11 +31,11 @@
                                     </Style>
                                 </ResourceDictionary>
                             </Grid.Resources>
-                            <Grid>
-                                <ImageButton Clicked="ImageButton_OnClicked" 
+                            <Grid IsClippedToBounds="True" Margin="0,5,0,0">
+                                <Image
                                     Source="{Binding CharacterId, Converter={StaticResource HeroToImageConverter}}"
                                     HorizontalOptions="Center"
-                                    Scale="0.75"
+                                    Scale="0.75" Margin="-5,-22,5,0"
                                     Aspect="AspectFill"/>
                             </Grid>
                             <Grid Grid.Column="1">
@@ -56,10 +56,10 @@
                             <Label Text="{Binding ReplayCharacterScoreResult.Deaths}" Grid.Column="4" />
                             <Label Text="{Binding ReplayCharacterScoreResult.SiegeDamage, StringFormat='{0:N0}'}" Grid.Column="5" />
                             <Label Text="{Binding ReplayCharacterScoreResult.HeroDamage, StringFormat='{0:N0}'}" Grid.Column="6" />
-                            <Label Text="{Binding ReplayCharacterScoreResult.SelfHealing, StringFormat='{0:N0}'}" Grid.Column="7" />
-                            <Label Text="{Binding ReplayCharacterScoreResult.Healing, StringFormat='{0:N0}'}" Grid.Column="8" />
+                            <Label Text="{Binding ReplayCharacterScoreResult.Healing, StringFormat='{0:N0}', TargetNullValue='-'}" Grid.Column="7" />
+                            <Label Text="{Binding ReplayCharacterScoreResult.SelfHealing, StringFormat='{0:0,0;;-}'}" Grid.Column="8" />
                             <Label Text="{Binding ReplayCharacterScoreResult.ExperienceContribution, StringFormat='{0:N0}'}" Grid.Column="9" />
-                            <Label Text="O" Grid.Column="10" />
+                            <Label Text="&#x2699;" Grid.Column="10" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

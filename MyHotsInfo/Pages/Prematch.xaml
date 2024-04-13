@@ -14,9 +14,9 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <CollectionView ItemsSource="{Binding Records}">
+        <CollectionView ItemsSource="{Binding Records}" Margin="30">
             <CollectionView.Header>
-                <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,4*" ColumnSpacing="20" Margin="0,0,0,20">
+                <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,5*" ColumnSpacing="20" Margin="0,0,0,20">
                     <Label Text="Player" />
                     <Label Text="Overall" Grid.Column="1" />
                     <Label Text="Heroes" Grid.Column="2" />
@@ -27,14 +27,14 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="pages:PrematchHeroRecord">
-                    <Grid RowDefinitions="30" ColumnDefinitions="*,*,4*" x:DataType="pages:PrematchRecord" ColumnSpacing="20">
-                        <Label Text="{Binding Name}"/>
-                        <Label Text="{Binding WinRate, StringFormat='{0:P1}'}" Grid.Column="1"/>
+                    <Grid RowDefinitions="30" ColumnDefinitions="*,*,5*" x:DataType="pages:PrematchRecord" ColumnSpacing="20">
+                        <Label Text="{Binding Name}" VerticalOptions="Center"/>
+                        <Label Text="{Binding WinRate, StringFormat='{0:P1}'}" Grid.Column="1" VerticalOptions="Center"/>
                         <StackLayout BindableLayout.ItemsSource="{Binding Heroes}" Orientation="Horizontal" Grid.Column="2" Spacing="20">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate x:DataType="pages:PrematchHeroRecord">
                                     <HorizontalStackLayout Spacing="20">
-                                        <Image Source="{Binding Hero, Converter={StaticResource HeroToImageConverter}}"/>
+                                        <Image Source="{Binding Hero, Converter={StaticResource HeroToImageConverter}, ConverterParameter='circle'}"/>
                                         <Label Text="{Binding WinRate, StringFormat='{0:P1}'}" Grid.Column="1" WidthRequest="50"/>
                                     </HorizontalStackLayout>
                                 </DataTemplate>

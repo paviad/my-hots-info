@@ -5,10 +5,8 @@ using MyReplayLibrary.Data.Models;
 
 namespace MyHotsInfo.Pages;
 
-public sealed class ReplayListViewModel : INotifyPropertyChanged
-{
-    private readonly Dictionary<string, string> _mapDic = new()
-    {
+public sealed class ReplayListViewModel : INotifyPropertyChanged {
+    private readonly Dictionary<string, string> _mapDic = new() {
         ["Blackheart's Bay"] = "map_blackheartsbay.png",
         ["Cursed Hollow"] = "map_cursedhollow.png",
         ["Dragon Shire"] = "map_dragonshire.png",
@@ -43,30 +41,26 @@ public sealed class ReplayListViewModel : INotifyPropertyChanged
 
     public ObservableCollection<ReplayEntry> Replays { get; set; } = [];
 
-    public ReplayEntry? SelectedReplay
-    {
+    public ReplayEntry? SelectedReplay {
         get => _selectedReplay;
-        set
-        {
-            if (Equals(value, _selectedReplay))
-            {
+        set {
+            if (Equals(value, _selectedReplay)) {
                 return;
             }
 
             _selectedReplay = value;
-            MapName = _mapDic.GetValueOrDefault(value!.MapId);
-            Result = value.ReplayCharacters.Single(r => r.IsMe).IsWinner ? "Victory" : "Defeat";
+            if (value is not null) {
+                MapName = _mapDic.GetValueOrDefault(value.MapId);
+                Result = value.ReplayCharacters.Single(r => r.IsMe).IsWinner ? "Victory" : "Defeat";
+            }
             OnPropertyChanged();
         }
     }
 
-    public string? Result
-    {
+    public string? Result {
         get => _result;
-        set
-        {
-            if (value == _result)
-            {
+        set {
+            if (value == _result) {
                 return;
             }
 
@@ -75,13 +69,10 @@ public sealed class ReplayListViewModel : INotifyPropertyChanged
         }
     }
 
-    public string? MapName
-    {
+    public string? MapName {
         get => _mapName;
-        set
-        {
-            if (value == _mapName)
-            {
+        set {
+            if (value == _mapName) {
                 return;
             }
 
@@ -92,8 +83,7 @@ public sealed class ReplayListViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null) {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
