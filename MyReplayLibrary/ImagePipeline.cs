@@ -4,18 +4,18 @@ namespace MyReplayLibrary;
 
 public class ImagePipeline(string latestSs, int cornerX, int cornerY, bool redTeam) {
     private bool _init;
-    private const int OutHeight = 18;
-    private const int OutWidth = 110;
-    private const int InHeight = 95;
-    private const int InWidth = 121;
+    //private const int OutHeight = 18;
+    //private const int OutWidth = 110;
+    //private const int InHeight = 95;
+    //private const int InWidth = 121;
 
     private static int _cbase;
     private readonly int _c = ++_cbase;
 
     public Mat Image { get; set; } = null!;
 
-    public void FromFile() {
-        var preImg1 = Cv2.ImRead(latestSs)[new Rect(cornerX, cornerY, InWidth, InHeight)];
+    public void FromFile(int inWidth, int inHeight) {
+        var preImg1 = Cv2.ImRead(latestSs)[new Rect(cornerX, cornerY, inWidth, inHeight)];
         Image = preImg1;
         _init = true;
     }
@@ -31,10 +31,10 @@ public class ImagePipeline(string latestSs, int cornerX, int cornerY, bool redTe
         Image = preImg;
     }
 
-    public void Threshold() {
+    public void Threshold(int thresh) {
         var cv2Img1 = Image;
         var cv2Img = cv2Img1.EmptyClone();
-        var thresh = redTeam ? 100 : 110;
+        //var thresh = redTeam ? 100 : 110;
         Cv2.Threshold(cv2Img1, cv2Img, thresh, 255, ThresholdTypes.BinaryInv);
         Image.Dispose();
         Image = cv2Img;
@@ -51,12 +51,12 @@ public class ImagePipeline(string latestSs, int cornerX, int cornerY, bool redTe
         Image = preImg2;
     }
 
-    public void Trim(int left, int top, int right, int bottom) {
+    public void Trim(int left, int top, int right, int bottom, int outWidth, int outHeight) {
         var wd = Image.Width;
         var ht = Image.Height;
         using var newImg = Image[top, ht - bottom, left, wd - right];
-        var rowEnd = Math.Min(OutHeight, ht - bottom);
-        var colEnd = Math.Min(OutWidth, wd - right);
+        var rowEnd = Math.Min(outHeight, ht - bottom);
+        var colEnd = Math.Min(outWidth, wd - right);
         var newImg2 = newImg[0, rowEnd, 0, colEnd];
         Image.Dispose();
         Image = newImg2;

@@ -29,13 +29,31 @@
                 <DataTemplate x:DataType="pages:PrematchHeroRecord">
                     <Grid RowDefinitions="30" ColumnDefinitions="*,*,5*" x:DataType="pages:PrematchRecord" ColumnSpacing="20">
                         <Label Text="{Binding Name}" VerticalOptions="Center"/>
-                        <Label Text="{Binding WinRate, StringFormat='{0:P1}'}" Grid.Column="1" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding NumGames}"></Span>
+                                    <Span Text="/"></Span>
+                                    <Span Text="{Binding WinRate, StringFormat='{0:P0}'}"></Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <!--<Label Text="{Binding WinRate, StringFormat='{0:P1}'}" Grid.Column="1" VerticalOptions="Center"/>-->
                         <StackLayout BindableLayout.ItemsSource="{Binding Heroes}" Orientation="Horizontal" Grid.Column="2" Spacing="20">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate x:DataType="pages:PrematchHeroRecord">
                                     <HorizontalStackLayout Spacing="20">
                                         <Image Source="{Binding Hero, Converter={StaticResource HeroToImageConverter}, ConverterParameter='circle'}"/>
-                                        <Label Text="{Binding WinRate, StringFormat='{0:P1}'}" Grid.Column="1" WidthRequest="50"/>
+                                        <Label Grid.Column="1" WidthRequest="65">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding NumGames}"></Span>
+                                                    <Span Text="/"></Span>
+                                                    <Span Text="{Binding WinRate, StringFormat='{0:P0}'}"></Span>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <!--<Label Text="{Binding WinRate, StringFormat='{0:P1}'}" Grid.Column="1" WidthRequest="50"/>-->
                                     </HorizontalStackLayout>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>

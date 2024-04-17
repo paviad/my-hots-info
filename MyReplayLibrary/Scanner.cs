@@ -592,7 +592,9 @@ public partial class Scanner(
         var subs = inp.SelectMany(async fn => {
             logger.LogInformation("Scanning screenshot {fileName}", fn);
             try {
-                var rc = await ocr.OcrScreenshot(fn);
+                var rc1 = await ocr.OcrScreenshot(fn, ScreenShotKind.Draft);
+                var rc2 = await ocr.OcrScreenshot(fn, ScreenShotKind.Loading);
+                var rc = ((List<string>[])[rc1, rc2]).FirstOrDefault(z => z.Contains("Skywalker")) ?? [];
                 await callBack(rc);
                 //var msg = string.Join("\n", rc.Select(z => $"   {z}"));
                 //logger.LogInformation("Players in this game:\n{msg}", msg);

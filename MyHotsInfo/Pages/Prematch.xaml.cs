@@ -48,9 +48,9 @@ public partial class Prematch : ContentPage, IQueryAttributable {
                     let wins1 = z.Wins
                     let winRate1 = 1.0 * wins1 / games1
                     orderby games1 descending
-                    select new PrematchHeroRecord(hero, winRate1);
+                    select new PrematchHeroRecord(hero, games1, winRate1);
 
-                var overall = new PrematchRecord(name!, winRate, [.. q.Take(3)]);
+                var overall = new PrematchRecord(name!, games, winRate, [.. q.Take(3)]);
 
                 yield return overall;
             }
