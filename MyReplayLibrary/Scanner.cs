@@ -4,6 +4,7 @@ using System.Reactive.Subjects;
 using System.Text;
 using System.Text.RegularExpressions;
 using Heroes.ReplayParser;
+using Heroes.ReplayParser.MPQFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyReplayLibrary.Data;
@@ -441,6 +442,49 @@ public partial class Scanner(
             await dc.SaveChangesAsync();
         }
 
+        var trackerDeaths = replayParseData.TrackerEvents
+            .Where(r => r.TrackerEventType == ReplayTrackerEvents.TrackerEventType.StatGameEvent &&
+                        r.Data.dictionary[0].blobText == "PlayerDeath").ToList();
+
+        var seqId = 0;
+
+        foreach (var death in trackerDeaths) {
+            var victimId = (int)death.Data.dictionary[2].optionalData.array[0].dictionary[1].vInt!.Value;
+            if (victimId > players.Length || players[victimId - 1] is null) {
+                continue;
+            }
+
+            var victim = players[victimId - 1]!;
+            var numKillers = death.Data.dictionary[2].optionalData.array.Length - 1;
+            bool any = false;
+            for (var i = 1; i <= numKillers; i++) {
+                var killerId = (int)death.Data.dictionary[2].optionalData.array[i].dictionary[1].vInt!.Value;
+                if (killerId > players.Length || players[killerId - 1] is null) {
+                    continue;
+                }
+
+                var killer = players[killerId - 1]!;
+
+                var dbDeath = new Takedown {
+                    ReplayId = replay.Id,
+                    SeqId = seqId,
+                    TimeSpan = death.TimeSpan,
+                    KillerId = killer.Id,
+                    VictimId = victim.Id,
+                    KillingBlow = null,
+                };
+
+                await dc.Takedowns.AddAsync(dbDeath);
+                any = true;
+            }
+
+            if (any) {
+                seqId++;
+            }
+        }
+
+        await dc.SaveChangesAsync();
+
         return replay.Id;
     }
 
@@ -460,6 +504,12 @@ public partial class Scanner(
         }
 
         await using var dc = await dcFactory.CreateDbContextAsync(cancellationToken);
+
+        //var deleteExistingForRescan = await dc.Replays.SingleOrDefaultAsync(r => r.ReplayHash == replayHash, cancellationToken: cancellationToken);
+        //if (deleteExistingForRescan is not null) {
+        //    dc.Replays.Remove(deleteExistingForRescan);
+        //    await dc.SaveChangesAsync(cancellationToken);
+        //}
 
         if (dc.Replays.Any(r => r.ReplayHash == replayHash)) {
             logger.LogInformation("... already scanned");

@@ -14,6 +14,7 @@ public class ReplayDbContext(DbContextOptions<ReplayDbContext> opts) : DbContext
     public DbSet<ReplayCharacterMatchAward> ReplayCharacterMatchAwards { get; init; } = null!;
     public DbSet<HeroTalentInformation> HeroTalentInformations { get; init; } = null!;
     public DbSet<BuildNumber> BuildNumbers { get; init; } = null!;
+    public DbSet<Takedown> Takedowns { get; init; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         modelBuilder.UseCollation("NOCASE");
@@ -113,6 +114,27 @@ public class ReplayDbContext(DbContextOptions<ReplayDbContext> opts) : DbContext
 
         modelBuilder.Entity<BuildNumber>(entity => {
             entity.HasKey(e => e.Buildnumber1);
+        });
+
+        modelBuilder.Entity<Takedown>(entity => {
+            entity.HasKey(e => new {
+                e.ReplayId,
+                e.SeqId,
+                e.VictimId,
+                e.KillerId,
+            });
+
+            entity.HasOne(r => r.Replay).WithMany().HasForeignKey(r => r.ReplayId).OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(r => r.Killer).WithMany().HasForeignKey(r => new {
+                r.ReplayId,
+                r.KillerId,
+            }).OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(r => r.Victim).WithMany().HasForeignKey(r => new {
+                r.ReplayId,
+                r.VictimId,
+            }).OnDelete(DeleteBehavior.Cascade);
         });
     }
 }
