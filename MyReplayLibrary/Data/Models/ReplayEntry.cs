@@ -15,4 +15,5 @@ public class ReplayEntry {
     public DateTime TimestampCreated { get; init; }
     public ICollection<ReplayCharacter> ReplayCharacters { get; init; } = [];
     public ICollection<ReplayTeamObjective> ReplayTeamObjectives { get; init; } = [];
+    public ICollection<Takedown> Takedowns { get; init; } = [];
 }

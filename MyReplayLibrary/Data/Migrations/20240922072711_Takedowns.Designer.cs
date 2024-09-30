@@ -11,7 +11,7 @@ using MyReplayLibrary.Data;
 namespace MyReplayLibrary.Data.Migrations
 {
     [DbContext(typeof(ReplayDbContext))]
-    [Migration("20240921125903_Takedowns")]
+    [Migration("20240922072711_Takedowns")]
     partial class Takedowns
     {
         /// <inheritdoc />
@@ -510,7 +510,7 @@ namespace MyReplayLibrary.Data.Migrations
             modelBuilder.Entity("MyReplayLibrary.Data.Models.Takedown", b =>
                 {
                     b.HasOne("MyReplayLibrary.Data.Models.ReplayEntry", "Replay")
-                        .WithMany()
+                        .WithMany("Takedowns")
                         .HasForeignKey("ReplayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -556,6 +556,8 @@ namespace MyReplayLibrary.Data.Migrations
                     b.Navigation("ReplayCharacters");
 
                     b.Navigation("ReplayTeamObjectives");
+
+                    b.Navigation("Takedowns");
                 });
 #pragma warning restore 612, 618
         }

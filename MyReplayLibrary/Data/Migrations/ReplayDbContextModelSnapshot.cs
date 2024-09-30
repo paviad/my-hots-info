@@ -507,7 +507,7 @@ namespace MyReplayLibrary.Data.Migrations
             modelBuilder.Entity("MyReplayLibrary.Data.Models.Takedown", b =>
                 {
                     b.HasOne("MyReplayLibrary.Data.Models.ReplayEntry", "Replay")
-                        .WithMany()
+                        .WithMany("Takedowns")
                         .HasForeignKey("ReplayId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -553,6 +553,8 @@ namespace MyReplayLibrary.Data.Migrations
                     b.Navigation("ReplayCharacters");
 
                     b.Navigation("ReplayTeamObjectives");
+
+                    b.Navigation("Takedowns");
                 });
 #pragma warning restore 612, 618
         }

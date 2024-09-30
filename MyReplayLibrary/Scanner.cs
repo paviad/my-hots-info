@@ -442,15 +442,36 @@ public partial class Scanner(
             await dc.SaveChangesAsync();
         }
 
+        await UpdateTakedowns(dc, replayParseData, replay);
+
+        return replay.Id;
+    }
+
+    private async Task UpdateTakedowns(ReplayDbContext dc, Replay replayParseData, ReplayEntry replay) {
         var trackerDeaths = replayParseData.TrackerEvents
             .Where(r => r.TrackerEventType == ReplayTrackerEvents.TrackerEventType.StatGameEvent &&
                         r.Data.dictionary[0].blobText == "PlayerDeath").ToList();
 
         var seqId = 0;
 
+        var playerRelation = replayParseData.Players
+            .Select(
+                replayPlayer => (replayPlayer, dbPlayer: dc.Players
+                    .SingleOrDefault(
+                        j =>
+                            j.BattleNetRegionId == replayPlayer.BattleNetRegionId &&
+                            j.BattleNetSubId == replayPlayer.BattleNetSubId &&
+                            j.BattleNetId == replayPlayer.BattleNetId)))
+            .ToList();
+
+        var players = playerRelation
+            .Select(x => x.dbPlayer)
+            .ToArray();
+
         foreach (var death in trackerDeaths) {
             var victimId = (int)death.Data.dictionary[2].optionalData.array[0].dictionary[1].vInt!.Value;
-            if (victimId > players.Length || players[victimId - 1] is null) {
+            if (victimId > players.Length || victimId < 1 || players[victimId - 1] is null) {
+                logger.LogWarning("Victim ID ({victimId}) invalid in replay ID {replayId}", victimId, replay.Id);
                 continue;
             }
 
@@ -459,7 +480,8 @@ public partial class Scanner(
             bool any = false;
             for (var i = 1; i <= numKillers; i++) {
                 var killerId = (int)death.Data.dictionary[2].optionalData.array[i].dictionary[1].vInt!.Value;
-                if (killerId > players.Length || players[killerId - 1] is null) {
+                if (killerId > players.Length || killerId < 1 || players[killerId - 1] is null) {
+                    logger.LogWarning("Killer ID ({killerId}) invalid for Victim ID ({victimId}) in replay ID {replayId}", killerId, victimId, replay.Id);
                     continue;
                 }
 
@@ -484,8 +506,6 @@ public partial class Scanner(
         }
 
         await dc.SaveChangesAsync();
-
-        return replay.Id;
     }
 
     private async Task<int?> ScanOneReplay(string replay, CancellationToken cancellationToken) {
@@ -513,6 +533,20 @@ public partial class Scanner(
 
         if (dc.Replays.Any(r => r.ReplayHash == replayHash)) {
             logger.LogInformation("... already scanned");
+
+            var replayEntry = await dc.Replays
+                .Include(r => r.ReplayCharacters)
+                .ThenInclude(r => r.Player)
+                .SingleAsync(r => r.ReplayHash == replayHash, cancellationToken: cancellationToken);
+            var dp2 = DataParser.ParseReplay(replay, false, ParseOptions.FullParsing);
+
+            //await dc.Takedowns.Where(r => r.ReplayId == replayEntry.Id).ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
+            var takedownsExist = await dc.Takedowns.AnyAsync(r => r.ReplayId == replayEntry.Id, cancellationToken: cancellationToken);
+            if (!takedownsExist) {
+                await UpdateTakedowns(dc, dp2.Item2, replayEntry);
+            }
+
             return null;
         }
 

@@ -124,7 +124,7 @@ public class ReplayDbContext(DbContextOptions<ReplayDbContext> opts) : DbContext
                 e.KillerId,
             });
 
-            entity.HasOne(r => r.Replay).WithMany().HasForeignKey(r => r.ReplayId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(r => r.Replay).WithMany(r => r.Takedowns).HasForeignKey(r => r.ReplayId).OnDelete(DeleteBehavior.Cascade);
 
             entity.HasOne(r => r.Killer).WithMany().HasForeignKey(r => new {
                 r.ReplayId,
