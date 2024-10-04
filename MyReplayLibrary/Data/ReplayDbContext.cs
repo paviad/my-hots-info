@@ -15,6 +15,7 @@ public class ReplayDbContext(DbContextOptions<ReplayDbContext> opts) : DbContext
     public DbSet<HeroTalentInformation> HeroTalentInformations { get; init; } = null!;
     public DbSet<BuildNumber> BuildNumbers { get; init; } = null!;
     public DbSet<Takedown> Takedowns { get; init; } = null!;
+    public DbSet<Chat> Chats { get; init; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
         modelBuilder.UseCollation("NOCASE");
@@ -134,6 +135,29 @@ public class ReplayDbContext(DbContextOptions<ReplayDbContext> opts) : DbContext
             entity.HasOne(r => r.Victim).WithMany().HasForeignKey(r => new {
                 r.ReplayId,
                 r.VictimId,
+            }).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<Chat>(entity => {
+            entity.HasKey(e => new {
+                e.ReplayId,
+                e.PlayerId,
+                e.SeqId,
+            });
+
+            entity.HasIndex(r => r.TimeSpan).IsUnique(false);
+
+            entity.Property(r => r.Text).HasMaxLength(450);
+
+            entity.HasOne(r => r.Replay).WithMany(r => r.Chats).HasForeignKey(r => r.ReplayId).OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(r => r.Player).WithMany().HasForeignKey(r => new {
+                r.PlayerId,
+            }).OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(r => r.ReplayCharacter).WithMany().HasForeignKey(r => new {
+                r.ReplayId,
+                r.PlayerId,
             }).OnDelete(DeleteBehavior.Cascade);
         });
     }

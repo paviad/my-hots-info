@@ -16,4 +16,5 @@ public class ReplayEntry {
     public ICollection<ReplayCharacter> ReplayCharacters { get; init; } = [];
     public ICollection<ReplayTeamObjective> ReplayTeamObjectives { get; init; } = [];
     public ICollection<Takedown> Takedowns { get; init; } = [];
+    public ICollection<Chat> Chats { get; init; } = [];
 }

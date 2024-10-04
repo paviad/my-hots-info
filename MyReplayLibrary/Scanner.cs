@@ -444,7 +444,156 @@ public partial class Scanner(
 
         await UpdateTakedowns(dc, replayParseData, replay);
 
+        await UpdateChats(dc, replayParseData, replay);
+
         return replay.Id;
+    }
+
+    private async Task RetroUpdateChat(
+        ReplayDbContext dc,
+        string replayFile,
+        Guid replayHash,
+        CancellationToken cancellationToken) //
+    {
+        var replayEntry = await dc.Replays
+            .Include(r => r.ReplayCharacters)
+            .ThenInclude(r => r.Player)
+            .SingleAsync(r => r.ReplayHash == replayHash, cancellationToken: cancellationToken);
+        var dp2 = DataParser.ParseReplay(replayFile, false, ParseOptions.FullParsing);
+
+        //await dc.Takedowns.Where(r => r.ReplayId == replayEntry.Id).ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
+        var chatsExist =
+            await dc.Chats.AnyAsync(r => r.ReplayId == replayEntry.Id, cancellationToken: cancellationToken);
+        if (!chatsExist) {
+            logger.LogInformation("Retroactively updating chats for replay id {id}", replayEntry.Id);
+            await UpdateChats(dc, dp2.Item2, replayEntry);
+        }
+    }
+
+    private async Task RetroUpdateTakedowns(
+        ReplayDbContext dc,
+        string replayFile,
+        Guid replayHash,
+        CancellationToken cancellationToken) //
+    {
+        var replayEntry = await dc.Replays
+            .Include(r => r.ReplayCharacters)
+            .ThenInclude(r => r.Player)
+            .SingleAsync(r => r.ReplayHash == replayHash, cancellationToken: cancellationToken);
+        var dp2 = DataParser.ParseReplay(replayFile, false, ParseOptions.FullParsing);
+
+        //await dc.Takedowns.Where(r => r.ReplayId == replayEntry.Id).ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
+        var takedownsExist =
+            await dc.Takedowns.AnyAsync(r => r.ReplayId == replayEntry.Id, cancellationToken: cancellationToken);
+        if (!takedownsExist) {
+            logger.LogInformation("Retroactively updating takedowns for replay id {id}", replayEntry.Id);
+            await UpdateTakedowns(dc, dp2.Item2, replayEntry);
+        }
+    }
+
+    private async Task<int?> ScanOneReplay(string replay, CancellationToken cancellationToken) {
+        var mdp = DataParser.ParseReplay(replay, false, ParseOptions.MinimalParsing);
+
+        if (mdp.Item1 != DataParser.ReplayParseResult.Success) {
+            logger.LogInformation("... failed to parse");
+            return null;
+        }
+
+        var replayHash = mdp.Item2.HashReplay();
+
+        if (!_validGameModes.Contains(mdp.Item2.GameMode)) {
+            logger.LogInformation("... game mode {mode}", mdp.Item2.GameMode);
+            return null;
+        }
+
+        await using var dc = await dcFactory.CreateDbContextAsync(cancellationToken);
+
+        //var deleteExistingForRescan = await dc.Replays.SingleOrDefaultAsync(r => r.ReplayHash == replayHash, cancellationToken: cancellationToken);
+        //if (deleteExistingForRescan is not null) {
+        //    dc.Replays.Remove(deleteExistingForRescan);
+        //    await dc.SaveChangesAsync(cancellationToken);
+        //}
+
+        if (dc.Replays.Any(r => r.ReplayHash == replayHash)) {
+            logger.LogInformation("... already scanned");
+
+            await RetroUpdateTakedowns(dc, replay, replayHash, cancellationToken);
+            await RetroUpdateChat(dc, replay, replayHash, cancellationToken);
+
+            return null;
+        }
+
+        var dp = DataParser.ParseReplay(replay, false, ParseOptions.FullParsing);
+
+        if (dp.Item1 != DataParser.ReplayParseResult.Success) {
+            logger.LogInformation("... failed to parse (fully)");
+            return null;
+        }
+
+        await using var transaction = await dc.Database.BeginTransactionAsync(cancellationToken);
+        try {
+            var match = PlayerIdRegex().Match(replay);
+            var myPlayerId = match.Success ? int.Parse(match.Groups["pid"].Value) : -1;
+            var replayId = await AddReplay(dc, dp.Item2, myPlayerId);
+            await transaction.CommitAsync(cancellationToken);
+            logger.LogInformation("... done");
+            return replayId;
+        }
+        catch (Exception e) {
+            await transaction.RollbackAsync(cancellationToken);
+            logger.LogWarning(e, "... failed");
+        }
+
+        return null;
+    }
+
+    private async Task UpdateChats(ReplayDbContext dc, Replay replayParseData, ReplayEntry replay) {
+        var playerRelation = replayParseData.Players
+            .Select(
+                replayPlayer => (replayPlayer, dbPlayer: dc.Players
+                    .SingleOrDefault(
+                        j =>
+                            j.BattleNetRegionId == replayPlayer.BattleNetRegionId &&
+                            j.BattleNetSubId == replayPlayer.BattleNetSubId &&
+                            j.BattleNetId == replayPlayer.BattleNetId)))
+            .ToList();
+
+        var players = playerRelation
+            .Select(x => x.dbPlayer)
+            .ToArray();
+
+        var chatMessages = replayParseData.Messages.Where(r =>
+            r.MessageEventType == ReplayMessageEvents.MessageEventType.SChatMessage);
+
+        var seqId = 0;
+
+        foreach (var message in chatMessages) {
+            //// var playerId = (int)death.Data.dictionary[2].optionalData.array[i].dictionary[1].vInt!.Value;
+            //if (playerId > players.Length || playerId < 1 || players[playerId - 1] is null) {
+            //    logger.LogWarning(
+            //        "Killer ID ({killerId}) invalid for Victim ID ({victimId}) in replay ID {replayId}", killerId,
+            //        victimId, replay.Id);
+            //    continue;
+            //}
+
+            var sender = players[message.PlayerIndex];
+            var timestamp = message.Timestamp;
+            var text = message.ChatMessage.Message;
+
+            var dbChat = new Chat {
+                ReplayId = replay.Id,
+                PlayerId = sender!.Id,
+                SeqId = seqId++,
+                TimeSpan = timestamp,
+                Text = text,
+            };
+
+            await dc.Chats.AddAsync(dbChat);
+        }
+
+        await dc.SaveChangesAsync();
     }
 
     private async Task UpdateTakedowns(ReplayDbContext dc, Replay replayParseData, ReplayEntry replay) {
@@ -477,11 +626,13 @@ public partial class Scanner(
 
             var victim = players[victimId - 1]!;
             var numKillers = death.Data.dictionary[2].optionalData.array.Length - 1;
-            bool any = false;
+            var any = false;
             for (var i = 1; i <= numKillers; i++) {
                 var killerId = (int)death.Data.dictionary[2].optionalData.array[i].dictionary[1].vInt!.Value;
                 if (killerId > players.Length || killerId < 1 || players[killerId - 1] is null) {
-                    logger.LogWarning("Killer ID ({killerId}) invalid for Victim ID ({victimId}) in replay ID {replayId}", killerId, victimId, replay.Id);
+                    logger.LogWarning(
+                        "Killer ID ({killerId}) invalid for Victim ID ({victimId}) in replay ID {replayId}", killerId,
+                        victimId, replay.Id);
                     continue;
                 }
 
@@ -506,72 +657,6 @@ public partial class Scanner(
         }
 
         await dc.SaveChangesAsync();
-    }
-
-    private async Task<int?> ScanOneReplay(string replay, CancellationToken cancellationToken) {
-        var mdp = DataParser.ParseReplay(replay, false, ParseOptions.MinimalParsing);
-
-        if (mdp.Item1 != DataParser.ReplayParseResult.Success) {
-            logger.LogInformation("... failed to parse");
-            return null;
-        }
-
-        var replayHash = mdp.Item2.HashReplay();
-
-        if (!_validGameModes.Contains(mdp.Item2.GameMode)) {
-            logger.LogInformation("... game mode {mode}", mdp.Item2.GameMode);
-            return null;
-        }
-
-        await using var dc = await dcFactory.CreateDbContextAsync(cancellationToken);
-
-        //var deleteExistingForRescan = await dc.Replays.SingleOrDefaultAsync(r => r.ReplayHash == replayHash, cancellationToken: cancellationToken);
-        //if (deleteExistingForRescan is not null) {
-        //    dc.Replays.Remove(deleteExistingForRescan);
-        //    await dc.SaveChangesAsync(cancellationToken);
-        //}
-
-        if (dc.Replays.Any(r => r.ReplayHash == replayHash)) {
-            logger.LogInformation("... already scanned");
-
-            var replayEntry = await dc.Replays
-                .Include(r => r.ReplayCharacters)
-                .ThenInclude(r => r.Player)
-                .SingleAsync(r => r.ReplayHash == replayHash, cancellationToken: cancellationToken);
-            var dp2 = DataParser.ParseReplay(replay, false, ParseOptions.FullParsing);
-
-            //await dc.Takedowns.Where(r => r.ReplayId == replayEntry.Id).ExecuteDeleteAsync(cancellationToken: cancellationToken);
-
-            var takedownsExist = await dc.Takedowns.AnyAsync(r => r.ReplayId == replayEntry.Id, cancellationToken: cancellationToken);
-            if (!takedownsExist) {
-                await UpdateTakedowns(dc, dp2.Item2, replayEntry);
-            }
-
-            return null;
-        }
-
-        var dp = DataParser.ParseReplay(replay, false, ParseOptions.FullParsing);
-
-        if (dp.Item1 != DataParser.ReplayParseResult.Success) {
-            logger.LogInformation("... failed to parse (fully)");
-            return null;
-        }
-
-        await using var transaction = await dc.Database.BeginTransactionAsync(cancellationToken);
-        try {
-            var match = PlayerIdRegex().Match(replay);
-            var myPlayerId = match.Success ? int.Parse(match.Groups["pid"].Value) : -1;
-            var replayId = await AddReplay(dc, dp.Item2, myPlayerId);
-            await transaction.CommitAsync(cancellationToken);
-            logger.LogInformation("... done");
-            return replayId;
-        }
-        catch (Exception e) {
-            await transaction.RollbackAsync(cancellationToken);
-            logger.LogWarning(e, "... failed");
-        }
-
-        return null;
     }
 
     private async Task Watch(string s, Func<int, Task> callBack, CancellationToken cancellationToken) {
@@ -678,7 +763,7 @@ public partial class Scanner(
             try {
                 var rc1 = await ocr.OcrScreenshot(fn, ScreenShotKind.Draft);
                 var rc2 = await ocr.OcrScreenshot(fn, ScreenShotKind.Loading);
-                var rc = ((List<string>[])[rc1, rc2]).FirstOrDefault(z => z.Contains("Skywalker")) ?? [];
+                var rc = ((List<string>[]) [rc1, rc2]).FirstOrDefault(z => z.Contains("Skywalker")) ?? [];
                 await callBack(rc);
                 //var msg = string.Join("\n", rc.Select(z => $"   {z}"));
                 //logger.LogInformation("Players in this game:\n{msg}", msg);
