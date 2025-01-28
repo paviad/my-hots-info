@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Comarca del dragón</e>
+    <e id="2">Mapa de 3 vías&lt;br&gt;&lt;br&gt;El legendario Caballero dragón está encerrado dentro de su prisión pétrea, ubicada en el centro del mapa. Para liberarlo, tu equipo debe tomar posesión del sagrario solar y el sagrario lunar al mismo tiempo. Solo entonces uno de los héroes de tu equipo podrá liberar al Caballero dragón y usar su inmenso poder para aplastar al enemigo.</e>
+    <e id="3">StormDragonShire</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de juego no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">Dragón - Cantidad de capturas de dragón</e>
+    <e id="9">Cantidad de transformaciones en Caballero dragón</e>
+    <e id="10">Comarca del dragón</e>
+    <e id="11">Mapa de 3 vías</e>
+</Locale>

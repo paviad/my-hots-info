@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Vendetta di Cuornero</e>
+    <e id="2">Mappa a 3 corsie&lt;br&gt;&lt;br&gt;</e>
+    <e id="3">(Storm) Kings Crest (Docks)</e>
+    <e id="4">Altro</e>
+    <e id="5">Tipo di gioco non classificato.</e>
+    <e id="6">Standard</e>
+    <e id="7">I giocatori possono scegliere i propri eroi.</e>
+    <e id="8">Dobloni di Cuornero raccolti</e>
+    <e id="9">Dobloni di Cuornero consegnati</e>
+    <e id="10">Dobloni consegnati a Cuornero</e>
+    <e id="11">BlackHeartsSimple</e>
+    <e id="12">BlackHeartsSimple_zhCN</e>
+    <e id="13">Vendetta di Cuornero</e>
+    <e id="14">Cuornero cerca vendetta contro il commodoro nella nostra prima mappa di attacco e difesa!</e>
+    <e id="15">Rissa attacco e difesa</e>
+    <e id="16">Una squadra protegge la nave, l&apos;altra deve tentare di distruggerla. La partita dura due round.</e>
+    <e id="17">Proteggete o distruggete la nave</e>
+    <e id="18">La squadra di Cuornero deve aiutare la nave a raggiungere il porto. Uccidete gli eroi nemici per impedire loro di usare i cannoni!</e>
+    <e id="19">La squadra del commodoro deve distruggere la nave di Cuornero. Raccogliete le palle di cannone e aprite il fuoco!</e>
+    <e id="20">La squadra che infligge più danni alla nave durante il proprio turno vince.</e>
+    <e id="21">Scelta mista</e>
+    <e id="22">Scegli un eroe fra tre selezionati casualmente. Hai solo 30 secondi, per cui pensa in fretta!</e>
+    <e id="23">Info aggiuntive</e>
+    <e id="24">C&apos;è una piccola probabilità che tutti i giocatori utilizzino lo stesso eroe.</e>
+</Locale>

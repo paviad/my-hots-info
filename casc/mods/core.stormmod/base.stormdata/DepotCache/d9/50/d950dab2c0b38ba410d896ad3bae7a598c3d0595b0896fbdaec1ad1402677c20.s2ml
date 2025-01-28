@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Fuga de Braxis</e>
+    <e id="2">Sin ningún tipo de descripción.</e>
+    <e id="3">Braxis</e>
+    <e id="4">Supervivencia</e>
+    <e id="5">Sobrevive todo el tiempo que puedas a las hordas de enemigos.</e>
+    <e id="6">Cooperativo </e>
+    <e id="7">Aliado con otros jugadores.</e>
+    <e id="8">EFB</e>
+    <e id="9">Fuga de Braxis</e>
+    <e id="10">¡El enjambre omega está invadiendo el reino! Formad un equipo y luchad para salir de allí.</e>
+    <e id="11">Llegad al refugio</e>
+    <e id="12">Abríos paso eliminando a los zerg y mantened la posición en cada uno de los puntos de control para avanzar al área siguiente.</e>
+    <e id="13">Enjambre omega</e>
+    <e id="14">Oleadas de zerg os atacarán mientras avanzáis por el campo de batalla.</e>
+    <e id="15">De vez en cuando encontraréis héroes enemigos especialmente poderosos con habilidades potenciadas.</e>
+    <e id="16">Selección de héroes</e>
+    <e id="17">Elegid a uno de los héroes de una lista cuidadosamente elaborada.</e>
+    <e id="18">Información adicional</e>
+    <e id="19">Los héroes empiezan con nivel 10 y suben de nivel cada vez que llegan a un punto de control. Algunos talentos no se pueden elegir.</e>
+    <e id="20">Los héroes no vuelven a aparecer tras morir, sino que tienen que revivirlos sus compañeros de equipo. Si todos los héroes de los jugadores están muertos, acaba la partida.</e>
+    <e id="21">Los héroes pueden recoger objetos que otorgan habilidades adicionales. Un héroe no puede llevar más de un objeto a la vez.</e>
+    <e id="22">No se pueden usar las monturas ni la piedra de hogar.</e>
+</Locale>

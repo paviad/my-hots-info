@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Checkpoint: Hanamura</e>
+    <e id="2">BISOGNA SPINGERE IL CARRELLO</e>
+    <e id="3">Storm - Overwatch - Hanamura 1</e>
+    <e id="4">Altro</e>
+    <e id="5">Tipo di gioco non classificato.</e>
+    <e id="6">Standard</e>
+    <e id="7">I giocatori possono scegliere i propri eroi.</e>
+    <e id="8">HanamuraPayloadPush</e>
+    <e id="9">Checkpoint: Hanamura</e>
+    <e id="10">Una squadra scorta e spinge il carico, mentre l&apos;altra cerca di fermarlo. Diamoci una mossa!</e>
+    <e id="11">Scortate il carico</e>
+    <e id="12">La squadra in attacco vince se il carico raggiunge la destinazione. La squadra in difesa vince se il tempo scade prima.</e>
+    <e id="13">Azione costante</e>
+    <e id="14">Il carico si sposta più velocemente a seconda del numero di eroi che lo scortano, ma si arresta se anche solo un difensore è nelle vicinanze.</e>
+    <e id="15">Scelta mista</e>
+    <e id="16">Scegli un eroe fra tre selezionati casualmente. Hai solo 30 secondi, per cui pensa in fretta!</e>
+    <e id="17">Info aggiuntive</e>
+    <e id="18">La durata della morte è ridotta a 9 secondi. Durante i tempi supplementari, è pari a 12,5 secondi.</e>
+    <e id="19">Gli eroi non hanno talenti e non aumentano di livello. Le abilità eroiche sono selezionate all&apos;inizio della partita.</e>
+    <e id="20">I Medikit presenti sul campo di battaglia rigenerano all&apos;istante il 35% di Salute e Mana.</e>
+    <e id="21">Il tempo a disposizione aumenta se il carico raggiunge un checkpoint, e la partita entra nei tempi supplementari allo scadere del tempo.</e>
+    <e id="22">La durata dei tempi supplementari è messa in pausa e rinnovata se un attaccante scorta il carico, ma la durata massima cala nel tempo.</e>
+</Locale>

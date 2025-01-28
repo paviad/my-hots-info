@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree>
+  <include file="AI/HeroBase.aitree" />
+  <mod id="050406203143C9B9">
+    <insertChild id="ECE4E4C7757A695E" after="F46BE8A75BE5B22A" />
+  </mod>
+  <mod id="90158784C49BD62A">
+    <removeChild id="01608E40F33506E9" />
+  </mod>
+  <mod id="BB67350CBFCB123C">
+    <insertChild id="437A1047F5E9552E" after="4ED4BF822A2E8DA2" />
+  </mod>
+  <node name="1 Soul Gem" type="FindBestTarget" id="7B2F459B71EC436D">
+    <property name="UnitType" valueSource="literal" value="ItemSoulPickup" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="" />
+    <property name="OutputTarget" value="Soul Gem Unit" />
+    <property name="MaxTargetDistance" valueSource="literal" value="6" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <variable name="Soul Gem Unit" type="Unit" />
+    <insertChild id="DA50AAC8D40C4451" />
+  </node>
+  <node name="" type="HeroMoveToUnit" id="DA50AAC8D40C4451">
+    <property name="Target" valueSource="variable" value="Soul Gem Unit" />
+    <property name="StopRange" valueSource="literal" value="0.5" />
+    <property name="StartRange" valueSource="literal" value="0.5" />
+  </node>
+  <node name="" type="Or" id="ECE4E4C7757A695E">
+    <insertChild id="7A7CE7F1CEDD7DBA" />
+    <insertChild id="B8EDD7C1C8FE6031" />
+    <insertChild id="7B2F459B71EC436D" />
+  </node>
+  <node name="20 Soul Gem" type="FindBestTarget" id="7A7CE7F1CEDD7DBA">
+    <property name="UnitType" valueSource="literal" value="ItemSoulPickupTwenty" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="" />
+    <property name="OutputTarget" value="Soul Gem Unit" />
+    <property name="MaxTargetDistance" valueSource="literal" value="6" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <variable name="Soul Gem Unit" type="Unit" />
+    <insertChild id="CBAB41C4518FF2CD" />
+  </node>
+  <node name="" type="HeroMoveToUnit" id="CBAB41C4518FF2CD">
+    <property name="Target" valueSource="variable" value="Soul Gem Unit" />
+    <property name="StopRange" valueSource="literal" value="0.5" />
+    <property name="StartRange" valueSource="literal" value="0.5" />
+  </node>
+  <node name="5 Soul Gem" type="FindBestTarget" id="B8EDD7C1C8FE6031">
+    <property name="UnitType" valueSource="literal" value="ItemSoulPickupFive" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="" />
+    <property name="OutputTarget" value="Soul Gem Unit" />
+    <property name="MaxTargetDistance" valueSource="literal" value="6" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <variable name="Soul Gem Unit" type="Unit" />
+    <insertChild id="D63964702B20CF8A" />
+  </node>
+  <node name="" type="HeroMoveToUnit" id="D63964702B20CF8A">
+    <property name="Target" valueSource="variable" value="Soul Gem Unit" />
+    <property name="StopRange" valueSource="literal" value="0.5" />
+    <property name="StartRange" valueSource="literal" value="0.5" />
+  </node>
+  <node name="ShouldInteractCheck" type="And" id="437A1047F5E9552E">
+    <variable name="SoulCageUnit" type="Unit" />
+    <insertChild id="54B1DFA31E9A762A" />
+    <insertChild id="7E113C74DC1E9C1E" />
+    <insertChild id="DD5D789F2C040CB4" />
+    <insertChild id="798FFF0D0E818B51" />
+  </node>
+  <node name="Soul Cage Activated" type="UnitHasBehavior" id="DD5D789F2C040CB4">
+    <property name="Unit" valueSource="variable" value="SoulCageUnit" />
+    <property name="Behavior" valueSource="literal" value="MacguffinActivated" />
+  </node>
+  <node name="UseMacGuffin" type="Select" id="798FFF0D0E818B51">
+    <insertChild id="5A1F2F7B0DD15E49" />
+    <insertChild id="900A9314885B2508" />
+  </node>
+  <node name="UseCaptureMacGuffin" type="Ability" id="5A1F2F7B0DD15E49">
+    <property name="Ability" valueSource="literal" value="CaptureMacGuffin" />
+    <property name="TargetUnit" valueSource="variable" value="SoulCageUnit" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="UseCaptureMacGuffinTwo" type="Ability" id="900A9314885B2508">
+    <property name="Ability" valueSource="literal" value="CaptureMacGuffinTwo" />
+    <property name="TargetUnit" valueSource="variable" value="SoulCageUnit" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="Find Soul Cage" type="FindBestTarget" id="7E113C74DC1E9C1E">
+    <property name="UnitType" valueSource="literal" value="SoulCage" />
+    <property name="OutputTarget" value="SoulCageUnit" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="MaxStagingRange" />
+    <property name="TargetTypes" valueSource="literal" value="Self,Player,Ally,Neutral" />
+    <property name="ExcludeTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="" />
+  </node>
+  <node name="Has stack" type="UnitHasBehavior" id="54B1DFA31E9A762A">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="MapMechanicStack" />
+  </node>
+</tree>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">La baie de Cœur-Noir</e>
+    <e id="2">Carte à 3 voies&lt;br&gt;&lt;br&gt;Le capitaine Cœur-Noir vous attend au centre de la baie. L’équipe qui lui remettra assez de doublons obtiendra ses faveurs, et les pirates de son vaisseau fantôme bombarderont les forts ennemis. Vous pouvez récolter des doublons en tuant des héros, en nettoyant des camps, ou encore en ouvrant ses coffres aux trésors.</e>
+    <e id="3">(Storm) Kings Crest (Docks)</e>
+    <e id="4">Autre</e>
+    <e id="5">Type de jeu sans classification.</e>
+    <e id="6">Standard</e>
+    <e id="7">Les joueurs peuvent choisir leur héros.</e>
+    <e id="8">Doublons de Cœur-Noir récupérés</e>
+    <e id="9">Doublons de Cœur-Noir livrés</e>
+    <e id="10">Nombre de doublons remis à Cœur-Noir</e>
+    <e id="11">La baie de Cœur-Noir</e>
+    <e id="12">Carte à 3 voies</e>
+</Locale>

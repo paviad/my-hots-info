@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Arena do Algoz</e>
+    <e id="2">Vários Heróis da Blizzard se enfrentam numa arena galáctica!</e>
+    <e id="3">Outro</e>
+    <e id="4">Tipo de jogo não classificado.</e>
+    <e id="5">Padrão</e>
+    <e id="6">Os jogadores podem escolher os Heróis.</e>
+    <e id="7">ShrinesSimple</e>
+    <e id="8">Arena do Algoz</e>
+    <e id="9">Uma batalha sem restrições entre Heróis e Algozes. Elimine seus inimigos para encerrar a luta.</e>
+    <e id="10">Melhor de 3 rodadas na Arena do Algoz</e>
+    <e id="11">Vence a equipe que ganhar 2 rodadas</e>
+    <e id="12">Vence quem fizer 100 pontos</e>
+    <e id="13">Algozes valem 10 pontos</e>
+    <e id="14">Heróis valem 4 pontos</e>
+    <e id="15">Seleção Restrita</e>
+    <e id="16">Escolha um dos três Heróis selecionados aleatoriamente. Você só tem 30 segundos. Depressa!</e>
+    <e id="17">Informações adicionais</e>
+    <e id="18">Há uma pequena chance de todos os jogadores jogarem com o mesmo Herói</e>
+</Locale>

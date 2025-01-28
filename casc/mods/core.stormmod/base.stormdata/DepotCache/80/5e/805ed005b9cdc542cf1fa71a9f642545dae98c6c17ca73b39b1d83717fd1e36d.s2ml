@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Guerras de Suturino Mutator</e>
+    <e id="2">Levar Equipe</e>
+    <e id="3">Puxa-puxa</e>
+    <e id="4">Puxa-puxa</e>
+    <e id="5">Hora de brincar! Acerte os Heróis inimigos com o Gancho e puxe-os até o seu lado da piscina para eliminá-los.</e>
+    <e id="6">Atinja os Heróis inimigos com o gancho</e>
+    <e id="7">Vence a partida a primeira equipe a abater 20 inimigos com o Gancho.</e>
+    <e id="8">Puxando com tudo</e>
+    <e id="9">A recarga e a velocidade de deslocamento do Gancho foram reduzidas drasticamente. Mão Amiga estará sempre ativa, o que permitirá que seu Gancho puxe aliados.</e>
+    <e id="10">Todos jogam de Suturino</e>
+    <e id="11">Vocês bons amigos! Suturino pronto pra brincar!</e>
+    <e id="12">Informações adicionais</e>
+    <e id="13">Temporizadores de morte reduzidos. Todos os jogadores reaparecem depois de 5 s.</e>
+    <e id="14">Os Heróis não recebem talentos e não sobem de nível. </e>
+    <e id="15">Acertar o Gancho num Herói que já estiver sendo puxado o matará instantaneamente. </e>
+    <e id="16">Matar um aliado que estiver sendo puxado por um Gancho impedirá que a equipe inimiga consiga um abate.</e>
+</Locale>

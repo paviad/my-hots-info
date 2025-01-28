@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Minério-Mania</e>
+    <e id="2">Dados e Ativadores da Minério-Mania</e>
+    <e id="3">padrão</e>
+    <e id="4">Posto Avançado Braxis</e>
+    <e id="5">Minério-Mania</e>
+    <e id="6">Só tem espaço para uma mineradora aqui! Colete minérios e use o poder deles para vencer a concorrência</e>
+    <e id="7">Destrua o Núcleo</e>
+    <e id="8">Destrua o Núcleo inimigo para vencer</e>
+    <e id="9">Você precisa de mais minérios</e>
+    <e id="10">Mate VCEs e colete o Minério que eles soltam</e>
+    <e id="11">VCEs ficam protegidos até a Tropa conectada morrer</e>
+    <e id="12">Ao coletar Minérios suficientes, você receberá temporariamente uma poderosa aura de Sobrecarga</e>
+    <e id="13">Seleção Restrita</e>
+    <e id="14">Escolha um dos três Heróis selecionados aleatoriamente. Você só tem 30 segundos. Depressa!</e>
+    <e id="15">Mais detalhes</e>
+    <e id="16">Você perde metade dos seus Minérios ao morrer</e>
+    <e id="17">Sobrecarga desabilita Estruturas inimigas, mata Tropas inimigas e causa dano a Heróis inimigos</e>
+    <e id="18">Heróis com Sobrecarga soltam Minérios periodicamente, e eles podem ser coletados por inimigos</e>
+    <e id="19">Os Minérios desaparecem com o tempo, então colete-os rápido!</e>
+    <e id="20">Pedras de Regresso (B) são desabilitadas e sua área inicial não regenera vida</e>
+</Locale>

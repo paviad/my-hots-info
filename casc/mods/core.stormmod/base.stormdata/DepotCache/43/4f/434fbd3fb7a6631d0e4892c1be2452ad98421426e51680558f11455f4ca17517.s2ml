@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Arena: Punitori</e>
+    <e id="2">Una vasta schiera di eroi Blizzard si affronta in un&apos;epica arena galattica!</e>
+    <e id="3">Altro</e>
+    <e id="4">Tipo di gioco non classificato.</e>
+    <e id="5">Standard</e>
+    <e id="6">I giocatori possono scegliere i propri eroi.</e>
+    <e id="7">ShrinesSimple</e>
+    <e id="8">Arena: Punitori</e>
+    <e id="9">Una guerra senza esclusione di colpi tra eroi e Punitori. Abbattete i nemici per porre fine allo scontro.</e>
+    <e id="10">Al meglio di 3 round nell&apos;Arena: Punitori</e>
+    <e id="11">La prima squadra che vince 2 round ottiene il trionfo.</e>
+    <e id="12">La prima squadra a raggiungere 100 punti vince</e>
+    <e id="13">I Punitori valgono 10 punti.</e>
+    <e id="14">Gli eroi valgono 4 punti.</e>
+    <e id="15">Scelta mista</e>
+    <e id="16">Scegli un eroe fra tre selezionati casualmente. Hai solo 30 secondi, per cui pensa in fretta!</e>
+    <e id="17">Info aggiuntive</e>
+    <e id="18">C&apos;è una piccola probabilità che tutti i giocatori utilizzino lo stesso eroe.</e>
+</Locale>

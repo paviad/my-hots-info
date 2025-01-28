@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Mage Wars Mutator</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">TombSpiderQueen</e>
+    <e id="4">Mage Wars</e>
+    <e id="5">Prepare your deadliest spells, for in this contest only the greatest mages win!</e>
+    <e id="6">Summon Webweavers</e>
+    <e id="7">Gain the Spider Queen&apos;s favor, and her Webweavers will assault your enemy&apos;s defenses.</e>
+    <e id="8">Collect Gems</e>
+    <e id="9">Spider minions and Heroes drop gems when they die. Gather them and turn them in at the altars to unleash the Webweavers.</e>
+    <e id="10">All Mages</e>
+    <e id="11">Teams are composed of: Chromie, Gul&apos;dan, Jaina, Kael&apos;thas, Kel&apos;Thuzad, Li-Ming, Medivh, and Nazeebo</e>
+    <e id="12">Additional Info</e>
+    <e id="13">Mana regen increased by 50%</e>
+    <e id="14">Passive 25% Cooldown Reduction</e>
+    <e id="15">Spells deal double damage to structures</e>
+    <e id="16">There&apos;s a small chance of all players being the same mage (except Medivh)</e>
+</Locale>

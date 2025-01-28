@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Mutation Guerre de mages</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">TombSpiderQueen</e>
+    <e id="4">Guerre de mages</e>
+    <e id="5">Préparez vos sorts les plus redoutables, car dans cet affrontement, seuls les plus grands mages triompheront !</e>
+    <e id="6">Invoquez les tissetoiles</e>
+    <e id="7">Obtenez la faveur de la reine araignée, et ses tissetoiles attaqueront les défenses de votre ennemi.</e>
+    <e id="8">Récupérez des gemmes</e>
+    <e id="9">Les serviteurs araignées et les héros adverses abandonnent des gemmes lorsqu’ils meurent. Récoltez-les et rapportez-les aux autels pour déchaîner les tissetoiles.</e>
+    <e id="10">Rien que des mages</e>
+    <e id="11">Les équipes se composent de : Chromie, Gul’dan, Jaina, Kael’thas,  Kel’Thuzad, Li-Ming, Medivh et Nasibo.</e>
+    <e id="12">Informations supplémentaires</e>
+    <e id="13">Régénération de mana augmentée de 50%.</e>
+    <e id="14">Effet passif : réduction de 25% du temps de recharge.</e>
+    <e id="15">Les capacités infligent deux fois plus de dégâts aux bâtiments.</e>
+    <e id="16">Il y a un faible risque que tous les joueurs incarnent le même mage (Medivh excepté).</e>
+</Locale>

@@ -1,0 +1,2149 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree root="71897AF52A7B0E8A">
+  <node name="" type="Select" id="71897AF52A7B0E8A">
+    <insertChild id="58BFA0A01AEE9BBE" />
+  </node>
+  <node name="HeroRoot" type="Select" id="58BFA0A01AEE9BBE" comment="Root For Hero AI Think Tree">
+    <variable name="Actual Move Position" type="Point" comment="Position that the AI will actively try to move into" />
+    <variable name="GoalTargetPosition" type="Point" comment="Position of a goal" />
+    <variable name="Desired Movement Location" type="Point" comment="General Desired Position to goto. " />
+    <variable name="Auto Attack Target" type="Unit" comment="Current target to Attack" />
+    <variable name="Should Engage" type="Boolean" comment="Has an Advantage and should be more aggressive" />
+    <variable name="Should Flee" type="Boolean" comment="Is losing or is low enough that should run away " />
+    <variable name="In PvP Combat" type="Boolean" comment="Primary Focus is to PvP fight" />
+    <variable name="In PvE Combat" type="Boolean" comment="Primary Focus is to PvE fight" />
+    <variable name="Should Stage" type="Boolean" comment="Should prep for a fight " />
+    <variable name="Ally Hero Count" type="Integer" comment="Number of Allies in an Area" />
+    <variable name="Enemy Hero Count" type="Integer" comment="Number of Enemies" />
+    <variable name="Fight Center" type="Point" comment="Center of the Current Fight" />
+    <variable name="Avoid Range" type="Number" comment="Range at which an AI will attempt to flee from a nearby target. Melee and tanks have 0 unless they are fleeing" />
+    <variable name="Movement Type" type="Number" comment="Tank, Melee, Ranged movement types" />
+    <variable name="GoalSelected" type="Number" comment="Goal Number of the AI's current Goal" />
+    <variable name="GoalTarget" type="Unit" comment="Target unit of a goal." />
+    <variable name="Health_ReturnToSpawn" type="Number" value="0.35" comment="Health to Run awy" />
+    <variable name="Health_EndOffensive" type="Number" value="0.45" comment="Health to stop being Aggressive" />
+    <variable name="FightRange" type="Number" valueSource="intrinsic" value="AttackRange" comment="Range to Consider Attacking Target" />
+    <variable name="EnemyNearPreventionTimer" type="Time" comment="Timer used to prevent losing sight of a target for a single frame changing how many heroes are nearby" />
+    <variable name="Enemy to Peel" type="Unit" comment="Enemy that should be Peeled" />
+    <variable name="Lowest Ally" type="Unit" comment="Ally that needs to be Peeled" />
+    <variable name="Closest Enemy To Self" type="Unit" comment="Closest Enemy Target to Self" />
+    <variable name="Combat Engage Threshhold" type="Number" value="0.5" comment="Threshhold to Be Aggressive" />
+    <variable name="Combat Leash Range" type="Number" value="8" comment="Outside edge of which an AI will consider a target to be in a fight" />
+    <variable name="Mount Range" type="Number" value="24" comment="Distance an AI needs to be targeting to attempt to " />
+    <variable name="Avoid Point" type="Point" comment="Point to Run away from" />
+    <variable name="Flee Point" type="Point" comment="Point to Flee to if in Danger" />
+    <variable name="Movement Drag Range" type="Number" comment="Distance a hero will run to pickup items like Regen Globes/Potions" />
+    <variable name="Ally Wave Position" type="Point" comment="Most Pushed out Ally Wave position in current lane of sufficient threat to consider" />
+    <variable name="Enemy Wave Position" type="Point" comment="Most Pushed out Ally Wave position in current lane" />
+    <variable name="Ally Hero Center" type="Point" comment="CenterPoint of Ally Heroes Nearby" />
+    <variable name="Enemy Hero Center" type="Point" comment="Centerpoint of Enemy Heroes Nearby" />
+    <variable name="Fake Number" type="Number" comment="Number used to put in goal variables where the variable is not actually needed (eg Staging Range)" />
+    <variable name="In PvP Timer" type="Time" comment="Timer to keep PvP evaluations alive between frames to prevent stutter stepping" />
+    <variable name="In Flee Timer" type="Time" comment="Timer to keep Flee evaluation alive between frames to prevent stutter stepping" />
+    <variable name="Auto Attack Target Future Position" type="Point" />
+    <variable name="Self Distance to Core" type="Number" />
+    <variable name="Goal Distance to Core" type="Number" />
+    <variable name="Local Threat" type="Number" />
+    <variable name="FollowTimer" type="Time" />
+    <variable name="BunkerUnit" type="Unit" />
+    <variable name="MaxStagingRange" type="Number" />
+    <variable name="MinStagingRange" type="Number" />
+    <variable name="FightTarget" type="Unit" />
+    <variable name="MaxHideRange" type="Number" />
+    <insertChild id="D2EC1E136D421E30" />
+  </node>
+  <node name="Follow" type="Select" id="D2EC1E136D421E30">
+    <variable name="Low Enemy To Kill" type="Unit" />
+    <variable name="Low Ally to Save" type="Unit" />
+    <variable name="Nearby PVE Target" type="Unit" />
+    <variable name="Desired Safe Point" type="Point" />
+    <variable name="Follow Range" type="Number" />
+    <variable name="Follow Slop" type="Number" />
+    <insertChild id="00A089C4700BE7CD" />
+    <insertChild id="E60E046FA39E330E" />
+    <insertChild id="D1D0E4F8A2606B6F" />
+    <insertChild id="0C20EFD44A87AE57" />
+    <insertChild id="53DF6E96B366A207" />
+    <insertChild id="810CEF47B4390772" />
+    <insertChild id="E11986B6498349BA" />
+  </node>
+  <node name="Find Important Variables" type="Sequence" id="00A089C4700BE7CD" comment="Attach set variable nodes to this to override default behaviors.">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="3612E71C0AF9578F" />
+    <insertChild id="90E2DC1D9ED5CFC5" />
+    <insertChild id="C7A3634879E24E99" />
+    <insertChild id="DCA2FABC7E51CA52" />
+    <insertChild id="6D822B1EED1EF893" />
+    <insertChild id="7843ED09F451BCEB" />
+    <insertChild id="68A22C4686D10ACF" />
+    <insertChild id="B55D7E24154C31C1" />
+  </node>
+  <node name="Start Timer" type="TimerStart" id="3612E71C0AF9578F">
+    <property name="OutputFinishTime" value="FollowTimer" />
+    <property name="DurationSeconds" valueSource="literal" value="1" />
+  </node>
+  <node name="Enemy to Peel" type="FindBestTarget" id="90E2DC1D9ED5CFC5">
+    <property name="OutputTarget" value="Enemy to Peel" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="DistanceFactor" valueSource="literal" value="10" />
+  </node>
+  <node name="Closest Enemy to Self" type="FindBestTarget" id="C7A3634879E24E99">
+    <property name="OutputTarget" value="Closest Enemy To Self" />
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="Self" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="10" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+  </node>
+  <node name="Lowest Ally Nearby" type="FindBestTarget" id="DCA2FABC7E51CA52">
+    <property name="OutputTarget" value="Low Ally to Save" />
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+  </node>
+  <node name="Closest PvE Target" type="FindBestTarget" id="6D822B1EED1EF893">
+    <property name="OutputTarget" value="Nearby PVE Target" />
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="DistanceFactor" valueSource="literal" value="5" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="RequiredTypes" valueSource="literal" value="Neutral" />
+  </node>
+  <node name="Closest PvE Target" type="FindBestTarget" id="7843ED09F451BCEB">
+    <property name="OutputTarget" value="Nearby PVE Target" />
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="DistanceFactor" valueSource="literal" value="5" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+  </node>
+  <node name="Per Hero Variable Overrides" type="Sequence" id="68A22C4686D10ACF" comment="Attach set variable nodes to this to override default behaviors.">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="192128DD8D2D0716" />
+    <insertChild id="028D7F46446FC49D" />
+    <insertChild id="F17C18EE72404AAC" />
+    <insertChild id="BDC3875B920326FA" />
+    <insertChild id="A2713F0D5632A7E2" />
+    <insertChild id="BAA65024455B7806" />
+    <insertChild id="18456914146B8A13" />
+  </node>
+  <node name="Movement Type" type="Or" id="192128DD8D2D0716" comment="Movement Type 1 is Ranged Caster or Damage Movement 2 is Melee Damage and 3 is Tank">
+    <insertChild id="04887343F7DD46D0" />
+    <insertChild id="04A0107049E8CF67" />
+    <insertChild id="2BCD1E2345A1202D" />
+    <insertChild id="E18347BE01CE62B1" />
+  </node>
+  <node name="Override" type="Or" id="04887343F7DD46D0" />
+  <node name="Tank" type="UnitHasPlaystyle" id="04A0107049E8CF67">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="RequiredPlaystyles" valueSource="literal" value="RoleTank" />
+    <insertChild id="2671BEECA81A19F7" />
+  </node>
+  <node name="Tank" type="SetNumber" id="2671BEECA81A19F7">
+    <property name="Variable" value="Movement Type" />
+    <property name="Value" valueSource="literal" value="3" />
+  </node>
+  <node name="Melee" type="UnitHasPlaystyle" id="2BCD1E2345A1202D">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="RequiredPlaystyles" valueSource="literal" value="" />
+    <property name="Playstyles" valueSource="literal" value="RoleAutoAttacker" />
+    <insertChild id="7B7AD4B9720D2E3F" />
+  </node>
+  <node name="Attack Range &lt; 2" type="CompareNumber" id="7B7AD4B9720D2E3F">
+    <property name="LeftHandSide" valueSource="intrinsic" value="AttackRange" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="8F234E4ED1003732" />
+  </node>
+  <node name="Melee" type="SetNumber" id="8F234E4ED1003732">
+    <property name="Variable" value="Movement Type" />
+    <property name="Value" valueSource="literal" value="2" />
+  </node>
+  <node name="Ranged Caster or Healer" type="SetNumber" id="E18347BE01CE62B1">
+    <property name="Variable" value="Movement Type" />
+    <property name="Value" valueSource="literal" value="1" />
+  </node>
+  <node name="Avoid Range" type="Or" id="028D7F46446FC49D" comment="Range that nearby enemies should alway be run away from Melee is 0 and Ranged are 5">
+    <insertChild id="41F1DE09C9A4F05E" />
+    <insertChild id="8526F627E25051B1" />
+    <insertChild id="4C0C8F10FC6C9D3C" />
+    <insertChild id="D4EBEADBC0F18DCE" />
+    <insertChild id="A7B29FBDDB78119F" />
+  </node>
+  <node name="Override" type="Or" id="41F1DE09C9A4F05E" />
+  <node name="Ranged Movement" type="CompareNumber" id="8526F627E25051B1">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="AD5FA9B5BE9D4086" />
+  </node>
+  <node name="" type="Or" id="AD5FA9B5BE9D4086">
+    <insertChild id="0593BEE8F342DA3F" />
+    <insertChild id="B13D0352E028DC69" />
+  </node>
+  <node name="Range &gt; 2" type="CompareNumber" id="0593BEE8F342DA3F">
+    <property name="LeftHandSide" valueSource="intrinsic" value="AttackRange" />
+    <property name="Comparison" valueSource="literal" value="GT" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="87CF784D31418B36" />
+  </node>
+  <node name="Avoid=3" type="SetNumber" id="87CF784D31418B36">
+    <property name="Variable" value="Avoid Range" />
+    <property name="Value" valueSource="literal" value="3" />
+  </node>
+  <node name="Range &lt; 2" type="CompareNumber" id="B13D0352E028DC69">
+    <property name="LeftHandSide" valueSource="intrinsic" value="AttackRange" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="709F337E5F036656" />
+  </node>
+  <node name="Avoid=0" type="SetNumber" id="709F337E5F036656">
+    <property name="Variable" value="Avoid Range" />
+    <property name="Value" valueSource="literal" value="0" />
+  </node>
+  <node name="Melee DPS Movement" type="CompareNumber" id="4C0C8F10FC6C9D3C">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="8151B553197389EF" />
+  </node>
+  <node name="" type="Or" id="8151B553197389EF">
+    <insertChild id="A93294E4CEC6B549" />
+    <insertChild id="3745878B95A16698" />
+  </node>
+  <node name="Range &gt; 2" type="CompareNumber" id="A93294E4CEC6B549">
+    <property name="LeftHandSide" valueSource="intrinsic" value="AttackRange" />
+    <property name="Comparison" valueSource="literal" value="GT" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="B688F48D776BD48D" />
+  </node>
+  <node name="Avoid=3" type="SetNumber" id="B688F48D776BD48D">
+    <property name="Variable" value="Avoid Range" />
+    <property name="Value" valueSource="literal" value="3" />
+  </node>
+  <node name="Range &lt; 2" type="CompareNumber" id="3745878B95A16698">
+    <property name="LeftHandSide" valueSource="intrinsic" value="AttackRange" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="4115A6EC0B52A976" />
+  </node>
+  <node name="Avoid=0" type="SetNumber" id="4115A6EC0B52A976">
+    <property name="Variable" value="Avoid Range" />
+    <property name="Value" valueSource="literal" value="0" />
+  </node>
+  <node name="Tank Movement" type="CompareNumber" id="D4EBEADBC0F18DCE">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="8139DF467FF56CBA" />
+  </node>
+  <node name="" type="Or" id="8139DF467FF56CBA">
+    <insertChild id="3B7076FF989D9235" />
+    <insertChild id="66167B81291AC682" />
+  </node>
+  <node name="Range &gt; 2" type="CompareNumber" id="3B7076FF989D9235">
+    <property name="LeftHandSide" valueSource="intrinsic" value="AttackRange" />
+    <property name="Comparison" valueSource="literal" value="GT" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="47BE2AAA4061796A" />
+  </node>
+  <node name="Avoid=3" type="SetNumber" id="47BE2AAA4061796A">
+    <property name="Variable" value="Avoid Range" />
+    <property name="Value" valueSource="literal" value="3" />
+  </node>
+  <node name="Range &lt; 2" type="CompareNumber" id="66167B81291AC682">
+    <property name="LeftHandSide" valueSource="intrinsic" value="AttackRange" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="C935B712555F15EA" />
+  </node>
+  <node name="Avoid=0" type="SetNumber" id="C935B712555F15EA">
+    <property name="Variable" value="Avoid Range" />
+    <property name="Value" valueSource="literal" value="0" />
+  </node>
+  <node name="Avoid=3" type="SetNumber" id="A7B29FBDDB78119F">
+    <property name="Variable" value="Avoid Range" />
+    <property name="Value" valueSource="literal" value="3" />
+  </node>
+  <node name="Fight Range" type="Or" id="F17C18EE72404AAC" comment="Desired range to be at when fighting a target">
+    <insertChild id="C218A2D4819168D8" />
+    <insertChild id="8AFEABD9DB1820AB" />
+    <insertChild id="6965A30B5DB88E46" />
+    <insertChild id="DBE3C9268B41B664" />
+    <insertChild id="DC9FC5D41C9DB4DC" />
+  </node>
+  <node name="Override" type="Or" id="C218A2D4819168D8" />
+  <node name="Ranged Movement" type="CompareNumber" id="8AFEABD9DB1820AB">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="824621A813F12EF1" />
+  </node>
+  <node name="" type="Or" id="824621A813F12EF1">
+    <insertChild id="898CF23BF00BBF43" />
+  </node>
+  <node name="Ranged Follow" type="SetNumber" id="898CF23BF00BBF43">
+    <property name="Variable" value="FightRange" />
+    <property name="Value" valueSource="intrinsic" value="AttackRange" />
+  </node>
+  <node name="Melee DPS Movement" type="CompareNumber" id="6965A30B5DB88E46">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="613C0E768FB25D81" />
+  </node>
+  <node name="" type="Or" id="613C0E768FB25D81">
+    <insertChild id="36D555D83D5CD071" />
+  </node>
+  <node name="Melee Follow" type="SetNumber" id="36D555D83D5CD071">
+    <property name="Variable" value="FightRange" />
+    <property name="Value" valueSource="literal" value="5" />
+  </node>
+  <node name="Tank Movement" type="CompareNumber" id="DBE3C9268B41B664">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="43776DB6CCF4D86E" />
+  </node>
+  <node name="" type="Or" id="43776DB6CCF4D86E">
+    <insertChild id="B5B02CCBA40AFF6E" />
+  </node>
+  <node name="Tank Follow" type="SetNumber" id="B5B02CCBA40AFF6E">
+    <property name="Variable" value="FightRange" />
+    <property name="Value" valueSource="literal" value="5" />
+  </node>
+  <node name="Fight Range" type="SetNumber" id="DC9FC5D41C9DB4DC">
+    <property name="Variable" value="FightRange" />
+    <property name="Value" valueSource="intrinsic" value="AttackRange" />
+  </node>
+  <node name="Follow Range" type="Or" id="BDC3875B920326FA" comment="Desired range to be at when fighting a target">
+    <insertChild id="348C9EC4405A513F" />
+    <insertChild id="DC8B2A888E2EA494" />
+    <insertChild id="6550786611DAA231" />
+    <insertChild id="C81CB2C67D75AF4B" />
+    <insertChild id="87D24D9C102D489F" />
+  </node>
+  <node name="Override" type="Or" id="348C9EC4405A513F" />
+  <node name="Ranged Movement" type="CompareNumber" id="DC8B2A888E2EA494">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="47DBF90623D5950A" />
+  </node>
+  <node name="" type="Or" id="47DBF90623D5950A">
+    <insertChild id="ABD7AF88BEE5A466" />
+  </node>
+  <node name="Ranged Follow" type="SetNumber" id="ABD7AF88BEE5A466">
+    <property name="Variable" value="Follow Range" />
+    <property name="Value" valueSource="literal" value="3" />
+  </node>
+  <node name="Melee DPS Movement" type="CompareNumber" id="6550786611DAA231">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="DB3B86A8DF9A684C" />
+  </node>
+  <node name="" type="Or" id="DB3B86A8DF9A684C">
+    <insertChild id="F6243A5DFB54BC29" />
+  </node>
+  <node name="Melee Follow" type="SetNumber" id="F6243A5DFB54BC29">
+    <property name="Variable" value="Follow Range" />
+    <property name="Value" valueSource="literal" value="2" />
+  </node>
+  <node name="Tank Movement" type="CompareNumber" id="C81CB2C67D75AF4B">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="3D996EEF320D1E3A" />
+  </node>
+  <node name="" type="Or" id="3D996EEF320D1E3A">
+    <insertChild id="D2631FAC538C2D5E" />
+  </node>
+  <node name="Tank Follow" type="SetNumber" id="D2631FAC538C2D5E">
+    <property name="Variable" value="Follow Range" />
+    <property name="Value" valueSource="literal" value="2" />
+  </node>
+  <node name="Default Follow" type="SetNumber" id="87D24D9C102D489F">
+    <property name="Variable" value="Follow Range" />
+    <property name="Value" valueSource="literal" value="5" />
+  </node>
+  <node name="Follow Slop" type="Or" id="A2713F0D5632A7E2" comment="Desired range to be at when fighting a target">
+    <insertChild id="5E904C85C8EBF9DB" />
+    <insertChild id="8F6B80D5D4F8A04F" />
+    <insertChild id="E369A47EA65892FC" />
+    <insertChild id="8A9C2685D0B2890E" />
+    <insertChild id="CBA2EA9AB13B693B" />
+  </node>
+  <node name="Override" type="Or" id="5E904C85C8EBF9DB" />
+  <node name="Ranged Movement" type="CompareNumber" id="8F6B80D5D4F8A04F">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="8C49590FE4790334" />
+  </node>
+  <node name="" type="Or" id="8C49590FE4790334">
+    <insertChild id="F970F07F89DE768F" />
+  </node>
+  <node name="Ranged Follow" type="SetNumber" id="F970F07F89DE768F">
+    <property name="Variable" value="Follow Slop" />
+    <property name="Value" valueSource="literal" value="2" />
+  </node>
+  <node name="Melee DPS Movement" type="CompareNumber" id="E369A47EA65892FC">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="00B290F415A466AD" />
+  </node>
+  <node name="" type="Or" id="00B290F415A466AD">
+    <insertChild id="1C044AAA7E82BB50" />
+  </node>
+  <node name="Melee Follow" type="SetNumber" id="1C044AAA7E82BB50">
+    <property name="Variable" value="Follow Slop" />
+    <property name="Value" valueSource="literal" value="4" />
+  </node>
+  <node name="Tank Movement" type="CompareNumber" id="8A9C2685D0B2890E">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="1E71A95D0FCF7744" />
+  </node>
+  <node name="" type="Or" id="1E71A95D0FCF7744">
+    <insertChild id="D763413A53517C25" />
+  </node>
+  <node name="Tank Follow" type="SetNumber" id="D763413A53517C25">
+    <property name="Variable" value="Follow Slop" />
+    <property name="Value" valueSource="literal" value="2" />
+  </node>
+  <node name="Default Slop" type="SetNumber" id="CBA2EA9AB13B693B">
+    <property name="Variable" value="Follow Slop" />
+    <property name="Value" valueSource="literal" value="2" />
+  </node>
+  <node name="Mounting Range" type="Or" id="BAA65024455B7806" comment="Desired range to be at when fighting a target">
+    <insertChild id="CD041DC87F67BC9C" />
+    <insertChild id="8F585EF316A35FF1" />
+    <insertChild id="81F9A0E612129AA7" />
+    <insertChild id="9DD4DA34965CAEEC" />
+    <insertChild id="B3F1419547C9FCCA" />
+  </node>
+  <node name="Override" type="Or" id="CD041DC87F67BC9C" />
+  <node name="Ranged Movement" type="CompareNumber" id="8F585EF316A35FF1">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="66D01584ACB4FFB9" />
+  </node>
+  <node name="" type="Or" id="66D01584ACB4FFB9">
+    <insertChild id="C8595AF112C0D10F" />
+  </node>
+  <node name="Mount Range" type="SetNumber" id="C8595AF112C0D10F">
+    <property name="Variable" value="Mount Range" />
+    <property name="Value" valueSource="literal" value="10" />
+  </node>
+  <node name="Melee DPS Movement" type="CompareNumber" id="81F9A0E612129AA7">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="CAE49A8B35BCA01B" />
+  </node>
+  <node name="" type="Or" id="CAE49A8B35BCA01B">
+    <insertChild id="BDF872EFB4F54E30" />
+  </node>
+  <node name="Mount Range" type="SetNumber" id="BDF872EFB4F54E30">
+    <property name="Variable" value="Mount Range" />
+    <property name="Value" valueSource="literal" value="10" />
+  </node>
+  <node name="Tank Movement" type="CompareNumber" id="9DD4DA34965CAEEC">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="61F69A886334AD64" />
+  </node>
+  <node name="" type="Or" id="61F69A886334AD64">
+    <insertChild id="437D89AD00793888" />
+  </node>
+  <node name="Mount Range" type="SetNumber" id="437D89AD00793888">
+    <property name="Variable" value="Mount Range" />
+    <property name="Value" valueSource="literal" value="10" />
+  </node>
+  <node name="Default Mount Range" type="SetNumber" id="B3F1419547C9FCCA">
+    <property name="Variable" value="Mount Range" />
+    <property name="Value" valueSource="literal" value="10" />
+  </node>
+  <node name="Combat Leash Range" type="Or" id="18456914146B8A13" comment="Desired range to be at when fighting a target">
+    <insertChild id="060F588320A6B086" />
+    <insertChild id="7684D02712DEB310" />
+    <insertChild id="94A7D000DE75E95D" />
+    <insertChild id="20BB95F5B94AEB0E" />
+    <insertChild id="D2C140D784503FA1" />
+  </node>
+  <node name="Override" type="Or" id="060F588320A6B086" />
+  <node name="Ranged Movement" type="CompareNumber" id="7684D02712DEB310">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="8B852A967EBE44F4" />
+  </node>
+  <node name="" type="Or" id="8B852A967EBE44F4">
+    <insertChild id="22CB6530CD1ECA03" />
+  </node>
+  <node name="Combat Leash Range" type="SetNumber" id="22CB6530CD1ECA03">
+    <property name="Variable" value="Combat Leash Range" />
+    <property name="Value" valueSource="literal" value="10" />
+  </node>
+  <node name="Melee DPS Movement" type="CompareNumber" id="94A7D000DE75E95D">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="C1AB15583C9AC55B" />
+  </node>
+  <node name="" type="Or" id="C1AB15583C9AC55B">
+    <insertChild id="3286E1EF2A976812" />
+  </node>
+  <node name="Combat Leash Range" type="SetNumber" id="3286E1EF2A976812">
+    <property name="Variable" value="Combat Leash Range" />
+    <property name="Value" valueSource="literal" value="10" />
+  </node>
+  <node name="Tank Movement" type="CompareNumber" id="20BB95F5B94AEB0E">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="A6412DB0F1729879" />
+  </node>
+  <node name="" type="Or" id="A6412DB0F1729879">
+    <insertChild id="CFFC0E284A2BB7B2" />
+  </node>
+  <node name="Combat Leash Range" type="SetNumber" id="CFFC0E284A2BB7B2">
+    <property name="Variable" value="Combat Leash Range" />
+    <property name="Value" valueSource="literal" value="10" />
+  </node>
+  <node name="Combat Leash Range" type="SetNumber" id="D2C140D784503FA1">
+    <property name="Variable" value="Combat Leash Range" />
+    <property name="Value" valueSource="literal" value="10" />
+  </node>
+  <node name="Evaluations" type="Sequence" id="B55D7E24154C31C1">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="9C825B8274A3234F" />
+    <insertChild id="9B2A29F53226003C" />
+    <insertChild id="B25AED77E230CC44" />
+    <insertChild id="66FEB1BCA5ABC34C" />
+    <insertChild id="4460942DD82E9724" />
+  </node>
+  <node name="PvP Combat?" type="IfElse" id="9C825B8274A3234F">
+    <insertChild id="0C7D15B32B7C64F4" />
+    <insertChild id="2A71DD58B0C0C5F6" />
+    <insertChild id="B61BBF46C97C713D" />
+  </node>
+  <node name="" type="And" id="0C7D15B32B7C64F4">
+    <insertChild id="1CA6201DB3A7E8DC" />
+    <insertChild id="C03FCBF5DDCE0841" />
+    <insertChild id="901BBD41D411E346" />
+  </node>
+  <node name="Enemy Nearby" type="CompareNumber" id="1CA6201DB3A7E8DC">
+    <property name="LeftHandSide" valueSource="variable" value="Enemy Hero Count" />
+    <property name="Comparison" valueSource="literal" value="GT" />
+    <insertChild id="EEE3D1A038F1BE59" />
+  </node>
+  <node name="" type="Or" id="EEE3D1A038F1BE59">
+    <insertChild id="EDE2CCD7A2B92BDB" />
+  </node>
+  <node name="Winning Or Losing" type="IfElse" id="EDE2CCD7A2B92BDB">
+    <insertChild id="006AC5E4BDED798B" />
+    <insertChild id="29B2C46653ECA459" />
+    <insertChild id="29C170F773305CD4" />
+  </node>
+  <node name="Allies &gt;= Enemies" type="CompareNumber" id="006AC5E4BDED798B">
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="LeftHandSide" valueSource="variable" value="Ally Hero Count" />
+    <property name="RightHandSide" valueSource="variable" value="Enemy Hero Count" />
+  </node>
+  <node name="&gt; 25%" type="LifeFraction" id="29B2C46653ECA459">
+    <property name="LifeFraction" valueSource="literal" value="0.25" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="&gt; 45%" type="LifeFraction" id="29C170F773305CD4">
+    <property name="LifeFraction" valueSource="literal" value="0.45" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="" type="Distance" id="C03FCBF5DDCE0841">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="TargetUnit" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Distance" valueSource="variable" value="Combat Leash Range" />
+  </node>
+  <node name="PvP Checks" type="Or" id="901BBD41D411E346">
+    <insertChild id="E26B8F941067F7D0" />
+    <insertChild id="5DF9CBA50306CA16" />
+    <insertChild id="96581FEF18ED31CC" />
+    <insertChild id="F8B0FE5DC0AE89BD" />
+    <insertChild id="D334AF531FC0B490" />
+    <insertChild id="5859A5F34C063470" />
+  </node>
+  <node name="Hero Specific Logic" type="Or" id="E26B8F941067F7D0" />
+  <node name="Follow target In Combat" type="RecentlyDamaged" id="5DF9CBA50306CA16">
+    <property name="Target" valueSource="variable" value="GoalTarget" />
+    <insertChild id="1243F530977D7747" />
+  </node>
+  <node name="Hero under 75% Near Follow" type="UnitCount" id="1243F530977D7747">
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="MaxLifeFraction" valueSource="variable" value="Combat Engage Threshhold" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+  </node>
+  <node name="Recent Damaged" type="FilterRecentlyDamaged" id="96581FEF18ED31CC">
+    <insertChild id="8E20D9EDE31D4256" />
+  </node>
+  <node name="&lt; Combat Health Ally" type="UnitCount" id="8E20D9EDE31D4256">
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxLifeFraction" valueSource="variable" value="Combat Engage Threshhold" />
+  </node>
+  <node name="3 seconds" type="FilterRecentlyDamaged" id="F8B0FE5DC0AE89BD">
+    <insertChild id="92A9C0844FD869F5" />
+  </node>
+  <node name="&lt; Combat Health Ally" type="UnitCount" id="92A9C0844FD869F5">
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxLifeFraction" valueSource="variable" value="Combat Engage Threshhold" />
+    <insertChild id="C4D06E44531E47AD" />
+  </node>
+  <node name="&lt; Combat Health Ally" type="UnitCount" id="C4D06E44531E47AD">
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxLifeFraction" valueSource="variable" value="Combat Engage Threshhold" />
+  </node>
+  <node name="Enemy In Melee of Follow" type="Distance" id="D334AF531FC0B490">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="TargetUnit" valueSource="variable" value="Enemy to Peel" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Distance" valueSource="literal" value="3" />
+  </node>
+  <node name="Enemy In Melee of Follow" type="Distance" id="5859A5F34C063470">
+    <property name="SourceUnit" valueSource="variable" value="Low Ally to Save" />
+    <property name="TargetUnit" valueSource="variable" value="Enemy to Peel" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Distance" valueSource="literal" value="3" />
+  </node>
+  <node name="In PvP Combat" type="SetBoolean" id="2A71DD58B0C0C5F6">
+    <property name="Value" valueSource="literal" value="true" />
+    <property name="Variable" value="In PvP Combat" />
+  </node>
+  <node name="Out of PvP Combat" type="SetBoolean" id="B61BBF46C97C713D">
+    <property name="Value" valueSource="literal" value="false" />
+    <property name="Variable" value="In PvP Combat" />
+  </node>
+  <node name="PvE Combat?" type="IfElse" id="9B2A29F53226003C">
+    <insertChild id="0D0F7AEF7E0CA5FD" />
+    <insertChild id="C17E54172FB30B0B" />
+    <insertChild id="3B3BB1F427B132C7" />
+  </node>
+  <node name="" type="And" id="0D0F7AEF7E0CA5FD">
+    <insertChild id="EC4F511B90558B4A" />
+    <insertChild id="501FAD9891EECA18" />
+  </node>
+  <node name="Not PvP Combat" type="CompareBoolean" id="EC4F511B90558B4A">
+    <property name="LeftHandSide" valueSource="variable" value="In PvP Combat" />
+  </node>
+  <node name="PvE Checks" type="Or" id="501FAD9891EECA18">
+    <insertChild id="ED1468C5E5C4C2F0" />
+    <insertChild id="7377A7CFA850F2D3" />
+    <insertChild id="1250D192E078BF95" />
+    <insertChild id="2DE74F6240C77A6B" />
+    <insertChild id="158106F3CDA5ED0C" />
+  </node>
+  <node name="Hero Specific Logic" type="Or" id="ED1468C5E5C4C2F0" />
+  <node name="Follow target In Combat" type="RecentlyDamaged" id="7377A7CFA850F2D3">
+    <property name="Target" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Self in Combat" type="RecentlyDamaged" id="1250D192E078BF95">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Recent Damaged" type="FilterRecentlyDamaged" id="2DE74F6240C77A6B">
+    <insertChild id="A6FA39BBE4EC5EEA" />
+  </node>
+  <node name="&lt; Combat Health Ally" type="UnitCount" id="A6FA39BBE4EC5EEA">
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxLifeFraction" valueSource="variable" value="Combat Engage Threshhold" />
+  </node>
+  <node name="Follow Target Attacking" type="Validator" id="158106F3CDA5ED0C">
+    <property name="Validator" valueSource="literal" value="TargetDealingDamage" />
+    <property name="Target" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="In PvE Combat" type="SetBoolean" id="C17E54172FB30B0B">
+    <property name="Value" valueSource="literal" value="true" />
+    <property name="Variable" value="In PvE Combat" />
+  </node>
+  <node name="Out of PvE Combat" type="SetBoolean" id="3B3BB1F427B132C7">
+    <property name="Value" valueSource="literal" value="false" />
+    <property name="Variable" value="In PvE Combat" />
+  </node>
+  <node name="Engage?" type="IfElse" id="B25AED77E230CC44">
+    <insertChild id="A589DC59B4F08413" />
+    <insertChild id="6127DB83229597E6" />
+    <insertChild id="50D37050384C1652" />
+  </node>
+  <node name="" type="And" id="A589DC59B4F08413">
+    <insertChild id="33CCBD3568052719" />
+    <insertChild id="86EECC9DAD0A9A7F" />
+  </node>
+  <node name="Enemy Nearby" type="CompareNumber" id="33CCBD3568052719">
+    <property name="LeftHandSide" valueSource="variable" value="Enemy Hero Count" />
+    <property name="Comparison" valueSource="literal" value="GT" />
+  </node>
+  <node name="Engage Reasons" type="Or" id="86EECC9DAD0A9A7F">
+    <insertChild id="3939D95B9B9C2441" />
+    <insertChild id="801883A5FDDA4141" />
+    <insertChild id="C204A05D96C657C6" />
+    <insertChild id="FE93606063FF76C0" />
+    <insertChild id="6E318879827DF661" />
+  </node>
+  <node name="Hero Specific Logic" type="Or" id="3939D95B9B9C2441" />
+  <node name="Follow target In Combat" type="RecentlyDamaged" id="801883A5FDDA4141">
+    <property name="Target" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Self in Combat" type="RecentlyDamaged" id="C204A05D96C657C6">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Recent Damaged" type="FilterRecentlyDamaged" id="FE93606063FF76C0">
+    <insertChild id="E8CAEC02BB4856B5" />
+  </node>
+  <node name="&lt; Combat Health Ally" type="UnitCount" id="E8CAEC02BB4856B5">
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxLifeFraction" valueSource="variable" value="Combat Engage Threshhold" />
+  </node>
+  <node name="Follow Target Attacking" type="Validator" id="6E318879827DF661">
+    <property name="Validator" valueSource="literal" value="TargetDealingDamage" />
+    <property name="Target" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Engage" type="SetBoolean" id="6127DB83229597E6">
+    <property name="Value" valueSource="literal" value="true" />
+    <property name="Variable" value="Should Engage" />
+  </node>
+  <node name="No Engage" type="SetBoolean" id="50D37050384C1652">
+    <property name="Value" valueSource="literal" value="false" />
+    <property name="Variable" value="Should Engage" />
+  </node>
+  <node name="Flee?" type="IfElse" id="66FEB1BCA5ABC34C">
+    <insertChild id="B42EAE89B7D8F018" />
+    <insertChild id="B4AEEC86009A4AA5" />
+    <insertChild id="B2C05DE8572C8BF7" />
+  </node>
+  <node name="" type="And" id="B42EAE89B7D8F018">
+    <insertChild id="B48346509AACB77F" />
+    <insertChild id="AF044D96DE04B246" />
+  </node>
+  <node name="Enemy Nearby" type="CompareNumber" id="B48346509AACB77F">
+    <property name="LeftHandSide" valueSource="variable" value="Enemy Hero Count" />
+    <property name="Comparison" valueSource="literal" value="GT" />
+  </node>
+  <node name="Flee Reasons" type="Or" id="AF044D96DE04B246">
+    <insertChild id="8F9D6FC0355FD59B" />
+    <insertChild id="E19BBB3679CFF79D" />
+    <insertChild id="3F1D722B19D5CDEE" />
+  </node>
+  <node name="Hero Specific Logic" type="Or" id="8F9D6FC0355FD59B" />
+  <node name="Self &lt; End Offensive" type="LifeFraction" id="E19BBB3679CFF79D">
+    <property name="LifeFraction" valueSource="variable" value="Health_EndOffensive" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Follow target too far" type="Distance" id="3F1D722B19D5CDEE">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="GoalTarget" />
+    <property name="Distance" valueSource="variable" value="Combat Leash Range" />
+  </node>
+  <node name="Flee" type="SetBoolean" id="B4AEEC86009A4AA5">
+    <property name="Value" valueSource="literal" value="true" />
+    <property name="Variable" value="Should Flee" />
+  </node>
+  <node name="No Flee" type="SetBoolean" id="B2C05DE8572C8BF7">
+    <property name="Value" valueSource="literal" value="false" />
+    <property name="Variable" value="Should Flee" />
+  </node>
+  <node name="Desired Safe Point" type="Or" id="4460942DD82E9724">
+    <insertChild id="45FD2B91166EFA52" />
+    <insertChild id="9707A04DF051CC14" />
+  </node>
+  <node name="Flanked Handling" type="And" id="45FD2B91166EFA52">
+    <variable name="Safe Point Offset" type="Point" />
+    <variable name="Flanking Radius" type="Number" value="5" />
+    <insertChild id="14B80E3C8EF32FF9" />
+    <insertChild id="28DD89F15E98FD68" />
+    <insertChild id="304CF19259BDA50F" />
+  </node>
+  <node name="Flanking Location" type="FindPointOnLine" id="14B80E3C8EF32FF9">
+    <property name="SourcePoint" valueSource="intrinsic" value="Self" />
+    <property name="DistanceOffset" valueSource="variable" value="Flanking Radius" />
+    <property name="OutputTarget" value="Safe Point Offset" />
+    <property name="DestinationPoint" valueSource="intrinsic" value="SafePos" />
+  </node>
+  <node name="Enemy In Flank" type="UnitCount" id="28DD89F15E98FD68">
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="SearchCenter" valueSource="variable" value="Safe Point Offset" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Flanking Radius" />
+  </node>
+  <node name="Find new Safe Point" type="FindPointOnLine" id="304CF19259BDA50F">
+    <property name="DestinationUnit" valueSource="variable" value="Closest Enemy To Self" />
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DistanceOffset" valueSource="literal" value="-3" />
+    <property name="OutputTarget" value="Desired Safe Point" />
+  </node>
+  <node name="Set to Altar" type="FindPointOnLine" id="9707A04DF051CC14">
+    <property name="OutputTarget" value="Desired Safe Point" />
+    <property name="SourcePoint" valueSource="intrinsic" value="SafePos" />
+    <property name="DestinationPoint" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Auto Attack Target" type="Or" id="E60E046FA39E330E">
+    <insertChild id="64CAD248D82E7431" />
+    <insertChild id="7EAF791B402BC162" />
+  </node>
+  <node name="PvP Combat" type="CompareBoolean" id="64CAD248D82E7431">
+    <property name="LeftHandSide" valueSource="variable" value="In PvP Combat" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+    <insertChild id="6E129855DDADF0DD" />
+  </node>
+  <node name="" type="Or" id="6E129855DDADF0DD">
+    <insertChild id="B5BED682A8644326" />
+    <insertChild id="1BCB2C3E33F4659E" />
+    <insertChild id="E791F68BC820588E" />
+    <insertChild id="98CD097E22F55D43" />
+  </node>
+  <node name="Override" type="Or" id="B5BED682A8644326" />
+  <node name="Ranged Movement" type="CompareNumber" id="1BCB2C3E33F4659E">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="D356B82A3B530182" />
+  </node>
+  <node name="" type="Or" id="D356B82A3B530182">
+    <insertChild id="967E9EB995092B2B" />
+    <insertChild id="84D5062DAEAE1D2A" />
+    <insertChild id="6197BE48831BAC33" />
+    <insertChild id="4998C3C08F792AA3" />
+    <insertChild id="4809965886016732" />
+    <insertChild id="F1D6272EDB76C32E" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="967E9EB995092B2B">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipCenter" valueSource="intrinsic" value="Self" />
+    <property name="ClipRadius" valueSource="intrinsic" value="AttackRange" />
+  </node>
+  <node name="Healer" type="FilterPlaystyle" id="84D5062DAEAE1D2A">
+    <property name="Playstyles" valueSource="literal" value="AllyHealer,Helper" />
+    <insertChild id="FE221C1F8078120A" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="FE221C1F8078120A">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPointFactor" valueSource="literal" value="2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipCenter" valueSource="intrinsic" value="Self" />
+    <property name="ClipRadius" valueSource="intrinsic" value="AttackRange" />
+  </node>
+  <node name="Caster/Specialist" type="FilterPlaystyle" id="6197BE48831BAC33">
+    <property name="Playstyles" valueSource="literal" value="RoleCaster,RoleSpecialist" />
+    <insertChild id="9F2C2E205F8B9D0A" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="9F2C2E205F8B9D0A">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPointFactor" valueSource="literal" value="2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipCenter" valueSource="intrinsic" value="Self" />
+    <property name="ClipRadius" valueSource="intrinsic" value="AttackRange" />
+  </node>
+  <node name="Auto Attacker" type="FilterPlaystyle" id="4998C3C08F792AA3">
+    <property name="Playstyles" valueSource="literal" value="RoleAutoAttacker" />
+    <insertChild id="61FCF63BCA9C81C8" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="61FCF63BCA9C81C8">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPointFactor" valueSource="literal" value="2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipCenter" valueSource="intrinsic" value="Self" />
+    <property name="ClipRadius" valueSource="intrinsic" value="AttackRange" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="4809965886016732">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipCenter" valueSource="intrinsic" value="Self" />
+    <property name="ClipRadius" valueSource="intrinsic" value="AttackRange" />
+  </node>
+  <node name="No Enemy Nearby" type="Distance" id="F1D6272EDB76C32E">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="Closest Enemy To Self" />
+    <property name="Distance" valueSource="variable" value="Avoid Range" />
+    <insertChild id="1A5A59B55AF4E527" />
+  </node>
+  <node name="Backup Assist" type="FindBestTarget" id="1A5A59B55AF4E527">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="PreferredPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="PreferredPointFactor" valueSource="literal" value="3" />
+  </node>
+  <node name="Melee DPS Movement" type="CompareNumber" id="E791F68BC820588E">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="91F0664C6F6D0EC3" />
+  </node>
+  <node name="" type="Or" id="91F0664C6F6D0EC3">
+    <insertChild id="20D761E464F0CC67" />
+    <insertChild id="566E7A042E3B5463" />
+    <insertChild id="1336D886CC0250A1" />
+    <insertChild id="6A890A511D9CF5C7" />
+    <insertChild id="71092F8963F76806" />
+    <insertChild id="BBC958837BB9DABD" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="20D761E464F0CC67">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+  </node>
+  <node name="Healer" type="FilterPlaystyle" id="566E7A042E3B5463">
+    <property name="Playstyles" valueSource="literal" value="AllyHealer,Helper" />
+    <insertChild id="C2AD3010DB7E5541" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="C2AD3010DB7E5541">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Caster/Specialist" type="FilterPlaystyle" id="1336D886CC0250A1">
+    <property name="Playstyles" valueSource="literal" value="RoleCaster,RoleSpecialist" />
+    <insertChild id="DCFD2FAF709B10A7" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="DCFD2FAF709B10A7">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Auto Attacker" type="FilterPlaystyle" id="6A890A511D9CF5C7">
+    <property name="Playstyles" valueSource="literal" value="RoleAutoAttacker" />
+    <insertChild id="E9C196CEF9EA446F" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="E9C196CEF9EA446F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="71092F8963F76806">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="No Enemy Nearby" type="Distance" id="BBC958837BB9DABD">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="Closest Enemy To Self" />
+    <property name="Distance" valueSource="variable" value="Avoid Range" />
+    <insertChild id="DBB1F24E8CE5D3CB" />
+  </node>
+  <node name="Backup Assist" type="FindBestTarget" id="DBB1F24E8CE5D3CB">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="PreferredPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="PreferredPointFactor" valueSource="literal" value="3" />
+  </node>
+  <node name="Tank Movement" type="CompareNumber" id="98CD097E22F55D43">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="9A767A673B25EB9B" />
+  </node>
+  <node name="" type="Or" id="9A767A673B25EB9B">
+    <insertChild id="C008D0E502A09BA9" />
+    <insertChild id="F6B30A971A49E87F" />
+    <insertChild id="F4CA02CEA0A27850" />
+    <insertChild id="67385808DBC531D6" />
+    <insertChild id="30FBEF7215AACE1F" />
+    <insertChild id="313B18C88418B758" />
+    <insertChild id="62DE8A24B32DA6BC" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="C008D0E502A09BA9">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+  </node>
+  <node name="Peel for Dc Target" type="FindBestTarget" id="F6B30A971A49E87F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="10" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+  </node>
+  <node name="Hurt Low Ally" type="LifeFraction" id="F4CA02CEA0A27850">
+    <property name="LifeFraction" valueSource="literal" value="0.75" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Target" valueSource="variable" value="Low Ally to Save" />
+    <insertChild id="BF98ABE28A0BDB0E" />
+  </node>
+  <node name="Peel for Dc Target" type="FindBestTarget" id="BF98ABE28A0BDB0E">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="Low Ally to Save" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Healer" type="FilterPlaystyle" id="67385808DBC531D6">
+    <property name="Playstyles" valueSource="literal" value="AllyHealer,Helper" />
+    <insertChild id="BC897365F33D26CD" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="BC897365F33D26CD">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Caster/Specialist" type="FilterPlaystyle" id="30FBEF7215AACE1F">
+    <property name="Playstyles" valueSource="literal" value="RoleCaster,RoleSpecialist" />
+    <insertChild id="171CAB3C2D89D7A6" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="171CAB3C2D89D7A6">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Auto Attacker" type="FilterPlaystyle" id="313B18C88418B758">
+    <property name="Playstyles" valueSource="literal" value="RoleAutoAttacker" />
+    <insertChild id="90061D5168654727" />
+  </node>
+  <node name="Low Target" type="FindBestTarget" id="90061D5168654727">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="No Enemy Nearby" type="Distance" id="62DE8A24B32DA6BC">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="Closest Enemy To Self" />
+    <property name="Distance" valueSource="variable" value="Avoid Range" />
+    <insertChild id="2AC87315A8E1C424" />
+  </node>
+  <node name="Backup Assist" type="FindBestTarget" id="2AC87315A8E1C424">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+    <property name="PreferredPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="PreferredPointFactor" valueSource="literal" value="3" />
+  </node>
+  <node name="PvE Combat" type="CompareBoolean" id="7EAF791B402BC162">
+    <property name="LeftHandSide" valueSource="variable" value="In PvE Combat" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+    <insertChild id="07910F982A59DB31" />
+  </node>
+  <node name="" type="Or" id="07910F982A59DB31">
+    <insertChild id="DFEBFA9CBC811748" />
+    <insertChild id="F1F43F0376952AC8" />
+    <insertChild id="BE202398F7765D98" />
+    <insertChild id="B8AF7FBAF4E57657" />
+  </node>
+  <node name="Override" type="Or" id="DFEBFA9CBC811748" />
+  <node name="Ranged Movement" type="CompareNumber" id="F1F43F0376952AC8">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="E3D91EA95BEA51A6" />
+  </node>
+  <node name="Targeting Priorities" type="Or" id="E3D91EA95BEA51A6">
+    <insertChild id="670A9214CC4F06EE" />
+    <insertChild id="DE76C6187E3E0E65" />
+    <insertChild id="341A23F8FA62EA07" />
+    <insertChild id="4B503C3FB6C187CD" />
+    <insertChild id="1A0E21184B86DA1C" />
+    <insertChild id="25F25A0DAB972EC0" />
+    <insertChild id="EBB35B1FF2FD627E" />
+  </node>
+  <node name="Low Anything in Range" type="FindBestTarget" id="670A9214CC4F06EE">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+  </node>
+  <node name="Map Boss" type="FindBestTarget" id="DE76C6187E3E0E65">
+    <property name="TargetTypes" valueSource="literal" value="MapBoss" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+  </node>
+  <node name="Map Creature" type="FindBestTarget" id="341A23F8FA62EA07">
+    <property name="TargetTypes" valueSource="literal" value="MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+  </node>
+  <node name="Catapult" type="FindBestTarget" id="4B503C3FB6C187CD">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="UnitType" valueSource="literal" value="CatapultMinion" />
+  </node>
+  <node name="Merc" type="FindBestTarget" id="1A0E21184B86DA1C">
+    <property name="TargetTypes" valueSource="literal" value="Merc" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+  </node>
+  <node name="Minion" type="FindBestTarget" id="25F25A0DAB972EC0">
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+  </node>
+  <node name="Anything " type="FindBestTarget" id="EBB35B1FF2FD627E">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Melee DPS Movement" type="CompareNumber" id="BE202398F7765D98">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="10F75D1ECF20AAFD" />
+  </node>
+  <node name="Targeting Priorities" type="Or" id="10F75D1ECF20AAFD">
+    <insertChild id="8127DE42F80ED7D9" />
+    <insertChild id="46BD8455909A6F42" />
+    <insertChild id="99F927D1BB90A175" />
+    <insertChild id="BB8FEFB2BEFA80B7" />
+    <insertChild id="F873ECB8CAAE89EE" />
+    <insertChild id="DBC9AEF714707037" />
+    <insertChild id="F8EB6B180708127F" />
+  </node>
+  <node name="Low Anything in Range" type="FindBestTarget" id="8127DE42F80ED7D9">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Map Boss" type="FindBestTarget" id="46BD8455909A6F42">
+    <property name="TargetTypes" valueSource="literal" value="MapBoss" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Map Creature" type="FindBestTarget" id="99F927D1BB90A175">
+    <property name="TargetTypes" valueSource="literal" value="MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Catapult" type="FindBestTarget" id="BB8FEFB2BEFA80B7">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="UnitType" valueSource="literal" value="CatapultMinion" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Merc" type="FindBestTarget" id="F873ECB8CAAE89EE">
+    <property name="TargetTypes" valueSource="literal" value="Merc" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Minion" type="FindBestTarget" id="DBC9AEF714707037">
+    <property name="TargetTypes" valueSource="literal" value="Minion" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Anything " type="FindBestTarget" id="F8EB6B180708127F">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Tank Movement" type="CompareNumber" id="B8AF7FBAF4E57657">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="EC5DF7ABF59E0E3D" />
+  </node>
+  <node name="Targeting Priorities" type="Or" id="EC5DF7ABF59E0E3D">
+    <insertChild id="762ACED97A178391" />
+    <insertChild id="2DD6B3833591B4CE" />
+    <insertChild id="E1368A08D5AA9963" />
+    <insertChild id="C5635ABA2F08DEF8" />
+    <insertChild id="6F0EAB8EB1AB6120" />
+    <insertChild id="62E108A0512F7644" />
+    <insertChild id="2BCDF80E2C6408BA" />
+  </node>
+  <node name="Low Anything in Range" type="FindBestTarget" id="762ACED97A178391">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.2" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Map Boss" type="FindBestTarget" id="2DD6B3833591B4CE">
+    <property name="TargetTypes" valueSource="literal" value="MapBoss" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Map Creature" type="FindBestTarget" id="E1368A08D5AA9963">
+    <property name="TargetTypes" valueSource="literal" value="MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Catapult" type="FindBestTarget" id="C5635ABA2F08DEF8">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="UnitType" valueSource="literal" value="CatapultMinion" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Merc" type="FindBestTarget" id="6F0EAB8EB1AB6120">
+    <property name="TargetTypes" valueSource="literal" value="Merc" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Minion" type="FindBestTarget" id="62E108A0512F7644">
+    <property name="TargetTypes" valueSource="literal" value="Minion" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPointFactor" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="10" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Anything " type="FindBestTarget" id="2BCDF80E2C6408BA">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="Auto Attack Target" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTarget" />
+    <property name="ClipRadius" valueSource="variable" value="Combat Leash Range" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Mount Handling" type="Or" id="D1D0E4F8A2606B6F">
+    <insertChild id="7AAC4C4B7E412141" />
+    <insertChild id="F58CEF8C11F1AEBE" />
+  </node>
+  <node name="" type="And" id="7AAC4C4B7E412141">
+    <insertChild id="CCC6373B00F15703" />
+    <insertChild id="05046CB8D2C980C2" />
+    <insertChild id="F3E4829F27DB1AA7" />
+    <insertChild id="ECBE536F638E66FA" />
+    <insertChild id="21EFF00C4D2D44A9" />
+  </node>
+  <node name="Can Mount" type="Or" id="CCC6373B00F15703">
+    <insertChild id="42A50E1865FCE0CF" />
+  </node>
+  <node name="Can Mount?" type="AbilityUsable" id="42A50E1865FCE0CF">
+    <property name="Ability" valueSource="literal" value="Mount" />
+  </node>
+  <node name="" type="And" id="05046CB8D2C980C2">
+    <insertChild id="C9C836C3FBF3D89D" />
+  </node>
+  <node name="Not Mounted" type="UnitHasBehavior" id="C9C836C3FBF3D89D">
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="Mounted" />
+  </node>
+  <node name="" type="Not" id="F3E4829F27DB1AA7">
+    <insertChild id="7CCE95DE211E5EF4" />
+  </node>
+  <node name="3 seconds" type="RecentlyDamaged" id="7CCE95DE211E5EF4">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Reasons to Mount" type="Or" id="ECBE536F638E66FA">
+    <insertChild id="5B0C97943CB07B59" />
+    <insertChild id="64702F96D81E63AD" />
+    <insertChild id="893A05E1B2A376A0" />
+    <insertChild id="0E36445698334D06" />
+    <insertChild id="08D41B4126AF7F30" />
+  </node>
+  <node name="Mounted Follow Target" type="UnitHasBehavior" id="5B0C97943CB07B59">
+    <property name="Unit" valueSource="variable" value="GoalTarget" />
+    <property name="Behavior" valueSource="literal" value="Mounted" />
+  </node>
+  <node name="Birdform" type="UnitHasBehavior" id="64702F96D81E63AD">
+    <property name="Unit" valueSource="variable" value="GoalTarget" />
+    <property name="Behavior" valueSource="literal" value="MedivhTransformRaven" />
+  </node>
+  <node name="Mounting Target" type="OrderActive" id="893A05E1B2A376A0">
+    <property name="Unit" valueSource="variable" value="GoalTarget" />
+    <property name="Ability" valueSource="literal" value="Mount" />
+  </node>
+  <node name="Going Raven" type="OrderActive" id="0E36445698334D06">
+    <property name="Unit" valueSource="variable" value="GoalTarget" />
+    <property name="Ability" valueSource="literal" value="MedivhTransformRaven" />
+  </node>
+  <node name="No Enemy Near" type="CompareNumber" id="08D41B4126AF7F30">
+    <property name="LeftHandSide" valueSource="variable" value="Enemy Hero Count" />
+    <insertChild id="90BD57366222EB65" />
+  </node>
+  <node name="Follow Target Far" type="Distance" id="90BD57366222EB65">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="GoalTarget" />
+    <property name="Distance" valueSource="variable" value="Mount Range" />
+  </node>
+  <node name="Override" type="Or" id="21EFF00C4D2D44A9">
+    <insertChild id="5CA67AE10827DB93" />
+  </node>
+  <node name="Mount" type="Ability" id="5CA67AE10827DB93">
+    <property name="Ability" valueSource="literal" value="Mount" />
+  </node>
+  <node name="" type="And" id="F58CEF8C11F1AEBE">
+    <insertChild id="6E0C9C8E81A6AD94" />
+    <insertChild id="16D91BD6C2320B8A" />
+    <insertChild id="3E826638404A6C2D" />
+  </node>
+  <node name="" type="Or" id="6E0C9C8E81A6AD94">
+    <insertChild id="C5F2767321BDDEF5" />
+  </node>
+  <node name="Already Mounted" type="UnitHasBehavior" id="C5F2767321BDDEF5">
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="Mounted" />
+    <property name="StackCount" valueSource="literal" value="1" />
+  </node>
+  <node name="" type="Or" id="16D91BD6C2320B8A">
+    <insertChild id="97CC117DB4CA10DA" />
+  </node>
+  <node name="Target Not Mounted" type="UnitHasBehavior" id="97CC117DB4CA10DA">
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <property name="Unit" valueSource="variable" value="GoalTarget" />
+    <property name="Behavior" valueSource="literal" value="Mounted" />
+    <property name="StackCount" valueSource="literal" value="0" />
+    <insertChild id="A4163C87182B3B54" />
+  </node>
+  <node name="Close Enough to Dismount" type="Distance" id="A4163C87182B3B54">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="GoalTarget" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Distance" valueSource="variable" value="Mount Range" />
+  </node>
+  <node name="Override" type="Or" id="3E826638404A6C2D">
+    <insertChild id="87F9818995017A6E" />
+  </node>
+  <node name="Dismount" type="Ability" id="87F9818995017A6E">
+    <property name="Ability" valueSource="literal" value="Dismount" />
+  </node>
+  <node name="Hearth Handling" type="Or" id="0C20EFD44A87AE57">
+    <insertChild id="D7C3340BBF3B8160" />
+  </node>
+  <node name="Can Hearth?" type="AbilityUsable" id="D7C3340BBF3B8160">
+    <property name="Ability" valueSource="literal" value="Hearthstone" />
+    <insertChild id="595F07A432F3B6D7" />
+  </node>
+  <node name="" type="And" id="595F07A432F3B6D7">
+    <insertChild id="60FAB6B922221B56" />
+    <insertChild id="373E3548BAD71796" />
+    <insertChild id="5E8B54929AC633A9" />
+    <insertChild id="FBFCEDBFEC2CA6DB" />
+  </node>
+  <node name="" type="Not" id="60FAB6B922221B56">
+    <insertChild id="91865FF5DB6FD48C" />
+  </node>
+  <node name="3 seconds" type="RecentlyDamaged" id="91865FF5DB6FD48C">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="No Enemy Near" type="CompareNumber" id="373E3548BAD71796">
+    <property name="LeftHandSide" valueSource="variable" value="Enemy Hero Count" />
+    <insertChild id="EA6C7A3BCFFBF24F" />
+  </node>
+  <node name="Follow Target Close" type="Distance" id="EA6C7A3BCFFBF24F">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="GoalTarget" />
+    <property name="Distance" valueSource="variable" value="Mount Range" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="Reasons to Hearth" type="Or" id="5E8B54929AC633A9">
+    <insertChild id="23E062AFFC834145" />
+  </node>
+  <node name="Follow Hearthing" type="OrderActive" id="23E062AFFC834145">
+    <property name="Unit" valueSource="variable" value="GoalTarget" />
+    <property name="Ability" valueSource="literal" value="Hearthstone" />
+  </node>
+  <node name="Hearth" type="Ability" id="FBFCEDBFEC2CA6DB">
+    <property name="Ability" valueSource="literal" value="Hearthstone" />
+  </node>
+  <node name="Desired Position" type="Or" id="53DF6E96B366A207">
+    <insertChild id="1FCB9EE252D5BF89" />
+    <insertChild id="28078E9003C00664" />
+    <insertChild id="E951C779DED05AC8" />
+    <insertChild id="873145B55833243C" />
+  </node>
+  <node name="Override" type="Or" id="1FCB9EE252D5BF89">
+    <insertChild id="7C2C4D39AD85A0E2" />
+  </node>
+  <node name="Has Map Stacks" type="UnitHasBehavior" id="7C2C4D39AD85A0E2">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="MapMechanicStack" />
+    <insertChild id="D2602D28C76F03C8" />
+  </node>
+  <node name="" type="And" id="D2602D28C76F03C8">
+    <variable name="TurnInTarget" type="Unit" />
+    <insertChild id="F5A61BC1763CADFC" />
+    <insertChild id="E4ACF227C6836526" />
+    <insertChild id="882D727BD9ADC7AA" />
+    <insertChild id="C4B5B8F64FA3D3C3" />
+  </node>
+  <node name="" type="Not" id="F5A61BC1763CADFC">
+    <insertChild id="846CBFFF9D5E53C2" />
+  </node>
+  <node name="Not Recently Damage" type="RecentlyDamaged" id="846CBFFF9D5E53C2">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="No Enemy Hero Close" type="UnitCount" id="E4ACF227C6836526">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="5" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="" type="Or" id="882D727BD9ADC7AA">
+    <insertChild id="303D9E8F210EA231" />
+    <insertChild id="4668AC11B9935080" />
+  </node>
+  <node name="Find Soul Cage" type="FindBestTarget" id="303D9E8F210EA231">
+    <property name="TargetTypes" valueSource="literal" value="Player,Ally,Neutral,Enemy,Invulnerable" />
+    <property name="ExcludeTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="AITargetableStructure" />
+    <property name="UnitType" valueSource="literal" value="SoulCage" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="OutputTarget" value="TurnInTarget" />
+  </node>
+  <node name="Find Blackheart" type="FindBestTarget" id="4668AC11B9935080">
+    <property name="TargetTypes" valueSource="literal" value="Player,Ally,Neutral,Enemy,Invulnerable" />
+    <property name="ExcludeTypes" valueSource="literal" value="" />
+    <property name="UnitType" valueSource="literal" value="DocksPirateCaptain" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="OutputTarget" value="TurnInTarget" />
+  </node>
+  <node name="UseMacGuffin" type="Select" id="C4B5B8F64FA3D3C3">
+    <insertChild id="56FC5E6E103D666C" />
+    <insertChild id="49949F21B6901AE4" />
+    <insertChild id="218354C7E2745BFB" />
+  </node>
+  <node name="UseCaptureMacGuffin" type="Ability" id="56FC5E6E103D666C">
+    <property name="Ability" valueSource="literal" value="CaptureMacGuffin" />
+    <property name="TargetUnit" valueSource="variable" value="TurnInTarget" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="UseCaptureMacGuffinTwo" type="Ability" id="49949F21B6901AE4">
+    <property name="Ability" valueSource="literal" value="CaptureMacGuffinTwo" />
+    <property name="TargetUnit" valueSource="variable" value="TurnInTarget" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="UseVehicle" type="Ability" id="218354C7E2745BFB">
+    <property name="Ability" valueSource="literal" value="UseVehicle" />
+    <property name="TargetUnit" valueSource="variable" value="TurnInTarget" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="Ranged Movement" type="CompareNumber" id="28078E9003C00664">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="E16389151091017C" />
+  </node>
+  <node name="" type="Or" id="E16389151091017C">
+    <insertChild id="6CB11F465F3B6D4B" />
+    <insertChild id="C2F8A44F72A0F307" />
+  </node>
+  <node name="Combat" type="IfElse" id="6CB11F465F3B6D4B">
+    <insertChild id="C3F5E0873DE58CC6" />
+    <insertChild id="ED7D5722C20D4705" />
+    <insertChild id="6F5EA5FF3FA59FD6" />
+  </node>
+  <node name="In PvP" type="CompareBoolean" id="C3F5E0873DE58CC6">
+    <property name="LeftHandSide" valueSource="variable" value="In PvP Combat" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+  </node>
+  <node name="PvP Fighting" type="Or" id="ED7D5722C20D4705">
+    <insertChild id="6ECE4CB3137878EE" />
+  </node>
+  <node name="Enemy To Avoid" type="Distance" id="6ECE4CB3137878EE">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetPoint" valueSource="variable" value="Closest Enemy To Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Distance" valueSource="variable" value="Avoid Range" />
+    <insertChild id="DAFECF320D09BB28" />
+  </node>
+  <node name="Find point" type="FindPointOnLine" id="DAFECF320D09BB28">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="DestinationUnit" valueSource="variable" value="Closest Enemy To Self" />
+    <property name="DistanceOffset" valueSource="variable" value="Avoid Range" />
+    <property name="OutputTarget" value="Avoid Point" />
+    <insertChild id="A25E0B44D40B11FB" />
+  </node>
+  <node name="Safest Nearby Point" type="FindSafePoint" id="A25E0B44D40B11FB">
+    <property name="FleeCenter" valueSource="variable" value="Avoid Point" />
+    <property name="FleeDistance" valueSource="variable" value="FightRange" />
+    <property name="PreferredPoint" valueSource="variable" value="GoalTarget" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+  </node>
+  <node name="PvE Fighting" type="Or" id="6F5EA5FF3FA59FD6">
+    <insertChild id="54013AAC2A96A869" />
+  </node>
+  <node name="Enemy In Avoid Range" type="Distance" id="54013AAC2A96A869">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetPoint" valueSource="variable" value="Nearby PVE Target" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Distance" valueSource="variable" value="Avoid Range" />
+    <insertChild id="A252D8FECE1C3AE2" />
+  </node>
+  <node name="Find Point Away from target" type="FindPointOnLine" id="A252D8FECE1C3AE2">
+    <property name="SourceUnit" valueSource="variable" value="Nearby PVE Target" />
+    <property name="DestinationUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DistanceOffset" valueSource="literal" value="2" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+    <insertChild id="11C45782513445F7" />
+  </node>
+  <node name="Safest Nearby Point" type="FindSafePoint" id="11C45782513445F7">
+    <property name="FleeCenter" valueSource="variable" value="GoalTarget" />
+    <property name="FleeDistance" valueSource="variable" value="Avoid Range" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="SafePos" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+  </node>
+  <node name="Safe Follow Point" type="FindPointOnLine" id="C2F8A44F72A0F307">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DestinationPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="DistanceOffset" valueSource="variable" value="Follow Range" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+  </node>
+  <node name="Melee DPS Movement" type="CompareNumber" id="E951C779DED05AC8">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="F6101C59E2300A2B" />
+  </node>
+  <node name="" type="Or" id="F6101C59E2300A2B">
+    <insertChild id="F9D854C592997944" />
+    <insertChild id="0C1F1ABC5488FC13" />
+  </node>
+  <node name="" type="IfElse" id="F9D854C592997944">
+    <insertChild id="182CECDE4E450D26" />
+    <insertChild id="23B4F1D81058A662" />
+    <insertChild id="F2B8EAB8FF8C0A19" />
+  </node>
+  <node name="In PvP" type="CompareBoolean" id="182CECDE4E450D26">
+    <property name="LeftHandSide" valueSource="variable" value="In PvP Combat" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+  </node>
+  <node name="PvP Fighting" type="Or" id="23B4F1D81058A662">
+    <insertChild id="7284D75296F271BD" />
+  </node>
+  <node name="" type="IfElse" id="7284D75296F271BD">
+    <insertChild id="933879811C6E315E" />
+    <insertChild id="35D0C5CC67EE71C1" />
+    <insertChild id="A9887D0F14AFA649" />
+  </node>
+  <node name="Engage?" type="CompareBoolean" id="933879811C6E315E">
+    <property name="LeftHandSide" valueSource="variable" value="Should Engage" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+  </node>
+  <node name="Go to Enemy" type="FindPointOnLine" id="35D0C5CC67EE71C1">
+    <property name="SourceUnit" valueSource="variable" value="Auto Attack Target" />
+    <property name="DestinationPoint" valueSource="variable" value="GoalTarget" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+    <property name="DistanceOffset" valueSource="literal" value="2" />
+  </node>
+  <node name="Safe Follow Point" type="FindPointOnLine" id="A9887D0F14AFA649">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DestinationPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="DistanceOffset" valueSource="literal" value="5" />
+    <property name="OutputTarget" value="Avoid Point" />
+    <insertChild id="BF7115843A45705D" />
+  </node>
+  <node name="Safest Nearby Point" type="FindSafePoint" id="BF7115843A45705D">
+    <property name="FleeCenter" valueSource="variable" value="Avoid Point" />
+    <property name="FleeDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+  </node>
+  <node name="PvE Fighting" type="Or" id="F2B8EAB8FF8C0A19">
+    <insertChild id="1641F41FA8475C39" />
+  </node>
+  <node name="" type="IfElse" id="1641F41FA8475C39">
+    <insertChild id="C5CBB86FE3AC7758" />
+    <insertChild id="E052E0379FA56261" />
+    <insertChild id="BF516F6F4C293571" />
+  </node>
+  <node name="Engage?" type="CompareBoolean" id="C5CBB86FE3AC7758">
+    <property name="LeftHandSide" valueSource="variable" value="Should Engage" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+  </node>
+  <node name="Go to Enemy" type="FindPointOnLine" id="E052E0379FA56261">
+    <property name="SourceUnit" valueSource="variable" value="Auto Attack Target" />
+    <property name="DestinationPoint" valueSource="variable" value="GoalTarget" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+    <property name="DistanceOffset" valueSource="literal" value="2" />
+  </node>
+  <node name="Safe Follow Point" type="FindPointOnLine" id="BF516F6F4C293571">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DestinationPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="DistanceOffset" valueSource="literal" value="5" />
+    <property name="OutputTarget" value="Avoid Point" />
+    <insertChild id="36845BA730EA2055" />
+  </node>
+  <node name="Safest Nearby Point" type="FindSafePoint" id="36845BA730EA2055">
+    <property name="FleeCenter" valueSource="variable" value="Avoid Point" />
+    <property name="FleeDistance" valueSource="variable" value="Combat Leash Range" />
+    <property name="PreferredPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+  </node>
+  <node name="Safe Follow Point" type="FindPointOnLine" id="0C1F1ABC5488FC13">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DestinationPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="DistanceOffset" valueSource="variable" value="Follow Range" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+  </node>
+  <node name="Tank Movement" type="CompareNumber" id="873145B55833243C">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="26B027D466C2B708" />
+  </node>
+  <node name="" type="Or" id="26B027D466C2B708">
+    <insertChild id="CC9385B32BE1942D" />
+    <insertChild id="05D2E68BF74C1579" />
+  </node>
+  <node name="" type="IfElse" id="CC9385B32BE1942D">
+    <variable name="Enemy Future Position" type="Point" />
+    <insertChild id="423718C284E36F38" />
+    <insertChild id="C703A0FA169FDC33" />
+    <insertChild id="8461DD0D8657E0C7" />
+  </node>
+  <node name="In PvP" type="CompareBoolean" id="423718C284E36F38">
+    <property name="RightHandSide" valueSource="literal" value="true" />
+    <property name="LeftHandSide" valueSource="variable" value="In PvP Combat" />
+  </node>
+  <node name="PvP Fighting" type="Or" id="C703A0FA169FDC33">
+    <insertChild id="36DC4EB9C1C5308A" />
+  </node>
+  <node name="" type="IfElse" id="36DC4EB9C1C5308A">
+    <insertChild id="8F6193F190551E1A" />
+    <insertChild id="4D8D77397951FD61" />
+    <insertChild id="FF61C67875F9B824" />
+  </node>
+  <node name="No Enemy to Attack" type="Distance" id="8F6193F190551E1A">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetPoint" valueSource="variable" value="Closest Enemy To Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Distance" valueSource="intrinsic" value="AttackRange" />
+    <insertChild id="72944BDF2C347ABA" />
+  </node>
+  <node name="&gt; End Offensive" type="LifeFraction" id="72944BDF2C347ABA">
+    <property name="LifeFraction" valueSource="variable" value="Health_EndOffensive" />
+    <property name="Comparison" valueSource="literal" value="GT" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="" type="Or" id="4D8D77397951FD61">
+    <insertChild id="D3DA0A87B004597D" />
+  </node>
+  <node name="Enemy Future Position" type="UnitPosition" id="D3DA0A87B004597D">
+    <property name="InputUnit" valueSource="variable" value="Enemy to Peel" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="OutputPosition" value="Enemy Future Position" />
+    <insertChild id="2DAE5D98CC09C5F5" />
+  </node>
+  <node name="Between Follow and Enemy" type="FindPointOnLine" id="2DAE5D98CC09C5F5">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DistanceOffset" valueSource="variable" value="Follow Range" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+    <property name="DestinationPoint" valueSource="variable" value="Enemy Future Position" />
+  </node>
+  <node name="" type="Or" id="FF61C67875F9B824">
+    <insertChild id="6561B73889597248" />
+  </node>
+  <node name="Go to Enemy" type="UnitPosition" id="6561B73889597248">
+    <property name="InputUnit" valueSource="variable" value="Auto Attack Target" />
+    <property name="OutputPosition" value="Desired Movement Location" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+  </node>
+  <node name="PvE Fighting" type="Or" id="8461DD0D8657E0C7">
+    <insertChild id="7375065C2BFAA4E4" />
+  </node>
+  <node name="" type="IfElse" id="7375065C2BFAA4E4">
+    <insertChild id="219AF52BAACDDE38" />
+    <insertChild id="CC40D03351AEA229" />
+    <insertChild id="B0192C6AD6CF47C0" />
+  </node>
+  <node name="Enemies Nearby" type="CompareNumber" id="219AF52BAACDDE38">
+    <insertChild id="AD72B27888BE8B3A" />
+  </node>
+  <node name="&gt; End Offensive" type="LifeFraction" id="AD72B27888BE8B3A">
+    <property name="LifeFraction" valueSource="variable" value="Health_EndOffensive" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="" type="Or" id="CC40D03351AEA229">
+    <insertChild id="F97603C59E85409B" />
+  </node>
+  <node name="Enemy Future Position" type="UnitPosition" id="F97603C59E85409B">
+    <property name="InputUnit" valueSource="variable" value="Enemy to Peel" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="OutputPosition" value="Enemy Future Position" />
+    <insertChild id="E0473F62E544AB7F" />
+  </node>
+  <node name="Between Follow and Enemy" type="FindPointOnLine" id="E0473F62E544AB7F">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DistanceOffset" valueSource="variable" value="Follow Range" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+    <property name="DestinationPoint" valueSource="variable" value="Enemy Future Position" />
+  </node>
+  <node name="" type="Or" id="B0192C6AD6CF47C0">
+    <insertChild id="82EFED886DD2CE74" />
+  </node>
+  <node name="Safe Follow Point" type="FindPointOnLine" id="82EFED886DD2CE74">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DestinationPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="DistanceOffset" valueSource="literal" value="5" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+  </node>
+  <node name="Safe Follow Point" type="FindPointOnLine" id="05D2E68BF74C1579">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DestinationPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="DistanceOffset" valueSource="variable" value="Follow Range" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+  </node>
+  <node name="Movement and Combat" type="Or" id="810CEF47B4390772">
+    <insertChild id="6E420CB9680A021B" />
+    <insertChild id="73E7C72C99C37F5A" />
+    <insertChild id="658668A267AA893A" />
+    <insertChild id="DB862D0BCD904F5C" />
+    <insertChild id="D3B302205FBDD286" />
+  </node>
+  <node name="Movement Overrides" type="Or" id="6E420CB9680A021B" />
+  <node name="PvP Combat" type="CompareBoolean" id="73E7C72C99C37F5A">
+    <property name="LeftHandSide" valueSource="variable" value="In PvP Combat" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+    <insertChild id="A9EF8CC605E41C1B" />
+  </node>
+  <node name="" type="Or" id="A9EF8CC605E41C1B">
+    <insertChild id="127B8E5E7E439001" />
+    <insertChild id="68637FB7320232EC" />
+    <insertChild id="55AE92D5C47A5CF5" />
+  </node>
+  <node name="Ranged Movement" type="CompareNumber" id="127B8E5E7E439001">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="DCE1866C49FD1727" />
+  </node>
+  <node name="" type="Or" id="DCE1866C49FD1727">
+    <insertChild id="D9AC09A5F14B0D8E" />
+    <insertChild id="B09E94512143D4DB" />
+  </node>
+  <node name="Hero nearby to Avoid" type="Distance" id="D9AC09A5F14B0D8E">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="Closest Enemy To Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Distance" valueSource="variable" value="Avoid Range" />
+    <insertChild id="A650C50085598FDF" />
+  </node>
+  <node name="Move Away" type="HeroMoveToPoint" id="A650C50085598FDF">
+    <property name="TargetPosition" valueSource="variable" value="Desired Movement Location" />
+  </node>
+  <node name="Optimal Fight Target" type="HeroFight" id="B09E94512143D4DB">
+    <property name="Target" valueSource="variable" value="Auto Attack Target" />
+    <property name="FightRange" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPoint" valueSource="variable" value="Desired Movement Location" />
+  </node>
+  <node name="Melee DPS Movement" type="CompareNumber" id="68637FB7320232EC">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="B0CCF9A1000721EC" />
+  </node>
+  <node name="" type="Or" id="B0CCF9A1000721EC">
+    <insertChild id="42D4B2671A7EB639" />
+    <insertChild id="36127BB1DA6B446B" />
+  </node>
+  <node name="Hero nearby to Attack" type="Distance" id="42D4B2671A7EB639">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="Closest Enemy To Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Distance" valueSource="intrinsic" value="AttackRange" />
+    <insertChild id="EA684DD4B0DC05EC" />
+  </node>
+  <node name="Optimal Fight Target" type="HeroFight" id="EA684DD4B0DC05EC">
+    <property name="Target" valueSource="variable" value="Auto Attack Target" />
+    <property name="FightRange" valueSource="literal" value="0" />
+    <property name="PreferredPoint" valueSource="variable" value="Desired Movement Location" />
+  </node>
+  <node name="Move Away" type="HeroMoveToPoint" id="36127BB1DA6B446B">
+    <property name="TargetPosition" valueSource="variable" value="Desired Movement Location" />
+  </node>
+  <node name="Tank Movement" type="CompareNumber" id="55AE92D5C47A5CF5">
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="C54BC5ADD8BBD05B" />
+  </node>
+  <node name="" type="Or" id="C54BC5ADD8BBD05B">
+    <insertChild id="E4EFC31A1F60D68C" />
+    <insertChild id="E595611F5FD8BA52" />
+  </node>
+  <node name="Hero nearby to Avoid" type="Distance" id="E4EFC31A1F60D68C">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="Closest Enemy To Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Distance" valueSource="variable" value="Avoid Range" />
+    <insertChild id="3982204241E5D8A9" />
+  </node>
+  <node name="Move Away" type="HeroMoveToPoint" id="3982204241E5D8A9">
+    <property name="TargetPosition" valueSource="variable" value="Desired Movement Location" />
+  </node>
+  <node name="Optimal Fight Target" type="HeroFight" id="E595611F5FD8BA52">
+    <property name="Target" valueSource="variable" value="Auto Attack Target" />
+    <property name="FightRange" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPoint" valueSource="variable" value="Desired Movement Location" />
+  </node>
+  <node name="PvE Combat" type="CompareBoolean" id="658668A267AA893A">
+    <property name="LeftHandSide" valueSource="variable" value="In PvE Combat" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+    <insertChild id="048F71200D91F51D" />
+  </node>
+  <node name="" type="And" id="048F71200D91F51D">
+    <insertChild id="33B4B8936B7630F2" />
+    <insertChild id="99FA7276DEF82B5B" />
+    <insertChild id="8A17FB197AE9E2FF" />
+    <insertChild id="E3B3952DFE1BC471" />
+  </node>
+  <node name="Not stuck on a Hero" type="Validator" id="33B4B8936B7630F2">
+    <property name="Target" valueSource="variable" value="Auto Attack Target" />
+    <property name="Validator" valueSource="literal" value="TargetIsNotHeroic" />
+  </node>
+  <node name="Close To Follow" type="Distance" id="99FA7276DEF82B5B">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="GoalTarget" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Distance" valueSource="variable" value="Combat Leash Range" />
+  </node>
+  <node name="Target Close To Hero" type="Distance" id="8A17FB197AE9E2FF">
+    <property name="SourceUnit" valueSource="variable" value="Auto Attack Target" />
+    <property name="TargetUnit" valueSource="variable" value="GoalTarget" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Distance" valueSource="variable" value="Combat Leash Range" />
+  </node>
+  <node name="Optimal Fight Target" type="HeroFight" id="E3B3952DFE1BC471">
+    <property name="Target" valueSource="variable" value="Auto Attack Target" />
+    <property name="FightRange" valueSource="intrinsic" value="AttackRange" />
+    <property name="PreferredPoint" valueSource="variable" value="Desired Movement Location" />
+  </node>
+  <node name="Bush Out of Combat" type="And" id="DB862D0BCD904F5C">
+    <insertChild id="F2AC8EEF8F7EA844" />
+    <insertChild id="49A32DC6B55D8738" />
+    <insertChild id="E7CDFB9E087ED59E" />
+    <insertChild id="F129FB471E980F64" />
+  </node>
+  <node name="Not In Combat" type="CompareBoolean" id="F2AC8EEF8F7EA844">
+    <property name="RightHandSide" valueSource="literal" value="false" />
+    <property name="LeftHandSide" valueSource="variable" value="In PvP Combat" />
+  </node>
+  <node name="Not In Combat" type="CompareBoolean" id="49A32DC6B55D8738">
+    <property name="RightHandSide" valueSource="literal" value="false" />
+    <property name="LeftHandSide" valueSource="variable" value="In PvE Combat" />
+  </node>
+  <node name="Follow Target in Bush" type="UnitHasBehavior" id="E7CDFB9E087ED59E">
+    <property name="Unit" valueSource="variable" value="GoalTarget" />
+    <property name="Behavior" valueSource="literal" value="ShrubStatusController" />
+    <insertChild id="1F0FEE59E73DF7E7" />
+  </node>
+  <node name="" type="IfElse" id="1F0FEE59E73DF7E7">
+    <insertChild id="382661FF0B30D779" />
+    <insertChild id="124A7D208EC12BBD" />
+    <insertChild id="71E54ACBD4017C6E" />
+  </node>
+  <node name="Self Not In Bush" type="UnitHasBehavior" id="382661FF0B30D779">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="ShrubStatusController" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <property name="StackCount" valueSource="literal" value="1" />
+  </node>
+  <node name="" type="IfElse" id="124A7D208EC12BBD">
+    <insertChild id="8431D20CCB344EF6" />
+    <insertChild id="0D77E6E37809EF14" />
+    <insertChild id="731712944B8FF33B" />
+  </node>
+  <node name="Close in Bush" type="Distance" id="8431D20CCB344EF6">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetUnit" valueSource="variable" value="GoalTarget" />
+    <property name="Distance" valueSource="literal" value="2" />
+  </node>
+  <node name="Find Close Point in Bush" type="FindPointOnLine" id="0D77E6E37809EF14">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DestinationPoint" valueSource="intrinsic" value="SelfPos" />
+    <property name="DistanceOffset" valueSource="literal" value="2" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+  </node>
+  <node name="Stay In Bush" type="Running" id="731712944B8FF33B" />
+  <node name="Safe Follow Point" type="FindPointOnLine" id="71E54ACBD4017C6E">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DestinationPoint" valueSource="intrinsic" value="SafePos" />
+    <property name="DistanceOffset" valueSource="literal" value="1" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+  </node>
+  <node name="Goto follow" type="HeroMoveToPoint" id="F129FB471E980F64">
+    <property name="TargetPosition" valueSource="variable" value="Desired Movement Location" />
+  </node>
+  <node name="Not Tank" type="CompareNumber" id="D3B302205FBDD286">
+    <property name="Comparison" valueSource="literal" value="NE" />
+    <property name="LeftHandSide" valueSource="variable" value="Movement Type" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="2CA430A3A89806DA" />
+  </node>
+  <node name="Find Point Away from target" type="FindPointOnLine" id="2CA430A3A89806DA">
+    <property name="SourceUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DistanceOffset" valueSource="variable" value="Follow Range" />
+    <property name="OutputTarget" value="Avoid Point" />
+    <property name="DestinationPoint" valueSource="variable" value="Desired Safe Point" />
+    <insertChild id="53A143F7F75C4202" />
+  </node>
+  <node name="Safest Nearby Point" type="FindSafePoint" id="53A143F7F75C4202">
+    <property name="FleeCenter" valueSource="variable" value="Avoid Point" />
+    <property name="FleeDistance" valueSource="variable" value="Follow Slop" />
+    <property name="PreferredPoint" valueSource="variable" value="Desired Safe Point" />
+    <property name="OutputTarget" value="Desired Movement Location" />
+  </node>
+  <node name="Fallback Pathing" type="Or" id="E11986B6498349BA">
+    <insertChild id="B74E82C218FB8C00" />
+    <insertChild id="1298AF439DE4ED02" />
+    <insertChild id="159D845A2B73ED9A" />
+  </node>
+  <node name="Desired Location" type="HeroMoveToPoint" id="B74E82C218FB8C00">
+    <property name="TargetPosition" valueSource="variable" value="Desired Movement Location" />
+  </node>
+  <node name="Follow Target Alive" type="UnitIsAlive" id="1298AF439DE4ED02">
+    <property name="Unit" valueSource="variable" value="GoalTarget" />
+    <insertChild id="1611C78A404BA816" />
+  </node>
+  <node name="Fallback to Altar" type="HeroMoveToPoint" id="1611C78A404BA816">
+    <property name="TargetPosition" valueSource="variable" value="GoalTarget" />
+  </node>
+  <node name="Fallback to Altar" type="HeroMoveToPoint" id="159D845A2B73ED9A">
+    <property name="TargetPosition" valueSource="intrinsic" value="SafePos" />
+  </node>
+</tree>

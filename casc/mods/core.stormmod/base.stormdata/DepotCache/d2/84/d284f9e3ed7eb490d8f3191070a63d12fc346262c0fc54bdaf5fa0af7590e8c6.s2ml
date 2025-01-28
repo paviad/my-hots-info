@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Le comté du dragon</e>
+    <e id="2">Carte à 3 voies&lt;br&gt;&lt;br&gt;Le légendaire chevalier dragon est reclus dans sa prison de pierre au centre de la carte. Pour le libérer, votre équipe doit contrôler simultanément le sanctuaire du soleil et celui de la lune. Alors seulement l’un de vos héros pourra déchaîner le chevalier dragon et détruire vos ennemis grâce à son immense puissance.</e>
+    <e id="3">StormDragonShire</e>
+    <e id="4">Autre</e>
+    <e id="5">Type de jeu sans classification.</e>
+    <e id="6">Standard</e>
+    <e id="7">Les joueurs peuvent choisir leur héros.</e>
+    <e id="8">Dragon - Nombre de captures du dragon</e>
+    <e id="9">Nombre de transformations en chevalier dragon</e>
+    <e id="10">Le comté du dragon</e>
+    <e id="11">Carte à 3 voies</e>
+</Locale>

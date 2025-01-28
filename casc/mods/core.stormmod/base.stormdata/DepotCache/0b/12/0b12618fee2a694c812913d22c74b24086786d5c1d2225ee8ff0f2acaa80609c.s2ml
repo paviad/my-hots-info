@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">L’arène des jardins (mod)</e>
+    <e id="2">Mod de soutien pour l’arène des jardins</e>
+    <e id="3">Graines de jardin récoltées</e>
+    <e id="4">Nombre de graines récoltées</e>
+    <e id="5">Plus grande quantité de dégâts infligés aux plantes</e>
+    <e id="6">Sélection aléatoire</e>
+    <e id="7">Choisissez un héros parmi les trois proposés au hasard. Il y a une petite chance que tous les joueurs incarnent le même héros.</e>
+</Locale>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Ich glaub, es hakt</e>
+    <e id="2">Ein breites Spektrum von Blizzard-Helden trifft sich zur Schlacht in einer galaktischen Arena.</e>
+    <e id="3">(Storm) Ich glaub, es hakt</e>
+    <e id="4">Andere</e>
+    <e id="5">Unklassifizierter Spieltyp.</e>
+    <e id="6">Standard</e>
+    <e id="7">Spieler können ihre Helden auswählen.</e>
+</Locale>

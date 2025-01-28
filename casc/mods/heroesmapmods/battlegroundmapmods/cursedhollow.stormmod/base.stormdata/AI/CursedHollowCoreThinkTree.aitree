@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree>
+  <include file="AI/BaseTowerThinkTree.aitree" />
+  <mod id="7265776F20301D1D">
+    <removeChild id="63575F5E1B1A2C20" />
+    <insertChild id="BBC79FE72A766605" after="0624030051527278" />
+  </mod>
+  <node name="" type="Select" id="BBC79FE72A766605">
+    <insertChild id="70FF5E68D13EB599" />
+    <insertChild id="63575F5E1B1A2C20" />
+  </node>
+  <node name="Curse" type="AbilityUsable" id="70FF5E68D13EB599">
+    <property name="Ability" valueSource="literal" value="CursedHollowCoreCurse" />
+    <insertChild id="2FF75FC1F2BA0A57" />
+  </node>
+  <node name="" type="UnitCount" id="2FF75FC1F2BA0A57">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="BumpMaxDistanceToWeaponRange" valueSource="literal" value="true" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="ExcludeTypes" valueSource="literal" value="Player,Ally,Neutral,Creep,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,IgnoredByTowerAI" />
+    <insertChild id="D6569A82AD0D0157" />
+  </node>
+  <node name="" type="AbilityEnqueue" id="D6569A82AD0D0157">
+    <property name="Ability" valueSource="literal" value="CursedHollowCoreCurse" />
+    <property name="TargetUnit" valueSource="literal" value="" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+</tree>

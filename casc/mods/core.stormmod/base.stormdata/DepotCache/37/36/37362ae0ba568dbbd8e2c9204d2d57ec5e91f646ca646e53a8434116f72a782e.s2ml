@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">La Vengeance de Cœur-Noir</e>
+    <e id="2">Carte à trois voies&lt;br&gt;&lt;br&gt;</e>
+    <e id="3">(Storm) Kings Crest (Docks)</e>
+    <e id="4">Autre</e>
+    <e id="5">Type de jeu sans classification.</e>
+    <e id="6">Standard</e>
+    <e id="7">Les joueurs peuvent choisir leur héros.</e>
+    <e id="8">Doublons de Cœur-Noir récupérés</e>
+    <e id="9">Doublons de Cœur-Noir livrés</e>
+    <e id="10">Nombre de doublons remis à Cœur-Noir</e>
+    <e id="11">BlackHeartsSimple</e>
+    <e id="12">BlackHeartsSimple_zhCN</e>
+    <e id="13">La Vengeance de Cœur-Noir</e>
+    <e id="14">Cœur-Noir cherche à se venger de l’amiral sur ce champ de bataille d’un nouveau genre : attaque/défense !</e>
+    <e id="15">Choc de type attaque et défense</e>
+    <e id="16">Une équipe protège la cible. L’autre doit la détruire. La partie se déroule en 2 manches.</e>
+    <e id="17">Protégez ou détruisez le navire</e>
+    <e id="18">L’équipe de Cœur-Noir doit aider son navire à atteindre les quais. Tuez les héros adverses pour les empêcher de tirer au canon !</e>
+    <e id="19">L’équipe de l’amiral doit détruire le navire de Cœur-Noir. Collectez des boulets de canon et faites feu !</e>
+    <e id="20">L’équipe qui, pendant sa manche de défense, inflige le plus de dégâts au navire l’emporte !</e>
+    <e id="21">Sélection aléatoire</e>
+    <e id="22">Choisissez un héros parmi les trois proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="23">Informations supplémentaires</e>
+    <e id="24">Il y a une petite chance que tous les joueurs aient le même héros.</e>
+</Locale>

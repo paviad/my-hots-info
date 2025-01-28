@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Zemsta Czarnosercego</e>
+    <e id="2">Mapa z 3 alejami&lt;br&gt;&lt;br&gt;</e>
+    <e id="3">(Storm) Kings Crest (Docks)</e>
+    <e id="4">Inne</e>
+    <e id="5">Niesklasyfikowany rodzaj gry.</e>
+    <e id="6">Standardowo</e>
+    <e id="7">Gracze mogą wybrać swoich bohaterów.</e>
+    <e id="8">Liczba zebranych dublonów Czarnosercego</e>
+    <e id="9">Liczba wpłaconych dublonów Czarnosercego</e>
+    <e id="10">Dublony zwrócone Czarnosercemu</e>
+    <e id="11">BlackHeartsSimple</e>
+    <e id="12">BlackHeartsSimple_zhCN</e>
+    <e id="13">Zemsta Czarnosercego</e>
+    <e id="14">Na naszym pierwszym polu bitwy w stylu „atak i obrona” Czarnosercy pragnie zemsty na komodorze Fordzie!</e>
+    <e id="15">Bójka w stylu „atak i obrona”</e>
+    <e id="16">Jedna drużyna broni okrętu. Druga dąży do zniszczenia go. Mecz trwa przez dwie rundy.</e>
+    <e id="17">Zniszcz okręt lub broń go</e>
+    <e id="18">Drużyna Czarnosercego musi pomóc pirackiemu okrętowi dopłynąć do doków. Zabijaj wrogich bohaterów, aby uniemożliwić im otwarcie ognia z dział!</e>
+    <e id="19">Drużyna komodora musi zniszczyć okręt Czarnosercego. Zbieraj kule armatnie i strzelaj z dział!</e>
+    <e id="20">Zwycięża drużyna, która zada więcej obrażeń okrętowi podczas trwania swojej rundy obrony.</e>
+    <e id="21">Losowy wybór</e>
+    <e id="22">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="23">Dodatkowe informacje</e>
+    <e id="24">Istnieje niewielka szansa, że wszyscy będą grać tym samym bohaterem.</e>
+</Locale>

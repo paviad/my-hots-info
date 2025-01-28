@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">¡Enzarzados!</e>
+    <e id="2">¡Varios héroes de Blizzard se encuentran y se enfrentan en un épico campo de batalla galáctico!</e>
+    <e id="3">(Storm) Kings Crest (Gardens)</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de partida no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">¡Enzarzados!</e>
+    <e id="9">Recoged las semillas de los terrores para que no acaben siendo vuestra perdición.</e>
+    <e id="10">Mejor de 3 rondas en ¡Enzarzados!</e>
+    <e id="11">El primer equipo que gane 2 rondas se alzará con la victoria.</e>
+    <e id="12">Recoged semillas</e>
+    <e id="13">El primer equipo que recoja 100 semillas gana la ronda.</e>
+    <e id="14">Selección entre héroes aleatorios</e>
+    <e id="15">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="16">Información adicional</e>
+    <e id="17">Las esferas de regeneración son el doble de eficaces.</e>
+    <e id="18">Existe una pequeña posibilidad de que todos los jugadores sean el mismo héroe.</e>
+</Locale>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Furie sanguinaire</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">Default</e>
+    <e id="4">Furie sanguinaire</e>
+    <e id="5">Les héros s’affrontent à Comté du dragon et subissent Furie sanguinaire de manière aléatoire. Laissez libre cours à votre fureur !</e>
+    <e id="6">Réveillez le chevalier dragon</e>
+    <e id="7">Contrôlez simultanément les deux sanctuaires, et le chevalier dragon se joindra à vous.</e>
+    <e id="8">Furie sanguinaire</e>
+    <e id="9">À intervalles réguliers, deux héros aléatoires de chaque équipe obtiennent brièvement un bonus aux vitesses d’attaque et de déplacement, et récupèrent des points de vie en attaquant.</e>
+    <e id="10">Sélection aléatoire</e>
+    <e id="11">Choisissez un héros parmi les trois proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="12">Informations supplémentaires</e>
+    <e id="13">Le chevalier dragon, les mercenaires et tous les serviteurs sont en permanence sous l’effet de Furie sanguinaire.</e>
+    <e id="14">Il y a une petite chance que les héros des deux équipes soient tous affectés par Furie sanguinaire.</e>
+    <e id="15">Après 17 minutes, Furie sanguinaire affecte tous les héros de manière permanente !</e>
+</Locale>

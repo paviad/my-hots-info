@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="koKR">
+    <e id="1">하늘 사원 데이터 (모드)</e>
+    <e id="2"></e>
+    <e id="3">사원에 머문 시간</e>
+    <e id="4">활성화된 사원에 머문 시간</e>
+    <e id="5">최장 사원 점령 시간</e>
+</Locale>

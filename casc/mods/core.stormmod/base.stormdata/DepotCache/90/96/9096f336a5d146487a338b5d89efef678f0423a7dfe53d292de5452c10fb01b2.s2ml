@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Industrial District</e>
+    <e id="2">A wide array of Blizzard Heroes meet and do battle in an epic, galactic arena!</e>
+    <e id="3">Other</e>
+    <e id="4">Unclassified game type.</e>
+    <e id="5">Standard</e>
+    <e id="6">All settings may be customized.</e>
+    <e id="7">Industrial District</e>
+    <e id="8">Randomly selected Heroes battle down a single lane!</e>
+    <e id="9">Destroy Enemy&apos;s Core</e>
+    <e id="10">Destroy the enemy&apos;s Core to win.</e>
+    <e id="11">Single Lane</e>
+    <e id="12">No additional battleground objectives are present. Prepare for constant action.</e>
+    <e id="13">Shuffle Pick</e>
+    <e id="14">Choose from one of three randomly selected heroes.</e>
+    <e id="15">Additional Info</e>
+    <e id="16">Hearthstones (B) are disabled and your starting area doesn&apos;t regenerate health.</e>
+    <e id="17">Globe generators spawn regeneration globes on the battlefield.</e>
+</Locale>

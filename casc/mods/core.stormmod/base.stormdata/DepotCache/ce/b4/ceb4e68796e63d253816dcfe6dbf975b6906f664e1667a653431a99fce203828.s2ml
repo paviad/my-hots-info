@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Festival Lunar (Mod)</e>
+    <e id="2">Completamente falto de descripción.</e>
+    <e id="3">Carrera de cohete lunar</e>
+    <e id="4">¡Enciendan sus cohetes! ¡Compite contra otros jugadores y consigue un lugar en el círculo de los ganadores!</e>
+    <e id="5">Cruza la línea de meta</e>
+    <e id="6">¡Es una carrera! Completa la pista y cruza la línea de meta lo más rápido que puedas.</e>
+    <e id="7">Rocket n’ Roll Racing</e>
+    <e id="8">Los jugadores corren en cohetes lunares en una pista única</e>
+    <e id="9">Recoge Sobres en la pista para obtener habilidades especiales aleatorias</e>
+    <e id="10">Pasa por las cintas transportadoras para ser impulsado en su dirección y obtener un breve incremento de velocidad</e>
+    <e id="11">Héroes del Festival Lunar</e>
+    <e id="12">Los héroes se asignan aleatoriamente de una alineación de héroes especialmente seleccionados en sus diseños del Festival Lunar.</e>
+    <e id="13">Información adicional</e>
+    <e id="14">Una vez que el primer héroe cruza la línea de meta, todos los demás tendrán 30 segundos para terminar la carrera para ganar la contienda</e>
+    <e id="15">No cruzar la línea de meta o terminar en último lugar equivale a perder</e>
+    <e id="16">Los cohetes de Sobres pueden dispararse en una dirección y aturdir al primer enemigo que golpeen</e>
+    <e id="17">Las bombas de Sobres pueden soltarse detrás de ti para aturdir a los enemigos que se las lleven por delante</e>
+    <e id="18">Las bendiciones lunares de Sobres otorgan invulnerabilidad e incrementan la velocidad de movimiento</e>
+</Locale>

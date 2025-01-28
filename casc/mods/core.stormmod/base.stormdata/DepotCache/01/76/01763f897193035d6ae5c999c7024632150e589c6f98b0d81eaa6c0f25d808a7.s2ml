@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">¡Aplástenlos, robots!</e>
+    <e id="2">Completamente falto de descripción.</e>
+    <e id="3">Distrito industrial</e>
+    <e id="4">¡Aplástenlos, robots!</e>
+    <e id="5">¡Usa a los Protectores para intentar destruir el núcleo del enemigo!</e>
+    <e id="6">Destruye el núcleo enemigo</e>
+    <e id="7">Destruye el núcleo del enemigo para ganar.</e>
+    <e id="8">Protectores</e>
+    <e id="9">Ambos equipos comienzan con un Protector Triglav</e>
+    <e id="10">Cuando ambos Protectores son destruidos, dos nuevos reaparecen</e>
+    <e id="11">Preselección</e>
+    <e id="12">Elige a uno de los tres héroes seleccionados aleatoriamente.</e>
+    <e id="13">Información adicional</e>
+    <e id="14">Dos jugadores pueden ocupar el Protector Triglav: un piloto y un artillero</e>
+    <e id="15">Tanto el piloto como el artillero tienen acceso a habilidades únicas</e>
+    <e id="16">Solo el piloto puede mover el Protector</e>
+</Locale>

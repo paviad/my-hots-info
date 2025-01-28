@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Volskaya Foundry</e>
+    <e id="2">3-Lane Map</e>
+    <e id="3">Other</e>
+    <e id="4">Unclassified game type.</e>
+    <e id="5">Standard</e>
+    <e id="6">Players can choose their Heroes.</e>
+    <e id="7">Dragon Number Of Dragon Captures</e>
+    <e id="8">Number of times became Dragon Knight</e>
+    <e id="9">Volskaya Foundry</e>
+    <e id="10">3-Lane Map</e>
+</Locale>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree>
+  <include file="AI/BaseTowerThinkTree.aitree" />
+  <mod id="367165474E605656">
+    <insertChild id="3B322B271C26332A" after="0FB2A74078CD5FAF" />
+    <insertChild id="552B0F090218301D" after="3B322B271C26332A" />
+    <insertChild id="554560606C717D1D" after="552B0F090218301D" />
+  </mod>
+  <mod id="7265776F20301D1D">
+    <removeChild id="63575F5E1B1A2C20" />
+    <insertChild id="8C4C3248A13DB040" after="0624030051527278" />
+  </mod>
+  <node name="Tower Focus current SoulEaterMinion" type="FindBestTarget" id="3B322B271C26332A" comment="Focus on SoulEaterMinion above all other targets">
+    <property name="UnitType" valueSource="literal" value="SoulEaterMinion" />
+    <property name="DistanceFactor" valueSource="literal" value="2" />
+    <property name="FocusTarget" valueSource="variable" value="AttackTarget" />
+    <property name="OnlyFocusTarget" valueSource="literal" value="true" />
+    <property name="BumpMaxDistanceToWeaponRange" valueSource="literal" value="true" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="AttackTarget" />
+  </node>
+  <node name="Tower Find closest SoulEaterMinion" type="FindBestTarget" id="552B0F090218301D" comment="Search for nearby SoulEaterMinion">
+    <property name="UnitType" valueSource="literal" value="SoulEaterMinion" />
+    <property name="DistanceFactor" valueSource="literal" value="2" />
+    <property name="FocusTarget" valueSource="variable" value="AttackTarget" />
+    <property name="BumpMaxDistanceToWeaponRange" valueSource="literal" value="true" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="AttackTarget" />
+  </node>
+  <node name="Tower Find closest SoulEater" type="FindBestTarget" id="554560606C717D1D" comment="Search for nearby SoulEater">
+    <property name="UnitType" valueSource="literal" value="SoulEater" />
+    <property name="DistanceFactor" valueSource="literal" value="2" />
+    <property name="FocusTarget" valueSource="variable" value="AttackTarget" />
+    <property name="BumpMaxDistanceToWeaponRange" valueSource="literal" value="true" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="AttackTarget" />
+  </node>
+  <node name="" type="Select" id="8C4C3248A13DB040">
+    <insertChild id="CBB2314D8674EE9C" />
+    <insertChild id="63575F5E1B1A2C20" />
+  </node>
+  <node name="Death Wave" type="AbilityUsable" id="CBB2314D8674EE9C">
+    <property name="Ability" valueSource="literal" value="TombCoreDeathWave" />
+    <insertChild id="65356F3B431DF130" />
+  </node>
+  <node name="" type="UnitCount" id="65356F3B431DF130">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="BumpMaxDistanceToWeaponRange" valueSource="literal" value="true" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="ExcludeTypes" valueSource="literal" value="Player,Ally,Neutral,Creep,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,IgnoredByTowerAI" />
+    <insertChild id="FCD5BC52285201D1" />
+  </node>
+  <node name="" type="AbilityEnqueue" id="FCD5BC52285201D1">
+    <property name="Ability" valueSource="literal" value="TombCoreDeathWave" />
+    <property name="TargetUnit" valueSource="literal" value="" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+</tree>

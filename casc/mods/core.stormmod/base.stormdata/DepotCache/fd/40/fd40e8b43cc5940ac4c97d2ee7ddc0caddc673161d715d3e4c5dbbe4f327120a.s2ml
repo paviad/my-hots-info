@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Jardín del Terror</e>
+    <e id="2">¡Varios héroes de Blizzard se encuentran y se enfrentan en un épico campo de batalla galáctico!</e>
+    <e id="3">(Storm) Kings Crest (Gardens)</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de partida no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">Jardín del Terror</e>
+    <e id="9">Mapa de 3 caminos</e>
+</Locale>

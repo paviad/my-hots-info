@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Bahía de Almanegra</e>
+    <e id="2">Mapa de 3 vías&lt;br&gt;&lt;br&gt;El capitán pirata Almanegra aguarda en el centro de la bahía. El equipo que le entregue una cantidad aceptable de doblones se ganará su favor y logrará que su barco pirata fantasmal bombardee los fuertes enemigos. Puedes conseguir doblones matando héroes, arrasando campamentos mercenarios o abriendo cofres de tesoro.</e>
+    <e id="3">(Storm) Cima del rey (Dársena)</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de juego no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">Almanegra - Doblones recolectados</e>
+    <e id="9">Almanegra - Doblones entregados</e>
+    <e id="10">Cantidad de doblones entregados a Almanegra</e>
+    <e id="11">Bahía de Almanegra</e>
+    <e id="12">Mapa de 3 vías</e>
+</Locale>

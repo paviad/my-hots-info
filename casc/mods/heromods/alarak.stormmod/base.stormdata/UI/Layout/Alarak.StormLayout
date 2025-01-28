@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+  <Frame type="Frame" name="ProgressGlowMaskTemplate">
+    <Height val="84" />
+    <Width val="232" />
+    <AlphaMaskTexture val="@UI/Storm_UI_HUD_Alarak_Meter_Mask" />
+    <AlphaMaskSiblings val="True" />
+    <RenderPriority val="514" />
+    <Alpha val="128" />
+    <Frame type="Image" name="ProgressBarGlow">
+      <Anchor side="Top" relative="$parent/$parent/AlarakSadismMeterBackGround" pos="Min" offset="0" />
+      <Anchor side="Left" relative="$parent/$parent/AlarakSadismMeterBackGround" pos="Min" offset="0" />
+      <Texture val="@UI/Storm_UI_HUD_Alarak_Meter_Bars_Lit_Glow" />
+    </Frame>
+  </Frame>
+  <Frame type="SelectionUnitStatusPanel" name="AlarakFrame">
+    <Anchor side="Bottom" relative="$parent" pos="Max" offset="0" />
+    <Anchor side="Left" relative="$parent" pos="Min" offset="0" />
+    <Height val="137" />
+    <Width val="300" />
+    <SpecificUnit val="HeroAlarak" />
+    <Frame type="UnitStatusFrame" name="UnitStatusFrame0">
+      <Anchor relative="$parent" />
+      <Frame type="Image" name="AlarakSadismMeterBackGround">
+        <Anchor side="Bottom" relative="$parent" pos="Max" offset="-4" />
+        <Anchor side="Left" relative="$parent" pos="Min" offset="32" />
+        <Texture val="@UI/Storm_UI_HUD_Alarak_Meter_BG" />
+      </Frame>
+      <Frame type="ProgressBar" name="AlarakSadismProgressBar">
+        <Anchor side="Top" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="0" />
+        <Anchor side="Left" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="16" />
+        <RenderPriority val="513" />
+        <AcceptsMouse val="False" />
+        <MinValue val="0" />
+        <MaxValue val="100" />
+        <Value val="100" />
+        <Height val="84" />
+        <Width val="160" />
+        <UseFillContainer val="True" />
+        <Frame type="Frame" name="FillImageContainer">
+          <Anchor side="Top" relative="$parent" pos="Min" offset="0" />
+          <Anchor side="Left" relative="$parent" pos="Min" offset="0" />
+          <Anchor side="Bottom" relative="$parent" pos="Max" offset="0" />
+          <Frame type="Image" name="FillImage">
+            <Anchor relative="$parent" />
+            <Alpha val="0" />
+            <Texture val="@UI/StormTempWhite" />
+          </Frame>
+        </Frame>
+      </Frame>
+      <Frame type="Frame" name="ProgressMask">
+        <Anchor side="Top" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="-15" />
+        <Anchor side="Right" relative="$parent/AlarakSadismProgressBar/FillImageContainer" pos="Max" offset="8" />
+        <Height val="84" />
+        <Width val="232" />
+        <AlphaMaskTexture val="@UI/Storm_UI_HUD_Alarak_Meter_Mask" />
+        <AlphaMaskSiblings val="True" />
+        <RenderPriority val="515" />
+        <Frame type="Image" name="ProgressBarLit">
+          <Anchor side="Top" relative="$parent/$parent/AlarakSadismMeterBackGround" pos="Min" offset="0" />
+          <Anchor side="Left" relative="$parent/$parent/AlarakSadismMeterBackGround" pos="Min" offset="0" />
+          <Texture val="@UI/Storm_UI_HUD_Alarak_Meter_Bars_Lit" />
+        </Frame>
+      </Frame>
+      <Frame type="Frame" name="ProgressGlowMask1" template="Alarak/ProgressGlowMaskTemplate">
+        <Anchor side="Top" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="-15" />
+        <Anchor side="Right" relative="$parent/AlarakSadismProgressBar/FillImageContainer" pos="Max" offset="8" />
+      </Frame>
+      <Frame type="Frame" name="ProgressGlowMask2" template="Alarak/ProgressGlowMaskTemplate">
+        <Anchor side="Top" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="-15" />
+        <Anchor side="Right" relative="$parent/AlarakSadismProgressBar/FillImageContainer" pos="Max" offset="10" />
+      </Frame>
+      <Frame type="Frame" name="ProgressGlowMask3" template="Alarak/ProgressGlowMaskTemplate">
+        <Anchor side="Top" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="-15" />
+        <Anchor side="Right" relative="$parent/AlarakSadismProgressBar/FillImageContainer" pos="Max" offset="12" />
+        <Alpha val="64" />
+      </Frame>
+      <Frame type="Image" name="ExtraGlowImage">
+        <Anchor side="Top" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="0" />
+        <Anchor side="Left" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="0" />
+        <RenderPriority val="515" />
+        <Height val="84" />
+        <Width val="200" />
+        <Alpha val="0" />
+        <Texture val="@UI/Storm_UI_HUD_Alarak_Meter_Extra_Bars" />
+        <Animation name="PureMaliceStack1">
+          <Event event="PureMaliceStack1" action="Reset, Play" />
+          <Event event="PureMaliceStack2" action="Stop" />
+          <Event event="PureMaliceStack3" action="Stop" />
+          <Event event="PureMaliceStack4" action="Stop" />
+          <Event event="PureMaliceStack5" action="Stop" />
+          <Controller type="Fade" end="Loop">
+            <Key type="Curve" time="0" value="128" inout="Linear" />
+            <Key type="Curve" time=".6" value="0" inout="Slow" />
+            <Key type="Curve" time="1.2" value="128" inout="Linear" />
+          </Controller>
+          <Controller type="Visibility" end="Pause">
+            <Key type="Bool" time="0" value="True" />
+          </Controller>
+        </Animation>
+        <Animation name="PureMaliceStack2">
+          <Event event="PureMaliceStack2" action="Reset, Play" />
+          <Event event="PureMaliceStack1" action="Stop" />
+          <Event event="PureMaliceStack3" action="Stop" />
+          <Event event="PureMaliceStack4" action="Stop" />
+          <Event event="PureMaliceStack5" action="Stop" />
+          <Controller type="Fade" end="Loop">
+            <Key type="Curve" time="0" value="153" inout="Linear" />
+            <Key type="Curve" time=".55" value="26" inout="Slow" />
+            <Key type="Curve" time="1.1" value="153" inout="Linear" />
+          </Controller>
+          <Controller type="Visibility" end="Pause">
+            <Key type="Bool" time="0" value="True" />
+          </Controller>
+        </Animation>
+        <Animation name="PureMaliceStack3">
+          <Event event="PureMaliceStack3" action="Reset, Play" />
+          <Event event="PureMaliceStack2" action="Stop" />
+          <Event event="PureMaliceStack1" action="Stop" />
+          <Event event="PureMaliceStack4" action="Stop" />
+          <Event event="PureMaliceStack5" action="Stop" />
+          <Controller type="Fade" end="Loop">
+            <Key type="Curve" time="0" value="179" inout="Linear" />
+            <Key type="Curve" time=".5" value="51" inout="Slow" />
+            <Key type="Curve" time="1" value="179" inout="Linear" />
+          </Controller>
+          <Controller type="Visibility" end="Pause">
+            <Key type="Bool" time="0" value="True" />
+          </Controller>
+        </Animation>
+        <Animation name="PureMaliceStack4">
+          <Event event="PureMaliceStack4" action="Reset, Play" />
+          <Event event="PureMaliceStack2" action="Stop" />
+          <Event event="PureMaliceStack3" action="Stop" />
+          <Event event="PureMaliceStack1" action="Stop" />
+          <Event event="PureMaliceStack5" action="Stop" />
+          <Controller type="Fade" end="Loop">
+            <Key type="Curve" time="0" value="204" inout="Linear" />
+            <Key type="Curve" time=".45" value="77" inout="Slow" />
+            <Key type="Curve" time=".9" value="204" inout="Linear" />
+          </Controller>
+          <Controller type="Visibility" end="Pause">
+            <Key type="Bool" time="0" value="True" />
+          </Controller>
+        </Animation>
+        <Animation name="PureMaliceStack5">
+          <Event event="PureMaliceStack5" action="Reset, Play" />
+          <Event event="PureMaliceStack2" action="Stop" />
+          <Event event="PureMaliceStack3" action="Stop" />
+          <Event event="PureMaliceStack4" action="Stop" />
+          <Event event="PureMaliceStack1" action="Stop" />
+          <Controller type="Fade" end="Loop">
+            <Key type="Curve" time="0" value="255" inout="Linear,Slow" />
+            <Key type="Curve" time=".4" value="128" inout="Fast" />
+            <Key type="Curve" time=".8" value="255" inout="Slow,Linear" />
+          </Controller>
+          <Controller type="Visibility" end="Pause">
+            <Key type="Bool" time="0" value="True" />
+          </Controller>
+        </Animation>
+      </Frame>
+      <Frame type="Label" name="SadismLabel">
+        <Anchor side="Bottom" relative="$parent/SadismLabelPercent" pos="Max" offset="5" />
+        <Anchor side="Right" relative="$parent/SadismLabelPercent" pos="Min" offset="3" />
+        <Style val="Storm_HUD_Alarak_Sadism" />
+        <Text val="100" />
+      </Frame>
+      <Frame type="Label" name="SadismLabelPercent">
+        <Anchor side="Top" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="18" />
+        <Anchor side="Left" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="50" />
+        <Style val="Storm_HUD_Alarak_Sadism_Precent" />
+        <Text val="%" />
+      </Frame>
+      <Frame type="BehaviorIcon" name="SadismTooltipFrame">
+        <Anchor side="Top" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="10" />
+        <Anchor side="Left" relative="$parent/AlarakSadismMeterBackGround" pos="Min" offset="5" />
+        <Anchor side="Right" relative="$parent/AlarakSadismMeterBackGround" pos="Max" offset="0" />
+        <Anchor side="Bottom" relative="$parent/AlarakSadismMeterBackGround" pos="Max" offset="-5" />
+        <TooltipFrame val="BehaviorIconTooltip" />
+        <Behavior val="AlarakSadismTakedownIncreaseTokenCounter" />
+      </Frame>
+      <Frame type="UnitStatusValidatorAnimElement" name="HealthIndicatorVisibility">
+        <Anchor relative="$parent" />
+        <Validator val="AlarakHasRuthlessMomentumTalent" />
+      </Frame>
+      <Frame type="UnitStatusValidatorAnimElement" name="HealthIndicatorTexture">
+        <Anchor relative="$parent" />
+        <Validator val="IsDead" />
+        <Validator val="TargetLifeGT80Percent" />
+        <Animation name="IsDead">
+          <Event event="Reset" action="Stop" />
+          <Event event="NoState" action="Stop" />
+          <Event event="IsDead" action="Restart, Play" />
+        </Animation>
+        <Animation name="TargetLifeGT80Percent">
+          <Event event="Reset" action="Stop" />
+          <Event event="NoState" action="Stop" />
+          <Event event="TargetLifeGT80Percent" action="Restart, Play" />
+        </Animation>
+      </Frame>
+    </Frame>
+    <StateGroup name="FrameState">
+      <DefaultState val="GT80" />
+      <State name="GT80">
+        <Action type="SetProperty" frame="HealthIndicator" Texture="@UI/HeroConsole/Hero/HealthIndicator" />
+      </State>
+      <State name="DeadORLT80">
+        <When type="AnimationState" frame="UnitStatusFrame0/HealthIndicatorTexture" operator="NotEqual" UnitStatusValidatorState="TargetLifeGT80Percent" />
+        <Action type="SetProperty" frame="HealthIndicator" Texture="@UI/HeroConsole/Hero/HealthIndicatorDead" />
+      </State>
+    </StateGroup>
+    <Frame type="Image" name="HealthIndicator">
+      <Anchor side="Bottom" relative="$parent/$parent/$parent/HeroConsolePanel/HeroStatsFrame/HeroUnitStatusFrame/HealthBar" pos="Mid" offset="9" />
+      <Anchor side="Left" relative="$parent/$parent/$parent/HeroConsolePanel/HeroStatsFrame/HeroUnitStatusFrame/HealthBar" pos="80%" offset="-17" />
+      <Texture val="@UI/HeroConsole/Hero/HealthIndicator" />
+      <Unclipped val="True" />
+      <Visible val="{$parent/UnitStatusFrame0/HealthIndicatorVisibility/@Visible}" />
+    </Frame>
+  </Frame>
+  <Frame type="SelectionUnitStatusPanel" name="AlarakHeroicChargeFrame">
+    <Anchor side="Bottom" relative="$GameUI_HeroCustomChannelBarPlaceholder" pos="Max" offset="0" />
+    <Anchor side="Left" relative="$parent" pos="Mid" offset="0" />
+    <Anchor side="Right" relative="$parent" pos="Mid" offset="0" />
+    <Height val="56" />
+    <Width val="602" />
+    <SpecificUnit val="HeroAlarak" />
+    <Frame type="UnitStatusFrame" name="UnitStatusFrame0">
+      <Anchor relative="$parent" />
+      <VisibleToOwner val="true" />
+      <VisibleToAlly val="false" />
+      <VisibleToEnemy val="false" />
+      <Frame type="Image" name="ChannelBarFrame">
+        <Anchor side="Bottom" relative="$parent/AlarakCounterStrikeDurationBar" pos="Max" offset="0" />
+        <Anchor side="Left" relative="$parent/AlarakCounterStrikeDurationBar" pos="Min" offset="0" />
+        <Anchor side="Right" relative="$parent/AlarakCounterStrikeDurationBar" pos="Max" offset="0" />
+        <Height val="#ChannelBarHeight" />
+        <Texture val="@UI/HUD_Bar_CastChannel_BG" />
+        <TextureType val="NineSlice" />
+        <IgnoreParentColor val="True" />
+        <RenderPriority val="600" />
+        <Frame type="Label" name="ChannelNameLabel">
+          <Anchor side="Top" relative="$parent" pos="Mid" offset="0" />
+          <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0" />
+          <Anchor side="Left" relative="$parent" pos="Min" offset="0" />
+          <Anchor side="Right" relative="$parent" pos="Max" offset="0" />
+          <Style val="Storm_BehaviorBarLabel" />
+          <Text val="@Button/Name/AlarakDeadlyCharge" />
+          <IgnoreParentColor val="True" />
+          <RenderPriority val="602" />
+        </Frame>
+        <StateGroup name="ChannelState">
+          <State name="Neither">
+            <When type="Property" frame="$parent/AlarakCounterStrikeDurationBar" Visible="False" />
+            <When type="Property" frame="$parent/AlarakDeadlyChargeDurationBar" Visible="False" />
+            <When type="Property" frame="$parent/DeadlyChargeFullyChargedAnimElement" Visible="False" />
+            <Action type="SetProperty" frame="$this" Visible="false" />
+            <Action type="SetProperty" frame="$this/ChannelNameLabel" Visible="True" />
+            <Action type="SetProperty" frame="$GameUI_HeroCustomChannelBarPlaceholder" Visible="True" />
+          </State>
+          <State name="Counterstrike">
+            <When type="Property" frame="$parent/AlarakCounterStrikeDurationBar" Visible="True" />
+            <Action type="SetProperty" frame="$this" Visible="True" />
+            <Action type="SetProperty" frame="$this/ChannelNameLabel" Visible="True" />
+            <Action type="SetProperty" frame="$this/ChannelNameLabel" Text="@Button/Name/AlarakCounterStrikeTargeted" />
+            <Action type="SetProperty" frame="$GameUI_HeroCustomChannelBarPlaceholder" Visible="True" />
+          </State>
+          <State name="DeadlyCharge">
+            <When type="Property" frame="$parent/AlarakDeadlyChargeDurationBar" Visible="True" />
+            <Action type="SetProperty" frame="$this" Visible="True" />
+            <Action type="SetProperty" frame="$this/ChannelNameLabel" Visible="True" />
+            <Action type="SetProperty" frame="$this/ChannelNameLabel" Text="@Button/Name/AlarakDeadlyCharge" />
+            <Action type="SetProperty" frame="$GameUI_HeroCustomChannelBarPlaceholder" Visible="True" />
+          </State>
+          <State name="DeadlyChargeComplete">
+            <When type="Property" frame="$parent/DeadlyChargeFullyChargedAnimElement" Visible="True" />
+            <Action type="SetProperty" frame="$this" Visible="True" />
+            <Action type="SetProperty" frame="$this/ChannelNameLabel" Visible="True" />
+            <Action type="SetProperty" frame="$this/ChannelNameLabel" Text="@Button/Name/AlarakDeadlyCharge" />
+            <Action type="SetProperty" frame="$GameUI_HeroCustomChannelBarPlaceholder" Visible="True" />
+          </State>
+        </StateGroup>
+      </Frame>
+      <Frame type="UnitStatusDurationBar" name="AlarakCounterStrikeDurationBar">
+        <Anchor side="Top" relative="$parent" pos="Min" offset="0" />
+        <Anchor side="Left" relative="$parent" pos="Min" offset="0" />
+        <Anchor side="Right" relative="$parent" pos="Max" offset="0" />
+        <Height val="#ChannelBarHeight" />
+        <Texture val="@UI/HUD_Bar_Cast" />
+        <BackgroundShown val="true" />
+        <BackgroundColor val="125, 0, 0, 0" />
+        <BarInsetRect top="0" left="0" bottom="0" right="0" />
+        <ColorStyle val="AllWhite" index="0" />
+        <AdditionalColorStyle val="DurationBar" index="0" />
+        <Sliced val="false" index="0" />
+        <Tiled val="true" index="0" />
+        <Behavior val="AlarakCounterStrikePrimed" />
+      </Frame>
+      <Frame type="UnitStatusDurationBar" name="AlarakDeadlyChargeDurationBar">
+        <Anchor side="Top" relative="$parent" pos="Min" offset="0" />
+        <Anchor side="Left" relative="$parent" pos="Min" offset="0" />
+        <Anchor side="Right" relative="$parent" pos="Max" offset="0" />
+        <Height val="#ChannelBarHeight" />
+        <Texture val="@UI/Storm_UI_Ingame_hud_bar_cast_grey" />
+        <BackgroundShown val="true" />
+        <BackgroundColor val="125, 0, 0, 0" />
+        <BarInsetRect top="0" left="0" bottom="0" right="0" />
+        <ColorStyle val="DurationBar" index="0" />
+        <Sliced val="false" index="0" />
+        <Tiled val="true" index="0" />
+        <Behavior val="AlarakDeadlyChargeDummyTimer" />
+      </Frame>
+      <Frame type="UnitStatusValidatorAnimElement" name="DeadlyChargeFullyChargedAnimElement">
+        <Anchor relative="$parent" />
+        <Validator val="AlarakHasDeadlyChargeFullyChargedDummy" />
+      </Frame>
+      <Frame type="Image" name="AlarakDeadlyChargeChargedBar">
+        <Anchor side="Top" relative="$parent" pos="Min" offset="0" />
+        <Anchor side="Left" relative="$parent" pos="Min" offset="0" />
+        <Anchor side="Right" relative="$parent" pos="Max" offset="0" />
+        <Height val="#ChannelBarHeight" />
+        <Texture val="@UI/Storm_UI_Ingame_hud_bar_cast_grey" />
+        <ColorStyle val="DurationBar" index="0" />
+        <Tiled val="true" index="0" />
+        <Frame type="Image" name="GlowOverlay">
+          <Anchor relative="$parent" />
+          <Height val="#ChannelBarHeight" />
+          <Texture val="@UI/Storm_UI_Ingame_hud_bar_cast_grey" />
+          <Tiled val="true" index="0" />
+          <BlendMode val="Add" />
+          <Color val="240,72,72" />
+          <Animation name="Pulse">
+            <Event event="OnShown" action="Reset,Play" frame="$parent" />
+            <Controller type="Fade" end="PingPong">
+              <Key type="Curve" time="0" value="0" inout="Linear,Slow" />
+              <Key type="Curve" time=".7" value="80" inout="Linear" />
+            </Controller>
+          </Animation>
+        </Frame>
+        <StateGroup name="ColorblindOverride">
+          <DefaultState val="NotColorblind" />
+          <State name="Colorblind">
+            <When type="Option" colorblind="false" />
+            <Action type="SetProperty" Color="255,180,0" />
+          </State>
+          <State name="NotColorblind">
+            <When type="Option" colorblind="True" />
+            <Action type="SetProperty" Color="126,0,164" />
+          </State>
+        </StateGroup>
+        <StateGroup name="ChannelState">
+          <State name="Neither">
+            <When type="Property" frame="$parent/DeadlyChargeFullyChargedAnimElement" Visible="False" />
+            <Action type="SetProperty" frame="$this" Visible="false" />
+          </State>
+          <State name="DeadlyChargeComplete">
+            <When type="Property" frame="$parent/DeadlyChargeFullyChargedAnimElement" Visible="True" />
+            <Action type="SetProperty" frame="$this" Visible="True" />
+          </State>
+        </StateGroup>
+      </Frame>
+    </Frame>
+  </Frame>
+</Desc>

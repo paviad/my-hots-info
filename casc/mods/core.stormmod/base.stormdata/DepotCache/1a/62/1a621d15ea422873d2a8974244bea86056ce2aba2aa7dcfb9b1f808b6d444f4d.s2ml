@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Resistência do Morto (Mod)</e>
+    <e id="2">Sem descrição.</e>
+    <e id="3">Resistência do Morto</e>
+    <e id="4">O Enxame Ômega está invadindo o reino! Detenha-os até que o Disruptor Psiônico seja ativado.</e>
+    <e id="5">Defenda a Base</e>
+    <e id="6">O Enxame Ômega está invadindo o reino! Detenha-os até que o Disruptor Psiônico seja ativado.</e>
+    <e id="7">Enxame Ômega</e>
+    <e id="8">Ondas zergs atacarão a sua base com força crescente.</e>
+    <e id="9">Algumas ondas trarão Heróis inimigos muito poderosos, com habilidades potencializadas.</e>
+    <e id="10">Arcanjos Infestados tentarão dizimar a sua base de longe. Vocês terão que destruí-los.</e>
+    <e id="11">Heróis Pré-selecionados</e>
+    <e id="12">Escolha um Herói de uma lista especial.</e>
+    <e id="13">Mais detalhes</e>
+    <e id="14">Heróis começam no Nível 10 e ganham níveis sempre que matam um Arcanjo. Alguns talentos não podem ser selecionados.</e>
+    <e id="15">Sem reaparecimento. Depois de mortos, os Heróis precisam ser revividos por seus companheiros. A partida termina se todos os Heróis de jogadores estiverem mortos.</e>
+    <e id="16">Os Heróis podem coletar itens que concedem habilidades adicionais. Cada Herói só pode segurar um item de cada vez.</e>
+    <e id="17">Não é possível usar a Pedra de Regresso (B).</e>
+</Locale>

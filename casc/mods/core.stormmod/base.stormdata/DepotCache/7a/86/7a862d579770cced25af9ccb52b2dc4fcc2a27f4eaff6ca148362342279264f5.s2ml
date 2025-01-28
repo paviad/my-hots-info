@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Smocze Włości</e>
+    <e id="2">Mapa z 3 alejami&lt;br&gt;&lt;br&gt;Legendarny Smoczy Rycerz jest zamknięty w kamiennym więzieniu na samym środku mapy. Aby go uwolnić, twoja drużyna musi jednocześnie kontrolować kapliczki słońca i księżyca. Dopiero wtedy jeden z twoich bohaterów może wyzwolić Smoczego Rycerza i użyć jego niesamowitej mocy, by zniszczyć przeciwnika.</e>
+    <e id="3">StormDragonShire</e>
+    <e id="4">Inne</e>
+    <e id="5">Niesklasyfikowany rodzaj gry.</e>
+    <e id="6">Standard</e>
+    <e id="7">Gracze mogą wybrać swoich bohaterów.</e>
+    <e id="8">Liczba przechwyconych smoków</e>
+    <e id="9">Przekształcenia w Smoczego Rycerza</e>
+    <e id="10">Smocze Włości</e>
+    <e id="11">Mapa z 3 alejami</e>
+</Locale>

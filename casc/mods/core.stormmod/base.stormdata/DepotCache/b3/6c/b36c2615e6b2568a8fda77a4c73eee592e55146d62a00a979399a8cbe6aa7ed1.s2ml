@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Schneeballschlacht</e>
+    <e id="2">Karte mit 3 Wegen&lt;br&gt;&lt;br&gt;Der Rabenfürst beschwört an bestimmten Orten im verfluchten Tal Tribute. Drängt das gegnerische Team zurück und sammelt die Tribute als Erste ein. Sobald der dritte Tribut eingesammelt wurde, verflucht der Rabenfürst eure Gegner: Ihre Türme können nicht mehr angreifen und ihre Diener verfügen über weniger Lebenspunkte.</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Andere</e>
+    <e id="5">Unklassifizierter Spieltyp.</e>
+    <e id="6">Standard</e>
+    <e id="7">Spieler können ihre Helden auswählen.</e>
+    <e id="8">Tribute für den Rabenfürst gesammelt</e>
+    <e id="9">Anzahl der gesammelten Tribute</e>
+    <e id="10">SnowBrawl</e>
+    <e id="11">Schneeballschlacht</e>
+    <e id="12">Im verfluchten Tal hält der Winter Einzug. Wirf ein paar Schneebälle und sammle die Geschenke des Rabenfürsten ein!</e>
+    <e id="13">Sammle Tribute</e>
+    <e id="14">Sammle Wintertribute ein, um einen Kolossalen Schneeball auf gegnerische Befestigungen zu werfen.</e>
+    <e id="15">Schneebälle</e>
+    <e id="16">Heb Schneebälle auf und wirf sie mit (F), um massiven Schaden zu verursachen.</e>
+    <e id="17">Regelmäßig entstehen unvollständige Schneemänner auf der Karte. Bewirf sie mit Schnee, um sie fertigzustellen.</e>
+    <e id="18">Zufallswahl</e>
+    <e id="19">Wähle einen von drei zufälligen Helden. Du hast nur 30 Sekunden Zeit, also entscheide dich schnell!</e>
+    <e id="20">Zusatzinfos</e>
+    <e id="21">Wintertribute erscheinen schnell hintereinander.</e>
+    <e id="22">Schneebälle erscheinen in der Nähe von Helden, Gebäuden, Tributen und Regenerationskugeln.</e>
+    <e id="23">Fluffige Schneebälle stoßen gegnerische Helden weg.</e>
+    <e id="24">Schwere Schneebälle verlangsamen Gegner und fügen Dienern und Gebäuden doppelten Schaden zu.</e>
+    <e id="25">Fertige Schneemänner folgen dir und kämpfen mit dir.</e>
+</Locale>

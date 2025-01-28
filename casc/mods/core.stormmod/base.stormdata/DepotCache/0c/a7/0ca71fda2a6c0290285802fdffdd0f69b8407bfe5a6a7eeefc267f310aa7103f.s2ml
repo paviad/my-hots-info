@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Contienda nevada</e>
+    <e id="2">Mapa de 3 vías&lt;br&gt;&lt;br&gt;En la Hondonada maldita, Lord Cuervo invocará tributos en diferentes posiciones. Lucha contra el equipo enemigo y sé el primero en recogerlos. Cuando hayas conseguido el tercer tributo, Lord Cuervo maldecirá a tus enemigos para que sus torres no puedan atacarte y sus esbirros sean más débiles.</e>
+    <e id="3">(Storm) Cima del rey (Corte del Cuervo)</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de juego no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">Cuervo - Tributos recogidos</e>
+    <e id="9">Cantidad de tributos recolectados</e>
+    <e id="10">SnowBrawl</e>
+    <e id="11">Contienda nevada</e>
+    <e id="12">¡Ha llegado el invierno a la Hondonada maldita! ¡Lanza unas cuantas bolas de nieve y recoge los regalos de Lord Cuervo!</e>
+    <e id="13">Recoge tributos</e>
+    <e id="14">¡Recoge tributos nevados para lanzar bolas de nieve enormes a las fortificaciones enemigas! </e>
+    <e id="15">Bolas de nieve</e>
+    <e id="16">Junta bolas de nieve y lánzalas (F) para causar más daño.</e>
+    <e id="17">Los muñecos de nieve incompletos se forman periódicamente en el campo de batalla. Usa bolas de nieve para completarlos.</e>
+    <e id="18">Preselección</e>
+    <e id="19">Elige a uno de los tres héroes seleccionados aleatoriamente. Solo tienes 30 segundos. ¡Piensa rápido!</e>
+    <e id="20">Información adicional</e>
+    <e id="21">Los tributos nevados aparecen rápidamente uno tras otro.</e>
+    <e id="22">Las bolas de nieve aparecen cerca de héroes, edificaciones, tributos y esferas de regeneración.</e>
+    <e id="23">Las bolas de nieve ligeras repelen a los héroes enemigos. </e>
+    <e id="24">Las bolas de nieve pesadas ralentizan a los enemigos e infligen el doble de daño a los esbirros y estructuras.</e>
+    <e id="25">Una vez completados, los muñecos de nieve te seguirán y lucharán a tu lado.</e>
+</Locale>

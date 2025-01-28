@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="zhTW">
+    <e id="1">遊戲內英雄選擇</e>
+    <e id="2">完全沒有任何描述。</e>
+    <e id="3">隨機選擇</e>
+    <e id="4">從三名隨機英雄中選取一個，有極小的機率所有玩家都會使用同一名英雄。</e>
+</Locale>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Carrera de cohetes lunares</e>
+    <e id="2">Por determinar</e>
+    <e id="3">(Storm) Kings Crest (Gardens)</e>
+    <e id="4">Batalla de héroe</e>
+    <e id="5">Equipos de héroes se unen en asaltos constantes contra la fortaleza enemiga.</e>
+    <e id="6">Personalizado</e>
+    <e id="7">Todos los ajustes se pueden personalizar.</e>
+    <e id="8">LunarFestival</e>
+    <e id="9">Carrera de cohetes lunares</e>
+    <e id="10">¡Arrancad vuestros cohetes! ¡Competid contra otros jugadores y ganaos un lugar en el podio!</e>
+    <e id="11">Cruza la línea de meta</e>
+    <e id="12">¡Es una carrera! Completa el circuito y cruza la línea de meta lo más rápido que puedas.</e>
+    <e id="13">Rocket n’ Roll Racing</e>
+    <e id="14">Los jugadores compiten en cohetes lunares en una sola pista.</e>
+    <e id="15">Recoge sobres durante el recorrido para obtener una habilidad especial aleatoria.</e>
+    <e id="16">Pasa por una plataforma de aceleración para propulsarte en su dirección y obtener un pequeño aumento de velocidad. </e>
+    <e id="17">Héroes del Festival Lunar</e>
+    <e id="18">Los héroes se seleccionan de forma aleatoria de una lista de héroes con sus aspectos del Festival Lunar.</e>
+    <e id="19">Información adicional</e>
+    <e id="20">En cuanto el primer héroe cruce la línea de meta, los demás tienen 30 s para terminar la carrera si quieren ganar la trifulca.</e>
+    <e id="21">No cruzar la línea de meta o terminar en último lugar cuenta como derrota.</e>
+    <e id="22">Los cohetes de los sobres se pueden disparar en cualquier dirección y aturden al primer enemigo golpeado.</e>
+    <e id="23">Las bombas de los sobres se pueden soltar para aturdir a los enemigos que pasen por ellas.</e>
+    <e id="24">Las bendiciones lunares de los sobres te vuelven invulnerable y aumentan tu velocidad de movimiento.</e>
+</Locale>

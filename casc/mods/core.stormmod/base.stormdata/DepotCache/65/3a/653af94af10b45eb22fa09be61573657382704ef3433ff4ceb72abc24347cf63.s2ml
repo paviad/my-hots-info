@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Silver City</e>
+    <e id="2">A wide array of Blizzard Heroes meet and do battle in an epic, galactic arena!</e>
+    <e id="3">Other</e>
+    <e id="4">Unclassified game type.</e>
+    <e id="5">Standard</e>
+    <e id="6">Players can choose their Heroes.</e>
+    <e id="7">SilverCity</e>
+    <e id="8">Silver City</e>
+    <e id="9">Randomly selected Heroes battle down a single lane!</e>
+    <e id="10">Destroy the Enemy Core</e>
+    <e id="11">Destroy the enemy’s core to win.</e>
+    <e id="12">Single Lane</e>
+    <e id="13">No additional battleground objectives are present. Prepare for constant action.</e>
+    <e id="14">Shuffle Pick</e>
+    <e id="15">Choose from one of three randomly selected heroes, there&apos;s a small chance of all players being the same Hero.</e>
+    <e id="16">Additional Info</e>
+    <e id="17">Hearthstones (B) are disabled and your starting area doesn’t regenerate health.</e>
+    <e id="18">Globe generators spawn regeneration globes on the battlefield.</e>
+</Locale>

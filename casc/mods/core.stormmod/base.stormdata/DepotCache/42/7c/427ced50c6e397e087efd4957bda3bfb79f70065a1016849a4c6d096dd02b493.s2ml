@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Macro Mutador de Crono</e>
+    <e id="2">Completa e absolutamente vazio e sem nenhum tipo de descrição.</e>
+    <e id="3">DodgeBrawl</e>
+    <e id="4">Quei-MATO</e>
+    <e id="5">Hora de se divertir no sol! Duas equipes se revezam para atacar uma à outra com Impactos de Areia até um lado ser eliminado.</e>
+    <e id="6">Pancada de Areia</e>
+    <e id="7">Acerte os inimigos com Impacto de Areia e esquive-se dos Impactos de Areia deles. Vença duas das três rodadas para ganhar a partida.</e>
+    <e id="8">Último Gnomo Sobrevivente</e>
+    <e id="9">Uma equipe atira e a outra se esquiva. Os atacantes e os defensores se revezam após alguns segundos, cada vez com mais frequência conforme a rodada avança.</e>
+    <e id="10">Atingir um herói cinco vezes o tira da rodada, mas ele reaparece como fantasma no lado do inimigo.</e>
+    <e id="11">Cronas Fantasmas podem usar Armadilhas Temporais e Areias Retardantes para atrapalhar os atacantes.</e>
+    <e id="12">Todo mundo é Crona</e>
+    <e id="13">Parece que alguém está mexendo com o fluxo do tempo!</e>
+    <e id="14">Mais detalhes</e>
+    <e id="15">A equipe que se esquiva fica sempre visível para a equipe que ataca, mas a equipe que ataca fica escondida da equipe que se esquiva.</e>
+    <e id="16">Cronas Fantasmas concedem visão aos seus companheiros, garantindo à equipe que se esquiva uma forma de localizar os atacantes.</e>
+    <e id="17">Se a rodada se estender demais, tornados surgirão nos cantos da arena e irão lentamente para o centro, empurrando os jogadores para a piscina.</e>
+</Locale>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Guerra de robots</e>
+    <e id="2">Sin ningún tipo de descripción.</e>
+    <e id="3">IndustrialDistrict</e>
+    <e id="4">Guerra de robots</e>
+    <e id="5">¡Manejad los protectores mientras intentáis destruir el núcleo enemigo!</e>
+    <e id="6">Destruid el núcleo enemigo</e>
+    <e id="7">Destruid el núcleo enemigo para ganar.</e>
+    <e id="8">Protectores</e>
+    <e id="9">Ambos equipos comienzan con un protector Triglav.</e>
+    <e id="10">Al destruirse ambos protectores, aparecen dos nuevos.</e>
+    <e id="11">Selección entre héroes aleatorios</e>
+    <e id="12">Elegid a uno de estos héroes aleatorios.</e>
+    <e id="13">Información adicional</e>
+    <e id="14">Dos jugadores pueden ocupar el protector Triglav: un piloto y un artillero.</e>
+    <e id="15">Tanto el piloto como el artillero tienen acceso a habilidades únicas.</e>
+    <e id="16">Solo el piloto puede mover el protector.</e>
+</Locale>

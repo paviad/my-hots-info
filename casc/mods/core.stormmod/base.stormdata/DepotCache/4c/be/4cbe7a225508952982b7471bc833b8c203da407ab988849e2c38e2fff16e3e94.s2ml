@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Mineral Madness</e>
+    <e id="2">Data and Triggers for Mineral Madness</e>
+    <e id="3">default</e>
+    <e id="4">Braxis Outpost</e>
+    <e id="5">Mineral Madness</e>
+    <e id="6">There’s only room for one mining operation here! Collect minerals and use their power to defeat the competition</e>
+    <e id="7">Destroy the Core</e>
+    <e id="8">Destroy the enemy Core to win</e>
+    <e id="9">You Need More Minerals</e>
+    <e id="10">Kill SCVs and collect the Minerals they drop</e>
+    <e id="11">SCVs are Protected until their linked Minion is killed</e>
+    <e id="12">Gathering enough Minerals temporarily grants a powerful Overload aura</e>
+    <e id="13">Shuffle Pick</e>
+    <e id="14">Choose from one of three randomly selected Heroes. You only have 30 seconds, so think fast!</e>
+    <e id="15">Additional Info</e>
+    <e id="16">You lose half of the Minerals you’ve collected when you die</e>
+    <e id="17">Overload disables enemy Structures, kills enemy Minions, and damages enemy Heroes</e>
+    <e id="18">Overloaded Heroes periodically drop Minerals that can be collected by the Enemy</e>
+    <e id="19">Minerals can expire, so gather them quickly!</e>
+    <e id="20">Hearthstones (B) are disabled and your starting area doesn’t regenerate Health</e>
+</Locale>

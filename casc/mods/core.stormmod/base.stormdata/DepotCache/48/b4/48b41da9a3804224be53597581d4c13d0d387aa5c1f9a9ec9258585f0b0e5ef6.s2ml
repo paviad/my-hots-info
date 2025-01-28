@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Livraison spéciale (mutagène)</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">Default</e>
+    <e id="4">Livraison spéciale</e>
+    <e id="5">Deux équipes composées uniquement de Tracer s’affrontent tout en faisant avancer les convois. Le temps joue pour tout le monde !</e>
+    <e id="6">Détruisez l’idole adverse</e>
+    <e id="7">Les idoles ne peuvent pas être attaquées directement. Seuls les convois, les boss et les victimes adverses leur infligent des dégâts.</e>
+    <e id="8">Attention aux bombes</e>
+    <e id="9">Tuer une héros ennemi inflige 1 point de dégât à son idole. Tuer un héros ennemi avec Bombe à impulsion inflige 2 points de dégâts à l’idole.</e>
+    <e id="10">Le monde aura toujours besoin de Tracer</e>
+    <e id="11">Tous les joueurs incarnent Tracer.</e>
+    <e id="12">Informations supplémentaires</e>
+    <e id="13">Points de vie de l’idole, dégâts et renforcement des convois augmentés de 400%.</e>
+    <e id="14">Les joueurs débutent au niveau 20.</e>
+    <e id="15">Tracer dispose dès le départ de Rappel d’urgence, le temps de recharge de Transfert est réduit de 50% et le taux de charge de Bombe à impulsion par les attaques de base est doublé lorsqu’elles sont portées à des héros.</e>
+    <e id="16">Soumettre le boss inflige d’importants dégâts à l’idole adverse.</e>
+    <e id="17">La bombe à impulsion explose dès qu’elle touche un ennemi.</e>
+</Locale>

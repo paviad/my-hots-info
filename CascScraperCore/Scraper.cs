@@ -241,29 +241,29 @@ public partial class Scraper {
             switch (heroName) {
                 case "Cho":
                 case "Gall": {
-                    var portraitPaired = xdoc.SelectSingleNode($"//CHero[@id='{theHero.id}']/PortraitPaired")?
-                        .Attributes?["value"]?.Value;
-                    HeroImages[heroName] = GetImage(portraitPaired ?? throw new InvalidOperationException("Can't find Cho/Gall hero portrait"));
-                    break;
-                }
+                        var portraitPaired = xdoc.SelectSingleNode($"//CHero[@id='{theHero.id}']/PortraitPaired")?
+                            .Attributes?["value"]?.Value;
+                        HeroImages[heroName] = GetImage(portraitPaired ?? throw new InvalidOperationException("Can't find Cho/Gall hero portrait"));
+                        break;
+                    }
                 case "Anduin":
                     HeroImages[heroName] = GetImage(@"Assets\Textures\ui_targetportrait_hero_anduin.dds");
                     break;
                 default: {
-                    var actorKey = $"Hero{theHero.id}";
-                    if (ActorUnits.TryGetValue(actorKey, out var unit)) {
-                        var heroImage = unit.HeroIcon ??
-                                        GetImage(
-                                            $@"Assets\Textures\ui_targetportrait_hero_{theHero.id.ToLower()}.dds");
-                        HeroImages[heroName] = heroImage;
-                    }
-                    else {
-                        HeroImages[heroName] = GetImage(
-                            $@"Assets\Textures\ui_targetportrait_hero_{theHero.id.ToLower()}.dds");
-                    }
+                        var actorKey = $"Hero{theHero.id}";
+                        if (ActorUnits.TryGetValue(actorKey, out var unit)) {
+                            var heroImage = unit.HeroIcon ??
+                                            GetImage(
+                                                $@"Assets\Textures\ui_targetportrait_hero_{theHero.id.ToLower()}.dds");
+                            HeroImages[heroName] = heroImage;
+                        }
+                        else {
+                            HeroImages[heroName] = GetImage(
+                                $@"Assets\Textures\ui_targetportrait_hero_{theHero.id.ToLower()}.dds");
+                        }
 
-                    break;
-                }
+                        break;
+                    }
             }
 
             Console.WriteLine($"Doing hero {heroName}");
@@ -750,8 +750,10 @@ public partial class Scraper {
             var cfHeroGameStrings = (CASCFile)cfHeroLocalizedData.GetEntry("GameStrings.txt")!;
 
             var locLines = GetAllLines(cfHeroGameStrings);
-            var locStrings = locLines.Select(x => x.Split('='))
-                .ToDictionary(x => x[0], x => string.Join("=", x.Skip(1)));
+            var lookup = locLines.Select(x => x.Split('=')).ToLookup(r => r[0]);
+            var odd = lookup.Where(r => r.Count() > 1).ToList();
+            var locStrings = lookup
+                .ToDictionary(x => x.Key, x => string.Join("=", x.First().Skip(1)));
 
             var cfHeroBaseStormdata = (CASCFolder)cfHeroDir.GetEntry("base.stormdata")!;
 

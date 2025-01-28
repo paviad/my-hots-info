@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Campos de Prova</e>
+    <e id="2">As forças do Nexus tomaram a Fundição Volskaya. Lute até a morte pelos prêmios!</e>
+    <e id="3">Outro</e>
+    <e id="4">Tipo de jogo não classificado.</e>
+    <e id="5">Padrão</e>
+    <e id="6">Os jogadores podem escolher os Heróis.</e>
+    <e id="7">Campos de Prova</e>
+    <e id="8">Campos de Prova</e>
+    <e id="9">Katya Volskaya está realizando experimentos com os poderes do Nexus. Ganhe acesso aos protótipos do poderoso armamento dela e derrote os oponentes!</e>
+    <e id="10">Eliminação</e>
+    <e id="11">Derrote todos os oponentes para vencer a rodada. A primeira equipe a vencer duas rodadas ganha a partida.</e>
+    <e id="12">Material Bélico Experimental</e>
+    <e id="13">Depois de 30 segundos, um objetivo aleatório surge no meio do campo de batalha. É bom se preparar!</e>
+    <e id="14">Capture o objetivo para ganhar uma vantagem considerável sobre os oponentes.</e>
+    <e id="15">Alguns objetivos são de campos de batalha diferentes; outros, novinhos em folha!</e>
+    <e id="16">Agora todos somos o mesmo herói</e>
+    <e id="17">Todos os jogadores das duas equipes jogam com o mesmo herói. Um herói diferente é escolhido aleatoriamente a cada rodada.</e>
+    <e id="18">Informações adicionais</e>
+    <e id="19">Sem reaparecimento. Cada herói só tem uma vida por rodada.</e>
+    <e id="20">Se não houver mais heróis vivos na sua equipe, ela perde a rodada.</e>
+</Locale>

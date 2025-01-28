@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Héroes de StarCraft</e>
+    <e id="2">Completamente falto de descripción.</e>
+    <e id="3">Predeterminado</e>
+    <e id="4">Heroes of the Stars</e>
+    <e id="5">¡Héroes provenientes de todo el sector Koprulu (y alguno que otro de visita) se enfrentan en Resistencia en Braxis!</e>
+    <e id="6">Acometida zerg</e>
+    <e id="7">Captura los faros para llenar tu celda de contención con zerg. ¡Cuando la alguna de las celdas esté llena, las dos se abrirán!</e>
+    <e id="8">Resistir</e>
+    <e id="9">Derrota la oleada de zerg enemiga o apoya a tu propia oleada para atacar el núcleo enemigo.</e>
+    <e id="10">Preselección</e>
+    <e id="11">Elige a uno de los tres héroes de StarCraft o con diseño de StarCraft seleccionados aleatoriamente. Solo tienes 30 segundos. ¡Piensa rápido!</e>
+    <e id="12">Información adicional</e>
+    <e id="13">El temporizador de muerte tiene un máximo de 40 segundos</e>
+</Locale>

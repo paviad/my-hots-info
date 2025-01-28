@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Corsa ai Minerali</e>
+    <e id="2">Dati e attivatori per Corsa ai Minerali</e>
+    <e id="3">default</e>
+    <e id="4">Braxis Outpost</e>
+    <e id="5">Corsa ai Minerali</e>
+    <e id="6">Qui c&apos;è spazio per una sola operazione mineraria! Raccogliete i minerali e usate il loro potere per eliminare i nemici.</e>
+    <e id="7">Distruggete il nucleo</e>
+    <e id="8">Distruggete il nucleo nemico per vincere.</e>
+    <e id="9">Avete bisogno di altri minerali.</e>
+    <e id="10">Eliminate gli SCV e raccogliete i minerali che rilasciano.</e>
+    <e id="11">Gli SCV sono protetti finché non viene eliminato il servitore a loro vincolato.</e>
+    <e id="12">Raccogliere abbastanza minerali fornisce temporaneamente un&apos;aura di Sovraccarico.</e>
+    <e id="13">Scelta mista</e>
+    <e id="14">Scegli un eroe fra tre selezionati casualmente. Hai solo 30 secondi, per cui pensa in fretta!</e>
+    <e id="15">Info aggiuntive</e>
+    <e id="16">Perderete metà dei minerali raccolti alla morte.</e>
+    <e id="17">Sovraccarico disabilita le strutture nemiche, elimina i servitori nemici e danneggia gli eroi nemici.</e>
+    <e id="18">Gli eroi con Sovraccarico rilasciano periodicamente minerali che possono essere raccolti dal nemico.</e>
+    <e id="19">I minerali possono scomparire, per cui raccoglieteli presto!</e>
+    <e id="20">La Pietra del Ritorno (B) è disabilitata e l&apos;area iniziale non rigenera Salute.</e>
+</Locale>

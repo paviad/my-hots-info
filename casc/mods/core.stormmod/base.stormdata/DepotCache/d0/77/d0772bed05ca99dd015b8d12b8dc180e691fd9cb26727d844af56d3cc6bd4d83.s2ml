@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Checkpoint: Hanamura</e>
+    <e id="2">WE MUST PUSH LITTLE CART</e>
+    <e id="3">(Storm) Overwatch (Hanamura1)</e>
+    <e id="4">Other</e>
+    <e id="5">Unclassified game type.</e>
+    <e id="6">Standard</e>
+    <e id="7">Players can choose their Heroes.</e>
+    <e id="8">HanamuraPayloadPush</e>
+    <e id="9">Checkpoint: Hanamura</e>
+    <e id="10">One team pushes the Payload forward while the other pushes them back. Let’s get this thing moving!</e>
+    <e id="11">Escort the Payload</e>
+    <e id="12">The attacking team wins if the Payload reaches its destination; the defending team wins if time runs out.</e>
+    <e id="13">On the Move</e>
+    <e id="14">The Payload moves faster for each attacking player on it, but is halted if even a single defending player enters the area.</e>
+    <e id="15">Shuffle Pick</e>
+    <e id="16">Choose from one of three randomly selected heroes. You only have 30 seconds, so think fast!</e>
+    <e id="17">Additional Info</e>
+    <e id="18">Respawn timers are reduced to 9 seconds. During Overtime, they are set to 12.5 seconds.</e>
+    <e id="19">Heroes don’t have talents and don’t gain levels. Heroic abilities are selected at the start of the match.</e>
+    <e id="20">Health Packs found on the battleground instantly restore 35% of health and mana.</e>
+    <e id="21">The time limit is extended if the Payload reaches a checkpoint, and the match enters Overtime if the time limit expires.</e>
+    <e id="22">Overtime&apos;s duration is paused and refreshed when an attacker is on the Payload, but its maximum duration decreases over time.</e>
+</Locale>

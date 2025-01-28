@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Dzielnica Przemysłowa</e>
+    <e id="2">Bohaterowie z uniwersów Blizzarda stają naprzeciw siebie, by toczyć walki na wielkiej, galaktycznej arenie!</e>
+    <e id="3">Inne</e>
+    <e id="4">Niesklasyfikowany rodzaj gry.</e>
+    <e id="5">Standard</e>
+    <e id="6">Wszystkie ustawienia można dostosować do własnych wymagań.</e>
+    <e id="7">Dzielnica Przemysłowa</e>
+    <e id="8">Losowo wybrani bohaterowie ścierają się na jednej alei!</e>
+    <e id="9">Zniszcz bazę wroga</e>
+    <e id="10">Aby zwyciężyć, zrównaj z ziemią bazę wroga.</e>
+    <e id="11">Pojedyncza aleja</e>
+    <e id="12">Nie ma żadnych dodatkowych celów do zrealizowania na polu bitwy. Przygotuj się na niekończącą się akcję.</e>
+    <e id="13">Losowy wybór</e>
+    <e id="14">Wybierz jednego z trzech losowych bohaterów.</e>
+    <e id="15">Dodatkowe informacje</e>
+    <e id="16">Kamienie Powrotu (B) zostały dezaktywowane. Nie odzyskujesz zdrowia na obszarze startowym.</e>
+    <e id="17">Generatory Kul Regeneracji tworzą na polu bitwy dodatkowe Kule.</e>
+</Locale>

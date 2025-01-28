@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Posto Avançado Braxis</e>
+    <e id="2">Vários Heróis da Blizzard se enfrentam numa arena galáctica!</e>
+    <e id="3">Braxis</e>
+    <e id="4">Outro</e>
+    <e id="5">Tipo de jogo não classificado.</e>
+    <e id="6">Padrão</e>
+    <e id="7">Todas as configurações podem ser personalizadas.</e>
+    <e id="8">Posto Avançado Braxis</e>
+    <e id="9">Heróis escolhidos aleatoriamente se enfrentam em uma única trilha!</e>
+    <e id="10">Destrua o núcleo do inimigo</e>
+    <e id="11">Destrua o Núcleo inimigo para vencer</e>
+    <e id="12">Trilha única</e>
+    <e id="13">Dois acampamentos mercenários de Bordoeiros de StarCraft são gerados em cada lado da trilha. Prepare-se para ação constante.</e>
+    <e id="14">Seleção Restrita</e>
+    <e id="15">Escolha um dos três Heróis selecionados aleatoriamente. Você só tem 30 segundos. Depressa!</e>
+    <e id="16">Informações adicionais</e>
+    <e id="17">Pedras de Regresso (B) são desabilitadas e sua área inicial não regenera vida</e>
+    <e id="18">Geradores de globo geram globos de regeneração no campo de batalha</e>
+    <e id="19">Há uma pequena chance de todos os jogadores jogarem com o mesmo Herói</e>
+</Locale>

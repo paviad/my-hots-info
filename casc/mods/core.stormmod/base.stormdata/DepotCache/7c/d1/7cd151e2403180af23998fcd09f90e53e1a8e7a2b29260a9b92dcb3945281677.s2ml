@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Robots, héros, bobos</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">IndustrialDistrict</e>
+    <e id="4">Robots, héros, bobos</e>
+    <e id="5">Utilisez les protecteurs et essayez de détruire l’idole adverse !</e>
+    <e id="6">Détruire l’idole adverse</e>
+    <e id="7">Détruisez l’idole de l’ennemi pour gagner.</e>
+    <e id="8">Protecteurs</e>
+    <e id="9">Les deux équipes commencent la partie avec un protecteur Triglav.</e>
+    <e id="10">Quand les deux protecteurs sont détruits, deux nouveaux protecteurs apparaissent.</e>
+    <e id="11">Sélection aléatoire</e>
+    <e id="12">Choisissez un des trois héros sélectionnés aléatoirement.</e>
+    <e id="13">Informations supplémentaires</e>
+    <e id="14">Deux joueurs peuvent utiliser le protecteur Triglav, un pilote et un artilleur.</e>
+    <e id="15">Le pilote et l’artilleur ont tous deux des capacités uniques.</e>
+    <e id="16">Seul le pilote peut déplacer le protecteur.</e>
+</Locale>

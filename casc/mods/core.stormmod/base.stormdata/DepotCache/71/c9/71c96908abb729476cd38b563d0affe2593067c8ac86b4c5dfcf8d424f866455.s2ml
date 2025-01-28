@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Caverna Perdida</e>
+    <e id="2">¡Varios héroes de Blizzard se reúnen para enfrentarse en un épico campo de batalla galáctico!</e>
+    <e id="3">Criptas de Luxoria</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de partida no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">LostCavern</e>
+    <e id="9">Caverna Perdida</e>
+    <e id="10">¡Héroes aleatorios se enfrentan en un solo camino!</e>
+    <e id="11">Destruid el núcleo enemigo</e>
+    <e id="12">Destruid el núcleo enemigo para ganar.</e>
+    <e id="13">Un solo camino</e>
+    <e id="14">No hay más objetivos de campo de batalla. Preparaos para una acción constante.</e>
+    <e id="15">Selección entre héroes aleatorios</e>
+    <e id="16">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="17">Información adicional</e>
+    <e id="18">Las piedras de hogar (B) están desactivadas y vuestra área de inicio no regenera salud.</e>
+    <e id="19">Los generadores de esferas crean esferas de regeneración en el campo de batalla.</e>
+</Locale>

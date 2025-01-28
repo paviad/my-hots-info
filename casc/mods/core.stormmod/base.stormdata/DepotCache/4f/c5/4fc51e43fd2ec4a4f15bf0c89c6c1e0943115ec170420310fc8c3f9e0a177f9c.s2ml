@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Contea del Drago</e>
+    <e id="2">Mappa a 3 corsie&lt;br&gt;&lt;br&gt;Il leggendario Drago Cavaliere è rinchiuso nella prigione di pietra al centro della mappa. Per liberarlo, la squadra deve controllare contemporaneamente gli altari del Sole e della Luna. Solo allora un eroe può liberare il Drago Cavaliere e sfruttarne l&apos;immenso potere per distruggere il nemico.</e>
+    <e id="3">StormDragonShire</e>
+    <e id="4">Altro</e>
+    <e id="5">Tipo di gioco non classificato.</e>
+    <e id="6">Standard</e>
+    <e id="7">I giocatori possono scegliere i propri eroi.</e>
+    <e id="8">Drago - Conquiste del Drago</e>
+    <e id="9">Trasformazioni in Drago Cavaliere</e>
+    <e id="10">Contea del Drago</e>
+    <e id="11">Mappa a 3 corsie</e>
+</Locale>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Schwarzherz&apos; Rache</e>
+    <e id="2">Karte mit 3 Wegen&lt;br&gt;&lt;br&gt;</e>
+    <e id="3">(Storm) Kings Crest (Docks)</e>
+    <e id="4">Andere</e>
+    <e id="5">Unklassifizierter Spieltyp.</e>
+    <e id="6">Standard</e>
+    <e id="7">Spieler können ihre Helden auswählen.</e>
+    <e id="8">Schwarzherz-Dublonen eingesammelt</e>
+    <e id="9">Schwarzherz-Dublonen abgegeben</e>
+    <e id="10">Anzahl der an Schwarzherz übergebenen Dublonen</e>
+    <e id="11">BlackHeartsSimple</e>
+    <e id="12">BlackHeartsSimple_zhCN</e>
+    <e id="13">Schwarzherz&apos; Rache</e>
+    <e id="14">Schwarzherz will sich auf unserer ersten Angriffs-/Verteidigungskarte am Kommodore rächen!</e>
+    <e id="15">Angriff &amp; Verteidigung</e>
+    <e id="16">Ein Team beschützt das Schiff, das andere Team versucht, es zu zerstören. Die Partie hat zwei Runden.</e>
+    <e id="17">Beschütze oder zerstöre das Schiff</e>
+    <e id="18">Schwarzherz&apos; Team muss dafür sorgen, dass sein Schiff am Pier ankommt. Töte gegnerische Helden, damit sie keine Kanonen abfeuern können!</e>
+    <e id="19">Kommodore Fords Team muss Schwarzherz&apos; Schiff zerstören. Sammle Kanonenkugeln ein und feuere die Kanonen ab!</e>
+    <e id="20">Das Team, das dem Schiff bei der Verteidigung am meisten Schaden zufügt, gewinnt.</e>
+    <e id="21">Zufallswahl</e>
+    <e id="22">Wähle einen von drei zufälligen Helden. Du hast nur 30 Sekunden Zeit, also entscheide dich schnell!</e>
+    <e id="23">Zusatzinfos</e>
+    <e id="24">Es besteht eine kleine Chance, dass alle Spieler den gleichen Helden spielen.</e>
+</Locale>

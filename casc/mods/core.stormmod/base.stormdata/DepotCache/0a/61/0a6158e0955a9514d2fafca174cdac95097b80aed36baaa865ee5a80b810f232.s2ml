@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Mutator: Doktor Chrono</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">DodgeBrawl</e>
+    <e id="4">Z(a)bijak</e>
+    <e id="5">Czas na zabawę, słońce i piasek! Dwie drużyny na zmianę usiłują się trafić Piaskowym Podmuchem, aż na polu bitwy pozostanie tylko jedna drużyna!</e>
+    <e id="6">Miażdżące Piaski</e>
+    <e id="7">Trafiaj przeciwników Piaskowym Podmuchem i unikaj ich Piaskowych Podmuchów. Aby wygrać mecz, pokonaj wrogów w dwóch rundach z trzech.</e>
+    <e id="8">Do ostatniej gnomki na polu bitwy</e>
+    <e id="9">Jedna drużyna atakuje, a druga wykonuje uniki. Napastnicy i unikający zamieniają się rolami co kilka sekund (a zamiany są tym częstsze, im dłużej trwa runda).</e>
+    <e id="10">Bohater trafiony pięć razy odpada z danej rundy, ale pojawia się jako duch po stronie drużyny przeciwnej.</e>
+    <e id="11">Pod postacią ducha Chronia może korzystać z Pułapki Czasowej oraz Spowalniających Piasków, aby mieszać szyki napastnikom.</e>
+    <e id="12">Wszyscy są Chronią</e>
+    <e id="13">Wygląda na to, że ktoś majstrował przy kontinuum czasoprzestrzennym!</e>
+    <e id="14">Dodatkowe informacje</e>
+    <e id="15">Drużyna wykonująca uniki jest zawsze widoczna dla napastników, a napastnicy są zawsze ukryci przed unikającymi.</e>
+    <e id="16">Pod postacią ducha Chronia zapewnia swojej drużynie pole widzenia, dzięki czemu drużyna wykonująca uniki może zlokalizować napastników.</e>
+    <e id="17">W przypadku, gdy runda trwa zbyt długo, na krańcach areny pojawiają się tornada, które stopniowo przemieszczają się w kierunku jej środka i spychają graczy do basenu.</e>
+</Locale>

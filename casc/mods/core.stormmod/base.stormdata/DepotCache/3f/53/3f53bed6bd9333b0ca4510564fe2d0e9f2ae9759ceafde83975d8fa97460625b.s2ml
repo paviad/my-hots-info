@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Mutador de Entrega Especial</e>
+    <e id="2">Sem descrição.</e>
+    <e id="3">Default</e>
+    <e id="4">Entrega Especial</e>
+    <e id="5">Duas equipes compostas só de Tracer se enfrentam para empurrar a Carga. O tempo está do lado de todos!</e>
+    <e id="6">Destrua o Núcleo inimigo</e>
+    <e id="7">Os Núcleos não podem ser atacados diretamente. Somente Cargas, Chefes e Abates causam dano ao Núcleo.</e>
+    <e id="8">Lá vai bomba!</e>
+    <e id="9">Matar um Herói inimigo causa 1 de dano ao Núcleo deles. Matar um Herói inimigo com a Bomba Eletromagnética causa 2 de dano ao Núcleo deles.</e>
+    <e id="10">Todo mundo é Tracer</e>
+    <e id="11">Todos os jogadores das duas equipes jogam de Tracer.</e>
+    <e id="12">Informações adicionais</e>
+    <e id="13">Vida do Núcleo, dano da Carga e Potencialização aumentados em 400%.</e>
+    <e id="14">Os jogadores começam no nível 20.</e>
+    <e id="15">Tracer começa com Reconvocação Total, a recarga de Teleportar é reduzida em 50% e a taxa de carregamento do Ataque Básico da Bomba Eletromagnética dobra contra Heróis.</e>
+    <e id="16">Capturar o chefe causa muito dano ao Núcleo inimigo.</e>
+    <e id="17">Bombas Eletromagnéticas explodem assim que atingem um inimigo.</e>
+</Locale>

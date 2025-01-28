@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Avamposto di Braxis</e>
+    <e id="2">Una vasta schiera di eroi Blizzard si affronta in un&apos;epica arena galattica!</e>
+    <e id="3">Braxis</e>
+    <e id="4">Altro</e>
+    <e id="5">Tipo di gioco non classificato.</e>
+    <e id="6">Standard</e>
+    <e id="7">Tutte le impostazioni possono essere personalizzate.</e>
+    <e id="8">Avamposto di Braxis</e>
+    <e id="9">Eroi selezionati casualmente si affrontano in una sola corsia!</e>
+    <e id="10">Distruggete il nucleo nemico</e>
+    <e id="11">Distruggete il nucleo nemico per vincere.</e>
+    <e id="12">Corsia singola</e>
+    <e id="13">Due campi di combattenti di StarCraft appaiono ai lati della corsia. Preparatevi all&apos;azione costante.</e>
+    <e id="14">Scelta mista</e>
+    <e id="15">Scegli un eroe fra tre selezionati casualmente. Hai solo 30 secondi, per cui pensa in fretta!</e>
+    <e id="16">Info aggiuntive</e>
+    <e id="17">La Pietra del Ritorno (B) è disabilitata e l&apos;area iniziale non rigenera Salute.</e>
+    <e id="18">I generatori creano globi sul campo di battaglia.</e>
+    <e id="19">C&apos;è una piccola probabilità che tutti i giocatori utilizzino lo stesso eroe.</e>
+</Locale>

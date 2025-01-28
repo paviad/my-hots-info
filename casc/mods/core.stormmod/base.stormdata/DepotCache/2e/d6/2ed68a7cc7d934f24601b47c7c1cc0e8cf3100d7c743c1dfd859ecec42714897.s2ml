@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Mutación Combate bajo cero</e>
+    <e id="2">Sin ningún tipo de descripción.</e>
+    <e id="3">SnowBrawl</e>
+    <e id="4">Combate bajo cero</e>
+    <e id="5">¡Ha llegado el invierno a la Cuenca Maldita! ¡Lanzad bolas de nieve y recoged los tributos del Señor de los Cuervos!</e>
+    <e id="6">Reunid tributos</e>
+    <e id="7">¡Recoged tributos de nieve para lanzar bolas de nieve colosales a las estructuras enemigas!</e>
+    <e id="8">Bolas de nieve</e>
+    <e id="9">Recoged bolas de nieve y lanzadlas (F) para infligir mucho daño.</e>
+    <e id="10">Periódicamente, se formarán muñecos de nieve incompletos por el campo de batalla. Usad bolas de nieve para completarlos.</e>
+    <e id="11">Selección entre héroes aleatorios</e>
+    <e id="12">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="13">Información adicional</e>
+    <e id="14">Los tributos de nieve aparecen uno detrás de otro.</e>
+    <e id="15">Aparecen bolas de nieve cerca de héroes, estructuras, tributos y esferas de regeneración.</e>
+    <e id="16">Las bolas de nieve livianas repelen a los héroes enemigos.</e>
+    <e id="17">Las bolas de nieve pesadas ralentizan a los enemigos e infligen el doble de daño a esbirros y estructuras.</e>
+    <e id="18">Una vez completados, los muñecos de nieve te siguen y luchan a tu lado.</e>
+</Locale>

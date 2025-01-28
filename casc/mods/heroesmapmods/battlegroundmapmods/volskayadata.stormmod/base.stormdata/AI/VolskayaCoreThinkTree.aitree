@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree>
+  <include file="AI/BaseTowerThinkTree.aitree" />
+  <mod id="367165474E605656">
+    <insertChild id="3D310F3F040E122E" after="0FB2A74078CD5FAF" />
+    <insertChild id="512D0C2D1A00183C" after="3D310F3F040E122E" />
+  </mod>
+  <mod id="7265776F20301D1D">
+    <removeChild id="63575F5E1B1A2C20" />
+    <insertChild id="118E2A6C4B57BF8E" after="0624030051527278" />
+  </mod>
+  <node name="Tower Focus current VolskayaVehicle" type="FindBestTarget" id="3D310F3F040E122E" comment="Focus on VolskayaVehicle above all other targets">
+    <property name="UnitType" valueSource="literal" value="VolskayaVehicle" />
+    <property name="FocusTarget" valueSource="variable" value="AttackTarget" />
+    <property name="OnlyFocusTarget" valueSource="literal" value="true" />
+    <property name="BumpMaxDistanceToWeaponRange" valueSource="literal" value="true" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="AttackTarget" />
+  </node>
+  <node name="Tower Find closest VolskayaVehicle" type="FindBestTarget" id="512D0C2D1A00183C" comment="Search for nearby VolskayaVehicle">
+    <property name="UnitType" valueSource="literal" value="VolskayaVehicle" />
+    <property name="FocusTarget" valueSource="variable" value="AttackTarget" />
+    <property name="BumpMaxDistanceToWeaponRange" valueSource="literal" value="true" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="AttackTarget" />
+  </node>
+  <node name="" type="Select" id="118E2A6C4B57BF8E">
+    <insertChild id="48EA1D264D223711" />
+    <insertChild id="63575F5E1B1A2C20" />
+  </node>
+  <node name="Rocket Fists" type="AbilityUsable" id="48EA1D264D223711">
+    <property name="Ability" valueSource="literal" value="VolskayaCoreRocketFist" />
+    <insertChild id="A89692483C02C5BB" />
+  </node>
+  <node name="" type="AbilityEnqueue" id="9E38A5BFF59A5C69">
+    <property name="Ability" valueSource="literal" value="VolskayaCoreRocketFist" />
+    <property name="TargetUnit" valueSource="literal" value="" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="" type="UnitCount" id="A89692483C02C5BB">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="BumpMaxDistanceToWeaponRange" valueSource="literal" value="true" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="ExcludeTypes" valueSource="literal" value="Player,Ally,Neutral,Creep,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,IgnoredByTowerAI" />
+    <insertChild id="9E38A5BFF59A5C69" />
+  </node>
+</tree>

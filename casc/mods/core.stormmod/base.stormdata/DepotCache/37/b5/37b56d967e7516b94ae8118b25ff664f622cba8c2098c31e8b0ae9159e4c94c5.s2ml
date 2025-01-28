@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Protocolo Fantasma - Mutador</e>
+    <e id="2">Sem descrição.</e>
+    <e id="3">TowersOfDoom</e>
+    <e id="4">Protocolo Fantasma</e>
+    <e id="5">O inimigo mais perigoso de uma agente fantasma é ela mesma. Mate as Novas inimigas para destruir o Núcleo.</e>
+    <e id="6">Núcleo Protegido</e>
+    <e id="7">O Núcleo inimigo é imune a ataques de Heróis</e>
+    <e id="8">Uma morte, um disparo</e>
+    <e id="9">Abates causam 1 de dano ao Núcleo</e>
+    <e id="10">Todo mundo é Nova</e>
+    <e id="11">Quem virou fantasma agora? Sabe quem? Todo mundo.</e>
+    <e id="12">Informações adicionais</e>
+    <e id="13">A habilidade Tiro de Precisão de Nova mata instantaneamente</e>
+</Locale>

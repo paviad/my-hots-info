@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Bloodlust Brawl</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">Default</e>
+    <e id="4">Bloodlust Brawl</e>
+    <e id="5">Heroes duke it out in Dragon Shire while Bloodlust is cast on them at random. Embrace your anger!</e>
+    <e id="6">Awaken the Dragon Knight</e>
+    <e id="7">Control both shrines at once, and the Dragon Knight will fight on your side.</e>
+    <e id="8">Bloodlust</e>
+    <e id="9">At regular intervals, two random Heroes on each team temporarily gain increased attack and movement speeds and are healed when dealing Basic Attacks</e>
+    <e id="10">Shuffle Pick</e>
+    <e id="11">Choose from one of three randomly selected Heroes. You only have 30 seconds, so think fast!</e>
+    <e id="12">Additional Info</e>
+    <e id="13">The Dragon Knight, Mercenaries, and all Minions are always under the effect of Bloodlust.</e>
+    <e id="14">There is a small chance that all Heroes on both teams will have Bloodlust cast on them.</e>
+    <e id="15">After 17 minutes, Bloodlust is cast on all Heroes permanently! </e>
+</Locale>

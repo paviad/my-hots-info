@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">¡Ansia de sangre!</e>
+    <e id="2">Sin ningún tipo de descripción.</e>
+    <e id="3">Default</e>
+    <e id="4">¡Ansia de sangre!</e>
+    <e id="5">Los héroes se enzarzan en una batalla en el Condado del Dragón mientras reciben Ansia de sangre de manera aleatoria. ¡Entregaos a vuestra ira!</e>
+    <e id="6">Despertad al caballero dragón</e>
+    <e id="7">Controlad ambos santuarios a la vez y el caballero dragón luchará a vuestro lado.</e>
+    <e id="8">Ansia de sangre</e>
+    <e id="9">A intervalos regulares, aumenta el ataque y la velocidad de movimiento de dos héroes aleatorios de cada equipo de forma temporal y se curan al usar ataques básicos.</e>
+    <e id="10">Selección entre héroes aleatorios</e>
+    <e id="11">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="12">Información adicional</e>
+    <e id="13">El caballero dragón, los mercenarios y todos los esbirros están siempre bajo los efectos de Ansia de sangre.</e>
+    <e id="14">Existe una pequeña posibilidad de que todos los héroes de ambos equipos reciban Ansia de sangre.</e>
+    <e id="15">Tras 17 minutos, ¡Ansia de sangre se lanzará a todos los héroes de forma permanente!</e>
+</Locale>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="zhCN">
+    <e id="1">天空殿数据 (Mod)</e>
+    <e id="2"></e>
+    <e id="3">处于神殿中的时间</e>
+    <e id="4">花费在激活神殿中的时间</e>
+    <e id="5">大量祭坛占领时间</e>
+</Locale>

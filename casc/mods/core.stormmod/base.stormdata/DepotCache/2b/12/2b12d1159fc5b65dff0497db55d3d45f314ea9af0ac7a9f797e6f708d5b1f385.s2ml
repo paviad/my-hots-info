@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Cursed Hollow</e>
+    <e id="2">3-Lane Map&lt;br&gt;&lt;br&gt;The Raven Lord summons tributes in certain locations across Cursed Hollow. Fight back the enemy team and be the first to collect the tributes. Once the third tribute has been gathered, the Raven Lord will curse your enemies, rendering their towers incapable of attacking, and reducing the health of their minions.</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Other</e>
+    <e id="5">Unclassified game type.</e>
+    <e id="6">Standard</e>
+    <e id="7">Players can choose their Heroes.</e>
+    <e id="8">Raven Tributes Collected</e>
+    <e id="9">Number of Tributes collected</e>
+    <e id="10">Cursed Hollow</e>
+    <e id="11">3-Lane Map</e>
+</Locale>

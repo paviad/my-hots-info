@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Avanzada de Braxis</e>
+    <e id="2">¡Varios héroes de Blizzard se encuentran y se enfrentan en un épico campo de batalla galáctico!</e>
+    <e id="3">Braxis</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de partida no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Todos los ajustes se pueden personalizar.</e>
+    <e id="8">Avanzada de Braxis</e>
+    <e id="9">¡Héroes aleatorios se enfrentan en un solo camino!</e>
+    <e id="10">Destruid el núcleo enemigo</e>
+    <e id="11">Destruid el núcleo enemigo para ganar.</e>
+    <e id="12">Un solo camino</e>
+    <e id="13">Aparece un campamento de agresores de Starcraft a cada lado del mapa. Preparaos para una acción trepidante.</e>
+    <e id="14">Selección entre héroes aleatorios</e>
+    <e id="15">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="16">Información adicional</e>
+    <e id="17">Las piedras de hogar (B) están desactivadas y vuestra área de inicio no regenera salud.</e>
+    <e id="18">Los generadores de esferas crean esferas de regeneración en el campo de batalla.</e>
+    <e id="19">Existe una pequeña posibilidad de que todos los jugadores sean el mismo héroe.</e>
+</Locale>

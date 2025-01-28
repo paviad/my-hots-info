@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Distrito industrial</e>
+    <e id="2">¡Tus héroes favoritos de Blizzard se reúnen para batallar en una épica arena galáctica!</e>
+    <e id="3">Otro</e>
+    <e id="4">Tipo de juego no clasificado.</e>
+    <e id="5">Estándar</e>
+    <e id="6">Todas las configuraciones se pueden personalizar.</e>
+    <e id="7">Distrito industrial</e>
+    <e id="8">¡Héroes seleccionados al azar combaten en una sola vía!</e>
+    <e id="9">Destruye el núcleo enemigo</e>
+    <e id="10">Destruye el núcleo del enemigo para ganar.</e>
+    <e id="11">Una vía</e>
+    <e id="12">No hay objetivos adicionales en el campo de batalla. Prepárate para la acción constante.</e>
+    <e id="13">Preselección</e>
+    <e id="14">Elige a uno de los tres héroes seleccionados aleatoriamente.</e>
+    <e id="15">Información adicional</e>
+    <e id="16">Las Piedras de hogar (B) están deshabilitadas y tu área inicial no regenera salud.</e>
+    <e id="17">Los generadores de esferas crean esferas de regeneración en el campo de batalla.</e>
+</Locale>

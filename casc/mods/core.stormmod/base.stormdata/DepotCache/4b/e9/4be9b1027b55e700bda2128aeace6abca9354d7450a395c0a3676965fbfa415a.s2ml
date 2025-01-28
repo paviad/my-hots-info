@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Hallows End Mutator</e>
+    <e id="2">Trick or Treat!  Burning feet! Douse the fires or face defeat!</e>
+    <e id="3">TowersOfDoom</e>
+    <e id="4">Hallow&apos;s End</e>
+    <e id="5">Prepare yourselves or be overwhelmed... The Horseman descends upon this realm!</e>
+    <e id="6">Protected Core</e>
+    <e id="7">Players cannot attack the Cores directly.</e>
+    <e id="8">Smashing!</e>
+    <e id="9">The Horseman will periodically scatter several Pumpkins across the battleground.</e>
+    <e id="10">Destroying a Pumpkin or killing an enemy hero deals damage to the enemy&apos;s Core.</e>
+    <e id="11">Shuffle Pick</e>
+    <e id="12">Choose from one of three randomly selected heroes, there&apos;s a small chance of all players being the same Hero.</e>
+    <e id="13">Tricks and Treats</e>
+    <e id="14">Smashing a Pumpkin also grants players either a Trick or a Treat at random. Good luck!</e>
+    <e id="15">Respawn times are universally 5 seconds.</e>
+</Locale>

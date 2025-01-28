@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">La Guerra dei Robottoni</e>
+    <e id="2">Completamente mancante di qualunque descrizione.</e>
+    <e id="3">IndustrialDistrict</e>
+    <e id="4">La Guerra dei Robottoni</e>
+    <e id="5">Controllate i Protettori mentre tentate di distruggere il nucleo nemico!</e>
+    <e id="6">Distruggete il nucleo nemico</e>
+    <e id="7">Distruggete il nucleo nemico per vincere.</e>
+    <e id="8">Protettori</e>
+    <e id="9">Entrambe le squadre iniziano con un Protettore Triglav.</e>
+    <e id="10">Quando entrambi i Protettori sono distrutti, ne compaiono altri due.</e>
+    <e id="11">Scelta mista</e>
+    <e id="12">Scegli un eroe fra tre selezionati casualmente.</e>
+    <e id="13">Info aggiuntive</e>
+    <e id="14">I Protettori Triglav possono essere controllati da due giocatori: un pilota e un mitragliere.</e>
+    <e id="15">Il pilota e il mitragliere hanno accesso ad abilità uniche.</e>
+    <e id="16">Solo il pilota può muovere il Protettore.</e>
+</Locale>

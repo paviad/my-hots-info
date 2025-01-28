@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Arena Świątynna</e>
+    <e id="2">Bohaterowie z uniwersów Blizzarda stają naprzeciw siebie, by toczyć walki na wielkiej, galaktycznej arenie!</e>
+    <e id="3">(Storm) Luxoria</e>
+    <e id="4">Inne</e>
+    <e id="5">Niesklasyfikowany rodzaj gry.</e>
+    <e id="6">Standardowo</e>
+    <e id="7">Gracze mogą wybrać swoich bohaterów.</e>
+    <e id="8">SkyTempleSimple</e>
+    <e id="9">Arena Świątynna</e>
+    <e id="10">Bójka w stylu „king of the hill”. Zwycięża drużyna, która zajmuje świątynie najdłużej.</e>
+    <e id="11">Mecz do dwóch wygranych rund na Arenie Świątynnej</e>
+    <e id="12">Aby wygrać rundę, zniszcz bazę wroga</e>
+    <e id="13">Zajmij świątynie</e>
+    <e id="14">Zajmuj świątynie, aby zaatakować bazę wroga</e>
+    <e id="15">Losowy wybór</e>
+    <e id="16">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="17">Dodatkowe informacje</e>
+    <e id="18">Kule Regeneracji są dwukrotnie potężniejsze.</e>
+    <e id="19">Istnieje niewielka szansa, że wszyscy będą grać tym samym bohaterem.</e>
+</Locale>

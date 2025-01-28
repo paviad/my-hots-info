@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Vergessene Höhle</e>
+    <e id="2">Ein breites Spektrum von Blizzard-Helden trifft sich zur Schlacht in einer galaktischen Arena.</e>
+    <e id="3">Luxoria - Grabkammer</e>
+    <e id="4">Andere</e>
+    <e id="5">Unklassifizierter Spieltyp.</e>
+    <e id="6">Standard</e>
+    <e id="7">Spieler können ihre Helden auswählen.</e>
+    <e id="8">LostCavern</e>
+    <e id="9">Vergessene Höhle</e>
+    <e id="10">Zufallshelden liefern sich hitzige Gefechte auf nur einem Weg!</e>
+    <e id="11">Zerstöre die gegnerische Zitadelle</e>
+    <e id="12">Zerstöre die Zitadelle des Gegners, um zu gewinnen.</e>
+    <e id="13">Ein Weg</e>
+    <e id="14">Es gibt keine zusätzlichen Schlachtfeldziele. Mach dich auf konstante Action gefasst!</e>
+    <e id="15">Zufallswahl</e>
+    <e id="16">Wähle einen von drei zufälligen Helden. Du hast nur 30 Sekunden Zeit, also entscheide dich schnell!</e>
+    <e id="17">Zusatzinfos</e>
+    <e id="18">Ruhesteine (B) sind deaktiviert und im Startbereich wird dein Held nicht geheilt.</e>
+    <e id="19">Regenerationskugelquellen erschaffen auf dem Schlachtfeld Regenerationskugeln.</e>
+</Locale>

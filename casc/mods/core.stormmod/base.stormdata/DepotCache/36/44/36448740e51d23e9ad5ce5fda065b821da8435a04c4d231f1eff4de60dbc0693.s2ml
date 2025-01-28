@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Arena del Jardín</e>
+    <e id="2">¡Tus héroes favoritos de Blizzard se reúnen para batallar en una épica arena galáctica!</e>
+    <e id="3">(Storm) Cima del rey (Jardines)</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de juego no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">Arena del Jardín</e>
+    <e id="9">Cosecha las semillas de los terrores o míralas crecer hasta convertirse en tu ruina</e>
+    <e id="10">Partida al mejor de 3 rondas en la Arena del jardín</e>
+    <e id="11">El primer equipo en ganar 2 rondas se lleva la victoria</e>
+    <e id="12">Recoge semillas</e>
+    <e id="13">El primer equipo en juntar 100 semillas gana la ronda </e>
+    <e id="14">Preselección</e>
+    <e id="15">Elige a uno de los tres héroes seleccionados aleatoriamente. Solo tienes 30 segundos. ¡Piensa rápido!</e>
+    <e id="16">Información adicional</e>
+    <e id="17">Las esferas de regeneración son doblemente poderosas</e>
+    <e id="18">Hay una pequeña probabilidad de que todos los jugadores tengan el mismo héroe</e>
+</Locale>

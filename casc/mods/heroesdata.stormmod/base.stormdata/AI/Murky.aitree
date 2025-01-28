@@ -1,0 +1,2013 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree>
+  <include file="AI/HeroMutator.aitree" />
+  <mod id="16832C89283AB68B">
+    <removeChild id="6C616369000C0E06" />
+    <insertChild id="AD2B916D6149E653" after="4024197CCD7E28AB" />
+  </mod>
+  <mod id="6C616369000C0E06">
+    <insertChild id="B5514678E042298A" before="" />
+    <insertChild id="E27F32225FDFED9C" after="B5514678E042298A" />
+    <insertChild id="82F3BF657087E603" after="E27F32225FDFED9C" />
+  </mod>
+  <mod id="746F6F526F726548">
+    <variable name="ShouldChase" type="Boolean" />
+    <variable name="EggAlive" type="Boolean" />
+    <variable name="EggUnit" type="Unit" />
+    <variable name="TimerAllowedTime" type="Time" />
+    <variable name="TimerPreventionTime" type="Time" />
+    <variable name="SetEgg" type="Boolean" />
+    <variable name="SetFakeEgg" type="Boolean" />
+    <variable name="FakeEggPoint" type="Point" />
+    <variable name="FakeEggCheckTimer" type="Time" />
+    <variable name="FakeEggDisableTimer" type="Time" />
+    <variable name="OctograbUnit" type="Unit" />
+    <variable name="OctograbTimer" type="Time" />
+    <variable name="MarchUnit" type="Unit" />
+    <variable name="March timer" type="Time" />
+    <variable name="Egg Placement Location" type="Point" />
+  </mod>
+  <mod id="87811D772E337EB7">
+    <insertChild id="941DB81357FFE7C7" />
+    <insertChild id="2AD3D810A191A7FF" />
+    <insertChild id="236C23F128AD25A8" />
+  </mod>
+  <mod id="A4058AA255280C17">
+    <insertChild id="FBBAC0DE0E639193" />
+    <insertChild id="5AAD54A25715CB74" />
+    <insertChild id="CFBE0EB64CD3A85F" />
+    <insertChild id="D16625C579CAFEB8" />
+    <insertChild id="34992AEF61EC4900" />
+    <insertChild id="D65136472A4644CA" />
+    <insertChild id="D65BB6F9BD383161" />
+  </mod>
+  <mod id="F21BCB9B06948439">
+    <insertChild id="3056722971A5938B" />
+    <insertChild id="DD3FE14C9A03B071" />
+    <insertChild id="9EE7784A0DBC0C3B" />
+    <insertChild id="A0F68C8F017AB8E5" />
+  </mod>
+  <mod id="FCD592221157322E">
+    <insertChild id="FB92E279EEB62A07" after="AC2BBB6587C38F1C" />
+  </mod>
+  <node name="Reset Variable" type="SetBoolean" id="B5514678E042298A">
+    <property name="Variable" value="EggAlive" />
+    <insertChild id="B8B8F036CC91C58F" />
+  </node>
+  <node name="" type="IfElse" id="B8B8F036CC91C58F">
+    <insertChild id="D14D5EBB678B391F" />
+    <insertChild id="5B569255EAA37E0C" />
+    <insertChild id="6221CA77155E866F" />
+  </node>
+  <node name="Murkey Egg" type="FindBestTarget" id="D14D5EBB678B391F">
+    <property name="UnitType" valueSource="literal" value="MurkyRespawnEgg" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="OutputTarget" value="EggUnit" />
+    <property name="MaxTargetDistance" valueSource="literal" value="100" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="ExcludeTypes" valueSource="literal" value="" />
+  </node>
+  <node name="Egg Alive" type="SetBoolean" id="5B569255EAA37E0C">
+    <property name="Variable" value="EggAlive" />
+    <property name="Value" valueSource="literal" value="true" />
+  </node>
+  <node name="Egg Alive" type="SetBoolean" id="6221CA77155E866F">
+    <property name="Variable" value="EggAlive" />
+    <property name="Value" valueSource="literal" value="false" />
+    <insertChild id="8DFDE983ACE65A6F" />
+  </node>
+  <node name="Egg Alive" type="SetBoolean" id="8DFDE983ACE65A6F">
+    <property name="Variable" value="SetEgg" />
+    <property name="Value" valueSource="literal" value="true" />
+  </node>
+  <node name="Egg Nearby" type="UnitCount" id="E27F32225FDFED9C">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="UnitType" valueSource="literal" value="MurkyRespawnEgg" />
+    <property name="MaxTargetDistance" valueSource="literal" value="5" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <insertChild id="AB0389B1BF20D145" />
+  </node>
+  <node name="Egg Placed" type="SetBoolean" id="AB0389B1BF20D145">
+    <property name="Variable" value="SetEgg" />
+    <property name="Value" valueSource="literal" value="false" />
+  </node>
+  <node name="Fake Egg Nearby" type="UnitCount" id="82F3BF657087E603">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="UnitType" valueSource="literal" value="MurkyEggHuntEgg" />
+    <property name="MaxTargetDistance" valueSource="literal" value="5" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <insertChild id="18E5C17D7A76C433" />
+  </node>
+  <node name="Fake Egg Placed" type="SetBoolean" id="18E5C17D7A76C433">
+    <property name="Variable" value="SetFakeEgg" />
+    <property name="Value" valueSource="literal" value="false" />
+  </node>
+  <node name="" type="And" id="FBBAC0DE0E639193">
+    <insertChild id="5BA0D4C303AB56BF" />
+    <insertChild id="FE44CD772CFD905E" />
+    <insertChild id="8FB17373C0500DDA" />
+  </node>
+  <node name="" type="Or" id="5BA0D4C303AB56BF">
+    <insertChild id="B4F3820186D18D08" />
+    <insertChild id="87CCF76272293D71" />
+  </node>
+  <node name="Egg Dead" type="CompareBoolean" id="B4F3820186D18D08">
+    <property name="LeftHandSide" valueSource="variable" value="EggAlive" />
+  </node>
+  <node name="No Enemy Nearby" type="UnitCount" id="87CCF76272293D71">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <insertChild id="8EC4D419978FD499" />
+  </node>
+  <node name="Egg Far" type="FindBestTarget" id="8EC4D419978FD499">
+    <property name="UnitType" valueSource="literal" value="MurkyRespawnEgg" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="OutputTarget" value="EggUnit" />
+    <property name="MaxTargetDistance" valueSource="literal" value="250" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="ExcludeTypes" valueSource="literal" value="" />
+    <property name="MinTargetDistance" valueSource="literal" value="75" />
+  </node>
+  <node name="Place Egg" type="SetBoolean" id="FE44CD772CFD905E">
+    <property name="Variable" value="SetEgg" />
+    <property name="Value" valueSource="literal" value="true" />
+  </node>
+  <node name="" type="Or" id="8FB17373C0500DDA">
+    <variable name="FriendlyTownHall" type="Unit" />
+    <variable name="Center Random Area" type="Point" />
+    <insertChild id="D8C8698BE86DD41A" />
+    <insertChild id="DB64A96407FC8D19" />
+  </node>
+  <node name="Find Nearby Townhall" type="FindBestTarget" id="D8C8698BE86DD41A">
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="MaxTargetDistance" valueSource="literal" value="50" />
+    <property name="OutputTarget" value="FriendlyTownHall" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.5" />
+    <insertChild id="DC6C7133F0134745" />
+  </node>
+  <node name="Move to Safe Loc" type="FindPointOnLine" id="DC6C7133F0134745">
+    <property name="SourceUnit" valueSource="variable" value="FriendlyTownHall" />
+    <property name="DestinationPoint" valueSource="intrinsic" value="SafePos" />
+    <property name="DistanceOffset" valueSource="literal" value="10" />
+    <property name="OutputTarget" value="Center Random Area" />
+    <insertChild id="2C663C49C2052684" />
+  </node>
+  <node name="Pic Random Area" type="RandomPointInCircle" id="2C663C49C2052684">
+    <property name="CenterPoint" valueSource="variable" value="Center Random Area" />
+    <property name="Radius" valueSource="literal" value="5" />
+    <property name="RequirePathable" valueSource="literal" value="true" />
+    <property name="OutputPoint" value="Egg Placement Location" />
+    <insertChild id="508CCB042B304CEB" />
+  </node>
+  <node name="" type="Or" id="508CCB042B304CEB">
+    <insertChild id="795FDC249B8381B6" />
+    <insertChild id="C367E22E3008FFC6" />
+  </node>
+  <node name="" type="FindBestShrub" id="795FDC249B8381B6">
+    <property name="SearchCenter" valueSource="variable" value="Egg Placement Location" />
+    <property name="MaxRange" valueSource="literal" value="15" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="SafePos" />
+    <property name="RandomShrub" valueSource="literal" value="true" />
+    <property name="OutputTarget" value="Egg Placement Location" />
+  </node>
+  <node name="Place Egg" type="FindBestScoutPoint" id="C367E22E3008FFC6">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="Range" valueSource="literal" value="15" />
+    <property name="PreferBushes" valueSource="literal" value="true" />
+    <property name="OutputTarget" value="Egg Placement Location" />
+  </node>
+  <node name="" type="Or" id="DB64A96407FC8D19">
+    <insertChild id="5ACEE6ADF85548AE" />
+    <insertChild id="DA78096B75CFA3B0" />
+  </node>
+  <node name="" type="FindBestShrub" id="5ACEE6ADF85548AE">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="MaxRange" valueSource="literal" value="15" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="SafePos" />
+    <property name="RandomShrub" valueSource="literal" value="true" />
+    <property name="OutputTarget" value="Egg Placement Location" />
+  </node>
+  <node name="Place Egg" type="FindBestScoutPoint" id="DA78096B75CFA3B0">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="Range" valueSource="literal" value="15" />
+    <property name="PreferBushes" valueSource="literal" value="true" />
+    <property name="OutputTarget" value="Egg Placement Location" />
+  </node>
+  <node name="Place Egg" type="CompareBoolean" id="5AAD54A25715CB74">
+    <property name="LeftHandSide" valueSource="variable" value="SetEgg" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+    <insertChild id="937ACEE335A5F637" />
+  </node>
+  <node name="Place Egg" type="Ability" id="937ACEE335A5F637">
+    <property name="Ability" valueSource="literal" value="MurkyRespawnEgg" />
+    <property name="TargetPoint" valueSource="variable" value="Egg Placement Location" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="No Enemy Hero Nearby" type="UnitCount" id="CFBE0EB64CD3A85F">
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <insertChild id="C10D1CD2FA582765" />
+  </node>
+  <node name="Should Place Egg" type="CompareBoolean" id="C10D1CD2FA582765">
+    <property name="LeftHandSide" valueSource="variable" value="SetFakeEgg" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+    <insertChild id="BC6E6F2FB8AB1673" />
+  </node>
+  <node name="Place Egg" type="Ability" id="BC6E6F2FB8AB1673">
+    <property name="Ability" valueSource="literal" value="MurkyEggHunt" />
+    <property name="TargetPoint" valueSource="variable" value="FakeEggPoint" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="Timer Variables" type="IfElse" id="D16625C579CAFEB8" comment="AllowedTimer and PreventionTimer Timer Variables must be set on Root Node where this is Copied.">
+    <variable name="Allowed Time" type="Number" value="10" />
+    <variable name="Prevention Time" type="Number" value="40" />
+    <insertChild id="7C4924BEF2F5FA95" />
+    <insertChild id="EEED6281882AF0BA" />
+    <insertChild id="B2659037B90BF3C6" />
+  </node>
+  <node name="Check Timers" type="And" id="7C4924BEF2F5FA95">
+    <insertChild id="0A94888F1ABFF36F" />
+    <insertChild id="4F794D62D0F0AD88" />
+    <insertChild id="3E12F146BB727E5E" />
+    <insertChild id="85951D614998E3C6" />
+  </node>
+  <node name="" type="Or" id="0A94888F1ABFF36F">
+    <insertChild id="9BAA72AB486CB293" />
+    <insertChild id="977EF9C6B55E0ADD" />
+  </node>
+  <node name="" type="FindBestShrub" id="9BAA72AB486CB293">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="MaxRange" valueSource="literal" value="25" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="SafePos" />
+    <property name="RandomShrub" valueSource="literal" value="true" />
+    <property name="OutputTarget" value="FakeEggPoint" />
+  </node>
+  <node name="Egg Placement Locations" type="FindBestScoutPoint" id="977EF9C6B55E0ADD">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="Range" valueSource="literal" value="10" />
+    <property name="PreferBushes" valueSource="literal" value="true" />
+    <property name="RandomBush" valueSource="literal" value="true" />
+    <property name="OutputTarget" value="FakeEggPoint" />
+  </node>
+  <node name="Allowed Timer" type="TimerFinished" id="4F794D62D0F0AD88">
+    <property name="FinishTime" valueSource="variable" value="FakeEggCheckTimer" />
+  </node>
+  <node name="Prevention Timer" type="TimerFinished" id="3E12F146BB727E5E">
+    <property name="FinishTime" valueSource="variable" value="FakeEggDisableTimer" />
+  </node>
+  <node name="No Enemy Hero Nearby" type="UnitCount" id="85951D614998E3C6">
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Start Timers" type="And" id="EEED6281882AF0BA">
+    <insertChild id="2B003758BF298B87" />
+    <insertChild id="B6A1028DCA7063E7" />
+  </node>
+  <node name="Timer Allowed" type="TimerStart" id="2B003758BF298B87">
+    <property name="OutputFinishTime" value="FakeEggCheckTimer" />
+    <property name="DurationSeconds" valueSource="variable" value="Allowed Time" />
+  </node>
+  <node name="Timer Prevent" type="TimerStart" id="B6A1028DCA7063E7">
+    <property name="OutputFinishTime" value="FakeEggDisableTimer" />
+    <property name="DurationSeconds" valueSource="variable" value="Prevention Time" />
+  </node>
+  <node name="Allow or Disallow" type="IfElse" id="B2659037B90BF3C6">
+    <insertChild id="9B73E75181022C74" />
+    <insertChild id="97880458EE89C28D" />
+    <insertChild id="9ADD8D2BD9BDE4A2" />
+  </node>
+  <node name="" type="Not" id="9B73E75181022C74">
+    <insertChild id="36FA8675880A3D57" />
+  </node>
+  <node name="Timer Allowed" type="TimerFinished" id="36FA8675880A3D57">
+    <property name="FinishTime" valueSource="variable" value="FakeEggCheckTimer" />
+  </node>
+  <node name="Allowed" type="And" id="97880458EE89C28D" comment="This branch will run for the allowed time and then will stop doing the allowed node until the Prevention Time has elapsed">
+    <insertChild id="2C67D7EA40D2476D" />
+  </node>
+  <node name="Set Egg" type="SetBoolean" id="2C67D7EA40D2476D">
+    <property name="Variable" value="SetFakeEgg" />
+    <property name="Value" valueSource="literal" value="true" />
+  </node>
+  <node name="Disallowed" type="And" id="9ADD8D2BD9BDE4A2" />
+  <node name="Safety Bubble" type="AbilityUsable" id="34992AEF61EC4900" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="MurkySafetyBubble" />
+    <insertChild id="7A4A79FA43027548" />
+  </node>
+  <node name="Base Node" type="And" id="7A4A79FA43027548" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" value="5" comment="Range of the Ability" />
+    <variable name="AbilityTargetUnit" type="Unit" comment="Target to Use Ability on" />
+    <variable name="AbilityLowManaThreshHold" type="Number" value="0.4" comment="Low Mana Threshhold" />
+    <variable name="AbilityHighManaThreshHold" type="Number" value="0.75" comment="High Mana Threshhold" />
+    <insertChild id="6441537D68D4B10B" />
+    <insertChild id="D454C9C498823A56" />
+    <insertChild id="87E7CA51B165C1D2" />
+  </node>
+  <node name="" type="Or" id="6441537D68D4B10B">
+    <insertChild id="97B66494AA7AF775" />
+    <insertChild id="C9A1A37B1A4581D8" />
+    <insertChild id="6D520CBB74913A60" />
+    <insertChild id="F3BC714A3EB18FEF" />
+    <insertChild id="48B8A8F497C2648C" />
+  </node>
+  <node name="&gt;3 Enemy Hero" type="UnitCount" id="97B66494AA7AF775">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <insertChild id="64C4A36C9DA1AA11" />
+  </node>
+  <node name="Self&lt;50%" type="LifeFraction" id="64C4A36C9DA1AA11">
+    <property name="LifeFraction" valueSource="literal" value="0.5" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="&gt;2 Enemy Hero" type="UnitCount" id="C9A1A37B1A4581D8">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <insertChild id="BA163D1BCC9D6A61" />
+  </node>
+  <node name="Self&lt;40%" type="LifeFraction" id="BA163D1BCC9D6A61">
+    <property name="LifeFraction" valueSource="literal" value="0.4" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="1 Enemy Hero" type="UnitCount" id="6D520CBB74913A60">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <insertChild id="9EDB823023BBE194" />
+  </node>
+  <node name="" type="Or" id="9EDB823023BBE194">
+    <insertChild id="A52F82A4514BFB36" />
+  </node>
+  <node name="Self&lt;50%" type="LifeFraction" id="A52F82A4514BFB36">
+    <property name="LifeFraction" valueSource="literal" value="0.25" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="Self" type="IsInDanger" id="F3BC714A3EB18FEF">
+    <insertChild id="A9F73C7FEC7CC09B" />
+  </node>
+  <node name="" type="Or" id="A9F73C7FEC7CC09B">
+    <insertChild id="2B93D89302B26D3D" />
+    <insertChild id="06BF28F67C446DAE" />
+  </node>
+  <node name="Self&lt;50%" type="LifeFraction" id="2B93D89302B26D3D">
+    <property name="LifeFraction" valueSource="literal" value="0.25" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="1 Enemy Hero" type="UnitCount" id="06BF28F67C446DAE">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+  </node>
+  <node name="Self taking damage" type="RecentlyDamaged" id="48B8A8F497C2648C">
+    <property name="WithinSeconds" valueSource="literal" value="0.25" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="035BA7F235C17655" />
+  </node>
+  <node name="Self&lt;40%" type="LifeFraction" id="035BA7F235C17655">
+    <property name="LifeFraction" valueSource="literal" value="0.4" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="" type="Sequence" id="D454C9C498823A56">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="DDC2DC70EB3DC079" />
+  </node>
+  <node name="NeverEnding Murloc" type="UnitHasBehavior" id="DDC2DC70EB3DC079">
+    <insertChild id="0431E0998D9986D9" />
+  </node>
+  <node name="Cancel" type="Ability" id="0431E0998D9986D9">
+    <property name="Ability" valueSource="literal" value="MurkyCancelMarchoftheMurlocs" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="Safety Bubble" type="Ability" id="87E7CA51B165C1D2">
+    <property name="Ability" valueSource="literal" value="MurkySafetyBubble" />
+  </node>
+  <node name="NeverEnding Murloc" type="UnitHasBehavior" id="D65136472A4644CA">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="MurkyMarchoftheMurlocsNeverEndingMurlocsTalentChanneling" />
+    <insertChild id="88889ACCDE74098C" />
+  </node>
+  <node name="Root" type="And" id="88889ACCDE74098C">
+    <insertChild id="5A50D60FB0B946A3" />
+    <insertChild id="03F6C935AC216908" />
+  </node>
+  <node name="Use Condition" type="Or" id="5A50D60FB0B946A3">
+    <insertChild id="6CC7CD7E2B6BE2BC" />
+  </node>
+  <node name="Timer Finished" type="TimerFinished" id="6CC7CD7E2B6BE2BC">
+    <property name="FinishTime" valueSource="variable" value="March timer" />
+    <insertChild id="C3A730E0E4FBB88E" />
+  </node>
+  <node name="" type="FilterBehavior" id="C3A730E0E4FBB88E">
+    <property name="Behavior" valueSource="literal" value="MurkyMarchoftheMurlocs" />
+    <insertChild id="D5D8465AEBB6E269" />
+  </node>
+  <node name="Nothing being hit" type="UnitCount" id="D5D8465AEBB6E269">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Cancel" type="Ability" id="03F6C935AC216908">
+    <property name="Ability" valueSource="literal" value="MurkyCancelMarchoftheMurlocs" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="Setting Real Egg" type="CompareBoolean" id="3056722971A5938B">
+    <property name="LeftHandSide" valueSource="variable" value="SetEgg" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+    <insertChild id="7F2C51F52A101A15" />
+  </node>
+  <node name="End Timer" type="SetBoolean" id="7F2C51F52A101A15">
+    <property name="Variable" value="SetFakeEgg" />
+  </node>
+  <node name="Hero Nearby" type="UnitCount" id="DD3FE14C9A03B071">
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="UnitType" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <insertChild id="B4A2138B4AD7C1F6" />
+  </node>
+  <node name="End Timer" type="SetBoolean" id="B4A2138B4AD7C1F6">
+    <property name="Variable" value="SetFakeEgg" />
+  </node>
+  <node name="Octograb" type="AbilityUsable" id="9EE7784A0DBC0C3B" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="MurkyOctoGrab" />
+    <insertChild id="075F92F496A56DCC" />
+  </node>
+  <node name="" type="Or" id="075F92F496A56DCC">
+    <insertChild id="5BD9CB130BCC43EA" />
+    <insertChild id="A52D3AEFF06165CE" />
+  </node>
+  <node name="" type="And" id="5BD9CB130BCC43EA">
+    <insertChild id="5F60A1BCFE542967" />
+    <insertChild id="E06AACB71B60AF57" />
+  </node>
+  <node name="" type="Not" id="5F60A1BCFE542967">
+    <insertChild id="DF38CC5B908ABF81" />
+  </node>
+  <node name="OctoTimer" type="TimerFinished" id="DF38CC5B908ABF81">
+    <property name="FinishTime" valueSource="variable" value="OctograbTimer" />
+  </node>
+  <node name="Use Ability" type="Ability" id="E06AACB71B60AF57">
+    <property name="Ability" valueSource="literal" value="MurkyOctoGrab" />
+    <property name="TargetUnit" valueSource="variable" value="OctograbUnit" />
+  </node>
+  <node name="Base Node" type="And" id="A52D3AEFF06165CE" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" valueSource="lookup" value="Abil,MurkyOctoGrab,Range" comment="Range of the Ability" />
+    <variable name="AbilityTargetUnit" type="Unit" comment="Target to Use Ability on" />
+    <variable name="AllyToSave" type="Unit" />
+    <insertChild id="5A4A61F465299EA3" />
+    <insertChild id="B6DF6C10B031E0D0" />
+    <insertChild id="422387DF02479B78" />
+    <insertChild id="63DAED016843258D" />
+  </node>
+  <node name="" type="And" id="5A4A61F465299EA3" />
+  <node name="" type="Or" id="B6DF6C10B031E0D0">
+    <insertChild id="0EBFD399821246EB" />
+    <insertChild id="7223ED7D665B36BF" />
+    <insertChild id="B407943052242D42" />
+  </node>
+  <node name="Pufferfish" type="AbilityUsable" id="0EBFD399821246EB">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+  </node>
+  <node name="Ally Nearby to Save" type="UnitCount" id="7223ED7D665B36BF">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+  </node>
+  <node name="Single Enemy Hero" type="UnitCount" id="B407943052242D42">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <insertChild id="9F2B922A89A8A688" />
+  </node>
+  <node name="Single Enemy Hero" type="UnitCount" id="9F2B922A89A8A688">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+  </node>
+  <node name="Targeting Selecting Node" type="Or" id="422387DF02479B78">
+    <insertChild id="5E0E291A3E6D8756" />
+    <insertChild id="A32E87188C913013" />
+  </node>
+  <node name="Pufferfish" type="AbilityUsable" id="5E0E291A3E6D8756">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <insertChild id="3C6525BF30A9EACE" />
+  </node>
+  <node name="" type="Or" id="3C6525BF30A9EACE">
+    <insertChild id="7A193669FCF8657C" />
+  </node>
+  <node name="Find Critical Target" type="FindBestTarget" id="7A193669FCF8657C">
+    <property name="OutputTarget" value="OctograbUnit" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+  </node>
+  <node name="Ally Nearby to Save" type="FindBestTarget" id="A32E87188C913013">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="OutputTarget" value="AllyToSave" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <insertChild id="BACEE669A934D7BD" />
+  </node>
+  <node name="" type="Or" id="BACEE669A934D7BD">
+    <insertChild id="271A658C53699947" />
+  </node>
+  <node name="Find Enemy Near Ally" type="FindBestTarget" id="271A658C53699947">
+    <property name="OutputTarget" value="OctograbUnit" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AllyToSave" />
+    <property name="ClipCenter" valueSource="intrinsic" value="Self" />
+    <property name="ClipRadius" valueSource="variable" value="AbilityRange" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="DistanceFactor" valueSource="literal" value="10" />
+  </node>
+  <node name="" type="IfElse" id="63DAED016843258D">
+    <insertChild id="784D559CBAE233CF" />
+    <insertChild id="8FC2342E0282F9D7" />
+    <insertChild id="FE712C227A93A849" />
+  </node>
+  <node name="Pufferfish" type="AbilityUsable" id="784D559CBAE233CF">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <insertChild id="CB9BDA94FA6E9F6A" />
+  </node>
+  <node name="Combo if Elite" type="Difficulty" id="CB9BDA94FA6E9F6A" />
+  <node name="Pufferfish" type="AbilityEnqueue" id="8FC2342E0282F9D7">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <property name="TargetPoint" valueSource="variable" value="OctograbUnit" />
+    <insertChild id="1BFB78B99F37CA59" />
+  </node>
+  <node name="Use Ability" type="TimerStart" id="1BFB78B99F37CA59">
+    <property name="OutputFinishTime" value="OctograbTimer" />
+    <property name="DurationSeconds" valueSource="literal" value="5" />
+  </node>
+  <node name="Use Ability" type="Ability" id="FE712C227A93A849">
+    <property name="Ability" valueSource="literal" value="MurkyOctoGrab" />
+    <property name="TargetUnit" valueSource="variable" value="OctograbUnit" />
+  </node>
+  <node name="Slime" type="AbilityUsable" id="941DB81357FFE7C7" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="MurkySlime" />
+    <insertChild id="B1FC318583BABB61" />
+  </node>
+  <node name="Base Node" type="And" id="B1FC318583BABB61" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityAOERadius" type="Number" valueSource="lookup" value="Effect,MurkySlimeSearch,AreaArray[0].Radius" comment="Radius of the Search" />
+    <variable name="SlimeChaseRadius" type="Number" value="3" />
+    <variable name="CurrentUnitCount" type="Integer" />
+    <variable name="FutureUnitCount" type="Integer" />
+    <variable name="AbilityTargetPoint" type="Point" />
+    <variable name="OptimalMovePoint" type="Point" />
+    <variable name="PufferfishDamage" type="Number" valueSource="lookup" value="Effect,MurkyPufferfishDamage,Amount" />
+    <insertChild id="9F71C4F5FE5D70FD" />
+  </node>
+  <node name="" type="IfElse" id="9F71C4F5FE5D70FD">
+    <insertChild id="B25652CA47F17648" />
+    <insertChild id="B4D6CCD0DCC82596" />
+    <insertChild id="EC74B6F81DF5A41D" />
+  </node>
+  <node name="Enemy Hero Close" type="UnitCount" id="B25652CA47F17648">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+  </node>
+  <node name="PVP Usage" type="And" id="B4D6CCD0DCC82596">
+    <insertChild id="A5D6AC6BB7606888" />
+  </node>
+  <node name="" type="Or" id="A5D6AC6BB7606888">
+    <insertChild id="5EC58AA88989C982" />
+  </node>
+  <node name="Enemy Hero Close" type="UnitCount" id="5EC58AA88989C982">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <insertChild id="0CEA3B57B9F0F3EE" />
+  </node>
+  <node name="Use Ability" type="AbilityEnqueue" id="0CEA3B57B9F0F3EE">
+    <property name="Ability" valueSource="literal" value="MurkySlime" />
+  </node>
+  <node name="PVE Usage" type="And" id="EC74B6F81DF5A41D">
+    <insertChild id="F5C176535875F350" />
+    <insertChild id="B1C35241D70E44B9" />
+  </node>
+  <node name="" type="IfElse" id="F5C176535875F350">
+    <insertChild id="E1F90076AE12305E" />
+    <insertChild id="5E7B1609DBC6DF23" />
+    <insertChild id="93B8858AB3688EE6" />
+  </node>
+  <node name="" type="And" id="E1F90076AE12305E">
+    <insertChild id="60E26BDD44AEBEDD" />
+    <insertChild id="EFACE5B61C15AC66" />
+  </node>
+  <node name="Fishy Deal" type="UnitHasTalent" id="60E26BDD44AEBEDD">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Talent" valueSource="literal" value="MurkyAFishyDeal" />
+  </node>
+  <node name="" type="Not" id="EFACE5B61C15AC66">
+    <insertChild id="1BB7550318F24C50" />
+  </node>
+  <node name="Fishy Deal" type="Validator" id="1BB7550318F24C50">
+    <property name="Validator" valueSource="literal" value="MurkyHasAFishyDealFullCharges" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Targets not Killed by Pufferfish" type="FilterLife" id="5E7B1609DBC6DF23">
+    <property name="MinLife" valueSource="variable" value="PufferfishDamage" />
+    <insertChild id="E7F7C1CC594902ED" />
+  </node>
+  <node name="" type="Sequence" id="E7F7C1CC594902ED">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="D13DE8DA0CDEF877" />
+    <insertChild id="D68EF9DE005573A2" />
+  </node>
+  <node name="CurrentUnitCount" type="UnitCount" id="D13DE8DA0CDEF877">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputCount" value="CurrentUnitCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+  </node>
+  <node name="Future Best AOE" type="FindBestAOEPoint" id="D68EF9DE005573A2">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="SlimeChaseRadius" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <insertChild id="6308BD4025427281" />
+  </node>
+  <node name="FutureUnitCount" type="UnitCount" id="6308BD4025427281">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="FutureUnitCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+  </node>
+  <node name="" type="Sequence" id="93B8858AB3688EE6">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="7069A3EA717453FB" />
+    <insertChild id="38C0C41DFB9B1B87" />
+  </node>
+  <node name="CurrentUnitCount" type="UnitCount" id="7069A3EA717453FB">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputCount" value="CurrentUnitCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+  </node>
+  <node name="Future Best AOE" type="FindBestAOEPoint" id="38C0C41DFB9B1B87">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="SlimeChaseRadius" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <insertChild id="FBCE72559AECB643" />
+  </node>
+  <node name="FutureUnitCount" type="UnitCount" id="FBCE72559AECB643">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="FutureUnitCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+  </node>
+  <node name="" type="IfElse" id="B1C35241D70E44B9">
+    <insertChild id="0DD0FE73177B403C" />
+    <insertChild id="07CEBCF64172C23A" />
+    <insertChild id="AA488256A7F47D24" />
+  </node>
+  <node name="Current &gt;= Future" type="CompareNumber" id="0DD0FE73177B403C">
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="LeftHandSide" valueSource="variable" value="CurrentUnitCount" />
+    <property name="RightHandSide" valueSource="variable" value="FutureUnitCount" />
+    <insertChild id="CD2D3F0098DF02D2" />
+  </node>
+  <node name="At least 1 unit" type="CompareNumber" id="CD2D3F0098DF02D2">
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="LeftHandSide" valueSource="variable" value="CurrentUnitCount" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+  </node>
+  <node name="Use Ability" type="AbilityEnqueue" id="07CEBCF64172C23A">
+    <property name="Ability" valueSource="literal" value="MurkySlime" />
+  </node>
+  <node name="Move To Target Point" type="HeroMoveToPoint" id="AA488256A7F47D24">
+    <property name="TargetPosition" valueSource="variable" value="AbilityTargetPoint" />
+  </node>
+  <node name="Pufferfish" type="AbilityUsable" id="A0F68C8F017AB8E5" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <insertChild id="18A51EF3BAA2DE39" />
+  </node>
+  <node name="Base Node" type="And" id="18A51EF3BAA2DE39" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" valueSource="lookup" value="Abil,MurkyPufferfish,Range" comment="Range of the Ability" />
+    <variable name="AbilityMissileRadius" type="Number" comment="Width of the Searches" />
+    <variable name="AbilityMissilePierceCount" type="Number" comment="Number of Blockers this can go through" />
+    <variable name="AbilityAOERadius" type="Number" valueSource="lookup" value="Effect,MurkySlimeSearch,AreaArray[0].Radius" comment="Radius of the Search" />
+    <variable name="AbilityTargetPoint" type="Point" comment="Point to use ability on" />
+    <variable name="PufferFishCurrentCount" type="Integer" />
+    <variable name="PufferFishFutureCount" type="Integer" />
+    <variable name="PufferFishChaseRadius" type="Number" value="4" />
+    <variable name="OptimalMovePoint" type="Point" />
+    <variable name="PufferfishPredictionSeconds" type="Number" value="1" />
+    <variable name="PufferfishDamage" type="Number" valueSource="lookup" value="Effect,MurkyPufferfishDamage,Amount" />
+    <insertChild id="04F0A02AED0B4A17" />
+    <insertChild id="0409532FE4722DC2" />
+  </node>
+  <node name="" type="IfElse" id="04F0A02AED0B4A17">
+    <insertChild id="65E25F4CAAC7CE3F" />
+    <insertChild id="5971D917B5E179E6" />
+    <insertChild id="9EF87056FA1B3FA5" />
+  </node>
+  <node name="Enemy Hero Close" type="UnitCount" id="65E25F4CAAC7CE3F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+  </node>
+  <node name="PVP Usage" type="Or" id="5971D917B5E179E6">
+    <insertChild id="1E40D351A1540E0C" />
+    <insertChild id="9CE3BD4FF443E437" />
+  </node>
+  <node name="1 Enemy Hero" type="FindBestAOEPoint" id="1E40D351A1540E0C">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PredictionSeconds" valueSource="variable" value="PufferfishPredictionSeconds" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+  </node>
+  <node name="Enemy Minions/Mercs" type="FindBestAOEPoint" id="9CE3BD4FF443E437">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Minion,Merc,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="4" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PredictionSeconds" valueSource="variable" value="PufferfishPredictionSeconds" />
+    <insertChild id="6CCBA16060EB7081" />
+  </node>
+  <node name="With Hero Near it" type="UnitCount" id="6CCBA16060EB7081">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+  </node>
+  <node name="PVE Usage" type="And" id="9EF87056FA1B3FA5">
+    <insertChild id="BF69D864B196B78C" />
+    <insertChild id="BCD768CA0B6C44ED" />
+  </node>
+  <node name="Fishy Deal" type="IfElse" id="BF69D864B196B78C">
+    <insertChild id="77B2B781326464C1" />
+    <insertChild id="40F3CF7185ED2C16" />
+    <insertChild id="DAC0A74A849E9EEF" />
+  </node>
+  <node name="" type="And" id="77B2B781326464C1">
+    <insertChild id="55383E1C8CC50A7E" />
+    <insertChild id="F0D2F2C6DD46C043" />
+  </node>
+  <node name="Fishy Deal" type="UnitHasTalent" id="55383E1C8CC50A7E">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Talent" valueSource="literal" value="MurkyAFishyDeal" />
+  </node>
+  <node name="" type="Not" id="F0D2F2C6DD46C043">
+    <insertChild id="4C50ACEAD6D36C63" />
+  </node>
+  <node name="Fishy Deal" type="Validator" id="4C50ACEAD6D36C63">
+    <property name="Validator" valueSource="literal" value="MurkyHasAFishyDealFullCharges" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Killed By Pufferfish" type="FilterLife" id="40F3CF7185ED2C16">
+    <property name="MaxLife" valueSource="variable" value="PufferfishDamage" />
+    <insertChild id="E40143BCB8B1027F" />
+  </node>
+  <node name="" type="Sequence" id="E40143BCB8B1027F">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="1E998D189FD265C6" />
+    <insertChild id="F62F751BE28DE477" />
+  </node>
+  <node name="Current Best AOE" type="FindBestAOEPoint" id="1E998D189FD265C6">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <insertChild id="7737BF1737D6BDFA" />
+  </node>
+  <node name="CurrentUnitCount" type="UnitCount" id="7737BF1737D6BDFA">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="PufferFishCurrentCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+  </node>
+  <node name="Future Best AOE" type="FindBestAOEPoint" id="F62F751BE28DE477">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="PufferFishChaseRadius" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <insertChild id="AFD76726FC66C56E" />
+  </node>
+  <node name="FutureUnitCount" type="UnitCount" id="AFD76726FC66C56E">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="PufferFishFutureCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <insertChild id="E9F8A1686CB9FA5C" />
+  </node>
+  <node name="Find Safe Place" type="FindSafePoint" id="E9F8A1686CB9FA5C">
+    <property name="FleeCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="FleeDistance" valueSource="literal" value="8" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="OptimalMovePoint" />
+  </node>
+  <node name="" type="Sequence" id="DAC0A74A849E9EEF">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="A984F42D45DC6152" />
+    <insertChild id="D78CB69A34C9A8A4" />
+  </node>
+  <node name="Current Best AOE" type="FindBestAOEPoint" id="A984F42D45DC6152">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <insertChild id="FD33C851630C1DA9" />
+  </node>
+  <node name="CurrentUnitCount" type="UnitCount" id="FD33C851630C1DA9">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="PufferFishCurrentCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+  </node>
+  <node name="Future Best AOE" type="FindBestAOEPoint" id="D78CB69A34C9A8A4">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="PufferFishChaseRadius" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <insertChild id="2945EBA301EC7C4E" />
+  </node>
+  <node name="FutureUnitCount" type="UnitCount" id="2945EBA301EC7C4E">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="PufferFishFutureCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <insertChild id="B58381350862B168" />
+  </node>
+  <node name="Find Safe Place" type="FindSafePoint" id="B58381350862B168">
+    <property name="FleeCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="FleeDistance" valueSource="literal" value="8" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="OptimalMovePoint" />
+  </node>
+  <node name="Current &gt;= Future" type="CompareNumber" id="BCD768CA0B6C44ED">
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="LeftHandSide" valueSource="variable" value="PufferFishCurrentCount" />
+    <property name="RightHandSide" valueSource="variable" value="PufferFishFutureCount" />
+    <insertChild id="369A1E7BDC5F53D9" />
+  </node>
+  <node name="Current &gt;= Future" type="CompareNumber" id="369A1E7BDC5F53D9">
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="LeftHandSide" valueSource="variable" value="PufferFishCurrentCount" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="9D9B2A95779115C1" />
+  </node>
+  <node name="Use Ability" type="Ability" id="9D9B2A95779115C1">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <property name="TargetPoint" valueSource="variable" value="AbilityTargetPoint" />
+  </node>
+  <node name="Use Ability" type="Ability" id="0409532FE4722DC2">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <property name="TargetPoint" valueSource="variable" value="AbilityTargetPoint" />
+  </node>
+  <node name="March of Murlocs" type="AbilityUsable" id="2AD3D810A191A7FF">
+    <property name="Ability" valueSource="literal" value="MurkyMarchoftheMurlocs" />
+    <insertChild id="28028E63760520D9" />
+  </node>
+  <node name="Root" type="And" id="28028E63760520D9">
+    <variable name="MarchPoint" type="Point" />
+    <variable name="March Width" type="Number" value="5" />
+    <variable name="March Length" type="Number" value="10" />
+    <insertChild id="8196938BC48F79EE" />
+    <insertChild id="98BB484901D358CC" />
+  </node>
+  <node name="Use Condition" type="Or" id="8196938BC48F79EE">
+    <insertChild id="354B7EA8AFEBCA93" />
+  </node>
+  <node name="Hit 4 Heroes/Towers" type="FindBestVector" id="354B7EA8AFEBCA93">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="OutputStartPoint" value="" />
+    <property name="OutputEndPoint" value="MarchPoint" />
+    <property name="MinTargets" valueSource="literal" value="5" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="March Length" />
+    <property name="MissileRadius" valueSource="variable" value="March Width" />
+  </node>
+  <node name="March Onto Glory Murlocs" type="Ability" id="98BB484901D358CC">
+    <property name="Ability" valueSource="literal" value="MurkyMarchoftheMurlocs" />
+    <property name="TargetUnit" valueSource="literal" value="" />
+    <property name="TargetPoint" valueSource="variable" value="MarchPoint" />
+  </node>
+  <node name="Endless Murlocs" type="AbilityUsable" id="236C23F128AD25A8">
+    <property name="Ability" valueSource="literal" value="MurkyMarchoftheMurlocsNeverEndingMurlocsTalent" />
+    <insertChild id="35F8E395A72E3B7B" />
+  </node>
+  <node name="Root" type="And" id="35F8E395A72E3B7B">
+    <variable name="MarchPoint" type="Point" />
+    <variable name="March Width" type="Number" value="5" />
+    <variable name="March Length" type="Number" value="10" />
+    <insertChild id="D8AD28EB3A878A55" />
+    <insertChild id="B216E87017133EAA" />
+  </node>
+  <node name="Use Condition" type="Or" id="D8AD28EB3A878A55">
+    <insertChild id="FB1FDA8D0F3B61EA" />
+    <insertChild id="634AC079AB54DD0F" />
+  </node>
+  <node name="Keep" type="FindBestTarget" id="FB1FDA8D0F3B61EA">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="UnitType" valueSource="literal" value="TownTownHallL3" />
+    <property name="OutputTarget" value="MarchUnit" />
+    <property name="MaxTargetDistance" valueSource="variable" value="March Length" />
+    <property name="MinTargetDistance" valueSource="literal" value="6" />
+  </node>
+  <node name="Hit 2 Heroes/Towers" type="FindBestVector" id="634AC079AB54DD0F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="OutputStartPoint" value="" />
+    <property name="OutputEndPoint" value="MarchPoint" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="March Length" />
+    <property name="MissileRadius" valueSource="variable" value="March Width" />
+    <insertChild id="3037CB54B9BDC709" />
+  </node>
+  <node name="" type="TimerStart" id="3037CB54B9BDC709">
+    <property name="OutputFinishTime" value="March timer" />
+    <property name="DurationSeconds" valueSource="literal" value="5" />
+  </node>
+  <node name="March Onto Glory Murlocs" type="Ability" id="B216E87017133EAA">
+    <property name="Ability" valueSource="literal" value="MurkyMarchoftheMurlocsNeverEndingMurlocsTalent" />
+    <property name="TargetUnit" valueSource="literal" value="" />
+    <property name="TargetPoint" valueSource="variable" value="MarchPoint" />
+  </node>
+  <node name="A Fishy Deal" type="AbilityUsable" id="D65BB6F9BD383161">
+    <property name="Ability" valueSource="literal" value="MurkyAFishyDeal" />
+    <insertChild id="F2FEB18E6425C47B" />
+  </node>
+  <node name="" type="And" id="F2FEB18E6425C47B">
+    <variable name="BribeTarget" type="Unit" />
+    <variable name="BribeRange" type="Number" value="6" />
+    <insertChild id="0E5E267272BBD55C" />
+    <insertChild id="85873F0310764670" />
+    <insertChild id="D674BFFCBA1624F6" />
+  </node>
+  <node name="Merc Around" type="UnitCount" id="0E5E267272BBD55C">
+    <property name="TargetTypes" valueSource="literal" value="Creep" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+  </node>
+  <node name="" type="FindBestTarget" id="85873F0310764670">
+    <property name="TargetTypes" valueSource="literal" value="Creep" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="BribeTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="BribeRange" />
+  </node>
+  <node name="Cast" type="AbilityEnqueue" id="D674BFFCBA1624F6">
+    <property name="Ability" valueSource="literal" value="MurkyAFishyDeal" />
+    <property name="TargetUnit" valueSource="variable" value="BribeTarget" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="TacticalRoot" type="Select" id="AD2B916D6149E653" comment="Root For Hero Tactical AI">
+    <insertChild id="29903FDE6A7DEB45" />
+    <insertChild id="B219FA349A1A648C" />
+    <insertChild id="06DB39A45AE02FF6" />
+    <insertChild id="45B04179E3065C9D" />
+    <insertChild id="B2B347E7DB713D4C" />
+    <insertChild id="DAFD0F3DEB260EDB" />
+    <insertChild id="07B038EA1B808F88" />
+    <insertChild id="299909B44464F24B" />
+  </node>
+  <node name="Go Out In A Blaze Of Glory" type="IsDoomed" id="29903FDE6A7DEB45" comment="Branch for a hopeless situation. Logic here should be kept simple with no/minimal resource consideration. Pick the abilities to use to go out in a blaze of glory." />
+  <node name="Always" type="Select" id="B219FA349A1A648C" comment="Highest priority branch, important general ability usage logic goes here. Examples: Critically saving yourself, critically saving an ally, cancel conditions of a channel, transient abilities.">
+    <insertChild id="84C422407DAC14D5" />
+    <insertChild id="44ADB31F42CC406A" />
+    <insertChild id="D14373CFDFED70E8" />
+  </node>
+  <node name="Place Egg" type="Ability" id="4BE9A4128DD8F5C7">
+    <property name="Ability" valueSource="literal" value="MurkyRespawnEgg" />
+    <property name="TargetPoint" valueSource="intrinsic" value="SelfPos" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="Safety Bubble" type="AbilityUsable" id="84C422407DAC14D5" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="MurkySafetyBubble" />
+    <insertChild id="8136751809F044B1" />
+  </node>
+  <node name="Base Node" type="And" id="8136751809F044B1" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" value="5" comment="Range of the Ability" />
+    <variable name="AbilityTargetUnit" type="Unit" comment="Target to Use Ability on" />
+    <variable name="AbilityLowManaThreshHold" type="Number" value="0.4" comment="Low Mana Threshhold" />
+    <variable name="AbilityHighManaThreshHold" type="Number" value="0.75" comment="High Mana Threshhold" />
+    <insertChild id="6F3952A4A80AF66E" />
+    <insertChild id="ABAF02DF8527BAA3" />
+    <insertChild id="A572F0897EE63681" />
+  </node>
+  <node name="" type="Or" id="6F3952A4A80AF66E">
+    <insertChild id="4271EFC0309E8F85" />
+    <insertChild id="3D43F67723430DD5" />
+    <insertChild id="45C672FF66FDA8CF" />
+    <insertChild id="1F4BF18D6AC11DB1" />
+    <insertChild id="D3FCFB51E812C7A2" />
+  </node>
+  <node name="&gt;3 Enemy Hero" type="UnitCount" id="4271EFC0309E8F85">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <insertChild id="CDA3E58ED2C636E9" />
+  </node>
+  <node name="Self&lt;50%" type="LifeFraction" id="CDA3E58ED2C636E9">
+    <property name="LifeFraction" valueSource="literal" value="0.5" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="&gt;2 Enemy Hero" type="UnitCount" id="3D43F67723430DD5">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <insertChild id="E8402E9315355A11" />
+  </node>
+  <node name="Self&lt;40%" type="LifeFraction" id="E8402E9315355A11">
+    <property name="LifeFraction" valueSource="literal" value="0.4" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="1 Enemy Hero" type="UnitCount" id="45C672FF66FDA8CF">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <insertChild id="A53B816577FAEF9B" />
+  </node>
+  <node name="" type="Or" id="A53B816577FAEF9B">
+    <insertChild id="9372B58C040E1436" />
+  </node>
+  <node name="Self&lt;50%" type="LifeFraction" id="9372B58C040E1436">
+    <property name="LifeFraction" valueSource="literal" value="0.25" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="Self" type="IsInDanger" id="1F4BF18D6AC11DB1">
+    <insertChild id="212B7FCA86EC0D33" />
+  </node>
+  <node name="" type="Or" id="212B7FCA86EC0D33">
+    <insertChild id="395ACDC87B9016D1" />
+    <insertChild id="820BA2B904317BF5" />
+  </node>
+  <node name="Self&lt;50%" type="LifeFraction" id="395ACDC87B9016D1">
+    <property name="LifeFraction" valueSource="literal" value="0.25" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="1 Enemy Hero" type="UnitCount" id="820BA2B904317BF5">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+  </node>
+  <node name="Self taking damage" type="RecentlyDamaged" id="D3FCFB51E812C7A2">
+    <property name="WithinSeconds" valueSource="literal" value="0.25" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="C7AE3918CF586778" />
+  </node>
+  <node name="Self&lt;40%" type="LifeFraction" id="C7AE3918CF586778">
+    <property name="LifeFraction" valueSource="literal" value="0.4" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="" type="Sequence" id="ABAF02DF8527BAA3">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="A87DFF0B3C69DB1C" />
+  </node>
+  <node name="NeverEnding Murloc" type="UnitHasBehavior" id="A87DFF0B3C69DB1C">
+    <insertChild id="8E2BEA4C89C54486" />
+  </node>
+  <node name="Cancel" type="Ability" id="8E2BEA4C89C54486">
+    <property name="Ability" valueSource="literal" value="MurkyCancelMarchoftheMurlocs" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="Safety Bubble" type="Ability" id="A572F0897EE63681">
+    <property name="Ability" valueSource="literal" value="MurkySafetyBubble" />
+  </node>
+  <node name="NeverEnding Murloc" type="UnitHasBehavior" id="44ADB31F42CC406A">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="MurkyMarchoftheMurlocsNeverEndingMurlocsTalentChanneling" />
+    <insertChild id="35F07BE3DA35E105" />
+  </node>
+  <node name="Root" type="And" id="35F07BE3DA35E105">
+    <insertChild id="62C9904FC4F538F2" />
+    <insertChild id="87778DB0C6B20D50" />
+  </node>
+  <node name="Use Condition" type="Or" id="62C9904FC4F538F2">
+    <insertChild id="4AF8DB828DC19E90" />
+  </node>
+  <node name="Timer Finished" type="TimerFinished" id="4AF8DB828DC19E90">
+    <property name="FinishTime" valueSource="variable" value="March timer" />
+    <insertChild id="A39FEAC6D89FE7FE" />
+  </node>
+  <node name="" type="FilterBehavior" id="A39FEAC6D89FE7FE">
+    <property name="Behavior" valueSource="literal" value="MurkyMarchoftheMurlocs" />
+    <insertChild id="3F0C8096C27FD33D" />
+  </node>
+  <node name="Nothing being hit" type="UnitCount" id="3F0C8096C27FD33D">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Cancel" type="Ability" id="87778DB0C6B20D50">
+    <property name="Ability" valueSource="literal" value="MurkyCancelMarchoftheMurlocs" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="A Fishy Deal" type="AbilityUsable" id="D14373CFDFED70E8">
+    <property name="Ability" valueSource="literal" value="MurkyAFishyDeal" />
+    <insertChild id="CE0B940EFDEA1069" />
+  </node>
+  <node name="" type="And" id="CE0B940EFDEA1069">
+    <variable name="BribeTarget" type="Unit" />
+    <variable name="BribeRange" type="Number" value="6" />
+    <insertChild id="59C043446F980DD8" />
+    <insertChild id="DB7A2478E50D2C8A" />
+    <insertChild id="2B44E95468FD3DBB" />
+  </node>
+  <node name="Merc Around" type="UnitCount" id="59C043446F980DD8">
+    <property name="TargetTypes" valueSource="literal" value="Creep" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+  </node>
+  <node name="" type="FindBestTarget" id="DB7A2478E50D2C8A">
+    <property name="TargetTypes" valueSource="literal" value="Creep" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputTarget" value="BribeTarget" />
+    <property name="MaxTargetDistance" valueSource="variable" value="BribeRange" />
+  </node>
+  <node name="Cast" type="AbilityEnqueue" id="2B44E95468FD3DBB">
+    <property name="Ability" valueSource="literal" value="MurkyAFishyDeal" />
+    <property name="TargetUnit" valueSource="variable" value="BribeTarget" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="Defensive" type="Select" id="06DB39A45AE02FF6" comment="Defensive context for ability usage. Examples: using CC to peel for yourself and allies, using defensive abilities like shields.">
+    <insertChild id="60DFA78E9A865D79" />
+    <insertChild id="531DC38870A3DB6F" />
+    <insertChild id="8D7F4F729C03B3C3" />
+    <insertChild id="B2A5F380B5ACF02C" />
+  </node>
+  <node name="Setting Real Egg" type="CompareBoolean" id="60DFA78E9A865D79">
+    <property name="LeftHandSide" valueSource="variable" value="SetEgg" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+    <insertChild id="B4655A78C3490A16" />
+  </node>
+  <node name="End Timer" type="SetBoolean" id="B4655A78C3490A16">
+    <property name="Variable" value="SetFakeEgg" />
+  </node>
+  <node name="Hero Nearby" type="UnitCount" id="531DC38870A3DB6F">
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="UnitType" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <insertChild id="945731D1DCA3CEF0" />
+  </node>
+  <node name="End Timer" type="SetBoolean" id="945731D1DCA3CEF0">
+    <property name="Variable" value="SetFakeEgg" />
+  </node>
+  <node name="Octograb" type="AbilityUsable" id="8D7F4F729C03B3C3" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="MurkyOctoGrab" />
+    <insertChild id="34BA4002D2E9AAD3" />
+  </node>
+  <node name="" type="Or" id="34BA4002D2E9AAD3">
+    <insertChild id="CEFF112F21217724" />
+    <insertChild id="00D8A6D4876719FD" />
+  </node>
+  <node name="" type="And" id="CEFF112F21217724">
+    <insertChild id="9F2044D5B4B4681C" />
+    <insertChild id="C2392039723ED563" />
+  </node>
+  <node name="" type="Not" id="9F2044D5B4B4681C">
+    <insertChild id="3A582891810C7BCB" />
+  </node>
+  <node name="OctoTimer" type="TimerFinished" id="3A582891810C7BCB">
+    <property name="FinishTime" valueSource="variable" value="OctograbTimer" />
+  </node>
+  <node name="Use Ability" type="Ability" id="C2392039723ED563">
+    <property name="Ability" valueSource="literal" value="MurkyOctoGrab" />
+    <property name="TargetUnit" valueSource="variable" value="OctograbUnit" />
+  </node>
+  <node name="Base Node" type="And" id="00D8A6D4876719FD" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" valueSource="lookup" value="Abil,MurkyOctoGrab,Range" comment="Range of the Ability" />
+    <variable name="AbilityTargetUnit" type="Unit" comment="Target to Use Ability on" />
+    <variable name="AllyToSave" type="Unit" />
+    <insertChild id="8A420DBD09ABBAA7" />
+    <insertChild id="C100DADE36586F8C" />
+    <insertChild id="CCC8034EC68422D8" />
+    <insertChild id="7ADF7017E8FDF472" />
+  </node>
+  <node name="" type="And" id="8A420DBD09ABBAA7" />
+  <node name="" type="Or" id="C100DADE36586F8C">
+    <insertChild id="36CB393A287A843C" />
+    <insertChild id="3E713B14AE56A6AC" />
+    <insertChild id="78CE1986D14A8B2E" />
+  </node>
+  <node name="Pufferfish" type="AbilityUsable" id="36CB393A287A843C">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+  </node>
+  <node name="Ally Nearby to Save" type="UnitCount" id="3E713B14AE56A6AC">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+  </node>
+  <node name="Single Enemy Hero" type="UnitCount" id="78CE1986D14A8B2E">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <insertChild id="CA8549F188C8D689" />
+  </node>
+  <node name="Single Enemy Hero" type="UnitCount" id="CA8549F188C8D689">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+  </node>
+  <node name="Targeting Selecting Node" type="Or" id="CCC8034EC68422D8">
+    <insertChild id="B3A230AD88F6B1FB" />
+    <insertChild id="6730249838A0F6BD" />
+  </node>
+  <node name="Pufferfish" type="AbilityUsable" id="B3A230AD88F6B1FB">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <insertChild id="0DF6927FF348A436" />
+  </node>
+  <node name="" type="Or" id="0DF6927FF348A436">
+    <insertChild id="52EEAF60A1C8E8FC" />
+  </node>
+  <node name="Find Critical Target" type="FindBestTarget" id="52EEAF60A1C8E8FC">
+    <property name="OutputTarget" value="OctograbUnit" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+  </node>
+  <node name="Ally Nearby to Save" type="FindBestTarget" id="6730249838A0F6BD">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="OutputTarget" value="AllyToSave" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <insertChild id="C8C95A661E1C4195" />
+  </node>
+  <node name="" type="Or" id="C8C95A661E1C4195">
+    <insertChild id="59B048234BF4C125" />
+  </node>
+  <node name="Find Enemy Near Ally" type="FindBestTarget" id="59B048234BF4C125">
+    <property name="OutputTarget" value="OctograbUnit" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AllyToSave" />
+    <property name="ClipCenter" valueSource="intrinsic" value="Self" />
+    <property name="ClipRadius" valueSource="variable" value="AbilityRange" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="DistanceFactor" valueSource="literal" value="10" />
+  </node>
+  <node name="" type="IfElse" id="7ADF7017E8FDF472">
+    <insertChild id="9E712DCFAFE0ED53" />
+    <insertChild id="A5F6F2C4713390D4" />
+    <insertChild id="BF8C23869EE5708A" />
+  </node>
+  <node name="Pufferfish" type="AbilityUsable" id="9E712DCFAFE0ED53">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <insertChild id="4AB78ECD1B7F29A3" />
+  </node>
+  <node name="Combo if Elite" type="Difficulty" id="4AB78ECD1B7F29A3" />
+  <node name="Pufferfish" type="AbilityEnqueue" id="A5F6F2C4713390D4">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <property name="TargetPoint" valueSource="variable" value="OctograbUnit" />
+    <insertChild id="EFDE4B497F6B34BB" />
+  </node>
+  <node name="Use Ability" type="TimerStart" id="EFDE4B497F6B34BB">
+    <property name="OutputFinishTime" value="OctograbTimer" />
+    <property name="DurationSeconds" valueSource="literal" value="5" />
+  </node>
+  <node name="Use Ability" type="Ability" id="BF8C23869EE5708A">
+    <property name="Ability" valueSource="literal" value="MurkyOctoGrab" />
+    <property name="TargetUnit" valueSource="variable" value="OctograbUnit" />
+  </node>
+  <node name="Pufferfish" type="AbilityUsable" id="B2A5F380B5ACF02C" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <insertChild id="8F5DB5A12F78DB5C" />
+  </node>
+  <node name="Base Node" type="And" id="8F5DB5A12F78DB5C" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" valueSource="lookup" value="Abil,MurkyPufferfish,Range" comment="Range of the Ability" />
+    <variable name="AbilityMissileRadius" type="Number" comment="Width of the Searches" />
+    <variable name="AbilityMissilePierceCount" type="Number" comment="Number of Blockers this can go through" />
+    <variable name="AbilityAOERadius" type="Number" valueSource="lookup" value="Effect,MurkySlimeSearch,AreaArray[0].Radius" comment="Radius of the Search" />
+    <variable name="AbilityTargetPoint" type="Point" comment="Point to use ability on" />
+    <variable name="PufferFishCurrentCount" type="Integer" />
+    <variable name="PufferFishFutureCount" type="Integer" />
+    <variable name="PufferFishChaseRadius" type="Number" value="4" />
+    <variable name="OptimalMovePoint" type="Point" />
+    <variable name="PufferfishPredictionSeconds" type="Number" value="1" />
+    <variable name="PufferfishDamage" type="Number" valueSource="lookup" value="Effect,MurkyPufferfishDamage,Amount" />
+    <insertChild id="7610ED7ED8EFDF84" />
+    <insertChild id="0469D0B8EF901E91" />
+  </node>
+  <node name="" type="IfElse" id="7610ED7ED8EFDF84">
+    <insertChild id="EC9E953AA46647F7" />
+    <insertChild id="010558ADA1E3EB25" />
+    <insertChild id="46A36D40C8E8BA47" />
+  </node>
+  <node name="Enemy Hero Close" type="UnitCount" id="EC9E953AA46647F7">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+  </node>
+  <node name="PVP Usage" type="Or" id="010558ADA1E3EB25">
+    <insertChild id="3FA1239400C62607" />
+    <insertChild id="8C46F86C4CD0C3A7" />
+  </node>
+  <node name="1 Enemy Hero" type="FindBestAOEPoint" id="3FA1239400C62607">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PredictionSeconds" valueSource="variable" value="PufferfishPredictionSeconds" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+  </node>
+  <node name="Enemy Minions/Mercs" type="FindBestAOEPoint" id="8C46F86C4CD0C3A7">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Minion,Merc,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="4" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PredictionSeconds" valueSource="variable" value="PufferfishPredictionSeconds" />
+    <insertChild id="FBC2E5C090BBE35C" />
+  </node>
+  <node name="With Hero Near it" type="UnitCount" id="FBC2E5C090BBE35C">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+  </node>
+  <node name="PVE Usage" type="And" id="46A36D40C8E8BA47">
+    <insertChild id="F3542A6964B5E4CF" />
+    <insertChild id="AE03037E11398D97" />
+  </node>
+  <node name="Fishy Deal" type="IfElse" id="F3542A6964B5E4CF">
+    <insertChild id="40F4C4F8A6586DC2" />
+    <insertChild id="A3000BE7D1FCB389" />
+    <insertChild id="CD17FAAF1704B6B9" />
+  </node>
+  <node name="" type="And" id="40F4C4F8A6586DC2">
+    <insertChild id="5156AA4740C56363" />
+    <insertChild id="E4959A7830E78799" />
+  </node>
+  <node name="Fishy Deal" type="UnitHasTalent" id="5156AA4740C56363">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Talent" valueSource="literal" value="MurkyAFishyDeal" />
+  </node>
+  <node name="" type="Not" id="E4959A7830E78799">
+    <insertChild id="495B23DE3771FE34" />
+  </node>
+  <node name="Fishy Deal" type="Validator" id="495B23DE3771FE34">
+    <property name="Validator" valueSource="literal" value="MurkyHasAFishyDealFullCharges" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Killed By Pufferfish" type="FilterLife" id="A3000BE7D1FCB389">
+    <property name="MaxLife" valueSource="variable" value="PufferfishDamage" />
+    <insertChild id="0043121B232F2BC4" />
+  </node>
+  <node name="" type="Sequence" id="0043121B232F2BC4">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="3AA2F5D09CA4DDAB" />
+    <insertChild id="963A294EE0F61A99" />
+  </node>
+  <node name="Current Best AOE" type="FindBestAOEPoint" id="3AA2F5D09CA4DDAB">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <insertChild id="CECC5AA69148E94A" />
+  </node>
+  <node name="CurrentUnitCount" type="UnitCount" id="CECC5AA69148E94A">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="PufferFishCurrentCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+  </node>
+  <node name="Future Best AOE" type="FindBestAOEPoint" id="963A294EE0F61A99">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="PufferFishChaseRadius" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <insertChild id="CC8AC68B65B65EC9" />
+  </node>
+  <node name="FutureUnitCount" type="UnitCount" id="CC8AC68B65B65EC9">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="PufferFishFutureCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <insertChild id="61667C3690106D18" />
+  </node>
+  <node name="Find Safe Place" type="FindSafePoint" id="61667C3690106D18">
+    <property name="FleeCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="FleeDistance" valueSource="literal" value="8" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="OptimalMovePoint" />
+  </node>
+  <node name="" type="Sequence" id="CD17FAAF1704B6B9">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="9255A9BE8C7AC623" />
+    <insertChild id="DF91022C8F2A4686" />
+  </node>
+  <node name="Current Best AOE" type="FindBestAOEPoint" id="9255A9BE8C7AC623">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <insertChild id="B034343D8EB641E6" />
+  </node>
+  <node name="CurrentUnitCount" type="UnitCount" id="B034343D8EB641E6">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="PufferFishCurrentCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+  </node>
+  <node name="Future Best AOE" type="FindBestAOEPoint" id="DF91022C8F2A4686">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="PufferFishChaseRadius" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <insertChild id="761165F74C9D62D5" />
+  </node>
+  <node name="FutureUnitCount" type="UnitCount" id="761165F74C9D62D5">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="PufferFishFutureCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <insertChild id="589B29064A20B8C4" />
+  </node>
+  <node name="Find Safe Place" type="FindSafePoint" id="589B29064A20B8C4">
+    <property name="FleeCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="FleeDistance" valueSource="literal" value="8" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="OptimalMovePoint" />
+  </node>
+  <node name="Current &gt;= Future" type="CompareNumber" id="AE03037E11398D97">
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="LeftHandSide" valueSource="variable" value="PufferFishCurrentCount" />
+    <property name="RightHandSide" valueSource="variable" value="PufferFishFutureCount" />
+    <insertChild id="3BED094736D50A60" />
+  </node>
+  <node name="Current &gt;= Future" type="CompareNumber" id="3BED094736D50A60">
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="LeftHandSide" valueSource="variable" value="PufferFishCurrentCount" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="6BCAAA2EE5004B5E" />
+  </node>
+  <node name="Use Ability" type="Ability" id="6BCAAA2EE5004B5E">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <property name="TargetPoint" valueSource="variable" value="AbilityTargetPoint" />
+  </node>
+  <node name="Use Ability" type="Ability" id="0469D0B8EF901E91">
+    <property name="Ability" valueSource="literal" value="MurkyPufferfish" />
+    <property name="TargetPoint" valueSource="variable" value="AbilityTargetPoint" />
+  </node>
+  <node name="Should use Bunker" type="UnitHasBehaviorCategory" id="45B04179E3065C9D">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Categories" valueSource="literal" value="Slow,Reveal,HealReduction,DebuffAbilityPower,DebuffRoot,DebuffStasis,DebuffSilence,DebuffBlind,DebuffAutoattackDPS" />
+    <insertChild id="22D500C6447407AD" />
+  </node>
+  <node name="ControlNode" type="And" id="22D500C6447407AD">
+    <insertChild id="60543A53D219B6F7" />
+    <insertChild id="E3B5D27DE28C29E6" />
+  </node>
+  <node name="Bunker Nearby" type="FindBestTarget" id="60543A53D219B6F7">
+    <property name="UnitType" valueSource="literal" value="FirebatBunkerDropBunkerUnit" />
+    <property name="TargetTypes" valueSource="literal" value="Self,Player,Ally" />
+    <property name="RequiredTypes" valueSource="literal" value="" />
+    <property name="OutputTarget" value="BunkerUnit" />
+    <property name="MaxTargetDistance" valueSource="literal" value="5" />
+  </node>
+  <node name="Use Bunker" type="Ability" id="E3B5D27DE28C29E6">
+    <property name="Ability" valueSource="literal" value="SmartCommandUnitInteraction" />
+    <property name="TargetUnit" valueSource="variable" value="BunkerUnit" />
+  </node>
+  <node name="Offensive" type="Select" id="B2B347E7DB713D4C" comment="Offensive context for ability usage. For each ability, it is suggested to prioritize killing critically low enemies first then move onto general ability usage. General usage is suggested to be gated by 3 tiers of available mana: high, medium, and low. High mana (~&gt;80%) usually equates to looser restrictions and filters: requiring less targets in an area to use an AoE ability, or allowing higher health targets, for example. Low mana (~&lt;30%) usually equates to tighter restrictions and filters: you want to be a lot more picky about your targeting context.">
+    <insertChild id="1A7795398565174B" />
+    <insertChild id="32618578E962F254" />
+    <insertChild id="91DFAFBCB167667C" />
+  </node>
+  <node name="Slime" type="AbilityUsable" id="1A7795398565174B" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="MurkySlime" />
+    <insertChild id="1336954E9DACDA07" />
+  </node>
+  <node name="Base Node" type="And" id="1336954E9DACDA07" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityAOERadius" type="Number" valueSource="lookup" value="Effect,MurkySlimeSearch,AreaArray[0].Radius" comment="Radius of the Search" />
+    <variable name="SlimeChaseRadius" type="Number" value="3" />
+    <variable name="CurrentUnitCount" type="Integer" />
+    <variable name="FutureUnitCount" type="Integer" />
+    <variable name="AbilityTargetPoint" type="Point" />
+    <variable name="OptimalMovePoint" type="Point" />
+    <variable name="PufferfishDamage" type="Number" valueSource="lookup" value="Effect,MurkyPufferfishDamage,Amount" />
+    <insertChild id="D51D3285A930252C" />
+  </node>
+  <node name="" type="IfElse" id="D51D3285A930252C">
+    <insertChild id="417C88A827D2D886" />
+    <insertChild id="757CF98447C50442" />
+    <insertChild id="465ABE5F579FD9E5" />
+  </node>
+  <node name="Enemy Hero Close" type="UnitCount" id="417C88A827D2D886">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+  </node>
+  <node name="PVP Usage" type="And" id="757CF98447C50442">
+    <insertChild id="7414BDFC79FAA31A" />
+  </node>
+  <node name="" type="Or" id="7414BDFC79FAA31A">
+    <insertChild id="81B681253739E2B1" />
+  </node>
+  <node name="Enemy Hero Close" type="UnitCount" id="81B681253739E2B1">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <insertChild id="AFBC9D189F823124" />
+  </node>
+  <node name="Use Ability" type="AbilityEnqueue" id="AFBC9D189F823124">
+    <property name="Ability" valueSource="literal" value="MurkySlime" />
+  </node>
+  <node name="PVE Usage" type="And" id="465ABE5F579FD9E5">
+    <insertChild id="EC6608C91204CB9E" />
+    <insertChild id="016E15020F744040" />
+  </node>
+  <node name="" type="IfElse" id="EC6608C91204CB9E">
+    <insertChild id="BFC2016E63BAB897" />
+    <insertChild id="688EC36E2E3CC844" />
+    <insertChild id="F7A7BE860CD44E09" />
+  </node>
+  <node name="" type="And" id="BFC2016E63BAB897">
+    <insertChild id="BFAE9B540C61CABC" />
+    <insertChild id="6CD2663B44335B74" />
+  </node>
+  <node name="Fishy Deal" type="UnitHasTalent" id="BFAE9B540C61CABC">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Talent" valueSource="literal" value="MurkyAFishyDeal" />
+  </node>
+  <node name="" type="Not" id="6CD2663B44335B74">
+    <insertChild id="82643B75A28ECCA8" />
+  </node>
+  <node name="Fishy Deal" type="Validator" id="82643B75A28ECCA8">
+    <property name="Validator" valueSource="literal" value="MurkyHasAFishyDealFullCharges" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Targets not Killed by Pufferfish" type="FilterLife" id="688EC36E2E3CC844">
+    <property name="MinLife" valueSource="variable" value="PufferfishDamage" />
+    <insertChild id="7C0FC26B02FBAC18" />
+  </node>
+  <node name="" type="Sequence" id="7C0FC26B02FBAC18">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="6A0220D14217C7F7" />
+    <insertChild id="E7CBA4C1B62032DC" />
+  </node>
+  <node name="CurrentUnitCount" type="UnitCount" id="6A0220D14217C7F7">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputCount" value="CurrentUnitCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+  </node>
+  <node name="Future Best AOE" type="FindBestAOEPoint" id="E7CBA4C1B62032DC">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="SlimeChaseRadius" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <insertChild id="A5AE84749687C850" />
+  </node>
+  <node name="FutureUnitCount" type="UnitCount" id="A5AE84749687C850">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="FutureUnitCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+  </node>
+  <node name="" type="Sequence" id="F7A7BE860CD44E09">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="2366B5E900DBCCBB" />
+    <insertChild id="29BEBCCDE14788C2" />
+  </node>
+  <node name="CurrentUnitCount" type="UnitCount" id="2366B5E900DBCCBB">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Tower,Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputCount" value="CurrentUnitCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+  </node>
+  <node name="Future Best AOE" type="FindBestAOEPoint" id="29BEBCCDE14788C2">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="SlimeChaseRadius" />
+    <property name="AOERadius" valueSource="variable" value="AbilityAOERadius" />
+    <property name="MinTargets" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="AbilityTargetPoint" />
+    <property name="PreferredPointFactor" valueSource="literal" value="0" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <insertChild id="DD3AC6F56698C40D" />
+  </node>
+  <node name="FutureUnitCount" type="UnitCount" id="DD3AC6F56698C40D">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="OutputCount" value="FutureUnitCount" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityAOERadius" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+  </node>
+  <node name="" type="IfElse" id="016E15020F744040">
+    <insertChild id="FF852E304E3B9663" />
+    <insertChild id="72751765C941ECBB" />
+    <insertChild id="8F747A4409F8353B" />
+  </node>
+  <node name="Current &gt;= Future" type="CompareNumber" id="FF852E304E3B9663">
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="LeftHandSide" valueSource="variable" value="CurrentUnitCount" />
+    <property name="RightHandSide" valueSource="variable" value="FutureUnitCount" />
+    <insertChild id="170D656F16355087" />
+  </node>
+  <node name="At least 1 unit" type="CompareNumber" id="170D656F16355087">
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="LeftHandSide" valueSource="variable" value="CurrentUnitCount" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+  </node>
+  <node name="Use Ability" type="AbilityEnqueue" id="72751765C941ECBB">
+    <property name="Ability" valueSource="literal" value="MurkySlime" />
+  </node>
+  <node name="Move To Target Point" type="HeroMoveToPoint" id="8F747A4409F8353B">
+    <property name="TargetPosition" valueSource="variable" value="AbilityTargetPoint" />
+  </node>
+  <node name="March of Murlocs" type="AbilityUsable" id="32618578E962F254">
+    <property name="Ability" valueSource="literal" value="MurkyMarchoftheMurlocs" />
+    <insertChild id="7050426894863BD9" />
+  </node>
+  <node name="Root" type="And" id="7050426894863BD9">
+    <variable name="MarchPoint" type="Point" />
+    <variable name="March Width" type="Number" value="5" />
+    <variable name="March Length" type="Number" value="10" />
+    <insertChild id="B37958A8CE9C8A59" />
+    <insertChild id="5DEB770CF90B470D" />
+  </node>
+  <node name="Use Condition" type="Or" id="B37958A8CE9C8A59">
+    <insertChild id="134D249747217C4B" />
+  </node>
+  <node name="Hit 4 Heroes/Towers" type="FindBestVector" id="134D249747217C4B">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="OutputStartPoint" value="" />
+    <property name="OutputEndPoint" value="MarchPoint" />
+    <property name="MinTargets" valueSource="literal" value="5" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="March Length" />
+    <property name="MissileRadius" valueSource="variable" value="March Width" />
+  </node>
+  <node name="March Onto Glory Murlocs" type="Ability" id="5DEB770CF90B470D">
+    <property name="Ability" valueSource="literal" value="MurkyMarchoftheMurlocs" />
+    <property name="TargetUnit" valueSource="literal" value="" />
+    <property name="TargetPoint" valueSource="variable" value="MarchPoint" />
+  </node>
+  <node name="Endless Murlocs" type="AbilityUsable" id="91DFAFBCB167667C">
+    <property name="Ability" valueSource="literal" value="MurkyMarchoftheMurlocsNeverEndingMurlocsTalent" />
+    <insertChild id="2FCDEE704E2A993F" />
+  </node>
+  <node name="Root" type="And" id="2FCDEE704E2A993F">
+    <variable name="MarchPoint" type="Point" />
+    <variable name="March Width" type="Number" value="5" />
+    <variable name="March Length" type="Number" value="10" />
+    <insertChild id="6CF949BEDA96684A" />
+    <insertChild id="E15DB479E5635309" />
+  </node>
+  <node name="Use Condition" type="Or" id="6CF949BEDA96684A">
+    <insertChild id="AC5017D27471EDD7" />
+    <insertChild id="829B45A6CDA58EBA" />
+  </node>
+  <node name="Keep" type="FindBestTarget" id="AC5017D27471EDD7">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="UnitType" valueSource="literal" value="TownTownHallL3" />
+    <property name="OutputTarget" value="MarchUnit" />
+    <property name="MaxTargetDistance" valueSource="variable" value="March Length" />
+    <property name="MinTargetDistance" valueSource="literal" value="6" />
+  </node>
+  <node name="Hit 2 Heroes/Towers" type="FindBestVector" id="829B45A6CDA58EBA">
+    <property name="TargetTypes" valueSource="literal" value="Heroic,AITargetableStructure" />
+    <property name="OutputStartPoint" value="" />
+    <property name="OutputEndPoint" value="MarchPoint" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="March Length" />
+    <property name="MissileRadius" valueSource="variable" value="March Width" />
+    <insertChild id="70D178D94B279BB3" />
+  </node>
+  <node name="" type="TimerStart" id="70D178D94B279BB3">
+    <property name="OutputFinishTime" value="March timer" />
+    <property name="DurationSeconds" valueSource="literal" value="5" />
+  </node>
+  <node name="March Onto Glory Murlocs" type="Ability" id="E15DB479E5635309">
+    <property name="Ability" valueSource="literal" value="MurkyMarchoftheMurlocsNeverEndingMurlocsTalent" />
+    <property name="TargetUnit" valueSource="literal" value="" />
+    <property name="TargetPoint" valueSource="variable" value="MarchPoint" />
+  </node>
+  <node name="Healing Items" type="And" id="DAFD0F3DEB260EDB">
+    <variable name="Desired Unit" type="Unit" />
+    <insertChild id="0AB4129EB57C7FD0" />
+    <insertChild id="9CE0D4B514D05B16" />
+    <insertChild id="3D5DD268FF3BBC23" />
+  </node>
+  <node name="" type="Or" id="0AB4129EB57C7FD0">
+    <insertChild id="0F0E81DC42ACDA4C" />
+    <insertChild id="FB8EAF5902354EDD" />
+    <insertChild id="E7D7FF516BAC16A5" />
+  </node>
+  <node name="Potion" type="And" id="0F0E81DC42ACDA4C">
+    <insertChild id="4CC6C02541EDCC68" />
+    <insertChild id="5FE1FE8B84B6D5D9" />
+  </node>
+  <node name="" type="Or" id="4CC6C02541EDCC68">
+    <insertChild id="731C72CFD6F6C5A0" />
+    <insertChild id="6709A32723CA8292" />
+  </node>
+  <node name="1 Enemy" type="CompareNumber" id="731C72CFD6F6C5A0">
+    <property name="LeftHandSide" valueSource="variable" value="Enemy Hero Count" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+    <insertChild id="6E6F6B2330CE5F2A" />
+  </node>
+  <node name="&lt;20% Health" type="LifeFraction" id="6E6F6B2330CE5F2A">
+    <property name="LifeFraction" valueSource="literal" value="0.2" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="" type="And" id="6709A32723CA8292">
+    <insertChild id="140051544F0079A0" />
+    <insertChild id="2103232976262D89" />
+  </node>
+  <node name="" type="Not" id="140051544F0079A0">
+    <insertChild id="A98356E9B3117DCF" />
+  </node>
+  <node name="" type="FindBestTarget" id="A98356E9B3117DCF">
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Movement Drag Range" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="OutputTarget" value="Low Ally" />
+    <variable name="Low Ally" type="Unit" />
+  </node>
+  <node name="" type="Or" id="2103232976262D89">
+    <insertChild id="31D4E3A30672FE5A" />
+    <insertChild id="FC4B591629472F33" />
+    <insertChild id="90EB75DEA8F7F3C7" />
+  </node>
+  <node name="No Enemies Nearby" type="CompareNumber" id="31D4E3A30672FE5A">
+    <property name="LeftHandSide" valueSource="variable" value="Enemy Hero Count" />
+    <insertChild id="256168511978E471" />
+  </node>
+  <node name="&lt;80%" type="LifeFraction" id="256168511978E471">
+    <property name="LifeFraction" valueSource="literal" value="0.8" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="2 Enemies" type="CompareNumber" id="FC4B591629472F33">
+    <property name="LeftHandSide" valueSource="variable" value="Enemy Hero Count" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="RightHandSide" valueSource="literal" value="2" />
+    <insertChild id="074C51B79198A08C" />
+  </node>
+  <node name="&lt;35% Health" type="LifeFraction" id="074C51B79198A08C">
+    <property name="LifeFraction" valueSource="literal" value="0.35" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="3+ Enemies" type="CompareNumber" id="90EB75DEA8F7F3C7">
+    <property name="LeftHandSide" valueSource="variable" value="Enemy Hero Count" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="RightHandSide" valueSource="literal" value="3" />
+    <insertChild id="05EAC16C65EEFFDE" />
+  </node>
+  <node name="&lt;50% Health" type="LifeFraction" id="05EAC16C65EEFFDE">
+    <property name="LifeFraction" valueSource="literal" value="0.5" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="" type="Or" id="5FE1FE8B84B6D5D9">
+    <insertChild id="D224904E942EFE04" />
+    <insertChild id="8BCD687110B80D9B" />
+  </node>
+  <node name="Not Bottomless Flask" type="FilterBehavior" id="D224904E942EFE04">
+    <property name="Behavior" valueSource="literal" value="DeckardBottomlessFlask" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <insertChild id="C1C2278E7FF9C8BB" />
+  </node>
+  <node name="Find Healing Potion" type="FindBestTarget" id="C1C2278E7FF9C8BB">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="TargetTypes" valueSource="literal" value="Player,Ally" />
+    <property name="UnitType" valueSource="literal" value="DeckardHealingPotion" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Movement Drag Range" />
+    <property name="OutputTarget" value="Desired Unit" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Stasis,Dead" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="SafePos" />
+  </node>
+  <node name="Not Bottomless Flask" type="FilterBehavior" id="8BCD687110B80D9B">
+    <property name="Behavior" valueSource="literal" value="DeckardBottomlessFlask" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <insertChild id="818FBD2C29F4C80F" />
+  </node>
+  <node name="Find Lesser Healing Potion" type="FindBestTarget" id="818FBD2C29F4C80F">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="TargetTypes" valueSource="literal" value="Player,Ally" />
+    <property name="UnitType" valueSource="literal" value="DeckardLesserHealingPotion" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Movement Drag Range" />
+    <property name="OutputTarget" value="Desired Unit" />
+    <property name="RequiredTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Stasis,Dead" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="SafePos" />
+  </node>
+  <node name="Regen Globe" type="FindBestTarget" id="FB8EAF5902354EDD">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="UnitType" valueSource="literal" value="RegenGlobe" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Movement Drag Range" />
+    <property name="OutputTarget" value="Desired Unit" />
+    <property name="RequiredTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Stasis,Dead" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="SafePos" />
+  </node>
+  <node name="Neutral Regen Globe" type="FindBestTarget" id="E7D7FF516BAC16A5">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="UnitType" valueSource="literal" value="RegenGlobeNeutral" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Movement Drag Range" />
+    <property name="OutputTarget" value="Desired Unit" />
+    <property name="RequiredTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Stasis,Dead" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="SafePos" />
+  </node>
+  <node name="" type="Not" id="9CE0D4B514D05B16">
+    <insertChild id="46E1A4F36BFE0FF6" />
+  </node>
+  <node name="Item In Dangerous Area" type="IsInDanger" id="46E1A4F36BFE0FF6">
+    <property name="TargetPoint" valueSource="variable" value="Desired Unit" />
+    <property name="ForceIncludeUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Pickup Potion" type="HeroMoveToUnit" id="3D5DD268FF3BBC23">
+    <property name="Target" valueSource="variable" value="Desired Unit" />
+  </node>
+  <node name="" type="Select" id="07B038EA1B808F88" />
+  <node name="Cloak Harass" type="IsAwareOfCloakedEnemy" id="299909B44464F24B">
+    <property name="CloakedTargetPosition" value="CloakedTargetPosition" />
+    <variable name="CloakedTargetPosition" type="Point" />
+    <insertChild id="CD80AF5AD5E53870" />
+  </node>
+  <node name="" type="Or" id="CD80AF5AD5E53870">
+    <insertChild id="06D4C402BB76DF92" />
+  </node>
+  <node name="Target &lt; 8" type="Distance" id="06D4C402BB76DF92">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetPoint" valueSource="variable" value="CloakedTargetPosition" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Distance" valueSource="literal" value="8" />
+    <insertChild id="930EB81CB8BD944A" />
+  </node>
+  <node name="Attemp Reveal" type="AbilityCategory" id="930EB81CB8BD944A">
+    <property name="TargetPosition" valueSource="variable" value="CloakedTargetPosition" />
+    <property name="AbilityCategories" valueSource="literal" value="Reveals" />
+  </node>
+  <node name="In Altar" type="UnitHasBehavior" id="5EA9776BA393C29F">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="HallOfStormsProtectionBuff" />
+    <insertChild id="4BE9A4128DD8F5C7" />
+  </node>
+  <node name="No Egg" type="UnitCount" id="BD1F16FE1F2D1564">
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="MaxTargetDistance" valueSource="literal" value="250" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="UnitType" valueSource="literal" value="MurkyRespawnEgg" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="" />
+    <insertChild id="5EA9776BA393C29F" />
+  </node>
+  <node name="Is Human Player" type="UnitHasBehavior" id="FB92E279EEB62A07">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="IsHumanPlayer" />
+    <insertChild id="BD1F16FE1F2D1564" />
+  </node>
+</tree>

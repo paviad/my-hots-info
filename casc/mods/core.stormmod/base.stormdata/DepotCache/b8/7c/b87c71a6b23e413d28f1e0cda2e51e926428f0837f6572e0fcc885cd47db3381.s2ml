@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Heróis do StarCraft</e>
+    <e id="2">Sem descrição.</e>
+    <e id="3">Default</e>
+    <e id="4">Heróis das Estrelas</e>
+    <e id="5">Heróis de todo o setor Koprulu (e alguns visitantes) se enfrentam em Resistência de Braxis!</e>
+    <e id="6">Invasão Zerg</e>
+    <e id="7">Capture os Emissores para encher sua Cela de Contenção de Zergs. Quando uma das celas se enche, as duas se abrem!</e>
+    <e id="8">Resista</e>
+    <e id="9">Derrote a onda de Zergs do inimigo ou ajude a sua no ataque ao núcleo inimigo.</e>
+    <e id="10">Seleção Restrita</e>
+    <e id="11">Escolha um entre três heróis aleatórios do Starcraft ou heróis com visuais do Starcraft. Você tem apenas 30 segundos. Pense rápido!</e>
+    <e id="12">Informações adicionais</e>
+    <e id="13">O temporizador da morte fica restrito a um máximo de 40 segundos</e>
+</Locale>

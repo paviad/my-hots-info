@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Speziallieferung (Mutator)</e>
+    <e id="2">Vollkommen ohne Beschreibung.</e>
+    <e id="3">Default</e>
+    <e id="4">Speziallieferung</e>
+    <e id="5">Zwei Teams mit nur Tracer liefern sich eine hitzige Schießerei um die Fracht. Die Zeit ist auf eurer Seite! Und auf der des Gegners.</e>
+    <e id="6">Zerstöre die gegnerische Zitadelle</e>
+    <e id="7">Die Zitadellen können nicht direkt angegriffen werden. Nur Frachten, Bosse und Kills können der Zitadelle Schaden zufügen.</e>
+    <e id="8">Speziallieferung</e>
+    <e id="9">Kills fügen der gegnerischen Zitadelle 1 Schaden zu. Kills mit Impulsbombe fügen der Zitadelle 2 Schaden zu.</e>
+    <e id="10">Nur Tracer</e>
+    <e id="11">Alle Spieler auf beiden Teams spielen Tracer.</e>
+    <e id="12">Zusatzinfos</e>
+    <e id="13">Die Lebenspunkte der Zitadelle, der Frachtschaden und der verstärkte Frachtschaden sind 400% höher.</e>
+    <e id="14">Alle Spieler starten auf Stufe 20.</e>
+    <e id="15">Tracer beginnt mit dem Talent &quot;Zeit heilt alle Wunden&quot;. Die Abklingzeit von Warp ist um 50% verringert. Die Aufladerate der Impulsbombe wird bei automatischen Angriffen gegen Helden verdoppelt.</e>
+    <e id="16">Wenn dein Team den Boss besiegt, erleidet die gegnerische Zitadelle großen Schaden.</e>
+    <e id="17">Impulsbomben explodieren sofort, wenn sie einen Gegner treffen.</e>
+</Locale>

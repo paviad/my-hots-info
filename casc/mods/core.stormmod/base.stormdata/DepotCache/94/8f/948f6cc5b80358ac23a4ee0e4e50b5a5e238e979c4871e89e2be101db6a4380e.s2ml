@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Fortín del muerto (Mod)</e>
+    <e id="2">Completamente falto de descripción.</e>
+    <e id="3">Fortín del muerto</e>
+    <e id="4">¡El Omegaenjambre está invadiendo el reino! Mantenlos a raya hasta que el disruptor psiónico esté activado.</e>
+    <e id="5">Defiende la base</e>
+    <e id="6">¡El Omegaenjambre está invadiendo el reino! Mantenlos a raya hasta que el disruptor psiónico esté activado.</e>
+    <e id="7">Omegaenjambre</e>
+    <e id="8">Oleadas de zerg atacarán tu base cada vez con mayor fuerza.</e>
+    <e id="9">Algunas oleadas incluirán a héroes enemigos particularmente poderosos con habilidades potenciadas.</e>
+    <e id="10">Los Arcángeles infestados intentarán ocasionalmente bombardear tu base desde lejos y deben ser destruidos.</e>
+    <e id="11">Selección de héroes</e>
+    <e id="12">Elige un héroe de una lista de héroes seleccionados especialmente.</e>
+    <e id="13">Información adicional</e>
+    <e id="14">Los héroes empiezan en el nivel 10 y ganan niveles cada vez que matan a un Arcángel. Algunos talentos no pueden seleccionarse.</e>
+    <e id="15">Sin reaparición. Los héroes deben ser resucitados por sus compañeros de equipo cuando mueren. La partida finaliza si todos los héroes participantes están muertos.</e>
+    <e id="16">Los héroes pueden recoger objetos que otorgan habilidades adicionales. Un héroe puede tener un solo objeto a la vez.</e>
+    <e id="17">No se pueden usar Piedras de hogar (B).</e>
+</Locale>

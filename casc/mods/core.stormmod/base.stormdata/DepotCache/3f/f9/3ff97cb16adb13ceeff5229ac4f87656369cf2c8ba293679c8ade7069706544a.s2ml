@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">La mine hantée</e>
+    <e id="2">Une large palette de héros Blizzard se croisent et s’affrontent de façon épique dans une arène galactique !</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Autre</e>
+    <e id="5">Type de jeu sans classification.</e>
+    <e id="6">Standard</e>
+    <e id="7">Les joueurs peuvent choisir leur héros.</e>
+    <e id="8">Crânes récoltés dans la mine</e>
+    <e id="9">Nombre de crânes récupérés dans la mine</e>
+    <e id="10">HauntedMines</e>
+    <e id="11">HauntedMines_zhCN</e>
+    <e id="12">Golems sépulcraux</e>
+    <e id="13">Aidez votre golem à progresser vers l’idole adverse et détruisez le golem ennemi avant qu’il atteigne votre idole.</e>
+    <e id="14">Récoltez les crânes</e>
+    <e id="15">Une fois la mine ouverte, éliminez les mineurs morts-vivants dans les galeries et récoltez leur crâne pour alimenter votre golem.</e>
+</Locale>

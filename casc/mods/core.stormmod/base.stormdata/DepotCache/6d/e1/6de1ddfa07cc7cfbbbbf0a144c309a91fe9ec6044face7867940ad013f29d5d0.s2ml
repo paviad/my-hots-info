@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Minerai en folie</e>
+    <e id="2">Données et déclencheurs pour Minerai en folie</e>
+    <e id="3">default</e>
+    <e id="4">Braxis Outpost</e>
+    <e id="5">Minerai en folie</e>
+    <e id="6">Cette carte est trop petite pour deux exploitations minières ! Récoltez le minerai et utilisez son pouvoir pour écraser la concurrence.</e>
+    <e id="7">Détruisez l’idole</e>
+    <e id="8">Détruisez l’idole adverse pour gagner</e>
+    <e id="9">Il vous faut plus de minerai</e>
+    <e id="10">Tuez les VCS et récupérez le minerai qu’ils abandonnent.</e>
+    <e id="11">Les VCS sont protégés jusqu’à ce que leur serviteur associé soit tué.</e>
+    <e id="12">Récolter suffisamment de minerai accorde temporairement une puissante aura de surcharge.</e>
+    <e id="13">Sélection aléatoire</e>
+    <e id="14">Choisissez un héros parmi les trois proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="15">Informations supplémentaires</e>
+    <e id="16">Vous perdez la moitié du minerai récolté quand vous mourez.</e>
+    <e id="17">La surcharge désactive les bâtiments, tue les serviteurs et inflige des dégâts aux héros adverses.</e>
+    <e id="18">Les héros surchargés abandonnent périodiquement du minerai qui peut être ramassé par l’ennemi.</e>
+    <e id="19">Le minerai expire, ne tardez pas à le ramasser !</e>
+    <e id="20">Les pierres de foyer (B) sont désactivées et vous ne récupérez pas de vie dans la zone de départ.</e>
+</Locale>

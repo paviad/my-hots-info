@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Geisterminen</e>
+    <e id="2">Ein breites Spektrum von Blizzard-Helden trifft sich zur Schlacht in einer galaktischen Arena.</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Andere</e>
+    <e id="5">Unklassifizierter Spieltyp.</e>
+    <e id="6">Standard</e>
+    <e id="7">Spieler können ihre Helden auswählen.</e>
+    <e id="8">Schädel in den Minen gesammelt</e>
+    <e id="9">Anzahl der in den Minen gesammelten Schädel</e>
+    <e id="10">HauntedMines</e>
+    <e id="11">HauntedMines_zhCN</e>
+    <e id="12">Grabgolems</e>
+    <e id="13">Unterstütze euren Golem bei seinem Vorstoß auf die gegnerische Zitadelle und vernichte den feindlichen, bevor er eure Zitadelle erreicht.</e>
+    <e id="14">Sammle Schädel</e>
+    <e id="15">Sobald sich die Minen öffnen, kannst du die untoten Bergarbeiter bekämpfen und ihre Schädel sammeln, um den Golem deines Teams zu verstärken.</e>
+</Locale>

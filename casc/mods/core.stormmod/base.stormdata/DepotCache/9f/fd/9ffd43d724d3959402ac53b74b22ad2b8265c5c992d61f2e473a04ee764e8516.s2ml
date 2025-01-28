@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Combate bajo cero</e>
+    <e id="2">Mapa de 3 caminos&lt;br&gt;&lt;br&gt;El Señor de los Cuervos invoca tributos en ciertas ubicaciones de la Cuenca Maldita. Enfrentaos al equipo enemigo para ser los primeros en recolectar los tributos. Cuando un equipo recolecte tres, el Señor de los Cuervos maldecirá a sus enemigos, impidiendo que sus torres ataquen y reduciendo la salud de sus esbirros.</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de partida no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">Tributos del cuervo recogidos</e>
+    <e id="9">Número de tributos recogidos</e>
+    <e id="10">SnowBrawl</e>
+    <e id="11">Combate bajo cero</e>
+    <e id="12">¡Ha llegado el invierno a la Cuenca Maldita! ¡Lanzad bolas de nieve y recoged los tributos del Señor de los Cuervos!</e>
+    <e id="13">Reunid tributos</e>
+    <e id="14">¡Recoged tributos de nieve para lanzar bolas de nieve colosales a las estructuras enemigas!</e>
+    <e id="15">Bolas de nieve</e>
+    <e id="16">Recoged bolas de nieve y lanzadlas (F) para infligir mucho daño.</e>
+    <e id="17">Periódicamente, se formarán muñecos de nieve incompletos por el campo de batalla. Usad bolas de nieve para completarlos.</e>
+    <e id="18">Selección entre héroes aleatorios</e>
+    <e id="19">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="20">Información adicional</e>
+    <e id="21">Los tributos de nieve aparecen uno detrás de otro.</e>
+    <e id="22">Aparecen bolas de nieve cerca de héroes, estructuras, tributos y esferas de regeneración.</e>
+    <e id="23">Las bolas de nieve livianas repelen a los héroes enemigos.</e>
+    <e id="24">Las bolas de nieve pesadas ralentizan a los enemigos e infligen el doble de daño a esbirros y estructuras.</e>
+    <e id="25">Una vez completados, los muñecos de nieve te siguen y luchan a tu lado.</e>
+</Locale>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Punto de control: Hanamura</e>
+    <e id="2">DEBEMOS EMPUJAR EL CARRITO</e>
+    <e id="3">(Tormenta) Overwatch (Hanamura1)</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de juego no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">HanamuraPayloadPush</e>
+    <e id="9">Punto de control: Hanamura</e>
+    <e id="10">Un equipo impulsa la carga mientras que el otro trata de detenerlos. ¡Pongamos las cosas en marcha!</e>
+    <e id="11">Escolta la carga</e>
+    <e id="12">El equipo atacante gana si la carga llega a su destino; el equipo defensor gana si el tiempo se agota.</e>
+    <e id="13">En movimiento</e>
+    <e id="14">La carga se mueve más rápido por cada jugador atacante que la acompaña, pero se detiene si un solo jugador defensor entra en su área.</e>
+    <e id="15">Preselección</e>
+    <e id="16">Elige a uno de los tres héroes seleccionados aleatoriamente. Solo tienes 30 segundos. ¡Piensa rápido!</e>
+    <e id="17">Información adicional</e>
+    <e id="18">Los temporizadores de regeneración se reducen a 9 segundos. Durante el tiempo extra, quedan establecidos en 12.5 segundos.</e>
+    <e id="19">Los héroes no tienen talentos y no suben de nivel. Las habilidades heroicas se eligen al comienzo de la partida.</e>
+    <e id="20">Los suministros de salud que se encuentran en el campo de batalla restituyen un 35% de salud y maná instantáneamente.</e>
+    <e id="21">El límite de tiempo se extiende si la carga llega a un punto de control, y la partida ingresa en tiempo extra si el límite de tiempo se agota.</e>
+    <e id="22">La duración del tiempo extra se detiene y se actualiza cuando un atacante está junto a la carga, pero su duración máxima se reduce con el tiempo.</e>
+</Locale>

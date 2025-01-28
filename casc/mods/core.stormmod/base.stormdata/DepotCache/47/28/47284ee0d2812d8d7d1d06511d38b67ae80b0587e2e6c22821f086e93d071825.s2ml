@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Point de contrôle : Hanamura</e>
+    <e id="2">LE CONVOI DOIT AVANCER</e>
+    <e id="3">(Storm) Overwatch (Hanamura1)</e>
+    <e id="4">Autre</e>
+    <e id="5">Type de jeu sans classification.</e>
+    <e id="6">Standard</e>
+    <e id="7">Les joueurs peuvent choisir leur héros.</e>
+    <e id="8">HanamuraPayloadPush</e>
+    <e id="9">Point de contrôle : Hanamura</e>
+    <e id="10">L’équipe en attaque fait avancer le convoi. Celle en défense tente de le faire reculer. Il faut que ça bouge !</e>
+    <e id="11">Escortez le convoi</e>
+    <e id="12">L’équipe en attaque remporte la victoire si le convoi atteint sa destination. L’équipe en défense l’emporte lorsque l’intégralité du temps imparti est écoulée.</e>
+    <e id="13">En route</e>
+    <e id="14">Plus il y a de joueurs en attaque à proximité du convoi, plus celui-ci avance rapidement ; mais il suffit qu’un joueur en défense entre dans la zone pour qu’il s’arrête.</e>
+    <e id="15">Sélection aléatoire</e>
+    <e id="16">Choisissez un héros parmi les trois proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="17">Informations supplémentaires</e>
+    <e id="18">La durée de réapparition est de 9 secondes. Pendant le temps additionnel, elle est portée à 12,5 secondes.</e>
+    <e id="19">Les héros ne disposent pas de talents et ne gagnent pas de niveaux. Les capacités héroïques sont à sélectionner dès le début de la partie.</e>
+    <e id="20">Les kits de soin trouvés sur le champ de bataille rendent instantanément 35% de points de vie et de mana.</e>
+    <e id="21">Le temps imparti est prolongé quand le convoi atteint un point de contrôle. La phase de temps additionnel débute, lorsqu’il est écoulé.</e>
+    <e id="22">Le temps additionnel cesse de s’écouler et est réinitialisé quand un joueur en attaque se trouve à proximité du convoi, mais sa durée maximale diminue à mesure que la partie se prolonge.</e>
+</Locale>

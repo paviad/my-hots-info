@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Arena: Giardini</e>
+    <e id="2">Una vasta schiera di eroi Blizzard si affronta in un&apos;epica arena galattica!</e>
+    <e id="3">(Storm) Kings Crest (Gardens)</e>
+    <e id="4">Altro</e>
+    <e id="5">Tipo di gioco non classificato.</e>
+    <e id="6">Standard</e>
+    <e id="7">I giocatori possono scegliere i propri eroi.</e>
+    <e id="8">Arena: Giardini</e>
+    <e id="9">Raccogliete i semi dei Terrori, o cresceranno e saranno la vostra rovina.</e>
+    <e id="10">Al meglio di 3 round nell&apos;Arena: Giardini</e>
+    <e id="11">La prima squadra che vince 2 round ottiene il trionfo.</e>
+    <e id="12">Raccogliete i semi</e>
+    <e id="13">La prima squadra che raccoglie 100 semi vince il round. </e>
+    <e id="14">Scelta mista</e>
+    <e id="15">Scegli un eroe fra tre selezionati casualmente. Hai solo 30 secondi, per cui pensa in fretta!</e>
+    <e id="16">Info aggiuntive</e>
+    <e id="17">I globi rigeneranti hanno effetto raddoppiato.</e>
+    <e id="18">C&apos;è una piccola probabilità che tutti i giocatori utilizzino lo stesso eroe.</e>
+</Locale>

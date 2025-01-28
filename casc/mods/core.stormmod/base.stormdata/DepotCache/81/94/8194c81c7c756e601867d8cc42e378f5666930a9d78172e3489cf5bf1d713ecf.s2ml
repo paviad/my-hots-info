@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Stazione Atomica</e>
+    <e id="2">Mappa a 3 corsie</e>
+    <e id="3">Zion</e>
+    <e id="4">Altro</e>
+    <e id="5">Tipo di gioco non classificato.</e>
+    <e id="6">Standard</e>
+    <e id="7">I giocatori possono scegliere i propri eroi.</e>
+    <e id="8">Stazione Atomica</e>
+    <e id="9">Mappa a 3 corsie</e>
+</Locale>

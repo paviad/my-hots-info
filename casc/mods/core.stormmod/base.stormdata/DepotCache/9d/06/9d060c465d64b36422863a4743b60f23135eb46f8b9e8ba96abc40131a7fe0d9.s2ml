@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Lunar Rocket Racing</e>
+    <e id="2">TBD</e>
+    <e id="3">(Storm) Kings Crest (Gardens)</e>
+    <e id="4">Hero Battle</e>
+    <e id="5">Teams of heroes join in constant assaults on the enemy stronghold.</e>
+    <e id="6">Custom</e>
+    <e id="7">All settings may be customized.</e>
+    <e id="8">LunarFestival</e>
+    <e id="9">Lunar Rocket Racing</e>
+    <e id="10">Start your rockets! Race against other players and take your place in the winner’s circle!</e>
+    <e id="11">Cross the Finish Line</e>
+    <e id="12">It’s a race! Complete the course and cross the finish line as fast as you can.</e>
+    <e id="13">Rocket n’ Roll Racing</e>
+    <e id="14">Players race on Lunar Skyrockets on a unique track</e>
+    <e id="15">Pick up Envelopes on the track to gain a random special Ability</e>
+    <e id="16">Ride on Conveyor Belts to be pushed in their direction and gain a short burst of speed</e>
+    <e id="17">Lunar Festival Heroes</e>
+    <e id="18">Heroes are randomly assigned from a roster of specially selected Heroes in their Lunar Festival skins.</e>
+    <e id="19">Additional Info</e>
+    <e id="20">Once the first Hero crosses the finish line, everyone else has 30 seconds to finish the race to win the brawl</e>
+    <e id="21">Not crossing the finish line or finishing in last place counts as a loss</e>
+    <e id="22">Rockets from Envelopes can be fired in a direction and Stun the first enemy they hit</e>
+    <e id="23">Bombs from Envelopes can be dropped behind you to Stun enemies who run into them</e>
+    <e id="24">Lunar Blessings from Envelopes grant you Invulnerability and increased Movement Speed</e>
+</Locale>

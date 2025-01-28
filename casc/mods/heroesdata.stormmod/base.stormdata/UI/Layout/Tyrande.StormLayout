@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+
+	<Frame type="SelectionUnitStatusPanel" name="TyrandeFrame" template="StandardHeroUITemplates/CircularHeroUITemplate">
+		<SpecificUnit val="HeroTyrande"/>
+
+		<Frame type="UnitStatusFrame" name="UnitStatusFrame0">
+
+			<Frame type="Image" name="MechanicTexture">
+				<Texture val="Assets\Textures\storm_ui_icon_tyrande_sentinel.dds"/>
+			</Frame>
+
+            <Frame type="BehaviorIcon" name="SentinelTooltip" template="StandardHeroUITemplates/SmallBehaviorTooltiptemplate">
+				<Behavior val="TyrandeSentinelPierceTokenCounter"/>
+			</Frame>
+
+			<Frame type="UnitStatusBehaviorIcon" name="SentinelCounterLabel" template="StandardHeroUITemplates/SmallCicularBehaviorStackCountTemplate">
+				<Behavior val="TyrandeSentinelPierceTokenCounter"/>
+			</Frame>
+        </Frame>
+    </Frame>
+
+	<Frame type="SelectionUnitStatusPanel" name="TyrandeStacksFrameContainer">
+		<Anchor relative="$parent"/>
+		<SpecificUnit val="HeroTyrande"/>
+		
+		<Frame type="UnitStatusUnitStackingDebuffElement" name="EverlastingLightTargetStackFrame">
+			<Anchor relative="$parent"/>
+			<BuffBehavior val="TyrandeLightOfEluneEverlastingLightUITargetBehavior"/>
+			<DebuffType val="BehaviorCounter"/>
+			<ShowForBehaviorOwner val="True"/>
+			
+			<Frame type="Image" name="EvenhandedBlessingsStack">
+				<Anchor side="Top" relative="$parent" pos="Min" offset="-6"/>
+				<Anchor side="Left" relative="$parent" pos="Min" offset="-6"/>
+				<Texture val="@UI/Stacks/Tyrande"/>
+				<Height val="32"/>
+				<Width val="32"/>
+				<Visible val="true"/>
+				<ColorAdjustMode val="None"/>
+			</Frame>
+		</Frame>
+	</Frame>	
+</Desc>

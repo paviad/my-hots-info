@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Locura mineral</e>
+    <e id="2">Datos y activadores de Locura mineral</e>
+    <e id="3">default</e>
+    <e id="4">Braxis Outpost</e>
+    <e id="5">Locura mineral</e>
+    <e id="6">¡Aquí solo puede haber una operación minera! Recolectad minerales y usad su poder para derrotar a la competencia.</e>
+    <e id="7">Destruid el núcleo</e>
+    <e id="8">Destruid el núcleo enemigo para ganar.</e>
+    <e id="9">Se necesitan más minerales</e>
+    <e id="10">Matad a los VCE y recolectad los minerales que sueltan.</e>
+    <e id="11">Los VCE están protegidos hasta que el esbirro al que están vinculados es asesinado.</e>
+    <e id="12">Al recolectar suficientes minerales, se obtiene temporalmente una poderosa aura de Sobrecarga.</e>
+    <e id="13">Selección entre héroes aleatorios</e>
+    <e id="14">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="15">Información adicional</e>
+    <e id="16">Al morir se pierden la mitad de los minerales recolectados.</e>
+    <e id="17">Sobrecarga deshabilita estructuras enemigas, mata a esbirros enemigos y daña a héroes enemigos.</e>
+    <e id="18">Los héroes sobrecargados sueltan periódicamente minerales que puede recolectar el enemigo.</e>
+    <e id="19">Los minerales pueden expirar, ¡así que recogedlos rápido!</e>
+    <e id="20">Las piedras de hogar (B) están desactivadas y vuestra área de inicio no regenera salud.</e>
+</Locale>

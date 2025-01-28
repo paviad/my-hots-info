@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Deadman&apos;s Stand (Mod)</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">Deadman&apos;s Stand</e>
+    <e id="4">The Omega Swarm is invading the realm! Keep them at bay until the psi-disruptor is activated.</e>
+    <e id="5">Defend the Base</e>
+    <e id="6">The Omega Swarm is invading the realm! Keep them at bay until the psi-disruptor is activated.</e>
+    <e id="7">Omega Swarm</e>
+    <e id="8">Waves of zerg will assault your base with increasing strength.</e>
+    <e id="9">Some waves will include particularly powerful enemy Heroes with empowered abilities.</e>
+    <e id="10">Infested Archangels will occasionally attempt to nuke your base from afar and must be destroyed.</e>
+    <e id="11">Curated Heroes</e>
+    <e id="12">Choose one from a roster of specially selected Heroes.</e>
+    <e id="13">Additional Info</e>
+    <e id="14">Heroes start at Level 10, and gain levels each time they kill an Archangel. Some talents cannot be selected.</e>
+    <e id="15">No respawning. Heroes must be revived by teammates when they die. The match ends if all player Heroes are dead.</e>
+    <e id="16">Heroes can pick up items that grant additional abilities. A Hero can hold only one item a time.</e>
+    <e id="17">Hearthstones (B) cannot be used.</e>
+</Locale>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">El retorno de las minas</e>
+    <e id="2">Sin ningún tipo de descripción.</e>
+    <e id="3">El retorno de las minas</e>
+    <e id="4">¡Héroes, volved a las Minas Encantadas! ¡Despertad a los gólems de ultratumba y marchad hacia la victoria!</e>
+    <e id="5">Selección entre héroes aleatorios</e>
+    <e id="6">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="7">Información adicional</e>
+    <e id="8">Hay varias entradas a la mina por todo el mapa. ¡Elegid la que más os convenga!</e>
+</Locale>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Ciudad argenta</e>
+    <e id="2">¡Tus héroes favoritos de Blizzard se reúnen para batallar en una épica arena galáctica!</e>
+    <e id="3">Otro</e>
+    <e id="4">Tipo de juego no clasificado.</e>
+    <e id="5">Estándar</e>
+    <e id="6">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="7">SilverCity</e>
+    <e id="8">Ciudad argenta</e>
+    <e id="9">¡Héroes seleccionados al azar combaten en una sola vía!</e>
+    <e id="10">Destruye el núcleo enemigo</e>
+    <e id="11">Destruye el núcleo del enemigo para ganar.</e>
+    <e id="12">Una vía</e>
+    <e id="13">No hay ningún objetivo adicional en el campo de batalla. Prepárate para la acción sin pausas.</e>
+    <e id="14">Preselección</e>
+    <e id="15">Elige uno de los tres héroes seleccionados aleatoriamente. Hay una pequeña probabilidad de que todos los jugadores tengan el mismo héroe.</e>
+    <e id="16">Información adicional</e>
+    <e id="17">Las Piedras de hogar (B) están deshabilitadas y tu área inicial no regenera salud.</e>
+    <e id="18">Los generadores de esferas crean esferas de regeneración en el campo de batalla.</e>
+</Locale>

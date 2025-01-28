@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Mapa Fechado (Clareira Maldita)</e>
+    <e id="2">Mapa de 3 trilhas&lt;br&gt;&lt;br&gt;O Senhor dos Corvos evoca tributos em certos pontos da Clareira Maldita. Enfrente a equipe inimiga e seja o primeiro a coletá-los. Quando o terceiro tributo tiver sido coletado, o Senhor dos Corvos vai amaldiçoar seus inimigos, incapacitando as torres deles e reduzindo a vida dos lacaios inimigos.</e>
+    <e id="3">(Atacar) Crista Régia (Paço dos Corvos)</e>
+    <e id="4">Outro</e>
+    <e id="5">Tipo de jogo não classificado.</e>
+    <e id="6">Padrão</e>
+    <e id="7">Os jogadores podem escolher os Heróis.</e>
+    <e id="8">Tributos do Corvo coletados</e>
+    <e id="9">Número de tributos coletados</e>
+    <e id="10">Mapa Fechado (Clareira Maldita)</e>
+    <e id="11">Mapa de 3 trilhas</e>
+</Locale>

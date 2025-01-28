@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Mutageno Veglia delle Ombre</e>
+    <e id="2">Fuoco, fuochino, incendio! Domate le fiamme o verrete sconfitti.</e>
+    <e id="3">TowersOfDoom</e>
+    <e id="4">Veglia delle Ombre</e>
+    <e id="5">Siate pronti, o di voi farò strame. Il cavaliere cala su questo reame!</e>
+    <e id="6">Nuclei protetti</e>
+    <e id="7">I giocatori non possono attaccare il nucleo direttamente.</e>
+    <e id="8">Rompete le Zucche</e>
+    <e id="9">Il Cavaliere senza Testa sparge periodicamente delle Zucche sul campo di battaglia.</e>
+    <e id="10">Distruggere le Zucche o uccidere un eroe nemico consente di danneggiare il nucleo.</e>
+    <e id="11">Scelta mista</e>
+    <e id="12">Scegli un eroe fra tre selezionati casualmente. C&apos;è una piccola probabilità che tutti i giocatori utilizzino lo stesso eroe.</e>
+    <e id="13">Dolcetto o scherzetto?</e>
+    <e id="14">Distruggere le Zucche fornirà ai giocatori un dolcetto o uno scherzetto. Buona fortuna!</e>
+    <e id="15">I tempi di ricomparsa sono pari a 5 secondi.</e>
+</Locale>

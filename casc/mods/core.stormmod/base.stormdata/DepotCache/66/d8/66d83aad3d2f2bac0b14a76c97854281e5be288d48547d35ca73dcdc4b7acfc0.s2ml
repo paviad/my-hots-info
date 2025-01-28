@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Vingança do Coração Negro</e>
+    <e id="2">Mapa de 3 trilhas&lt;br&gt;&lt;br&gt;</e>
+    <e id="3">(Atacar) Crista Régia (Docas)</e>
+    <e id="4">Outro</e>
+    <e id="5">Tipo de jogo não classificado.</e>
+    <e id="6">Padrão</e>
+    <e id="7">Os jogadores podem escolher os Heróis.</e>
+    <e id="8">Dobrões do Coração Negro Coletados</e>
+    <e id="9">Dobrões do Coração Negro Entregues</e>
+    <e id="10">Número de Dobrões entregues a Coração Negro</e>
+    <e id="11">BlackHeartsSimple</e>
+    <e id="12">BlackHeartsSimple_zhCN</e>
+    <e id="13">Vingança do Coração Negro</e>
+    <e id="14">Coração Negro busca vingança contra o Comodoro em nosso primeiro campo de batalha do tipo ataque/defesa!</e>
+    <e id="15">Contenda estilo &quot;ataque e defesa&quot;</e>
+    <e id="16">Uma equipe protege o navio, a outra tenta destruí-lo. Duas rodadas de confronto.</e>
+    <e id="17">Proteja ou destrua o navio</e>
+    <e id="18">A equipe de Coração Negro deve ajudar o navio dele a chegar até as docas. Mate os Heróis inimigos para impedi-los de disparar os canhões!</e>
+    <e id="19">A equipe do Comodoro precisa destruir o navio de Coração Negro. Colete balas de canhão e dispare os canhões!</e>
+    <e id="20">Vence a equipe que causar mais dano ao navio durante a rodada de defesa!</e>
+    <e id="21">Seleção Restrita</e>
+    <e id="22">Escolha um dos três Heróis selecionados aleatoriamente. Você só tem 30 segundos. Depressa!</e>
+    <e id="23">Informações adicionais</e>
+    <e id="24">Há uma pequena chance de todos os jogadores jogarem com o mesmo Herói</e>
+</Locale>

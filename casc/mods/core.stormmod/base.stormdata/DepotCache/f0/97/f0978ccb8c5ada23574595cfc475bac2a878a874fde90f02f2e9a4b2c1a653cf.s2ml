@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Arena del jardín (Mod)</e>
+    <e id="2">Mod de desarrollo para Arena del jardín</e>
+    <e id="3">Semillas agrestes recolectadas</e>
+    <e id="4">Cantidad de semillas recolectadas</e>
+    <e id="5">Gran cantidad de daño infligido a las Plantas</e>
+    <e id="6">Preselección</e>
+    <e id="7">Elige uno de los tres héroes seleccionados aleatoriamente. Hay una pequeña probabilidad de que todos los jugadores tengan el mismo héroe.</e>
+</Locale>

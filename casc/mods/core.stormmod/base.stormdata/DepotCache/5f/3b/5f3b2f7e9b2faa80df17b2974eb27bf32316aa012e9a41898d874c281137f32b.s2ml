@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Celebrazione della Luna (Mod)</e>
+    <e id="2">Completamente mancante di qualunque descrizione.</e>
+    <e id="3">Corsa sui Razzi Lunari</e>
+    <e id="4">Accendete i motori! Sfida gli altri giocatori e conquista la vittoria!</e>
+    <e id="5">Supera il traguardo</e>
+    <e id="6">È una gara! Completa il percorso e taglia il traguardo nel minor tempo possibile.</e>
+    <e id="7">Corsa sui Razzi</e>
+    <e id="8">I giocatori si sfidano a bordo di Razzi Lunari su un percorso prestabilito.</e>
+    <e id="9">Raccogli le buste sul percorso per ottenere un&apos;abilità casuale.</e>
+    <e id="10">I nastri trasportatori ti trascinano nella loro direzione e forniscono un breve bonus alla velocità.</e>
+    <e id="11">Eroi della Celebrazione della Luna</e>
+    <e id="12">Gli eroi sono assegnati casualmente da un elenco che comprende modelli a tema Celebrazione della Luna.</e>
+    <e id="13">Info aggiuntive</e>
+    <e id="14">Dopo che il primo eroe ha tagliato il traguardo, gli altri avranno 30 secondi per terminare la corsa senza perdere.</e>
+    <e id="15">Non tagliare il traguardo o farlo per ultimo determina la sconfitta.</e>
+    <e id="16">I razzi contenuti nelle buste possono essere lanciati per stordire il primo nemico colpito.</e>
+    <e id="17">Le bombe contenute nelle buste possono essere rilasciate per stordire i nemici alle proprie spalle.</e>
+    <e id="18">Le Benedizioni della Luna contenute nelle buste rendono invulnerabili e aumentano la velocità di movimento.</e>
+</Locale>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="zhCN">
+    <e id="1">Temple Arena (Mod)</e>
+    <e id="2">Support mod of Temple Arena</e>
+    <e id="3">随机挑选</e>
+    <e id="4">从三位随机选择的英雄中选择一位，有很小的几率所有玩家使用相同的英雄。</e>
+</Locale>

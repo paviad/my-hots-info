@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Las minas se reabren</e>
+    <e id="2">Completamente falto de descripción.</e>
+    <e id="3">Las minas se reabren</e>
+    <e id="4">¡Los héroes regresan a las Minas embrujadas! ¡Despierta a los Gólems sepulcrales y marcha hacia la victoria!</e>
+    <e id="5">Preselección</e>
+    <e id="6">Elige a uno de los tres héroes seleccionados aleatoriamente. Solo tienes 30 segundos. ¡Piensa rápido!</e>
+    <e id="7">Información adicional</e>
+    <e id="8">Hay varias entradas a las minas distribuidas por el mapa. ¡Aprovecha su ubicación y saca ventaja!</e>
+</Locale>

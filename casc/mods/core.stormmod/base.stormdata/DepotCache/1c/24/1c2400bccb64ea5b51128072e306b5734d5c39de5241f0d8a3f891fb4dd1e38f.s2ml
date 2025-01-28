@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Mutator: Niezła Petarda</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">Default</e>
+    <e id="4">TowersOfDoom</e>
+    <e id="5">Niezła Petarda</e>
+    <e id="6">Drużyny grające Sierż. Petardą i Sierż. Zgładziciel walczą na Wieżach Zagłady.</e>
+    <e id="7">Chroniona baza</e>
+    <e id="8">Baza wroga jest chroniona przed atakami bohaterów. Zajmij ołtarze, aby zniszczyć bazę!</e>
+    <e id="9">Zajmuj wieże</e>
+    <e id="10">Pokonaj wieże wroga, aby zaczęły walczyć dla twojej drużyny.</e>
+    <e id="11">Wszyscy są Sierżant Petardą</e>
+    <e id="12">Dziesięć pancernych bez psa.</e>
+    <e id="13">Dodatkowe informacje</e>
+    <e id="14">Pędniki przyspieszające ruch Sierż. Petardy są zawsze aktywne.</e>
+</Locale>

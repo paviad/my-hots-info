@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Mina Assombrada</e>
+    <e id="2">Vários Heróis da Blizzard se encontram e se enfrentam numa arena galática!</e>
+    <e id="3">(Atacar) Crista Régia (Paço dos Corvos)</e>
+    <e id="4">Outro</e>
+    <e id="5">Tipo de jogo não classificado.</e>
+    <e id="6">Padrão</e>
+    <e id="7">Os jogadores escolhem os Heróis.</e>
+    <e id="8">Crânios da mina coletados</e>
+    <e id="9">Número de caveiras coletadas nas minas</e>
+    <e id="10">HauntedMines</e>
+    <e id="11">HauntedMines_zhCN</e>
+    <e id="12">Golens do Túmulo</e>
+    <e id="13">Ajude o seu Golem a abrir caminho até o Núcleo adversário e destrua o Golem inimigo antes que ele chegue ao seu Núcleo.</e>
+    <e id="14">Coletar crânios</e>
+    <e id="15">Quando a mina se abrir, derrote os mineradores mortos-vivos nos túneis e colete os crânios para fortalecer o seu Golem.</e>
+</Locale>

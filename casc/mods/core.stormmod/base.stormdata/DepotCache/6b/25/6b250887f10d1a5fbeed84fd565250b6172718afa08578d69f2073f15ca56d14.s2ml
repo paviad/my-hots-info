@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="zhTW">
+    <e id="1">亡骸礦坑</e>
+    <e id="2">Blizzard各方英雄共聚一堂，在跨越星海的傳奇戰場展開熱鬥！</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">其他</e>
+    <e id="5">未分類的遊戲類型。</e>
+    <e id="6">標準</e>
+    <e id="7">玩家可以選擇自己的英雄。</e>
+    <e id="8">在礦坑收集到的頭骨數量</e>
+    <e id="9">在礦坑收集到的頭骨數量</e>
+    <e id="10">HauntedMines</e>
+    <e id="11">HauntedMines_zhCN</e>
+    <e id="12">屍塚魔像</e>
+    <e id="13">協助你的屍塚魔像向敵方核心推進，並且在敵方的屍塚魔像接近你的核心前摧毀它。</e>
+    <e id="14">收集頭骨</e>
+    <e id="15">趁礦坑開啟時擊倒不死礦工，收集它們的頭骨以喚醒魔像。</e>
+</Locale>

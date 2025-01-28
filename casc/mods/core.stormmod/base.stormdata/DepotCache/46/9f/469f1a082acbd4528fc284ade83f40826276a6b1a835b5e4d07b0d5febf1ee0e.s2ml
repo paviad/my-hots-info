@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Checkpoint: Hanamura</e>
+    <e id="2">WIR MÜSSEN KLEINE FRACHT BEGLEITEN</e>
+    <e id="3">(Storm) Overwatch (Hanamura1)</e>
+    <e id="4">Andere</e>
+    <e id="5">Unklassifizierter Spieltyp.</e>
+    <e id="6">Standard</e>
+    <e id="7">Spieler können ihre Helden auswählen.</e>
+    <e id="8">HanamuraPayloadPush</e>
+    <e id="9">Checkpoint: Hanamura</e>
+    <e id="10">Ein Team will die Fracht zum Ziel befördern, das andere Team muss das mit allen Mitteln verhindern. Kann mal jemand mit anschieben?</e>
+    <e id="11">Begleitet die Fracht</e>
+    <e id="12">Die Angreifer gewinnen, wenn die Fracht ihr Ziel erreicht. Die Verteidiger gewinnen, wenn die Zeit abläuft.</e>
+    <e id="13">So kommt die Sache ins Rollen</e>
+    <e id="14">Mit jedem Angreifer in ihrer Nähe bewegt sich die Fracht schneller, aber sie hält an, wenn auch nur ein einziger Verteidiger in der Nähe ist.</e>
+    <e id="15">Zufallswahl</e>
+    <e id="16">Wähle einen von drei zufälligen Helden. Du hast nur 30 Sekunden Zeit, also entscheide dich schnell!</e>
+    <e id="17">Zusatzinfos</e>
+    <e id="18">Helden werden nach nur 9 Sek. wiederbelebt und in der Verlängerung nach 12,5 Sek.</e>
+    <e id="19">Helden haben keine Talente und steigen keine Stufen auf. Deine heroische Fähigkeit kannst du zu Beginn des Spiels auswählen.</e>
+    <e id="20">Die Medikits, die du auf dem Schlachtfeld findest, stellen sofort 35% deiner Lebenspunkte und deines Manas wieder her.</e>
+    <e id="21">Das Zeitlimit wird verlängert, wenn die Fracht einen Checkpoint erreicht. Wenn die Zeit abläuft, geht das Spiel in die Verlängerung.</e>
+    <e id="22">Die Verlängerung wird pausiert und ihre Dauer zurückgesetzt, wenn ein Angreifer bei der Fracht ist. Die maximale Dauer wird mit der Zeit aber immer kürzer.</e>
+</Locale>

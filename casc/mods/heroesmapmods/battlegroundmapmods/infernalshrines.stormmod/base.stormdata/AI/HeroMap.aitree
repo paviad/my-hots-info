@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree>
+  <include file="AI/HeroBase.aitree" />
+  <mod id="770B81EEC61BA7CF">
+    <insertChild id="EF185AD979D7DFB4" after="B9F7F69B29E21137" />
+  </mod>
+  <mod id="C288EAD933C9CA25">
+    <insertChild id="674C3057AC4A0B70" />
+  </mod>
+  <node name="UseCaptureMacGuffin" type="Ability" id="EF185AD979D7DFB4">
+    <property name="Ability" valueSource="literal" value="CaptureMacGuffin" />
+    <property name="TargetUnit" valueSource="variable" value="GoalTarget" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="Movement Overrides" type="Or" id="674C3057AC4A0B70">
+    <insertChild id="76EC34499EEBE0FE" />
+  </node>
+  <node name="Find Shrine" type="FindBestTarget" id="76EC34499EEBE0FE">
+    <property name="UnitType" valueSource="literal" value="DiabloShrine" />
+    <property name="TargetTypes" valueSource="literal" value="Neutral" />
+    <property name="ExcludeTypes" valueSource="literal" value="Dead" />
+    <property name="OutputTarget" value="ShrineUnit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="1" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+    <property name="MaxTargetDistance" valueSource="literal" value="4" />
+    <property name="DistanceFactor" valueSource="literal" value="2" />
+    <property name="Behavior" valueSource="literal" value="MacguffinActivated" />
+    <variable name="ShrineUnit" type="Unit" />
+    <insertChild id="19EB117DEFDAC631" />
+  </node>
+  <node name="Activate Shrine" type="Ability" id="19EB117DEFDAC631">
+    <property name="TargetUnit" valueSource="variable" value="ShrineUnit" />
+    <property name="Ability" valueSource="literal" value="CaptureMacGuffin" />
+  </node>
+</tree>

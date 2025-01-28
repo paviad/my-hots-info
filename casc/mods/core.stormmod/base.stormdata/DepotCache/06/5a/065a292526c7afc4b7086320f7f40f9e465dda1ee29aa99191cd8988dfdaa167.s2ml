@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Wojny zszywańców (Mutator)</e>
+    <e id="2">Impreza przy Basenie</e>
+    <e id="3">PullParty</e>
+    <e id="4">Impreza przy Basenie</e>
+    <e id="5">Czas siem bawić! Nadziewaj na hak wrogich bohaterów, aby przeciągać ich na swoją stronę basenu i móc ich wyeliminować!</e>
+    <e id="6">Nadziewaj na hak wrogich bohaterów</e>
+    <e id="7">Zwycięża pierwsza drużyna, która nadzieje na hak i zabije 20 przeciwników.</e>
+    <e id="8">Moc przyciągania</e>
+    <e id="9">Czas odnowienia Haka jest zredukowany, podobnie jak jego prędkość. Pomocna Dłoń jest zawsze aktywna, dzięki czemu można używać Haka na sojusznikach.</e>
+    <e id="10">Wszyscy są Zszywańcem</e>
+    <e id="11">Wszyscy som przyjaciele! Zszywa może siem bawić!</e>
+    <e id="12">Dodatkowe informacje</e>
+    <e id="13">Skrócony czas oczekiwania na odrodzenie. Wszyscy gracze powracają do życia po upływie 5 sek.</e>
+    <e id="14">Bohaterowie nie dysponują talentami i nie zdobywają poziomów.</e>
+    <e id="15">Nadzianie na hak przyciąganego bohatera powoduje jego natychmiastową śmierć.</e>
+    <e id="16">Sojusznicy zabici Hakiem nie są wliczani do wyniku przeciwnika.</e>
+</Locale>

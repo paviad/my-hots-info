@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Stitches Wars Mutator</e>
+    <e id="2">Pull Party</e>
+    <e id="3">PullParty</e>
+    <e id="4">Pull Party</e>
+    <e id="5">It’s playtime! Hook enemy Heroes to your side of the pool so you can eliminate them.</e>
+    <e id="6">Hook Enemy Heroes</e>
+    <e id="7">The first team to Hook and kill 20 enemies wins the match.</e>
+    <e id="8">Pulling Power</e>
+    <e id="9">Hook’s cooldown is greatly reduced and travels much slower than usual. Helping Hand is always active, allowing you to Hook your allies.</e>
+    <e id="10">Everyone Is Stitches</e>
+    <e id="11">You all good friends! Stitches ready to play!</e>
+    <e id="12">Additional Info</e>
+    <e id="13">Death timers are reduced. All players respawn in 5 seconds.</e>
+    <e id="14">Heroes do not have talents and don’t gain levels. </e>
+    <e id="15">Hooking a Hero who is being pulled instantly kills them. </e>
+    <e id="16">Killing a Hooked ally will deny the enemy team a kill.</e>
+</Locale>

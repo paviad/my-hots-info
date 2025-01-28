@@ -1,0 +1,1719 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TriggerData>
+    <Library Id="HAMA">
+        <Root>
+            <Item Type="Category" Library="HAMA" Id="D7698BDE"/>
+            <Item Type="Category" Library="HAMA" Id="1930864B"/>
+            <Item Type="Category" Library="HAMA" Id="B1367837"/>
+        </Root>
+        <Element Type="Category" Id="D7698BDE">
+            <Item Type="Variable" Library="HAMA" Id="468413BB"/>
+        </Element>
+        <Element Type="Variable" Id="468413BB">
+            <Identifier>amazonSurgeOfLightChargeProgress</Identifier>
+            <VariableType>
+                <Type Value="fixed"/>
+                <ArraySize Dim="0" Type="Variable" Library="Core" Id="2BFE1B33"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="F3CB676E"/>
+        </Element>
+        <Element Type="Param" Id="F3CB676E">
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Category" Id="1930864B">
+            <Item Type="Variable" Library="HAMA" Id="1655E6EF"/>
+            <Item Type="Variable" Library="HAMA" Id="A0DB8478"/>
+            <Item Type="FunctionDef" Library="HAMA" Id="C8725117"/>
+            <Item Type="FunctionDef" Library="HAMA" Id="BD3D780A"/>
+        </Element>
+        <Element Type="Variable" Id="1655E6EF">
+            <VariableType>
+                <Type Value="int"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="F9398DF6"/>
+        </Element>
+        <Element Type="Param" Id="F9398DF6">
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Variable" Id="A0DB8478">
+            <Identifier>heroAmazonWarMatronDamagePrevented</Identifier>
+            <VariableType>
+                <Type Value="fixed"/>
+                <ArraySize Dim="0" Type="Variable" Library="Core" Id="2BFE1B33"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="1E343F96"/>
+        </Element>
+        <Element Type="Param" Id="1E343F96">
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="FunctionDef" Id="C8725117">
+            <FlagCall/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="70BA3CCB"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="184D6834"/>
+        </Element>
+        <Element Type="FunctionCall" Id="70BA3CCB">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="A0F31305"/>
+            <Parameter Type="Param" Library="HAMA" Id="D6AE6E81"/>
+            <Parameter Type="Param" Library="HAMA" Id="BB9DA0B0"/>
+            <Parameter Type="Param" Library="HAMA" Id="2936F9DC"/>
+        </Element>
+        <Element Type="Param" Id="D6AE6E81">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="5BFF7323"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000085"/>
+        </Element>
+        <Element Type="Param" Id="BB9DA0B0">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6725C0EB"/>
+            <Value>1</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Param" Id="2936F9DC">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="7B3B0884"/>
+            <Variable Type="Variable" Library="HAMA" Id="1655E6EF"/>
+        </Element>
+        <Element Type="FunctionCall" Id="184D6834">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="4F4EAD6F"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="0ED20D40"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="7F8CA714"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="327FD532"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="ED7F458C"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="27C0ED11"/>
+        </Element>
+        <Element Type="FunctionCall" Id="4F4EAD6F">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="DB35DB5B"/>
+            <Parameter Type="Param" Library="HAMA" Id="E1773C63"/>
+        </Element>
+        <Element Type="Param" Id="DB35DB5B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HAMA" Id="1EE5BE9F"/>
+        </Element>
+        <Element Type="Param" Id="E1773C63">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000538"/>
+        </Element>
+        <Element Type="FunctionCall" Id="0ED20D40">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="195510C9"/>
+            <Parameter Type="Param" Library="HAMA" Id="FEC9C69B"/>
+        </Element>
+        <Element Type="Param" Id="195510C9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HAMA" Id="820427F8"/>
+        </Element>
+        <Element Type="Param" Id="FEC9C69B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000538"/>
+        </Element>
+        <Element Type="FunctionCall" Id="7F8CA714">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="CC4F8705"/>
+            <Parameter Type="Param" Library="HAMA" Id="57F66587"/>
+        </Element>
+        <Element Type="Param" Id="CC4F8705">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HAMA" Id="1AB26E21"/>
+        </Element>
+        <Element Type="Param" Id="57F66587">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000538"/>
+        </Element>
+        <Element Type="FunctionCall" Id="327FD532">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="5016A5FB"/>
+            <Parameter Type="Param" Library="HAMA" Id="7204B98C"/>
+        </Element>
+        <Element Type="Param" Id="5016A5FB">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HAMA" Id="4E00BC6C"/>
+        </Element>
+        <Element Type="Param" Id="7204B98C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000538"/>
+        </Element>
+        <Element Type="FunctionCall" Id="ED7F458C">
+            <Disabled/>
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="7222C30E"/>
+            <Parameter Type="Param" Library="HAMA" Id="D6965D0D"/>
+        </Element>
+        <Element Type="Param" Id="7222C30E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HAMA" Id="C38B3872"/>
+        </Element>
+        <Element Type="Param" Id="D6965D0D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000538"/>
+        </Element>
+        <Element Type="FunctionCall" Id="27C0ED11">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000003"/>
+            <Parameter Type="Param" Library="HAMA" Id="39127E11"/>
+            <Parameter Type="Param" Library="HAMA" Id="F12EB698"/>
+            <Parameter Type="Param" Library="HAMA" Id="B315D671"/>
+        </Element>
+        <Element Type="Param" Id="39127E11">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HAMA" Id="1655E6EF"/>
+        </Element>
+        <Element Type="Param" Id="F12EB698">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="B315D671">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>1</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionDef" Id="BD3D780A">
+            <FlagCall/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="876FBC94"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="EFD41FAA"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="FF657171"/>
+        </Element>
+        <Element Type="FunctionCall" Id="876FBC94">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="A0F31305"/>
+            <Parameter Type="Param" Library="HAMA" Id="6B30D7E9"/>
+            <Parameter Type="Param" Library="HAMA" Id="CC3B12BE"/>
+            <Parameter Type="Param" Library="HAMA" Id="C8E88C32"/>
+        </Element>
+        <Element Type="Param" Id="6B30D7E9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="5BFF7323"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000086"/>
+        </Element>
+        <Element Type="Param" Id="CC3B12BE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6725C0EB"/>
+            <Value>1</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Param" Id="C8E88C32">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="7B3B0884"/>
+            <Variable Type="Variable" Library="HAMA" Id="1655E6EF"/>
+        </Element>
+        <Element Type="FunctionCall" Id="EFD41FAA">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="86DE7602"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="F4CA5F1C"/>
+        </Element>
+        <Element Type="FunctionCall" Id="86DE7602">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="8063FF1B"/>
+            <Parameter Type="Param" Library="HAMA" Id="31961C62"/>
+        </Element>
+        <Element Type="Param" Id="8063FF1B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HAMA" Id="1655E6EF"/>
+        </Element>
+        <Element Type="Param" Id="31961C62">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionCall" Id="F4CA5F1C">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000003"/>
+            <Parameter Type="Param" Library="HAMA" Id="F4934797"/>
+            <Parameter Type="Param" Library="HAMA" Id="9B3F3695"/>
+            <Parameter Type="Param" Library="HAMA" Id="A2824446"/>
+        </Element>
+        <Element Type="Param" Id="F4934797">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HAMA" Id="1655E6EF"/>
+        </Element>
+        <Element Type="Param" Id="9B3F3695">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="684CA9CE"/>
+        </Element>
+        <Element Type="Param" Id="A2824446">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionCall" Id="FF657171">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="E88AD402"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="729ACC85"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="B0E36C1D"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="A40F827B"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="E601A18F"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="81012E2A"/>
+        </Element>
+        <Element Type="FunctionCall" Id="E88AD402">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="637796ED"/>
+            <Parameter Type="Param" Library="HAMA" Id="50AA909E"/>
+        </Element>
+        <Element Type="Param" Id="637796ED">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HAMA" Id="1EE5BE9F"/>
+        </Element>
+        <Element Type="Param" Id="50AA909E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000545"/>
+        </Element>
+        <Element Type="FunctionCall" Id="729ACC85">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="6C60DBD9"/>
+            <Parameter Type="Param" Library="HAMA" Id="DCDF306C"/>
+        </Element>
+        <Element Type="Param" Id="6C60DBD9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HAMA" Id="820427F8"/>
+        </Element>
+        <Element Type="Param" Id="DCDF306C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000545"/>
+        </Element>
+        <Element Type="FunctionCall" Id="B0E36C1D">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="87B3E763"/>
+            <Parameter Type="Param" Library="HAMA" Id="380DD53A"/>
+        </Element>
+        <Element Type="Param" Id="87B3E763">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HAMA" Id="1AB26E21"/>
+        </Element>
+        <Element Type="Param" Id="380DD53A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000545"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A40F827B">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="DC0B34FB"/>
+            <Parameter Type="Param" Library="HAMA" Id="EC436E71"/>
+        </Element>
+        <Element Type="Param" Id="DC0B34FB">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HAMA" Id="4E00BC6C"/>
+        </Element>
+        <Element Type="Param" Id="EC436E71">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000545"/>
+        </Element>
+        <Element Type="FunctionCall" Id="E601A18F">
+            <Disabled/>
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="7D60ABBF"/>
+            <Parameter Type="Param" Library="HAMA" Id="3A231F4A"/>
+        </Element>
+        <Element Type="Param" Id="7D60ABBF">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HAMA" Id="C38B3872"/>
+        </Element>
+        <Element Type="Param" Id="3A231F4A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000545"/>
+        </Element>
+        <Element Type="FunctionCall" Id="81012E2A">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000003"/>
+            <Parameter Type="Param" Library="HAMA" Id="E8452BE3"/>
+            <Parameter Type="Param" Library="HAMA" Id="2FA6AC39"/>
+            <Parameter Type="Param" Library="HAMA" Id="E2AA116A"/>
+        </Element>
+        <Element Type="Param" Id="E8452BE3">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HAMA" Id="1655E6EF"/>
+        </Element>
+        <Element Type="Param" Id="2FA6AC39">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="E2AA116A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Category" Id="B1367837">
+            <Item Type="Category" Library="HAMA" Id="C0E8CF65"/>
+            <Item Type="Category" Library="HAMA" Id="A47DD94D"/>
+            <Item Type="Trigger" Library="HAMA" Id="4E00BC6C"/>
+        </Element>
+        <Element Type="Category" Id="C0E8CF65">
+            <Item Type="Trigger" Library="HAMA" Id="1EE5BE9F"/>
+            <Item Type="Trigger" Library="HAMA" Id="820427F8"/>
+            <Item Type="Trigger" Library="HAMA" Id="1AB26E21"/>
+        </Element>
+        <Element Type="Trigger" Id="1EE5BE9F">
+            <InitOff/>
+            <Variable Type="Variable" Library="HAMA" Id="3D610372"/>
+            <Variable Type="Variable" Library="HAMA" Id="CA1F201A"/>
+            <Variable Type="Variable" Library="HAMA" Id="A9C094CF"/>
+            <Variable Type="Variable" Library="HAMA" Id="950516DA"/>
+            <Variable Type="Variable" Library="HAMA" Id="CDBF8C65"/>
+            <Variable Type="Variable" Library="HAMA" Id="9291203E"/>
+            <Event Type="FunctionCall" Library="HAMA" Id="C8463318"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="9B7CE1F9"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="605CF2E6"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="AEC6AA26"/>
+            <Action Type="FunctionCall" Library="HAMA" Id="6EC1DB65"/>
+            <Action Type="FunctionCall" Library="HAMA" Id="39AB02EB"/>
+            <Action Type="FunctionCall" Library="HAMA" Id="1B28C134"/>
+            <Action Type="FunctionCall" Library="HAMA" Id="94228C7F"/>
+        </Element>
+        <Element Type="Variable" Id="3D610372">
+            <VariableType>
+                <Type Value="unit"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="B057D380"/>
+        </Element>
+        <Element Type="Param" Id="B057D380">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="A7FABF6E"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A7FABF6E">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000092"/>
+        </Element>
+        <Element Type="Variable" Id="CA1F201A">
+            <VariableType>
+                <Type Value="int"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="7BBD6C1F"/>
+        </Element>
+        <Element Type="Param" Id="7BBD6C1F">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="80BEB77D"/>
+        </Element>
+        <Element Type="FunctionCall" Id="80BEB77D">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000053"/>
+        </Element>
+        <Element Type="Variable" Id="A9C094CF">
+            <VariableType>
+                <Type Value="gamelink"/>
+                <GameType Value="Effect"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="0F216BDF"/>
+        </Element>
+        <Element Type="Param" Id="0F216BDF">
+            <Value>AmazonAvoidanceSurgeOfLightDummyMaximumCharge</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="Variable" Id="950516DA">
+            <VariableType>
+                <Type Value="fixed"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="C0992820"/>
+        </Element>
+        <Element Type="Param" Id="C0992820">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="D231E70C"/>
+        </Element>
+        <Element Type="FunctionCall" Id="D231E70C">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="998571F2"/>
+            <Parameter Type="Param" Library="HAMA" Id="71B18917"/>
+            <Parameter Type="Param" Library="HAMA" Id="B6DD5B30"/>
+            <Parameter Type="Param" Library="HAMA" Id="52622D04"/>
+            <Parameter Type="Param" Library="HAMA" Id="7FC567AC"/>
+        </Element>
+        <Element Type="Param" Id="71B18917">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="9F61A04E"/>
+            <Variable Type="Variable" Library="HAMA" Id="CA1F201A"/>
+        </Element>
+        <Element Type="Param" Id="B6DD5B30">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="333464F9"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000519"/>
+        </Element>
+        <Element Type="Param" Id="52622D04">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="2C59B9E9"/>
+            <Variable Type="Variable" Library="HAMA" Id="A9C094CF"/>
+        </Element>
+        <Element Type="Param" Id="7FC567AC">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="38B9D9B2"/>
+            <Value>Amount</Value>
+            <ValueType Type="catalogfieldpath"/>
+            <ValueContext Value="CEffectDamage"/>
+        </Element>
+        <Element Type="Variable" Id="CDBF8C65">
+            <Identifier>damageTaken</Identifier>
+            <VariableType>
+                <Type Value="fixed"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="307835D2"/>
+        </Element>
+        <Element Type="Param" Id="307835D2">
+            <ExpressionType Type="fixed"/>
+            <ExpressionText>~A~ + ~B~</ExpressionText>
+            <ExpressionParam Type="Param" Library="HAMA" Id="443FA7F9"/>
+            <ExpressionParam Type="Param" Library="HAMA" Id="A5A54CF8"/>
+        </Element>
+        <Element Type="Param" Id="443FA7F9">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="D126945A"/>
+            <ExpressionCode Value="A"/>
+        </Element>
+        <Element Type="FunctionCall" Id="D126945A">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000098"/>
+        </Element>
+        <Element Type="Param" Id="A5A54CF8">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="24C52590"/>
+            <ExpressionCode Value="B"/>
+        </Element>
+        <Element Type="FunctionCall" Id="24C52590">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="3E5CC42D"/>
+        </Element>
+        <Element Type="Variable" Id="9291203E">
+            <Identifier>damageThreshold</Identifier>
+            <VariableType>
+                <Type Value="fixed"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="D5B84A87"/>
+        </Element>
+        <Element Type="Param" Id="D5B84A87">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="6693A654"/>
+        </Element>
+        <Element Type="FunctionCall" Id="6693A654">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000129"/>
+            <Parameter Type="Param" Library="HAMA" Id="E3D2E9BA"/>
+            <Parameter Type="Param" Library="HAMA" Id="F782B282"/>
+            <Parameter Type="Param" Library="HAMA" Id="B34FC72C"/>
+        </Element>
+        <Element Type="Param" Id="E3D2E9BA">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000209"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000088"/>
+        </Element>
+        <Element Type="Param" Id="F782B282">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000210"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="320B575A"/>
+        </Element>
+        <Element Type="FunctionCall" Id="320B575A">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="998571F2"/>
+            <Parameter Type="Param" Library="HAMA" Id="57B5B051"/>
+            <Parameter Type="Param" Library="HAMA" Id="5C8BC1A0"/>
+            <Parameter Type="Param" Library="HAMA" Id="C4C4EFE6"/>
+            <Parameter Type="Param" Library="HAMA" Id="312E1D1E"/>
+        </Element>
+        <Element Type="Param" Id="57B5B051">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="9F61A04E"/>
+            <Variable Type="Variable" Library="HAMA" Id="CA1F201A"/>
+        </Element>
+        <Element Type="Param" Id="5C8BC1A0">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="333464F9"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000510"/>
+        </Element>
+        <Element Type="Param" Id="C4C4EFE6">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="2C59B9E9"/>
+            <Value>AmazonSurgeOfLight</Value>
+            <ValueType Type="catalogentry"/>
+        </Element>
+        <Element Type="Param" Id="312E1D1E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="38B9D9B2"/>
+            <Value>Cost.Charge.CountMax</Value>
+            <ValueType Type="catalogfieldpath"/>
+            <ValueContext Value="CAbilAugment"/>
+        </Element>
+        <Element Type="Param" Id="B34FC72C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000208"/>
+            <Variable Type="Variable" Library="HAMA" Id="950516DA"/>
+        </Element>
+        <Element Type="FunctionCall" Id="C8463318">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="5C010D48"/>
+            <Parameter Type="Param" Library="HAMA" Id="AD157CDA"/>
+            <Parameter Type="Param" Library="HAMA" Id="E4291671"/>
+            <Parameter Type="Param" Library="HAMA" Id="BC3B7342"/>
+            <Parameter Type="Param" Library="HAMA" Id="F2E0E400"/>
+        </Element>
+        <Element Type="Param" Id="AD157CDA">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4421C93A"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="C84C7A78"/>
+        </Element>
+        <Element Type="Param" Id="E4291671">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="1B5BFFA8"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="9F9C00A9"/>
+        </Element>
+        <Element Type="Param" Id="BC3B7342">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="68EEADB6"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="D33DD35C"/>
+        </Element>
+        <Element Type="Param" Id="F2E0E400">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="3F9C41F8"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000231"/>
+        </Element>
+        <Element Type="FunctionCall" Id="9B7CE1F9">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HAMA" Id="F5F18CCB"/>
+            <Parameter Type="Param" Library="HAMA" Id="671BAE59"/>
+            <Parameter Type="Param" Library="HAMA" Id="A24886D8"/>
+        </Element>
+        <Element Type="Param" Id="F5F18CCB">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="2D91567B"/>
+        </Element>
+        <Element Type="FunctionCall" Id="2D91567B">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="142FF15A"/>
+            <Parameter Type="Param" Library="HAMA" Id="49E1F8D3"/>
+            <Parameter Type="Param" Library="HAMA" Id="749E2F31"/>
+        </Element>
+        <Element Type="Param" Id="49E1F8D3">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="033DFD05"/>
+            <Variable Type="Variable" Library="HAMA" Id="3D610372"/>
+        </Element>
+        <Element Type="Param" Id="749E2F31">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="B29EDD13"/>
+            <Value>AmazonAvoidanceDamageReduction</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="671BAE59">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="A24886D8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>true</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="FunctionCall" Id="605CF2E6">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HAMA" Id="AD6D54B8"/>
+            <Parameter Type="Param" Library="HAMA" Id="0C665E5E"/>
+            <Parameter Type="Param" Library="HAMA" Id="0A6B5BE9"/>
+        </Element>
+        <Element Type="Param" Id="AD6D54B8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="819EB7BC"/>
+        </Element>
+        <Element Type="FunctionCall" Id="819EB7BC">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="998A01FC"/>
+            <Parameter Type="Param" Library="HAMA" Id="380EEE50"/>
+            <Parameter Type="Param" Library="HAMA" Id="0B58B071"/>
+        </Element>
+        <Element Type="Param" Id="380EEE50">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="C953F3CF"/>
+            <Variable Type="Variable" Library="HAMA" Id="CA1F201A"/>
+        </Element>
+        <Element Type="Param" Id="0B58B071">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="5D378343"/>
+            <Value>AmazonSurgeOfLight</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Talent"/>
+        </Element>
+        <Element Type="Param" Id="0C665E5E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="0A6B5BE9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>true</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="FunctionCall" Id="AEC6AA26">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HAMA" Id="107D0342"/>
+            <Parameter Type="Param" Library="HAMA" Id="7CD374E1"/>
+            <Parameter Type="Param" Library="HAMA" Id="F75A9B6E"/>
+        </Element>
+        <Element Type="Param" Id="107D0342">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="652D7F68"/>
+        </Element>
+        <Element Type="FunctionCall" Id="652D7F68">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="8AFB7F8B"/>
+            <Parameter Type="Param" Library="HAMA" Id="94DC4ECD"/>
+            <Parameter Type="Param" Library="HAMA" Id="7D9DEF1C"/>
+        </Element>
+        <Element Type="Param" Id="94DC4ECD">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="BB9AA1DB"/>
+            <Variable Type="Variable" Library="HAMA" Id="CA1F201A"/>
+        </Element>
+        <Element Type="Param" Id="7D9DEF1C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="EE2757F2"/>
+            <Value>Abil/AmazonSurgeOfLight</Value>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="Param" Id="7CD374E1">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="40567BEE"/>
+        </Element>
+        <Element Type="Param" Id="F75A9B6E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="FunctionCall" Id="6EC1DB65">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <Parameter Type="Param" Library="HAMA" Id="E25E5D82"/>
+            <Parameter Type="Param" Library="HAMA" Id="D064E646"/>
+        </Element>
+        <Element Type="Param" Id="E25E5D82">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <ExpressionType Type="fixed"/>
+            <ExpressionText>~A~ + ~B~</ExpressionText>
+            <ExpressionParam Type="Param" Library="HAMA" Id="34253462"/>
+            <ExpressionParam Type="Param" Library="HAMA" Id="64D591D5"/>
+        </Element>
+        <Element Type="Param" Id="34253462">
+            <Variable Type="Variable" Library="HAMA" Id="CDBF8C65"/>
+            <ExpressionCode Value="A"/>
+        </Element>
+        <Element Type="Param" Id="64D591D5">
+            <Variable Type="Variable" Library="HAMA" Id="468413BB"/>
+            <Array Type="Param" Library="HAMA" Id="925F7960"/>
+            <ExpressionCode Value="B"/>
+        </Element>
+        <Element Type="Param" Id="925F7960">
+            <Variable Type="Variable" Library="HAMA" Id="CA1F201A"/>
+        </Element>
+        <Element Type="Param" Id="D064E646">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HAMA" Id="CDBF8C65"/>
+        </Element>
+        <Element Type="FunctionCall" Id="39AB02EB">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="71596144"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="938E7FE3"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="6097DEC7"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="F2CBDC83"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="66EE03AC"/>
+        </Element>
+        <Element Type="FunctionCall" Id="938E7FE3">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="1D502AEE"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="A1B37466"/>
+            <Parameter Type="Param" Library="HAMA" Id="A8AAC3B3"/>
+            <Parameter Type="Param" Library="HAMA" Id="1C179CDA"/>
+            <Parameter Type="Param" Library="HAMA" Id="81B5E0B5"/>
+        </Element>
+        <Element Type="Param" Id="A8AAC3B3">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="BA852648"/>
+            <Variable Type="Variable" Library="HAMA" Id="CA1F201A"/>
+        </Element>
+        <Element Type="Param" Id="1C179CDA">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="46AD72A9"/>
+            <Value>Abil/AmazonSurgeOfLight</Value>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="Param" Id="81B5E0B5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F5087ACF"/>
+            <Value>-1.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="FunctionCall" Id="6097DEC7">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="A1B37466"/>
+            <Parameter Type="Param" Library="HAMA" Id="0C80C9A2"/>
+            <Parameter Type="Param" Library="HAMA" Id="B2173193"/>
+        </Element>
+        <Element Type="Param" Id="0C80C9A2">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <ExpressionType Type="fixed"/>
+            <ExpressionText>~A~ - ~B~</ExpressionText>
+            <ExpressionParam Type="Param" Library="HAMA" Id="F9C6DD04"/>
+            <ExpressionParam Type="Param" Library="HAMA" Id="39325E41"/>
+        </Element>
+        <Element Type="Param" Id="F9C6DD04">
+            <Variable Type="Variable" Library="HAMA" Id="CDBF8C65"/>
+            <ExpressionCode Value="A"/>
+        </Element>
+        <Element Type="Param" Id="39325E41">
+            <Variable Type="Variable" Library="HAMA" Id="9291203E"/>
+            <ExpressionCode Value="B"/>
+        </Element>
+        <Element Type="Param" Id="B2173193">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HAMA" Id="CDBF8C65"/>
+        </Element>
+        <Element Type="FunctionCall" Id="F2CBDC83">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="20298AEC"/>
+            <Parameter Type="Param" Library="HAMA" Id="5FA0FB8C"/>
+            <Parameter Type="Param" Library="HAMA" Id="796F47BB"/>
+            <Parameter Type="Param" Library="HAMA" Id="6ECF99EE"/>
+        </Element>
+        <Element Type="Param" Id="5FA0FB8C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="40567BEE"/>
+        </Element>
+        <Element Type="Param" Id="796F47BB">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Variable Type="Variable" Library="HAMA" Id="9291203E"/>
+        </Element>
+        <Element Type="Param" Id="6ECF99EE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HAMA" Id="CDBF8C65"/>
+        </Element>
+        <Element Type="FunctionCall" Id="66EE03AC">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="20298AEC"/>
+            <Parameter Type="Param" Library="HAMA" Id="FBAF8C61"/>
+            <Parameter Type="Param" Library="HAMA" Id="DA29187C"/>
+            <Parameter Type="Param" Library="HAMA" Id="B15D7E4F"/>
+        </Element>
+        <Element Type="Param" Id="FBAF8C61">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="40567BEE"/>
+        </Element>
+        <Element Type="Param" Id="DA29187C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="B15D7E4F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="B9679064"/>
+        </Element>
+        <Element Type="FunctionCall" Id="B9679064">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="8AFB7F8B"/>
+            <Parameter Type="Param" Library="HAMA" Id="A2F5023A"/>
+            <Parameter Type="Param" Library="HAMA" Id="EF3755B8"/>
+        </Element>
+        <Element Type="Param" Id="A2F5023A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="BB9AA1DB"/>
+            <Variable Type="Variable" Library="HAMA" Id="CA1F201A"/>
+        </Element>
+        <Element Type="Param" Id="EF3755B8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="EE2757F2"/>
+            <Value>Abil/AmazonSurgeOfLight</Value>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="FunctionCall" Id="1B28C134">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <Parameter Type="Param" Library="HAMA" Id="A2ACBDA8"/>
+            <Parameter Type="Param" Library="HAMA" Id="8B121528"/>
+        </Element>
+        <Element Type="Param" Id="A2ACBDA8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <Variable Type="Variable" Library="HAMA" Id="CDBF8C65"/>
+        </Element>
+        <Element Type="Param" Id="8B121528">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HAMA" Id="468413BB"/>
+            <Array Type="Param" Library="HAMA" Id="28A70BB2"/>
+        </Element>
+        <Element Type="Param" Id="28A70BB2">
+            <Variable Type="Variable" Library="HAMA" Id="CA1F201A"/>
+        </Element>
+        <Element Type="FunctionCall" Id="94228C7F">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="2F178E9C"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="85F18F08"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="0F99E572"/>
+        </Element>
+        <Element Type="FunctionCall" Id="2F178E9C">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C47C0524"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="3ED51631"/>
+            <Parameter Type="Param" Library="HAMA" Id="CC3A018C"/>
+            <Parameter Type="Param" Library="HAMA" Id="4F561C78"/>
+            <Parameter Type="Param" Library="HAMA" Id="0616D800"/>
+        </Element>
+        <Element Type="Param" Id="3ED51631">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6F19F7ED"/>
+            <Value>1</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Param" Id="CC3A018C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="2E722704"/>
+            <Variable Type="Variable" Library="HAMA" Id="3D610372"/>
+        </Element>
+        <Element Type="Param" Id="4F561C78">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="9A6B09E3"/>
+            <Value>AmazonAvoidanceSurgeOfLightAbilityReady</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="0616D800">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="02BBDCC1"/>
+            <Variable Type="Variable" Library="HAMA" Id="3D610372"/>
+        </Element>
+        <Element Type="FunctionCall" Id="85F18F08">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="76BADA72"/>
+            <Parameter Type="Param" Library="HAMA" Id="1B96C1D9"/>
+        </Element>
+        <Element Type="Param" Id="76BADA72">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="1B96C1D9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HAMA" Id="468413BB"/>
+            <Array Type="Param" Library="HAMA" Id="24DA49C0"/>
+        </Element>
+        <Element Type="Param" Id="24DA49C0">
+            <Variable Type="Variable" Library="HAMA" Id="CA1F201A"/>
+        </Element>
+        <Element Type="FunctionCall" Id="0F99E572">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000003"/>
+            <Parameter Type="Param" Library="HAMA" Id="3D96381F"/>
+            <Parameter Type="Param" Library="HAMA" Id="EE30D013"/>
+            <Parameter Type="Param" Library="HAMA" Id="BDBBFAE9"/>
+        </Element>
+        <Element Type="Param" Id="3D96381F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="EE30D013">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="BDBBFAE9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="869C60B5"/>
+        </Element>
+        <Element Type="FunctionCall" Id="869C60B5">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="8AFB7F8B"/>
+            <Parameter Type="Param" Library="HAMA" Id="C3CC6CBF"/>
+            <Parameter Type="Param" Library="HAMA" Id="6541588D"/>
+        </Element>
+        <Element Type="Param" Id="C3CC6CBF">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="BB9AA1DB"/>
+            <Variable Type="Variable" Library="HAMA" Id="CA1F201A"/>
+        </Element>
+        <Element Type="Param" Id="6541588D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="EE2757F2"/>
+            <Value>Abil/AmazonSurgeOfLight</Value>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="Trigger" Id="820427F8">
+            <InitOff/>
+            <Variable Type="Variable" Library="HAMA" Id="B7493A58"/>
+            <Event Type="FunctionCall" Library="HAMA" Id="C856C6C4"/>
+            <Action Type="Comment" Library="HAMA" Id="F161812A"/>
+            <Action Type="FunctionCall" Library="HAMA" Id="8F13A495"/>
+        </Element>
+        <Element Type="Variable" Id="B7493A58">
+            <VariableType>
+                <Type Value="gamelink"/>
+                <GameType Value="Effect"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="9F48DF88"/>
+        </Element>
+        <Element Type="Param" Id="9F48DF88">
+            <Value>AmazonAvoidanceSurgeOfLightDummyCurrentCharge</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="FunctionCall" Id="C856C6C4">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="3C0566C4"/>
+            <Parameter Type="Param" Library="HAMA" Id="B9245A04"/>
+            <Parameter Type="Param" Library="HAMA" Id="34842BC4"/>
+            <Parameter Type="Param" Library="HAMA" Id="19362CA1"/>
+        </Element>
+        <Element Type="Param" Id="B9245A04">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F3A8B0DC"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="C84C7A78"/>
+        </Element>
+        <Element Type="Param" Id="34842BC4">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="1CDCC284"/>
+            <Value>AmazonAvoidanceSurgeOfLightAbilityReady</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="19362CA1">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="3029CA3C"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="D7C48C02"/>
+        </Element>
+        <Element Type="Comment" Id="F161812A">
+            <Comment>
+                Resetting the Progress Bar on top of the trait button
+            </Comment>
+        </Element>
+        <Element Type="FunctionCall" Id="8F13A495">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <Parameter Type="Param" Library="HAMA" Id="61CD0D46"/>
+            <Parameter Type="Param" Library="HAMA" Id="62739939"/>
+        </Element>
+        <Element Type="Param" Id="61CD0D46">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="62739939">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HAMA" Id="468413BB"/>
+            <Array Type="Param" Library="HAMA" Id="20DE9828"/>
+        </Element>
+        <Element Type="Param" Id="20DE9828">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="9BFC9F52"/>
+        </Element>
+        <Element Type="FunctionCall" Id="9BFC9F52">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000081"/>
+            <Parameter Type="Param" Library="HAMA" Id="1AA2C744"/>
+        </Element>
+        <Element Type="Param" Id="1AA2C744">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000140"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="D5DD5E8B"/>
+        </Element>
+        <Element Type="FunctionCall" Id="D5DD5E8B">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000092"/>
+        </Element>
+        <Element Type="Trigger" Id="1AB26E21">
+            <Identifier>HeroAmazonTalentResetClearSurgeofLight</Identifier>
+            <InitOff/>
+            <Variable Type="Variable" Library="HAMA" Id="11383443"/>
+            <Event Type="FunctionCall" Library="HAMA" Id="0ECD2C50"/>
+            <Action Type="FunctionCall" Library="HAMA" Id="CFF79F7C"/>
+            <Action Type="FunctionCall" Library="HAMA" Id="EBD81DC3"/>
+        </Element>
+        <Element Type="Variable" Id="11383443">
+            <Identifier>player</Identifier>
+            <VariableType>
+                <Type Value="int"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="D4F82F10"/>
+        </Element>
+        <Element Type="Param" Id="D4F82F10">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="85F6EA5B"/>
+        </Element>
+        <Element Type="FunctionCall" Id="85F6EA5B">
+            <FunctionDef Type="FunctionDef" Library="Game" Id="200292A7"/>
+        </Element>
+        <Element Type="FunctionCall" Id="0ECD2C50">
+            <FunctionDef Type="FunctionDef" Library="Game" Id="E43181BD"/>
+        </Element>
+        <Element Type="FunctionCall" Id="CFF79F7C">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <Parameter Type="Param" Library="HAMA" Id="15A1821D"/>
+            <Parameter Type="Param" Library="HAMA" Id="A59EAEEF"/>
+        </Element>
+        <Element Type="Param" Id="15A1821D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="A59EAEEF">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HAMA" Id="468413BB"/>
+            <Array Type="Param" Library="HAMA" Id="9CB32E23"/>
+        </Element>
+        <Element Type="Param" Id="9CB32E23">
+            <Variable Type="Variable" Library="HAMA" Id="11383443"/>
+        </Element>
+        <Element Type="FunctionCall" Id="EBD81DC3">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="1D502AEE"/>
+            <Parameter Type="Param" Library="HAMA" Id="82D61838"/>
+            <Parameter Type="Param" Library="HAMA" Id="B2BD728B"/>
+            <Parameter Type="Param" Library="HAMA" Id="8373EB03"/>
+        </Element>
+        <Element Type="Param" Id="82D61838">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="BA852648"/>
+            <Variable Type="Variable" Library="HAMA" Id="11383443"/>
+        </Element>
+        <Element Type="Param" Id="B2BD728B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="46AD72A9"/>
+            <Value>Abil/AmazonSurgeOfLight</Value>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="Param" Id="8373EB03">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F5087ACF"/>
+            <ExpressionType Type="fixed"/>
+            <ExpressionText>~A~ - ~B~</ExpressionText>
+            <ExpressionParam Type="Param" Library="HAMA" Id="FD86EEA4"/>
+            <ExpressionParam Type="Param" Library="HAMA" Id="BA8AF191"/>
+        </Element>
+        <Element Type="Param" Id="FD86EEA4">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="92847000"/>
+            <ExpressionCode Value="A"/>
+        </Element>
+        <Element Type="FunctionCall" Id="92847000">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="998571F2"/>
+            <Parameter Type="Param" Library="HAMA" Id="9EBDAC1E"/>
+            <Parameter Type="Param" Library="HAMA" Id="7AC837C7"/>
+            <Parameter Type="Param" Library="HAMA" Id="2743E72A"/>
+            <Parameter Type="Param" Library="HAMA" Id="651E0F05"/>
+        </Element>
+        <Element Type="Param" Id="9EBDAC1E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="9F61A04E"/>
+            <Variable Type="Variable" Library="HAMA" Id="11383443"/>
+        </Element>
+        <Element Type="Param" Id="7AC837C7">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="333464F9"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000510"/>
+        </Element>
+        <Element Type="Param" Id="2743E72A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="2C59B9E9"/>
+            <Value>AmazonSurgeOfLight</Value>
+            <ValueType Type="catalogentry"/>
+        </Element>
+        <Element Type="Param" Id="651E0F05">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="38B9D9B2"/>
+            <Value>Cost.Charge.CountMax</Value>
+            <ValueType Type="catalogfieldpath"/>
+            <ValueContext Value="CAbilAugment"/>
+        </Element>
+        <Element Type="Param" Id="BA8AF191">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="6FBCF59A"/>
+            <ExpressionCode Value="B"/>
+        </Element>
+        <Element Type="FunctionCall" Id="6FBCF59A">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="8AFB7F8B"/>
+            <Parameter Type="Param" Library="HAMA" Id="AAFC09F2"/>
+            <Parameter Type="Param" Library="HAMA" Id="81BE40AE"/>
+        </Element>
+        <Element Type="Param" Id="AAFC09F2">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="BB9AA1DB"/>
+            <Variable Type="Variable" Library="HAMA" Id="11383443"/>
+        </Element>
+        <Element Type="Param" Id="81BE40AE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="EE2757F2"/>
+            <Value>Abil/AmazonSurgeOfLight</Value>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="Category" Id="A47DD94D">
+            <Item Type="Trigger" Library="HAMA" Id="C38B3872"/>
+        </Element>
+        <Element Type="Trigger" Id="C38B3872">
+            <Disabled/>
+            <InitOff/>
+            <Variable Type="Variable" Library="HAMA" Id="1A183777"/>
+            <Variable Type="Variable" Library="HAMA" Id="B4FAE4E3"/>
+            <Event Type="FunctionCall" Library="HAMA" Id="74B2E3BC"/>
+            <Event Type="FunctionCall" Library="HAMA" Id="CB6865AF"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="4BCF0157"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="73EF3A72"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="94170D33"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="86B9EEE2"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="B2DE862E"/>
+            <Condition Type="Comment" Library="HAMA" Id="75834A8B"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="4B4EB40B"/>
+            <Action Type="FunctionCall" Library="HAMA" Id="45AA7BE8"/>
+        </Element>
+        <Element Type="Variable" Id="1A183777">
+            <VariableType>
+                <Type Value="int"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="93603E50"/>
+        </Element>
+        <Element Type="Param" Id="93603E50">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="67035C54"/>
+        </Element>
+        <Element Type="FunctionCall" Id="67035C54">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000053"/>
+        </Element>
+        <Element Type="Variable" Id="B4FAE4E3">
+            <VariableType>
+                <Type Value="unit"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="3AA2AC95"/>
+        </Element>
+        <Element Type="Param" Id="3AA2AC95">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="606842A0"/>
+        </Element>
+        <Element Type="FunctionCall" Id="606842A0">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000092"/>
+        </Element>
+        <Element Type="FunctionCall" Id="74B2E3BC">
+            <FunctionDef Type="FunctionDef" Library="Game" Id="1CAAC243"/>
+            <Parameter Type="Param" Library="HAMA" Id="98C5E48F"/>
+            <Parameter Type="Param" Library="HAMA" Id="50AEB828"/>
+            <Parameter Type="Param" Library="HAMA" Id="B94DE1E0"/>
+        </Element>
+        <Element Type="Param" Id="98C5E48F">
+            <ParameterDef Type="ParamDef" Library="Game" Id="7C3C1422"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="C84C7A78"/>
+        </Element>
+        <Element Type="Param" Id="50AEB828">
+            <ParameterDef Type="ParamDef" Library="Game" Id="50EDBF56"/>
+            <Preset Type="PresetValue" Library="Game" Id="4EE00BCC"/>
+        </Element>
+        <Element Type="Param" Id="B94DE1E0">
+            <ParameterDef Type="ParamDef" Library="Game" Id="21173D58"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="0059E8B3"/>
+        </Element>
+        <Element Type="FunctionCall" Id="CB6865AF">
+            <FunctionDef Type="FunctionDef" Library="Game" Id="1CAAC243"/>
+            <Parameter Type="Param" Library="HAMA" Id="6AD3A65B"/>
+            <Parameter Type="Param" Library="HAMA" Id="66305803"/>
+            <Parameter Type="Param" Library="HAMA" Id="A4563B9B"/>
+        </Element>
+        <Element Type="Param" Id="6AD3A65B">
+            <ParameterDef Type="ParamDef" Library="Game" Id="7C3C1422"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="C84C7A78"/>
+        </Element>
+        <Element Type="Param" Id="66305803">
+            <ParameterDef Type="ParamDef" Library="Game" Id="50EDBF56"/>
+            <Preset Type="PresetValue" Library="Game" Id="1FCDCC28"/>
+        </Element>
+        <Element Type="Param" Id="A4563B9B">
+            <ParameterDef Type="ParamDef" Library="Game" Id="21173D58"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="0059E8B3"/>
+        </Element>
+        <Element Type="FunctionCall" Id="4BCF0157">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HAMA" Id="74A52F70"/>
+            <Parameter Type="Param" Library="HAMA" Id="E1573111"/>
+            <Parameter Type="Param" Library="HAMA" Id="B745F23B"/>
+        </Element>
+        <Element Type="Param" Id="74A52F70">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HAMA" Id="1A183777"/>
+        </Element>
+        <Element Type="Param" Id="E1573111">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="40567BEE"/>
+        </Element>
+        <Element Type="Param" Id="B745F23B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionCall" Id="73EF3A72">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HAMA" Id="02D531F9"/>
+            <Parameter Type="Param" Library="HAMA" Id="F5528FCF"/>
+            <Parameter Type="Param" Library="HAMA" Id="2C00A378"/>
+        </Element>
+        <Element Type="Param" Id="02D531F9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HAMA" Id="1A183777"/>
+        </Element>
+        <Element Type="Param" Id="F5528FCF">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="E123C832"/>
+        </Element>
+        <Element Type="Param" Id="2C00A378">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Variable Type="Variable" Library="Core" Id="2BFE1B33"/>
+        </Element>
+        <Element Type="FunctionCall" Id="94170D33">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HAMA" Id="336EEEF5"/>
+            <Parameter Type="Param" Library="HAMA" Id="8A3673B6"/>
+            <Parameter Type="Param" Library="HAMA" Id="6D35B32D"/>
+        </Element>
+        <Element Type="Param" Id="336EEEF5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="A08468ED"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A08468ED">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="998A01FC"/>
+            <Parameter Type="Param" Library="HAMA" Id="7007863A"/>
+            <Parameter Type="Param" Library="HAMA" Id="AD0086F5"/>
+        </Element>
+        <Element Type="Param" Id="7007863A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="C953F3CF"/>
+            <Variable Type="Variable" Library="HAMA" Id="1A183777"/>
+        </Element>
+        <Element Type="Param" Id="AD0086F5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="5D378343"/>
+            <Value>AmazonInnerLight</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Talent"/>
+        </Element>
+        <Element Type="Param" Id="8A3673B6">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="6D35B32D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>true</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="FunctionCall" Id="86B9EEE2">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HAMA" Id="2853CE96"/>
+            <Parameter Type="Param" Library="HAMA" Id="EC9D84A6"/>
+            <Parameter Type="Param" Library="HAMA" Id="E44951C5"/>
+        </Element>
+        <Element Type="Param" Id="2853CE96">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="012B839E"/>
+        </Element>
+        <Element Type="FunctionCall" Id="012B839E">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000079"/>
+            <Parameter Type="Param" Library="HAMA" Id="3B81F14E"/>
+        </Element>
+        <Element Type="Param" Id="3B81F14E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000138"/>
+            <Variable Type="Variable" Library="HAMA" Id="B4FAE4E3"/>
+        </Element>
+        <Element Type="Param" Id="EC9D84A6">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="E44951C5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>HeroAmazon</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Unit"/>
+        </Element>
+        <Element Type="FunctionCall" Id="B2DE862E">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HAMA" Id="1AD5AD27"/>
+            <Parameter Type="Param" Library="HAMA" Id="1F07893D"/>
+            <Parameter Type="Param" Library="HAMA" Id="E3249B93"/>
+        </Element>
+        <Element Type="Param" Id="1AD5AD27">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="5EBABECA"/>
+        </Element>
+        <Element Type="FunctionCall" Id="5EBABECA">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="142FF15A"/>
+            <Parameter Type="Param" Library="HAMA" Id="97440603"/>
+            <Parameter Type="Param" Library="HAMA" Id="2EEFFB01"/>
+        </Element>
+        <Element Type="Param" Id="97440603">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="033DFD05"/>
+            <Variable Type="Variable" Library="HAMA" Id="B4FAE4E3"/>
+        </Element>
+        <Element Type="Param" Id="2EEFFB01">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="B29EDD13"/>
+            <Value>AmazonBlindingLightInnerLightCooldown</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="1F07893D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="E3249B93">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>false</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="Comment" Id="75834A8B">
+            <Comment>
+                Not Unstoppable
+            </Comment>
+        </Element>
+        <Element Type="FunctionCall" Id="4B4EB40B">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HAMA" Id="90A181DD"/>
+            <Parameter Type="Param" Library="HAMA" Id="B29DB6A6"/>
+            <Parameter Type="Param" Library="HAMA" Id="0653A8E8"/>
+        </Element>
+        <Element Type="Param" Id="90A181DD">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="1F01C9EB"/>
+        </Element>
+        <Element Type="FunctionCall" Id="1F01C9EB">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="1332B034"/>
+            <Parameter Type="Param" Library="HAMA" Id="11105356"/>
+            <Parameter Type="Param" Library="HAMA" Id="81106F30"/>
+        </Element>
+        <Element Type="Param" Id="11105356">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="823014C3"/>
+            <Variable Type="Variable" Library="HAMA" Id="B4FAE4E3"/>
+        </Element>
+        <Element Type="Param" Id="81106F30">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="32632214"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="68E0194E"/>
+        </Element>
+        <Element Type="Param" Id="B29DB6A6">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="0653A8E8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>false</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="FunctionCall" Id="45AA7BE8">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="73C0339B"/>
+            <Parameter Type="Param" Library="HAMA" Id="ADCA1748"/>
+            <Parameter Type="Param" Library="HAMA" Id="057A4BE7"/>
+            <Parameter Type="Param" Library="HAMA" Id="1249752B"/>
+        </Element>
+        <Element Type="Param" Id="ADCA1748">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="2BB8CB05"/>
+            <Variable Type="Variable" Library="HAMA" Id="B4FAE4E3"/>
+        </Element>
+        <Element Type="Param" Id="057A4BE7">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="9A7F392A"/>
+            <Value>AmazonBlindingLightInnerLightApplySet</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="Param" Id="1249752B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="88375332"/>
+            <Variable Type="Variable" Library="HAMA" Id="B4FAE4E3"/>
+        </Element>
+        <Element Type="Trigger" Id="4E00BC6C">
+            <Identifier>HeroAmazonWarMatronFloatingText</Identifier>
+            <InitOff/>
+            <Variable Type="Variable" Library="HAMA" Id="4202E1E0"/>
+            <Event Type="FunctionCall" Library="HAMA" Id="A962DA66"/>
+            <Event Type="FunctionCall" Library="HAMA" Id="5CC38DEE"/>
+            <Event Type="FunctionCall" Library="HAMA" Id="F39B3340"/>
+            <Event Type="FunctionCall" Library="HAMA" Id="71980188"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="9FDF566F"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="547262ED"/>
+            <Condition Type="FunctionCall" Library="HAMA" Id="20329EBC"/>
+            <Action Type="FunctionCall" Library="HAMA" Id="0E40F611"/>
+            <Action Type="FunctionCall" Library="HAMA" Id="D8D34044"/>
+        </Element>
+        <Element Type="Variable" Id="4202E1E0">
+            <Identifier>triggeringUnitOwner</Identifier>
+            <VariableType>
+                <Type Value="int"/>
+            </VariableType>
+            <Value Type="Param" Library="HAMA" Id="8CA65279"/>
+        </Element>
+        <Element Type="Param" Id="8CA65279">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="1AC8C527"/>
+        </Element>
+        <Element Type="FunctionCall" Id="1AC8C527">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000081"/>
+            <Parameter Type="Param" Library="HAMA" Id="B7EA4F4F"/>
+        </Element>
+        <Element Type="Param" Id="B7EA4F4F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000140"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="98BACDEE"/>
+        </Element>
+        <Element Type="FunctionCall" Id="98BACDEE">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000092"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A962DA66">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="3C0566C4"/>
+            <Parameter Type="Param" Library="HAMA" Id="E23EAD4D"/>
+            <Parameter Type="Param" Library="HAMA" Id="2C1D54D7"/>
+            <Parameter Type="Param" Library="HAMA" Id="FAFDC4BE"/>
+        </Element>
+        <Element Type="Param" Id="E23EAD4D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F3A8B0DC"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="C84C7A78"/>
+        </Element>
+        <Element Type="Param" Id="2C1D54D7">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="1CDCC284"/>
+            <Value>AmazonFendWarMatronChannelProtectedBehavior</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="FAFDC4BE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="3029CA3C"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="E3C66153"/>
+        </Element>
+        <Element Type="FunctionCall" Id="5CC38DEE">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="3C0566C4"/>
+            <Parameter Type="Param" Library="HAMA" Id="7CE97A53"/>
+            <Parameter Type="Param" Library="HAMA" Id="409C15C1"/>
+            <Parameter Type="Param" Library="HAMA" Id="3F0BD087"/>
+        </Element>
+        <Element Type="Param" Id="7CE97A53">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F3A8B0DC"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="C84C7A78"/>
+        </Element>
+        <Element Type="Param" Id="409C15C1">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="1CDCC284"/>
+            <Value>AmazonFendWarMatronChannelProtectedBehavior</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="3F0BD087">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="3029CA3C"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="6F226C5C"/>
+        </Element>
+        <Element Type="FunctionCall" Id="F39B3340">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="3C0566C4"/>
+            <Parameter Type="Param" Library="HAMA" Id="D73F7E93"/>
+            <Parameter Type="Param" Library="HAMA" Id="4AF10A62"/>
+            <Parameter Type="Param" Library="HAMA" Id="4085EA91"/>
+        </Element>
+        <Element Type="Param" Id="D73F7E93">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F3A8B0DC"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="C84C7A78"/>
+        </Element>
+        <Element Type="Param" Id="4AF10A62">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="1CDCC284"/>
+            <Value>AmazonFendWarMatronBonusProtectedBehavior</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="4085EA91">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="3029CA3C"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="E3C66153"/>
+        </Element>
+        <Element Type="FunctionCall" Id="71980188">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="3C0566C4"/>
+            <Parameter Type="Param" Library="HAMA" Id="711AD134"/>
+            <Parameter Type="Param" Library="HAMA" Id="EC26C25A"/>
+            <Parameter Type="Param" Library="HAMA" Id="481BA95C"/>
+        </Element>
+        <Element Type="Param" Id="711AD134">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F3A8B0DC"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="C84C7A78"/>
+        </Element>
+        <Element Type="Param" Id="EC26C25A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="1CDCC284"/>
+            <Value>AmazonFendWarMatronBonusProtectedBehavior</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="481BA95C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="3029CA3C"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="6F226C5C"/>
+        </Element>
+        <Element Type="FunctionCall" Id="9FDF566F">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HAMA" Id="9EF06E12"/>
+            <Parameter Type="Param" Library="HAMA" Id="007D9D56"/>
+            <Parameter Type="Param" Library="HAMA" Id="4B22662F"/>
+        </Element>
+        <Element Type="Param" Id="9EF06E12">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HAMA" Id="4202E1E0"/>
+        </Element>
+        <Element Type="Param" Id="007D9D56">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="B128CB9A"/>
+        </Element>
+        <Element Type="Param" Id="4B22662F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>1</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionCall" Id="547262ED">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HAMA" Id="90316471"/>
+            <Parameter Type="Param" Library="HAMA" Id="4BAACF34"/>
+            <Parameter Type="Param" Library="HAMA" Id="61574C0F"/>
+        </Element>
+        <Element Type="Param" Id="90316471">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HAMA" Id="4202E1E0"/>
+        </Element>
+        <Element Type="Param" Id="4BAACF34">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="E123C832"/>
+        </Element>
+        <Element Type="Param" Id="61574C0F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Variable Type="Variable" Library="Core" Id="2BFE1B33"/>
+        </Element>
+        <Element Type="FunctionCall" Id="20329EBC">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000133"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="CBBEEF4F"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="873F57A3"/>
+        </Element>
+        <Element Type="FunctionCall" Id="CBBEEF4F">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000001"/>
+            <Parameter Type="Param" Library="HAMA" Id="515085A0"/>
+            <Parameter Type="Param" Library="HAMA" Id="094DA3DE"/>
+            <Parameter Type="Param" Library="HAMA" Id="01E4261A"/>
+        </Element>
+        <Element Type="Param" Id="515085A0">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="C04A1680"/>
+        </Element>
+        <Element Type="FunctionCall" Id="C04A1680">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="D08FE403"/>
+        </Element>
+        <Element Type="Param" Id="094DA3DE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="40567BEE"/>
+        </Element>
+        <Element Type="Param" Id="01E4261A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="FunctionCall" Id="873F57A3">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000001"/>
+            <Parameter Type="Param" Library="HAMA" Id="96D15A63"/>
+            <Parameter Type="Param" Library="HAMA" Id="91D77ACE"/>
+            <Parameter Type="Param" Library="HAMA" Id="9716FACC"/>
+        </Element>
+        <Element Type="Param" Id="96D15A63">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HAMA" Id="A0DB8478"/>
+            <Array Type="Param" Library="HAMA" Id="92C700C6"/>
+        </Element>
+        <Element Type="Param" Id="92C700C6">
+            <Variable Type="Variable" Library="HAMA" Id="4202E1E0"/>
+        </Element>
+        <Element Type="Param" Id="91D77ACE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="40567BEE"/>
+        </Element>
+        <Element Type="Param" Id="9716FACC">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="FunctionCall" Id="0E40F611">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <Parameter Type="Param" Library="HAMA" Id="119EC89A"/>
+            <Parameter Type="Param" Library="HAMA" Id="C3F477F0"/>
+        </Element>
+        <Element Type="Param" Id="119EC89A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HAMA" Id="A0DB8478"/>
+            <Array Type="Param" Library="HAMA" Id="E316DD4A"/>
+        </Element>
+        <Element Type="Param" Id="E316DD4A">
+            <Variable Type="Variable" Library="HAMA" Id="4202E1E0"/>
+        </Element>
+        <Element Type="Param" Id="C3F477F0">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <ExpressionType Type="fixed"/>
+            <ExpressionText>~A~ + ~B~</ExpressionText>
+            <ExpressionParam Type="Param" Library="HAMA" Id="D298F52B"/>
+            <ExpressionParam Type="Param" Library="HAMA" Id="CB23E943"/>
+        </Element>
+        <Element Type="Param" Id="D298F52B">
+            <Variable Type="Variable" Library="HAMA" Id="A0DB8478"/>
+            <Array Type="Param" Library="HAMA" Id="08CD7B97"/>
+            <ExpressionCode Value="A"/>
+        </Element>
+        <Element Type="Param" Id="08CD7B97">
+            <Variable Type="Variable" Library="HAMA" Id="4202E1E0"/>
+        </Element>
+        <Element Type="Param" Id="CB23E943">
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="EC9F5ECC"/>
+            <ExpressionCode Value="B"/>
+        </Element>
+        <Element Type="FunctionCall" Id="EC9F5ECC">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="D08FE403"/>
+        </Element>
+        <Element Type="FunctionCall" Id="D8D34044">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="E1E8F8F9"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="5EC776BC"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="C584479B"/>
+        </Element>
+        <Element Type="FunctionCall" Id="E1E8F8F9">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="F752B8D9"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="04D4AFBE"/>
+            <Parameter Type="Param" Library="HAMA" Id="4A8F00D8"/>
+            <Parameter Type="Param" Library="HAMA" Id="C02B4F76"/>
+            <Parameter Type="Param" Library="HAMA" Id="33199AB7"/>
+            <Parameter Type="Param" Library="HAMA" Id="4E15F9D6"/>
+            <Parameter Type="Param" Library="HAMA" Id="18326DE5"/>
+            <Parameter Type="Param" Library="HAMA" Id="43DE6157"/>
+        </Element>
+        <Element Type="Param" Id="04D4AFBE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ECA4778E"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="BE7F86FC"/>
+        </Element>
+        <Element Type="FunctionCall" Id="BE7F86FC">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000057"/>
+            <Parameter Type="Param" Library="HAMA" Id="F9A2F84B"/>
+        </Element>
+        <Element Type="Param" Id="F9A2F84B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000094"/>
+            <Variable Type="Variable" Library="HAMA" Id="4202E1E0"/>
+        </Element>
+        <Element Type="Param" Id="4A8F00D8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0A63B5CB"/>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="Param" Id="C02B4F76">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="BF7CF04A"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="874CF3F1"/>
+        </Element>
+        <Element Type="FunctionCall" Id="874CF3F1">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000092"/>
+        </Element>
+        <Element Type="Param" Id="33199AB7">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="C905E297"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="E4E92A5F"/>
+        </Element>
+        <Element Type="FunctionCall" Id="E4E92A5F">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000003"/>
+            <Parameter Type="Param" Library="HAMA" Id="2C3F0BD9"/>
+        </Element>
+        <Element Type="Param" Id="2C3F0BD9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000003"/>
+            <Variable Type="Variable" Library="HAMA" Id="A0DB8478"/>
+            <Array Type="Param" Library="HAMA" Id="8179C913"/>
+        </Element>
+        <Element Type="Param" Id="8179C913">
+            <Variable Type="Variable" Library="HAMA" Id="4202E1E0"/>
+        </Element>
+        <Element Type="Param" Id="4E15F9D6">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6EF49003"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="EF7905F2"/>
+        </Element>
+        <Element Type="FunctionCall" Id="EF7905F2">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="BC53F705"/>
+            <Parameter Type="Param" Library="HAMA" Id="845CF2EE"/>
+        </Element>
+        <Element Type="Param" Id="845CF2EE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="B1308F64"/>
+            <Value>Param/Value/lib_HVAR_D90A4267</Value>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="Param" Id="18326DE5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="DF3DE1CD"/>
+            <Variable Type="Variable" Library="Ntve" Id="AC43E1B5"/>
+        </Element>
+        <Element Type="Param" Id="43DE6157">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="02D9867E"/>
+            <Value>FloatingCombatElements/FloatingCombatAmountReadable</Value>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="FunctionCall" Id="5EC776BC">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HAMA" Id="B2930647"/>
+            <Parameter Type="Param" Library="HAMA" Id="55B44062"/>
+        </Element>
+        <Element Type="Param" Id="B2930647">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HAMA" Id="A0DB8478"/>
+            <Array Type="Param" Library="HAMA" Id="F97D42F9"/>
+        </Element>
+        <Element Type="Param" Id="F97D42F9">
+            <Variable Type="Variable" Library="HAMA" Id="4202E1E0"/>
+        </Element>
+        <Element Type="Param" Id="55B44062">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <Value>0.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="FunctionCall" Id="C584479B">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000003"/>
+            <Parameter Type="Param" Library="HAMA" Id="52AD4B2B"/>
+            <Parameter Type="Param" Library="HAMA" Id="16C2647D"/>
+            <Parameter Type="Param" Library="HAMA" Id="09AE383B"/>
+        </Element>
+        <Element Type="Param" Id="52AD4B2B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="98AA5F48"/>
+        </Element>
+        <Element Type="FunctionCall" Id="98AA5F48">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="142FF15A"/>
+            <Parameter Type="Param" Library="HAMA" Id="95CA15A4"/>
+            <Parameter Type="Param" Library="HAMA" Id="FF31B94A"/>
+        </Element>
+        <Element Type="Param" Id="95CA15A4">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="033DFD05"/>
+            <FunctionCall Type="FunctionCall" Library="HAMA" Id="B6A09074"/>
+        </Element>
+        <Element Type="FunctionCall" Id="B6A09074">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000092"/>
+        </Element>
+        <Element Type="Param" Id="FF31B94A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="B29EDD13"/>
+            <Value>AmazonFendWarMatronBonusProtectedBehavior</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="16C2647D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="09AE383B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>false</Value>
+            <ValueType Type="bool"/>
+        </Element>
+    </Library>
+</TriggerData>

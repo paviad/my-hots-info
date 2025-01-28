@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">L’arène des jardins</e>
+    <e id="2">Une large palette de héros Blizzard se croisent et s’affrontent de façon épique dans une arène galactique !</e>
+    <e id="3">(Storm) Kings Crest (Gardens)</e>
+    <e id="4">Autre</e>
+    <e id="5">Type de jeu sans classification.</e>
+    <e id="6">Standard</e>
+    <e id="7">Les joueurs peuvent choisir leur héros.</e>
+    <e id="8">L’arène des jardins</e>
+    <e id="9">Récoltez les graines des terreurs sous peine de les voir causer votre perte.</e>
+    <e id="10">2 manches gagnantes dans l’arène des jardins</e>
+    <e id="11">La première équipe qui gagne 2 manches remporte la victoire.</e>
+    <e id="12">Récoltez des graines</e>
+    <e id="13">La première équipe à récolter 100 graines remporte la manche.</e>
+    <e id="14">Sélection aléatoire</e>
+    <e id="15">Choisissez un héros parmi les trois proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="16">Informations supplémentaires</e>
+    <e id="17">Les globes de régénération sont deux fois plus puissants.</e>
+    <e id="18">Il y a une petite chance que tous les joueurs aient le même héros.</e>
+</Locale>

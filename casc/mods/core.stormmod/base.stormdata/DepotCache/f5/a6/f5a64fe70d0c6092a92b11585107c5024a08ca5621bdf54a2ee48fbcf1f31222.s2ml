@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Gartenarena (Mod)</e>
+    <e id="2">Unterstützungs-Mod der Gartenarena</e>
+    <e id="3">Eingesammelte Gartensamen</e>
+    <e id="4">Anzahl der eingesammelten Samen</e>
+    <e id="5">Hoher Unkrautlerschaden</e>
+    <e id="6">Zufallswahl</e>
+    <e id="7">Wähle einen von drei zufälligen Helden. Es besteht eine kleine Chance, dass alle Spieler den gleichen Helden spielen.</e>
+</Locale>

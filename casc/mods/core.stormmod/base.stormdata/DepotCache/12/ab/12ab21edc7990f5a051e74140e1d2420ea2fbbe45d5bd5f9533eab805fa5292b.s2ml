@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Mutador Protocolo fantasma</e>
+    <e id="2">Completamente falto de descripción.</e>
+    <e id="3">TowersOfDoom</e>
+    <e id="4">Protocolo fantasma</e>
+    <e id="5">La amenaza más grande para una fantasma es ella misma. Mata a las Nova enemigas para destruir el núcleo.</e>
+    <e id="6">Núcleo protegido</e>
+    <e id="7">El núcleo del enemigo está protegido contra los ataques de héroes</e>
+    <e id="8">Una muerte, un disparo</e>
+    <e id="9">Los derribos infligen 1 de daño al núcleo</e>
+    <e id="10">Todos con Nova</e>
+    <e id="11">¿Y ahora quién es un fantasma? Pues... todos.</e>
+    <e id="12">Información adicional</e>
+    <e id="13">La habilidad Francotirar de Nova mata en el acto</e>
+</Locale>

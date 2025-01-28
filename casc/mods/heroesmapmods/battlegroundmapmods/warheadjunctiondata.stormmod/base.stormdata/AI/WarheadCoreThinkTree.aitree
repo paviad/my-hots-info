@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree>
+  <include file="AI/BaseTowerThinkTree.aitree" />
+  <mod id="7265776F20301D1D">
+    <removeChild id="63575F5E1B1A2C20" />
+    <insertChild id="54B4D1ADEC01F038" after="0624030051527278" />
+  </mod>
+  <node name="Nuke" type="And" id="3817C430186BA4DF">
+    <variable name="NukeTarget" type="Unit" />
+    <insertChild id="174A03D0BCE775E8" />
+  </node>
+  <node name="Tower Find closest Hero" type="FindBestTarget" id="56343E22B871A6A3" comment="Search for nearby heroes to attack">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="ExcludeTypes" valueSource="literal" value="Player,Ally,Neutral,Creep,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,IgnoredByTowerAI" />
+    <property name="BumpMaxDistanceToWeaponRange" valueSource="literal" value="true" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="NukeTarget" />
+    <property name="MaxTargetDistance" valueSource="intrinsic" value="AttackRange" />
+    <insertChild id="240D8FDE98E94BE1" />
+  </node>
+  <node name="" type="AbilityUsable" id="174A03D0BCE775E8">
+    <property name="Ability" valueSource="literal" value="WarheadCoreNukeAbility" />
+    <insertChild id="56343E22B871A6A3" />
+  </node>
+  <node name="" type="AbilityEnqueue" id="240D8FDE98E94BE1">
+    <property name="Ability" valueSource="literal" value="WarheadCoreNukeAbility" />
+    <property name="TargetUnit" valueSource="variable" value="NukeTarget" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="" type="Select" id="54B4D1ADEC01F038">
+    <insertChild id="3817C430186BA4DF" />
+    <insertChild id="63575F5E1B1A2C20" />
+  </node>
+</tree>

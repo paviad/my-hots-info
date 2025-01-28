@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Booty Coffers</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">BlackHeartsBay</e>
+    <e id="4">Booty Coffers</e>
+    <e id="5">Blackheart is getting greedy! Be the first team to hand over 100 coins, and he’ll bombard the enemy core until it is destroyed. Pay to win!</e>
+    <e id="6">Destroy the Core</e>
+    <e id="7">You can turn in coins at any time until one team turns in a total of 100. Cores can be attacked and destroyed without paying Blackheart.</e>
+    <e id="8">Soldiers of Fortune</e>
+    <e id="9">Chests spawn two at a time, and are hit with cannonballs every few seconds.</e>
+    <e id="10">There are no Doubloon Camps, but Mercenaries and Bosses drop extra coins. Forts and Keeps also drop coins when they are destroyed.</e>
+    <e id="11">Shuffle Pick</e>
+    <e id="12">Choose from one of three randomly selected Heroes. You only have 30 seconds, so think fast!</e>
+    <e id="13">Additional Info</e>
+    <e id="14">Chests spawn more often than usual, and in a set pattern of locations.</e>
+    <e id="15">Some chests are larger and drop additional coins.</e>
+    <e id="16">After all active chests have been looted, there is a 30 second window before another pair is spawned.</e>
+</Locale>

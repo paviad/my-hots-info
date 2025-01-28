@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Le district industriel</e>
+    <e id="2">Une large palette de héros Blizzard se croisent et s’affrontent de façon épique dans une arène galactique !</e>
+    <e id="3">Autre</e>
+    <e id="4">Type de jeu sans classification.</e>
+    <e id="5">Standard</e>
+    <e id="6">Tous les réglages peuvent être personnalisés.</e>
+    <e id="7">Le district industriel</e>
+    <e id="8">Des héros choisis au hasard s’affrontent le long d’une seule voie !</e>
+    <e id="9">Détruire l’idole adverse</e>
+    <e id="10">Détruisez l’idole de l’ennemi pour gagner.</e>
+    <e id="11">Voie unique</e>
+    <e id="12">Ce champ de bataille ne propose aucun objectif spécifique. Alors, tenez-vous prêt à livrer une bataille sans merci.</e>
+    <e id="13">Sélection aléatoire</e>
+    <e id="14">Choisissez un des trois héros sélectionnés aléatoirement.</e>
+    <e id="15">Informations supplémentaires</e>
+    <e id="16">Les pierres de foyer (B) sont désactivées et vous ne récupérez pas de vie dans votre zone de départ.</e>
+    <e id="17">Les générateurs de globes créent des globes de régénération sur le champ de bataille.</e>
+</Locale>

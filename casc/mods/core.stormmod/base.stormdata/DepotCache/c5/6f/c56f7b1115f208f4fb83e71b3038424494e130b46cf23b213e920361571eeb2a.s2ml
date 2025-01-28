@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Doblones a montones</e>
+    <e id="2">Sin ningún tipo de descripción.</e>
+    <e id="3">BlackHeartsBay</e>
+    <e id="4">Doblones a montones</e>
+    <e id="5">¡Almanegra se está volviendo avaricioso! Sed los primeros en entregar 100 monedas y bombardeará el núcleo enemigo hasta destruirlo. ¡Pagad para ganar!</e>
+    <e id="6">Destruid el núcleo</e>
+    <e id="7">Podéis entregar monedas en cualquier momento, hasta que un equipo entregue un total de 100. Se pueden atacar y destruir los núcleos sin pagar a Almanegra.</e>
+    <e id="8">Soldados de fortuna</e>
+    <e id="9">Los arcones aparecen de dos en dos y, cada pocos segundos, los golpea alguna bola de cañón.</e>
+    <e id="10">No existen campamentos de doblones, pero los mercenarios y los jefes sueltan monedas adicionales. Los fuertes y las fortalezas también dejan caer monedas al ser destruidos.</e>
+    <e id="11">Selección entre héroes aleatorios</e>
+    <e id="12">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="13">Información adicional</e>
+    <e id="14">Los arcones aparecen de forma más frecuente y lo hacen en ubicaciones con un patrón establecido.</e>
+    <e id="15">Algunos arcones son más grandes y dejan caer monedas adicionales.</e>
+    <e id="16">Cuando se cogen las monedas de todos los arcones activos, existe un margen de 30 s antes de que aparezca otro par.</e>
+</Locale>

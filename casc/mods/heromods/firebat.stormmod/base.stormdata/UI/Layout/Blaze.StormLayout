@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+    <Frame type="SelectionUnitStatusPanel" name="BlazeStacksFrameContainer">
+        <Anchor relative="$parent"/>
+        <SpecificUnit val="HeroFirebat"/>
+        <CheckPassengers val="True"/>
+        
+        <Frame type="UnitStatusUnitStackingDebuffElement" name="StacksFrame" template="UnitStatus/StackingBehaviorTemplate">
+            <BuffBehavior val="FirebatIgniteMeltdownDebuff"/>
+            <StackBehavior val="FirebatIgniteMeltdownCounter"/>
+            <DebuffType val="TokenCounter"/>
+            <ShowForAllyMirrorHero val="True"/>
+            
+            <Frame type="ProgressBar" name="StacksProgressBar">
+                <Width val="53"/>
+                <Height val="40"/>
+                </Frame>
+                
+            <Frame type="Image" name="Stacking">
+                <Texture val="@UI/Stacks/Blaze"/>
+            </Frame>
+            
+            <Frame type="Image" name="StacksFull">
+                <Texture val="@UI/Stacks/BlazeFull"/>
+            </Frame>
+        </Frame>
+    </Frame>
+    
+    <Frame type="UnitStatusFrame" name="CustomBlazeBunkerDropUnitStatusFrame" template="UnitStatus/LargeMinionUnitStatusFrameTemplate">
+        <Frame type="ParentCenteredFrame" name="TrackingCenteringFrame">
+            <Anchor side="Top" relative="UnitTrackingElement" pos="Min" offset="0"/>
+            <Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+            <Anchor side="Bottom" relative="$parent/HealthBar" pos="Min" offset="0"/>
+            <Anchor side="Right" relative="UnitTrackingElement" pos="Max" offset="0"/>
+            
+            <Frame type="UnitStatusUnitTrackingBehavior" name="UnitTrackingElement" template="UnitStatusUnitTracking/UnitTrackingElementFifteenTemplate">
+                <Behavior val="FirebatBunkerDropPassengerUnitTracker"/>
+            </Frame>
+        </Frame>
+    </Frame>
+
+	<Frame type="SelectionUnitStatusPanel" name="BlazeFrame">
+		<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+		<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+		<Height val="137"/>
+		<Width val="300"/>
+		<SpecificUnit val="HeroFirebat"/>
+		
+		<Frame type="UnitStatusFrame" name="UnitStatusFrame0">
+			<Anchor relative="$parent"/>
+			
+			<Frame type="UnitStatusValidatorAnimElement" name="HealthIndicatorVisibility">
+				<Anchor relative="$parent"/>
+				<Validator val="FirebatHasAdrenalineTalent"/>
+			</Frame>
+			
+			<Frame type="UnitStatusValidatorAnimElement" name="HealthIndicatorTexture">
+				<Anchor relative="$parent"/>
+				<Validator val="IsDead"/>
+				<Validator val="TargetLifeGT80Percent"/>
+				<Animation name="IsDead">
+					<Event event="Reset" action="Stop"/>
+					<Event event="NoState" action="Stop"/>
+					<Event event="IsDead" action="Restart, Play"/>
+				</Animation>
+				<Animation name="TargetLifeGT80Percent">
+					<Event event="Reset" action="Stop"/>
+					<Event event="NoState" action="Stop"/>
+					<Event event="TargetLifeGT80Percent" action="Restart, Play"/>
+					</Animation>
+				</Frame>
+			</Frame>
+			
+		<StateGroup name="FrameState">
+			<DefaultState val="GT80"/>
+			
+			<State name="GT80">
+				<Action type="SetProperty" frame="HealthIndicator" Texture="@UI/HeroConsole/Hero/HealthIndicator"/>
+			</State>
+			
+			<State name="DeadORLT80">
+				<When type="AnimationState" frame="UnitStatusFrame0/HealthIndicatorTexture" operator="NotEqual" UnitStatusValidatorState="TargetLifeGT80Percent"/>
+				<Action type="SetProperty" frame="HealthIndicator" Texture="@UI/HeroConsole/Hero/HealthIndicatorDead"/>
+			</State>
+		</StateGroup>
+		
+		<Frame type="Image" name="HealthIndicator">
+			<Anchor side="Bottom" relative="$parent/$parent/$parent/HeroConsolePanel/HeroStatsFrame/HeroUnitStatusFrame/HealthBar" pos="Mid" offset="9"/>
+			<Anchor side="Left" relative="$parent/$parent/$parent/HeroConsolePanel/HeroStatsFrame/HeroUnitStatusFrame/HealthBar" pos="80%" offset="-17"/>
+			<Texture val="@UI/HeroConsole/Hero/HealthIndicator"/>
+			<Unclipped val="True"/>
+			<Visible val="{$parent/UnitStatusFrame0/HealthIndicatorVisibility/@Visible}"/>
+		</Frame>
+	</Frame>
+</Desc>

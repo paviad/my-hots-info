@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Snow Brawl</e>
+    <e id="2">3-Lane Map&lt;br&gt;&lt;br&gt;The Raven Lord summons tributes in certain locations across Cursed Hollow. Fight back the enemy team and be the first to collect the tributes. Once the third tribute has been gathered, the Raven Lord will curse your enemies, rendering their towers incapable of attacking, and reducing the health of their minions.</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Other</e>
+    <e id="5">Unclassified game type.</e>
+    <e id="6">Standard</e>
+    <e id="7">Players can choose their Heroes.</e>
+    <e id="8">Raven Tributes Collected</e>
+    <e id="9">Number of Tributes collected</e>
+    <e id="10">SnowBrawl</e>
+    <e id="11">Snow Brawl</e>
+    <e id="12">It’s winter in the Cursed Hollow! Throw some snowballs and gather the Raven Lord’s gifts!</e>
+    <e id="13">Gather Tributes</e>
+    <e id="14">Collect Snowy Tributes to launch Colossal Snowballs at your Enemy&apos;s fortifications! </e>
+    <e id="15">Snowballs</e>
+    <e id="16">Pick up Snowballs and throw them (F) for major damage.</e>
+    <e id="17">Incomplete Snowmen periodically form throughout the battleground. Use snowballs to complete them.</e>
+    <e id="18">Shuffle Pick</e>
+    <e id="19">Choose from one of three randomly selected Heroes. You only have 30 seconds, so think fast!</e>
+    <e id="20">Additional Info</e>
+    <e id="21">Snowy Tributes spawn in rapid succession.</e>
+    <e id="22">Snowballs spawn near Heroes, Buildings, Tributes, and Regen Globes</e>
+    <e id="23">Fluffy Snowballs knock enemy Heroes away. </e>
+    <e id="24">Heavy Snowballs slow enemies and deal double damage to minions and structures.</e>
+    <e id="25">Once completed, Snowmen follow you and fight alongside you.</e>
+</Locale>

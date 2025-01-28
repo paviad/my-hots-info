@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Choc au sommet</e>
+    <e id="2">Carte à 3 voies&lt;br&gt;&lt;br&gt;Le seigneur corbeau invoque des tributs en différents endroits dans le val maudit. Combattez l’équipe adverse et soyez les premiers à vous emparer de ces tributs. Après la récupération du troisième tribut, le seigneur corbeau maudira vos ennemis, rendant leurs tours incapables d’attaquer et réduisant les points de vie de leurs serviteurs.</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Autre</e>
+    <e id="5">Type de jeu sans classification.</e>
+    <e id="6">Standard</e>
+    <e id="7">Les joueurs peuvent choisir leur héros.</e>
+    <e id="8">Corbeau - Tributs collectés</e>
+    <e id="9">Nombre de tributs récupérés</e>
+    <e id="10">SnowBrawl</e>
+    <e id="11">Choc au sommet</e>
+    <e id="12">L’hiver s’est abattu sur le val maudit ! Lancez des boules de neige et collectez les présents du seigneur corbeau !</e>
+    <e id="13">Colletez des tributs</e>
+    <e id="14">Collectez les tributs de neige pour lancer des boules de neige colossales sur les fortifications ennemies.</e>
+    <e id="15">Boules de neige</e>
+    <e id="16">Ramassez des boules de neige et lancez-les (F) pour infliger de lourds dégâts.</e>
+    <e id="17">Des bonshommes de neige inachevés apparaissent régulièrement sur le champ de bataille. Utilisez les boules de neige pour les terminer.</e>
+    <e id="18">Sélection aléatoire</e>
+    <e id="19">Choisissez un héros parmi les trois proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="20">Informations supplémentaires</e>
+    <e id="21">Les apparitions de tribut de neige se succèdent rapidement.</e>
+    <e id="22">Des boules de neige apparaissent près des héros, des bâtiments, des tribus et des globes de régénération.</e>
+    <e id="23">Les boules de neige floconneuses repoussent les héros adverses.</e>
+    <e id="24">Les boules de neige lourdes ralentissent les ennemis et infligent des dégâts doublés aux serviteurs et aux bâtiments.</e>
+    <e id="25">Une fois terminés, les bonshommes de neige vous suivent et se battent à vos côtés.</e>
+</Locale>

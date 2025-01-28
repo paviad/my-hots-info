@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Triff den Gnom (Mutator)</e>
+    <e id="2">Vollkommen ohne Beschreibung.</e>
+    <e id="3">DodgeBrawl</e>
+    <e id="4">Triff den Gnom</e>
+    <e id="5">Sonne und Sand gehören einfach zusammen. Zwei Teams beschießen sich abwechselnd mit Sandböen, bis eine Seite eliminiert ist.</e>
+    <e id="6">Sand ins Getriebe</e>
+    <e id="7">Triff Gegner mit der Sandböe und weiche gegnerischen Sandböen aus. Gewinne zwei von drei Runden, um als Sieger hervorzugehen.</e>
+    <e id="8">Wer zuletzt lacht</e>
+    <e id="9">Ein Team feuert und das andere weicht aus. Angreifendes und ausweichendes Team wechseln alle paar Sekunden, mit zunehmender Rate je länger die Runde dauert.</e>
+    <e id="10">Wird ein Held fünfmal getroffen, scheidet er für diese Runde aus. Sein Geist erscheint aber auf der Seite des Gegners und gewährt Sicht.</e>
+    <e id="11">Chromies Geister können Chronofallen und Sande der Zeit einsetzen, um den Angreifern dazwischenzufunken.</e>
+    <e id="12">Nur Chromie</e>
+    <e id="13">Da hat sich wohl jemand am Zeitstrom zu schaffen gemacht!</e>
+    <e id="14">Zusatzinfos</e>
+    <e id="15">Das ausweichende Team wird den Angreifern immer angezeigt. Die Angreifer dagegen sind für das ausweichende Team verborgen.</e>
+    <e id="16">Chromies Geister gewähren ihrem Team Sicht, damit die ausweichenden Spieler sehen können, wo die Angreifer sind.</e>
+    <e id="17">Wenn eine Runde zu lange dauert, entstehen Tornados in den Außenbereichen, die sich langsam Richtung Mitte bewegen und die Spieler in das Schwimmbecken schubsen.</e>
+</Locale>

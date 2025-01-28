@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Caverna Perdida</e>
+    <e id="2">Vários Heróis da Blizzard se encontram e se enfrentam numa arena galática!</e>
+    <e id="3">Criptas Luxorianas</e>
+    <e id="4">Outro</e>
+    <e id="5">Tipo de jogo não classificado.</e>
+    <e id="6">Padrão</e>
+    <e id="7">Os jogadores escolhem os Heróis.</e>
+    <e id="8">LostCavern</e>
+    <e id="9">Caverna Perdida</e>
+    <e id="10">Heróis escolhidos aleatoriamente se enfrentam em uma única trilha!</e>
+    <e id="11">Destrua o núcleo do inimigo</e>
+    <e id="12">Destrua o Núcleo inimigo para vencer</e>
+    <e id="13">Trilha única</e>
+    <e id="14">Nenhum objetivo adicional de campo de batalha presente. Prepare-se para ação ininterrupta.</e>
+    <e id="15">Seleção Restrita</e>
+    <e id="16">Escolha um dos três Heróis selecionados aleatoriamente. Você só tem 30 segundos. Depressa!</e>
+    <e id="17">Informações adicionais</e>
+    <e id="18">Pedras de Regresso (B) são desabilitadas e sua área inicial não regenera vida</e>
+    <e id="19">Geradores de globo geram globos de regeneração no campo de batalha</e>
+</Locale>

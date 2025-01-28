@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Haunted Mines</e>
+    <e id="2">A wide array of Blizzard Heroes meet and do battle in an epic, galactic arena!</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Other</e>
+    <e id="5">Unclassified game type.</e>
+    <e id="6">Standard</e>
+    <e id="7">Players can choose their Heroes.</e>
+    <e id="8">Mines Skulls Collected</e>
+    <e id="9">Number of Skulls collected in the Mines</e>
+    <e id="10">HauntedMines</e>
+    <e id="11">HauntedMines_zhCN</e>
+    <e id="12">Grave Golems</e>
+    <e id="13">Assist your Golem as it pushes toward the enemy core and destroy the enemy Golem before it reaches yours.</e>
+    <e id="14">Collect Skulls</e>
+    <e id="15">When the mines open, fight the undead miners in the tunnels and collect their skulls to power your Golem.</e>
+</Locale>

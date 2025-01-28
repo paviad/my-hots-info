@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Bash &apos;Em Smash &apos;Em Robots</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">IndustrialDistrict</e>
+    <e id="4">Bash &apos;Em Smash &apos;Em Robots</e>
+    <e id="5">Operate Protectors while attempting to destroy the enemy&apos;s core!</e>
+    <e id="6">Destroy Enemy&apos;s Core</e>
+    <e id="7">Destroy the enemy&apos;s Core to win.</e>
+    <e id="8">Protectors</e>
+    <e id="9">Both teams start with a Triglav Protector</e>
+    <e id="10">When both Protectors are destroyed, two new ones spawn</e>
+    <e id="11">Shuffle Pick</e>
+    <e id="12">Choose from one of three randomly selected Heroes.</e>
+    <e id="13">Additional Info</e>
+    <e id="14">Two players can occupy the Triglav Protector: a Pilot and a Gunner</e>
+    <e id="15">The Pilot and Gunner both have access to unique abilities</e>
+    <e id="16">Only the Pilot can move the Protector</e>
+</Locale>

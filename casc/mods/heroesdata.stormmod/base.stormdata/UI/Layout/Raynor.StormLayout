@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+
+    <Frame type="SelectionUnitStatusPanel" name="RaynorStacksFrameContainer">
+        <Anchor relative="$parent"/>
+        <SpecificUnit val="HeroRaynor"/>
+        <CheckPassengers val="True"/>
+
+        <Frame type="UnitStatusUnitStackingDebuffElement" name="StacksFrame" template="UnitStatus/StackingBehaviorTemplate">
+            <BuffBehavior val="RaynorGiveEmSomePepperAttackToken"/>
+            <StackBehavior val="RaynorGiveEmSomePepperAttackToken"/>
+            <DebuffType val="TokenCounter"/>
+            <MaxValueOverride val="3"/>
+
+            <Frame type="ProgressBar" name="StacksProgressBar">
+                <Anchor side="Left" relative="$parent/StacksFull" pos="Mid" offset="-1"/>
+                <Anchor side="Right" relative="$parent/StacksFull" pos="Mid" offset="-1"/>
+                <MaxValue val="{$parent/@MaxValueOverride}"/>
+
+                <Height val="40"/>
+                <Width val="42"/>
+                <RenderPriority val="513"/>
+            </Frame>
+
+            <Frame type="Image" name="Stacking">
+                <Texture val="@UI/Stacks/Raynor"/>
+            </Frame>
+
+            <Frame type="Image" name="StacksFull">
+                <Anchor side="Top" relative="$parent" pos="Min" offset="-12"/>
+                <Anchor side="Left" relative="$parent" pos="Min" offset="-26"/>
+
+                <Texture val="@UI/Stacks/Raynor/Full"/>
+                <RenderPriority val="513"/>
+            </Frame>
+
+            <Frame type="Image" name="StacksBackground">
+                <Anchor relative="$parent/StacksProgressBar"/>
+                <Texture val="@UI/Stacks/Raynor/Background"/>
+            </Frame>
+        </Frame>
+    </Frame>
+	
+    <Frame type="SelectionUnitStatusPanel" name="RaynorInspireButtonOverride">
+		<Anchor relative="$parent"/>
+		<SpecificUnit val="HeroRaynor"/>
+  
+		<Frame type="UnitStatusFrame" name="UnitStatusFrame0">
+			<Anchor relative="$parent"/>
+			<AcceptsMouse val="False"/>
+  
+			<Frame type="UnitStatusBehaviorIcon" name="RaynorInspireIcon">
+				<Anchor relative="$parent"/>
+				<Behavior val="RaynorInspireAttackSpeedSelf"/>
+				<AcceptsMouse val="False"/>
+			
+				<Frame type="BehaviorIcon" name="BehaviorIcon">
+					<Anchor relative="$parent"/>
+					<Behavior val="RaynorInspireAttackSpeedSelf"/>
+					<AcceptsMouse val="False"/>
+  
+					<Frame type="ProgressBar" name="CooldownBar">
+						<Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+						<Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+						<Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+						<Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+						<Height val="120"/>
+						<Width val="120"/>
+						<AcceptsMouse val="False"/>
+  
+						<MinValue val="0"/>
+						<MaxValue val="4"/>
+						<Value val="0"/>
+						<Circular val="True"/>
+						<CircularStart val="0"/>
+						<CircularEndOffset val="360"/>
+						<FillInset val="0.0"/>
+  
+						<Frame type="Frame" name="FillImageContainer">
+							<Anchor relative="$parent"/>
+  
+							<Frame type="Image" name="FillImage">
+								<Anchor relative="$parent"/>
+								<SubpixelRendering val="True"/>
+								<ColorAdjustMode val="Colorize"/>
+								<AdjustmentColor val="5274FE"/>
+								<RenderPriority val="510"/>
+  
+								<Texture val="@UI/Storm_UI_InGame_AbilityButton_Active_Add"/>		
+								<BlendMode val="Normal"/>
+								<TextureType val="Circular"/>
+							</Frame>
+						</Frame>
+					</Frame>
+				</Frame>
+			</Frame>
+		</Frame>
+	</Frame>
+</Desc>

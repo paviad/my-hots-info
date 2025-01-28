@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Escape From Braxis</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">Braxis</e>
+    <e id="4">Survival</e>
+    <e id="5">Stay alive as long as possible among hordes of enemies.</e>
+    <e id="6">Cooperative</e>
+    <e id="7">Ally with other players.</e>
+    <e id="8">EFB</e>
+    <e id="9">Escape From Braxis</e>
+    <e id="10">The Omega Swarm is invading the realm! Team up and fight your way out.</e>
+    <e id="11">Reach the Shelter</e>
+    <e id="12">Cut through the zerg and hold your ground at each Checkpoint to advance to the next area.</e>
+    <e id="13">Omega Swarm</e>
+    <e id="14">Waves of zerg will assault you as you progress across the battleground.</e>
+    <e id="15">You will occasionally encounter particularly powerful enemy Heroes with empowered abilities.</e>
+    <e id="16">Curated Heroes</e>
+    <e id="17">Choose one from a roster of specially selected Heroes.</e>
+    <e id="18">Additional Info</e>
+    <e id="19">Heroes start at Level 10, and gain levels each time they reach a Checkpoint. Some talents cannot be selected.</e>
+    <e id="20">No respawning. Heroes must be revived by teammates when they die. The match ends if all player Heroes are dead.</e>
+    <e id="21">Heroes can pick up items that grant additional abilities. A Hero can hold only one item a time.</e>
+    <e id="22">Mounts and Hearthstones cannot be used.</e>
+</Locale>

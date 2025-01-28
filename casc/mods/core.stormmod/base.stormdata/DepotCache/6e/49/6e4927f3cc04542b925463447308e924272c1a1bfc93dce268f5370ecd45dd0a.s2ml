@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Datos del Templo Celeste (Mod)</e>
+    <e id="2"></e>
+    <e id="3">Tiempo en los templos</e>
+    <e id="4">Tiempo pasado en templos activos</e>
+    <e id="5">Mucho tiempo de ocupación de templos</e>
+</Locale>

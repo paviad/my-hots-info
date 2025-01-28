@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Réouverture de la mine</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">Réouverture de la mine</e>
+    <e id="4">Les héros sont de retour dans la mine hantée ! Sortez les golems sépulcraux de leur torpeur et marchez vers la victoire !</e>
+    <e id="5">Sélection aléatoire</e>
+    <e id="6">Choisissez un héros parmi les trois proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="7">Informations supplémentaires</e>
+    <e id="8">Il y a plusieurs entrées vers la mine réparties sur la carte. Tirez profit de leur emplacement !</e>
+</Locale>

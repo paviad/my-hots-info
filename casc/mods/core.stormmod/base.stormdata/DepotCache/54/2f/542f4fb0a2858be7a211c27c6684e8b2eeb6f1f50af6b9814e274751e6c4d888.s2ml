@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Bójka na Śnieżki</e>
+    <e id="2">Mapa z 3 alejami&lt;br&gt;&lt;br&gt;Władca Kruków przyzywa daninę w niektórych punktach Przeklętej Kotliny. Pokonajcie drużynę przeciwną i jako pierwsi zbierzcie daninę. Kiedy zbierzecie trzecią, Władca Kruków przeklnie waszych wrogów, uniemożliwiając ostrzał ich wieżom i redukując wytrzymałość ich stronników.</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Inne</e>
+    <e id="5">Niesklasyfikowany rodzaj gry.</e>
+    <e id="6">Standardowo</e>
+    <e id="7">Gracze mogą wybrać swoich bohaterów.</e>
+    <e id="8">Liczba zebranych danin dla Władcy Kruków</e>
+    <e id="9">Zebrane daniny</e>
+    <e id="10">SnowBrawl</e>
+    <e id="11">Bójka na Śnieżki</e>
+    <e id="12">W Przeklętej Kotlinie zapanowała zima! Rzucaj śnieżkami i zbieraj podarunki od Władcy Kruków!</e>
+    <e id="13">Zbierz daniny</e>
+    <e id="14">Zbieraj śnieżne daniny, aby cisnąć w fortyfikacje wroga olbrzymimi śnieżkami!</e>
+    <e id="15">Zbieraj śnieżki i walcz!</e>
+    <e id="16">Podnieś śnieżki i rzucaj nimi (F), aby zadawać ogromne obrażenia.</e>
+    <e id="17">Co jakiś czas na całym polu bitwy pojawiają się niedokończone Bałwanki. Użyj śnieżek, aby je dokończyć.</e>
+    <e id="18">Losowy wybór</e>
+    <e id="19">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="20">Dodatkowe informacje</e>
+    <e id="21">Śnieżne daniny pojawiają się bardzo szybko jedna po drugiej.</e>
+    <e id="22">Śnieżki pojawiają się wokół bohaterów, budowli, danin i Kul Regeneracji.</e>
+    <e id="23">Puchate śnieżki – odrzucają wrogich bohaterów w tył.</e>
+    <e id="24">Ciężkie śnieżki – spowalniają przeciwników i zadają podwójne obrażenia stronnikom i budowlom.</e>
+    <e id="25">Dokończony Bałwanek będzie za tobą podążać i walczyć u twego boku.</e>
+</Locale>

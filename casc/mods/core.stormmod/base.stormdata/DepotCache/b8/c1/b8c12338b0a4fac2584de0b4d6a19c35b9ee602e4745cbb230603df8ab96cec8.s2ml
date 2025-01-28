@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Menace nucléaire</e>
+    <e id="2">Carte à 3 voies</e>
+    <e id="3">Zion</e>
+    <e id="4">Autre</e>
+    <e id="5">Type de jeu sans classification.</e>
+    <e id="6">Standard</e>
+    <e id="7">Les joueurs peuvent choisir leur héros.</e>
+    <e id="8">Menace nucléaire</e>
+    <e id="9">Carte à 3 voies</e>
+</Locale>

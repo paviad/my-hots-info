@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Stiftung Waffentest</e>
+    <e id="2">Die Streitkräfte des Nexus haben die Volskaya-Fabrik übernommen. Kämpft bis zum Tode für eure Belohnung.</e>
+    <e id="3">Andere</e>
+    <e id="4">Unklassifizierter Spieltyp.</e>
+    <e id="5">Standard</e>
+    <e id="6">Spieler können ihre Helden auswählen.</e>
+    <e id="7">TrialGrounds</e>
+    <e id="8">Stiftung Waffentest</e>
+    <e id="9">Katya Volskaya experimentiert mit den Mächten des Nexus. Schnapp dir ihre Waffenprototypen und bezwinge deine Gegner.</e>
+    <e id="10">Eliminierung</e>
+    <e id="11">Bezwinge alle Gegner, um eine Runde zu gewinnen. Das erste Team, das zwei Runden für sich entscheidet, ist der Gesamtsieger.</e>
+    <e id="12">Experimentelle Waffen</e>
+    <e id="13">Nach 30 Sek. entsteht ein zufälliges Kartenziel in der Mitte des Schlachtfelds. Sei auf alles gefasst!</e>
+    <e id="14">Nimm das Ziel ein, um einen entscheidenden Vorteil gegenüber dem Gegner zu erlangen.</e>
+    <e id="15">Einige Kartenziele sind bekannt von anderen Schlachtfeldern, andere sind brandneu.</e>
+    <e id="16">Gleiches Recht für alle</e>
+    <e id="17">Die Spieler beider Teams erhalten alle denselben Helden. Für jede Runde wird zufällig ein anderer Held ausgewählt.</e>
+    <e id="18">Zusatzinfos</e>
+    <e id="19">Keine Wiederbelebung. Jeder Held hat pro Runde nur ein Leben.</e>
+    <e id="20">Die Runde geht verloren, wenn alle Helden deines Teams gestorben sind.</e>
+</Locale>

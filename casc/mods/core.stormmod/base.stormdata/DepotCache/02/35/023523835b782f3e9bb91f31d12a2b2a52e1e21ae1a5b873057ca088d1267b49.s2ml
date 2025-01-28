@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Escape de Braxis (Heroico)</e>
+    <e id="2">Completamente falto de descripción.</e>
+    <e id="3">Braxis</e>
+    <e id="4">Supervivencia</e>
+    <e id="5">Mantente con vida todo el tiempo que puedas en medio de hordas enemigas.</e>
+    <e id="6">Cooperativo</e>
+    <e id="7">Alíate con otros jugadores.</e>
+    <e id="8">EFBH</e>
+    <e id="9">Escape de Braxis (Heroico)</e>
+    <e id="10">¡El Omegaenjambre está invadiendo el reino y está más poderoso que nunca! Forma un equipo para enfrentarte a un desafío aún más difícil.</e>
+    <e id="11">Llega hasta el refugio</e>
+    <e id="12">Ábrete camino a través de los zerg y mantén tu posición en cada punto de control para avanzar a la siguiente área.</e>
+    <e id="13">Omegaenjambre</e>
+    <e id="14">Oleadas de zerg te atacarán a medida que vayas progresando en el campo de batalla.</e>
+    <e id="15">Es posible que te enfrentes ocasionalmente a héroes enemigos particularmente poderosos con habilidades potenciadas.</e>
+    <e id="16">Selección de héroes</e>
+    <e id="17">Elige un héroe de una lista de héroes seleccionados especialmente.</e>
+    <e id="18">Información adicional</e>
+    <e id="19">Los héroes empiezan en el nivel 10 y ganan niveles cada vez que alcanzan un punto de control. Algunos talentos no pueden seleccionarse.</e>
+    <e id="20">Sin reaparición. Los héroes deben ser resucitados por sus compañeros de equipo cuando mueren. La partida finaliza si todos los héroes participantes están muertos.</e>
+    <e id="21">Los héroes pueden recoger objetos que otorgan habilidades adicionales. Un héroe puede tener un solo objeto a la vez.</e>
+    <e id="22">No se pueden usar monturas ni Piedras de hogar.</e>
+</Locale>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Mutation Sanssaint</e>
+    <e id="2">Une surprise ou un sort ! Éteignez les incendies ou vous courez à la mort !</e>
+    <e id="3">TowersOfDoom</e>
+    <e id="4">Sanssaint</e>
+    <e id="5">Préparez-vous ou vous perdrez la tête ! Le cavalier arrive pour sceller votre défaite !</e>
+    <e id="6">Idole protégée</e>
+    <e id="7">Les joueurs ne peuvent pas attaquer l’idole directement.</e>
+    <e id="8">Nom d’une citrouille !</e>
+    <e id="9">Le cavalier sans tête sème périodiquement des citrouilles sur tout le champ de bataille.</e>
+    <e id="10">Écraser une citrouille ou tuer un héros inflige des dégâts à l’idole adverse.</e>
+    <e id="11">Sélection aléatoire</e>
+    <e id="12">Choisissez un héros parmi les trois proposés au hasard. Il y a une petite chance que tous les joueurs incarnent le même héros.</e>
+    <e id="13">Une surprise ou un sort</e>
+    <e id="14">Écraser une citrouille permet aussi aux joueurs d’obtenir une surprise ou un sort. Bonne chance !</e>
+    <e id="15">Les temps de réapparition sont fixés à 5 secondes pour tout le monde.</e>
+</Locale>

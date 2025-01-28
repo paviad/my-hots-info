@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Arena do Templo</e>
+    <e id="2">Vários Heróis da Blizzard se enfrentam numa arena galáctica!</e>
+    <e id="3">(Atacar) Luxória</e>
+    <e id="4">Outro</e>
+    <e id="5">Tipo de jogo não classificado.</e>
+    <e id="6">Padrão</e>
+    <e id="7">Os jogadores podem escolher os Heróis.</e>
+    <e id="8">SkyTempleSimple</e>
+    <e id="9">Arena do Templo</e>
+    <e id="10">Nessa batalha, vence a equipe que controlar templos por mais tempo</e>
+    <e id="11">Melhor de 3 rodadas na Arena do Templo</e>
+    <e id="12">Destrua o Núcleo inimigo para vencer a rodada</e>
+    <e id="13">Capture os templos</e>
+    <e id="14">Capture os templos para atacar o núcleo inimigo</e>
+    <e id="15">Seleção Restrita</e>
+    <e id="16">Escolha um dos três Heróis selecionados aleatoriamente. Você só tem 30 segundos. Depressa!</e>
+    <e id="17">Informações adicionais</e>
+    <e id="18">Globos de Regeneração ficam duas vezes mais potentes</e>
+    <e id="19">Há uma pequena chance de todos os jogadores jogarem com o mesmo Herói</e>
+</Locale>

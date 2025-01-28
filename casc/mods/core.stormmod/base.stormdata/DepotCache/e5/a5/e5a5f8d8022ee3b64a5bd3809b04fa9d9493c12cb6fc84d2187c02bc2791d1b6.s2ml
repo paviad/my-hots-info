@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Distretto Industriale</e>
+    <e id="2">Una vasta schiera di eroi Blizzard si affronta in un&apos;epica arena galattica!</e>
+    <e id="3">Altro</e>
+    <e id="4">Tipo di gioco non classificato.</e>
+    <e id="5">Standard</e>
+    <e id="6">Tutte le impostazioni possono essere personalizzate.</e>
+    <e id="7">Distretto Industriale</e>
+    <e id="8">Eroi selezionati casualmente si affrontano in una sola corsia!</e>
+    <e id="9">Distruggete il nucleo nemico</e>
+    <e id="10">Distruggete il nucleo nemico per vincere.</e>
+    <e id="11">Corsia singola</e>
+    <e id="12">Questo campo di battaglia non ha obiettivi aggiuntivi. Preparatevi all&apos;azione costante.</e>
+    <e id="13">Scelta mista</e>
+    <e id="14">Scegli un eroe fra tre selezionati casualmente.</e>
+    <e id="15">Info aggiuntive</e>
+    <e id="16">La Pietra del Ritorno (B) è disabilitata e l&apos;area iniziale non rigenera Salute.</e>
+    <e id="17">I generatori creano globi sul campo di battaglia.</e>
+</Locale>

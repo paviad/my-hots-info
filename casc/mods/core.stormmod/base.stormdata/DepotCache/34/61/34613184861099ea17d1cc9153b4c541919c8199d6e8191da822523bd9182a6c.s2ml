@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">La venganza de Almanegra</e>
+    <e id="2">Mapa de 3 vías&lt;br&gt;&lt;br&gt;</e>
+    <e id="3">(Storm) Cima del rey (Dársena)</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de juego no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">Almanegra - Doblones recolectados</e>
+    <e id="9">Almanegra - Doblones entregados</e>
+    <e id="10">Cantidad de doblones entregados a Almanegra</e>
+    <e id="11">BlackHeartsSimple</e>
+    <e id="12">BlackHeartsSimple_zhCN</e>
+    <e id="13">La venganza de Almanegra</e>
+    <e id="14">En nuestro primer campo de batalla de ataque y defensa, ¡Almanegra buscará vengarse del Capitán!</e>
+    <e id="15">Contienda de ataque y defensa</e>
+    <e id="16">Un equipo protege el barco. El otro equipo intenta destruirlo. La partida dura dos rondas.</e>
+    <e id="17">Protege o destruye la nave</e>
+    <e id="18">El equipo de Almanegra deberá ayudarlo a llevar su nave a la dársena. ¡Mata a los héroes enemigos para impedir que disparen los cañones!</e>
+    <e id="19">El equipo del Capitán tiene que destruir la nave de Almanegra. ¡Recoge las balas y dispara los cañones!</e>
+    <e id="20">¡El equipo que le causa más daño al barco durante su ronda de defensa gana!</e>
+    <e id="21">Preselección</e>
+    <e id="22">Elige a uno de los tres héroes seleccionados aleatoriamente. Solo tienes 30 segundos. ¡Piensa rápido!</e>
+    <e id="23">Información adicional</e>
+    <e id="24">Hay una pequeña probabilidad de que todos los jugadores tengan el mismo héroe</e>
+</Locale>

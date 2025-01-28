@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Mutation Choc au sommet</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">SnowBrawl</e>
+    <e id="4">Choc au sommet</e>
+    <e id="5">L’hiver s’est abattu sur le val maudit ! Lancez des boules de neige et collectez les présents du seigneur corbeau !</e>
+    <e id="6">Colletez des tributs</e>
+    <e id="7">Collectez les tributs de neige pour lancer des boules de neige colossales sur les fortifications ennemies.</e>
+    <e id="8">Boules de neige</e>
+    <e id="9">Ramassez des boules de neige et lancez-les (F) pour infliger de lourds dégâts.</e>
+    <e id="10">Des bonshommes de neige inachevés apparaissent régulièrement sur le champ de bataille. Utilisez les boules de neige pour les terminer.</e>
+    <e id="11">Sélection aléatoire</e>
+    <e id="12">Choisissez un héros parmi les trois proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="13">Informations supplémentaires</e>
+    <e id="14">Les apparitions de tribut de neige se succèdent rapidement.</e>
+    <e id="15">Des boules de neige apparaissent près des héros, des bâtiments, des tribus et des globes de régénération.</e>
+    <e id="16">Les boules de neige floconneuses repoussent les héros adverses.</e>
+    <e id="17">Les boules de neige lourdes ralentissent les ennemis et infligent des dégâts doublés aux serviteurs et aux bâtiments.</e>
+    <e id="18">Une fois terminés, les bonshommes de neige vous suivent et se battent à vos côtés.</e>
+</Locale>

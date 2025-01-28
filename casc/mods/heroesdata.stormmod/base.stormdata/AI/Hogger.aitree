@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree>
+  <include file="AI/HeroMutator.aitree" />
+  <mod id="288416FA2011E64B">
+    <insertChild id="AF3E539F5F4EE617" after="873F8D7D2690E084" />
+  </mod>
+  <mod id="3FAD3B6CDC9F26F4">
+    <insertChild id="6EA7D0138805F40C" />
+  </mod>
+  <mod id="6F76EFBF5B59B1CA">
+    <insertChild id="4E1155165BA40730" after="5465A428F0F63A97" />
+  </mod>
+  <mod id="A4058AA255280C17">
+    <insertChild id="9BD707AC1B77DE2C" />
+    <insertChild id="D5111924023F0D1F" />
+    <insertChild id="8C20C3133D301967" />
+    <insertChild id="629DA2112EA34CF1" />
+    <insertChild id="3729728519BD9C85" />
+    <insertChild id="1670A3A8BCFFD2BD" />
+    <insertChild id="F121434AE12FA1DE" />
+    <insertChild id="395C3B8E08D33F10" />
+    <insertChild id="0CA6B48EB91B7E82" />
+  </mod>
+  <mod id="C346AF4A07DEADAD">
+    <insertChild id="71BD86967266429C" after="8AE441212FF5419E" />
+  </mod>
+  <mod id="F21BCB9B06948439">
+    <insertChild id="7492288F3AE9F136" />
+  </mod>
+  <node name="Staggering Blow" type="AbilityUsable" id="629DA2112EA34CF1">
+    <property name="Ability" valueSource="literal" value="HoggerStaggeringBlow" />
+    <insertChild id="F9390919A9B19A9E" />
+  </node>
+  <node name="" type="And" id="F9390919A9B19A9E">
+    <variable name="StaggeringBlowTargetPoint" type="Point" />
+    <variable name="StaggeringBlowArc" type="Number" value="120" />
+    <variable name="StaggeringBlowRadius" type="Number" value="5.5" />
+    <variable name="ScatterArrowDeflectPoint" type="Point" />
+    <insertChild id="F7EAC388B7DC4033" />
+    <insertChild id="79072AFF996921EE" />
+  </node>
+  <node name="" type="Or" id="F7EAC388B7DC4033">
+    <insertChild id="D9711D525CC1CF08" />
+    <insertChild id="EF09B4E3DB439ECB" />
+    <insertChild id="F4F518304DE2C13C" />
+    <insertChild id="E857FA966B00804C" />
+    <insertChild id="9A1ED2409927B076" />
+  </node>
+  <node name="Near Wall" type="FilterNearWall" id="D9711D525CC1CF08">
+    <property name="MaxWallDistance" valueSource="literal" value="2.5" />
+    <property name="DirectionSource" valueSource="intrinsic" value="Self" />
+    <insertChild id="00BB6D4423018E3E" />
+  </node>
+  <node name="1+ Hero" type="FindBestArc" id="00BB6D4423018E3E">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToAOE,Missile,Stasis,Dead,Invulnerable,Benign,Unstoppable" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="ArcAngle" valueSource="variable" value="StaggeringBlowArc" />
+    <property name="OutputTarget" value="StaggeringBlowTargetPoint" />
+    <property name="MaxTargetDistance" valueSource="variable" value="StaggeringBlowRadius" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+  </node>
+  <node name="Staggering Blow" type="Ability" id="79072AFF996921EE">
+    <property name="Ability" valueSource="literal" value="HoggerStaggeringBlow" />
+    <property name="TargetPoint" valueSource="variable" value="StaggeringBlowTargetPoint" />
+  </node>
+  <node name="Hogg Wild" type="AbilityUsable" id="3729728519BD9C85">
+    <property name="Ability" valueSource="literal" value="HoggerHoggWild" />
+    <insertChild id="0DD8B19A4293C1F7" />
+  </node>
+  <node name="" type="And" id="0DD8B19A4293C1F7">
+    <variable name="Hogg Wild Range" type="Number" value="12" />
+    <variable name="Hogg Wild Target Point" type="Point" />
+    <variable name="Hogg Wild Width" type="Number" value="2.75" />
+    <variable name="Hogg Wild Prediction Seconds" type="Number" value="0.3125" />
+    <insertChild id="1999E3410E878CD5" />
+    <insertChild id="BC787BA37FD718B4" />
+  </node>
+  <node name="GT .66 Life" type="LifeFraction" id="AE84634E96C444FD">
+    <property name="LifeFraction" valueSource="literal" value="0.66" />
+    <insertChild id="BD64A5C3F40CF9E7" />
+  </node>
+  <node name="1+ Critical Heroes" type="FindBestVector" id="8CA224038ECB4E5F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="PredictionMissileSpeed" valueSource="variable" value="Hogg Wild Prediction Seconds" />
+    <property name="MissileRadius" valueSource="variable" value="Hogg Wild Width" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsBehindAllyGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsInDangerousArea" valueSource="literal" value="true" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.1" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="OutputEndPoint" value="Hogg Wild Target Point" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Hogg Wild Range" />
+  </node>
+  <node name="Activate Hogg Wild" type="Ability" id="BC787BA37FD718B4">
+    <property name="Ability" valueSource="literal" value="HoggerHoggWild" />
+    <property name="TargetPoint" valueSource="variable" value="Hogg Wild Target Point" />
+    <property name="PredictionMissileSpeed" valueSource="variable" value="Hogg Wild Prediction Seconds" />
+  </node>
+  <node name="Hoardapult" type="AbilityUsable" id="6EA7D0138805F40C">
+    <property name="Ability" valueSource="literal" value="HoggerHoardapult" />
+    <insertChild id="3426F7D14D2D9198" />
+  </node>
+  <node name="" type="And" id="3426F7D14D2D9198">
+    <variable name="HoardapultTargetPoint" type="Point" />
+    <variable name="HoardapultRange" type="Number" valueSource="lookup" value="Abil,HoggerHoardapult,Range" />
+    <insertChild id="28A67EC40595163F" />
+    <insertChild id="B9BBB889DFD5C660" />
+  </node>
+  <node name="" type="FindPointAcrossWall" id="28A67EC40595163F">
+    <property name="OutputPoint" value="HoardapultTargetPoint" />
+    <property name="MaxTargetDistance" valueSource="variable" value="HoardapultRange" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+    <property name="TargetPoint" valueSource="intrinsic" value="SafePos" />
+  </node>
+  <node name="Hoardapult" type="Ability" id="B9BBB889DFD5C660">
+    <property name="Ability" valueSource="literal" value="HoggerHoardapult" />
+    <property name="TargetPoint" valueSource="variable" value="HoardapultTargetPoint" />
+  </node>
+  <node name="Ez-Thro Dynamite" type="AbilityUsable" id="9BD707AC1B77DE2C">
+    <property name="Ability" valueSource="literal" value="HoggerEzThroDynamite" />
+    <insertChild id="71296EB5359B9420" />
+  </node>
+  <node name="" type="And" id="71296EB5359B9420">
+    <variable name="Ez-Thro Dynamite Target Point" type="Point" />
+    <variable name="Ez-Thro Dynamite Range" type="Number" valueSource="lookup" value="Abil,HoggerEzThroDynamite,Range" />
+    <variable name="Ez-Thro Dynamite Direct Hit Radius" type="Number" valueSource="lookup" value="Effect,HoggerEzThroDynamiteDirectHitSearch,AreaArray[0].Radius" />
+    <variable name="Ez-Thro Dynamite Prediction Seconds" type="Number" value="0.375" />
+    <variable name="Ez-Thro Dynamite Total Radius" type="Number" valueSource="lookup" value="Effect,HoggerEzThroDynamiteFinalSearch,AreaArray[0].Radius" />
+    <insertChild id="8FBCC65CD9AB18B8" />
+    <insertChild id="9012CC5B7E55D80B" />
+  </node>
+  <node name="Ez-Thro Dynamite" type="Ability" id="9012CC5B7E55D80B">
+    <property name="Ability" valueSource="literal" value="HoggerEzThroDynamite" />
+    <property name="TargetPoint" valueSource="variable" value="Ez-Thro Dynamite Target Point" />
+    <property name="PredictionSeconds" valueSource="variable" value="Ez-Thro Dynamite Prediction Seconds" />
+  </node>
+  <node name="Use Cases" type="And" id="8FBCC65CD9AB18B8">
+    <insertChild id="CE9AAEF135BDB381" />
+  </node>
+  <node name="" type="Or" id="CE9AAEF135BDB381">
+    <insertChild id="AEF60ACC32C77EB8" />
+    <insertChild id="5815E479B2037401" />
+    <insertChild id="2675D1955B28206D" />
+    <insertChild id="24B8B218FB626AB2" />
+  </node>
+  <node name="3+ Anything" type="FindBestAOEPoint" id="24B8B218FB626AB2">
+    <property name="OutputTarget" value="Ez-Thro Dynamite Target Point" />
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="RequiredTypes" valueSource="literal" value="" />
+    <property name="MinTargets" valueSource="literal" value="3" />
+    <property name="AOERadius" valueSource="variable" value="Ez-Thro Dynamite Total Radius" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Ez-Thro Dynamite Range" />
+    <property name="PredictionSeconds" valueSource="variable" value="Ez-Thro Dynamite Prediction Seconds" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToAOE,Missile,Stasis,Dead,Invulnerable,Benign" />
+  </node>
+  <node name="2+ Heroes" type="FindBestAOEPoint" id="AEF60ACC32C77EB8">
+    <property name="OutputTarget" value="Ez-Thro Dynamite Target Point" />
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="AOERadius" valueSource="variable" value="Ez-Thro Dynamite Total Radius" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Ez-Thro Dynamite Range" />
+    <property name="PredictionSeconds" valueSource="variable" value="Ez-Thro Dynamite Prediction Seconds" />
+  </node>
+  <node name="1 Hero" type="FindBestAOEPoint" id="5815E479B2037401">
+    <property name="OutputTarget" value="Ez-Thro Dynamite Target Point" />
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="AOERadius" valueSource="variable" value="Ez-Thro Dynamite Total Radius" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Ez-Thro Dynamite Range" />
+    <property name="PredictionSeconds" valueSource="variable" value="Ez-Thro Dynamite Prediction Seconds" />
+  </node>
+  <node name="2+ Creeps/Mercs" type="FindBestAOEPoint" id="2675D1955B28206D">
+    <property name="OutputTarget" value="Ez-Thro Dynamite Target Point" />
+    <property name="TargetTypes" valueSource="literal" value="Creep,Merc" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="AOERadius" valueSource="variable" value="Ez-Thro Dynamite Total Radius" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Ez-Thro Dynamite Range" />
+    <property name="PredictionSeconds" valueSource="variable" value="Ez-Thro Dynamite Prediction Seconds" />
+  </node>
+  <node name="No Control" type="AbilityUsable" id="0CA6B48EB91B7E82">
+    <property name="Ability" valueSource="literal" value="HoggerNoControl" />
+    <insertChild id="D3801EA332E8EAE2" />
+  </node>
+  <node name="" type="And" id="D3801EA332E8EAE2">
+    <variable name="NoControlTarget" type="Unit" />
+    <insertChild id="DCAB5EBDDBECF48D" />
+    <insertChild id="BD6B6BBD02F1F3E8" />
+  </node>
+  <node name="Use Cases" type="And" id="DCAB5EBDDBECF48D">
+    <insertChild id="263E671DF2B1BF60" />
+  </node>
+  <node name="" type="Or" id="263E671DF2B1BF60">
+    <insertChild id="87E71503F2294F8E" />
+    <insertChild id="421A2A204D19BF6D" />
+  </node>
+  <node name="2+ Hero Nearby" type="UnitCount" id="421A2A204D19BF6D">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsInDangerousArea" valueSource="literal" value="true" />
+    <insertChild id="894CA86C9947B9D0" />
+  </node>
+  <node name="No Control" type="Ability" id="BD6B6BBD02F1F3E8">
+    <property name="Ability" valueSource="literal" value="HoggerNoControl" />
+    <property name="TargetUnit" valueSource="variable" value="NoControlTarget" />
+  </node>
+  <node name="Hoardapult" type="AbilityUsable" id="8C20C3133D301967">
+    <property name="Ability" valueSource="literal" value="HoggerHoardapult" />
+    <insertChild id="EB62EA3DE0E86E76" />
+  </node>
+  <node name="" type="And" id="EB62EA3DE0E86E76">
+    <variable name="Hoardapult Target Point" type="Point" />
+    <variable name="Hoardapult Range" type="Number" valueSource="lookup" value="Abil,HoggerLootHoard,Range" />
+    <variable name="Hoardapult Prediction Seconds" type="Number" value="0.25" />
+    <variable name="Hoardapult Radius" type="Number" valueSource="lookup" value="Effect,HoggerHoardapultHoggerGroundImpactSearch,AreaArray[0].Radius" />
+    <variable name="Hoardapult Initial Target" type="Unit" />
+    <insertChild id="5D1BE1D311546DFA" />
+    <insertChild id="F9BBEBA34A7BB553" />
+  </node>
+  <node name="Use Cases" type="And" id="5D1BE1D311546DFA">
+    <insertChild id="D95DED2A0739164F" />
+  </node>
+  <node name="" type="Or" id="D95DED2A0739164F">
+    <insertChild id="B2CE065554F00179" />
+    <insertChild id="1A1558969A26142B" />
+  </node>
+  <node name="1+ Critical Hero" type="FindBestTarget" id="AE901448E85D7247">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="OutputTarget" value="Hoardapult Initial Target" />
+    <property name="MinTargetDistance" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Hoardapult Range" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="PredictionSeconds" valueSource="variable" value="Hoardapult Prediction Seconds" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <insertChild id="613224DA5333871C" />
+  </node>
+  <node name="Hoardapult" type="Ability" id="F9BBEBA34A7BB553">
+    <property name="Ability" valueSource="literal" value="HoggerHoardapult" />
+    <property name="TargetPoint" valueSource="variable" value="Hoardapult Target Point" />
+    <property name="PredictionSeconds" valueSource="variable" value="Hoardapult Prediction Seconds" />
+    <property name="VectorEndPoint" valueSource="variable" value="Hoardapult Initial Target" />
+  </node>
+  <node name="Cancel Loot Hoard" type="AbilityUsable" id="7492288F3AE9F136">
+    <property name="Ability" valueSource="literal" value="HoggerCancelLootHoard" />
+    <insertChild id="E9D22C8E0B7F4632" />
+  </node>
+  <node name="" type="And" id="E9D22C8E0B7F4632">
+    <variable name="Loot Hoard Unit" type="Unit" />
+    <insertChild id="46190CADF44FA7CB" />
+    <insertChild id="D551482BD67DCD59" />
+  </node>
+  <node name="Use Cases" type="And" id="46190CADF44FA7CB">
+    <insertChild id="5794B6522DD56286" />
+  </node>
+  <node name="" type="Or" id="5794B6522DD56286">
+    <insertChild id="35353950FAC6AF4F" />
+  </node>
+  <node name="Cancel Loot Hoard" type="Ability" id="D551482BD67DCD59">
+    <property name="Ability" valueSource="literal" value="HoggerCancelLootHoard" />
+  </node>
+  <node name="Hogger LT .4" type="LifeFraction" id="35353950FAC6AF4F">
+    <property name="LifeFraction" valueSource="literal" value="0.4" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <insertChild id="0C7EF28AA922ECC5" />
+  </node>
+  <node name="Loot Hoard Nearby" type="UnitCount" id="0C7EF28AA922ECC5">
+    <property name="UnitType" valueSource="literal" value="HoggerLootHoard" />
+    <property name="TargetTypes" valueSource="literal" value="Player" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Dead" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="literal" value="2.5" />
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Find Meat to Grab" type="FindBestTarget" id="4E1155165BA40730">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="TargetTypes" valueSource="literal" value="Player" />
+    <property name="UnitType" valueSource="literal" value="HoggerRiverpawLootHoardMeatUnit" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="MaxTargetDistance" valueSource="literal" value="6" />
+    <property name="OutputTarget" value="RegenGlobeUnit" />
+    <property name="RequiredTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Stasis,Dead" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="SafePos" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="ClipRadius" valueSource="variable" value="MaxStagingRange" />
+  </node>
+  <node name="Find Meat to Grab" type="FindBestTarget" id="71BD86967266429C">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="TargetTypes" valueSource="literal" value="Player" />
+    <property name="UnitType" valueSource="literal" value="HoggerRiverpawLootHoardMeatUnit" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="MaxTargetDistance" valueSource="literal" value="6" />
+    <property name="OutputTarget" value="RegenGlobeUnit" />
+    <property name="RequiredTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Stasis,Dead" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="SafePos" />
+    <property name="ClipCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="ClipRadius" valueSource="variable" value="MaxStagingRange" />
+  </node>
+  <node name="Meat" type="FindBestTarget" id="AF3E539F5F4EE617">
+    <property name="SearchCenter" valueSource="intrinsic" value="Self" />
+    <property name="TargetTypes" valueSource="literal" value="Player" />
+    <property name="UnitType" valueSource="literal" value="HoggerRiverpawLootHoardMeatUnit" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Movement Drag Range" />
+    <property name="OutputTarget" value="Desired Unit" />
+    <property name="RequiredTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Stasis,Dead" />
+    <property name="PreferredPoint" valueSource="intrinsic" value="SafePos" />
+  </node>
+  <node name="Hogger Low Life" type="LifeFraction" id="9A1ED2409927B076">
+    <property name="LifeFraction" valueSource="literal" value="0.25" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <insertChild id="84502F558CD11897" />
+  </node>
+  <node name="1+ Hero" type="FindBestArc" id="84502F558CD11897">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToAOE,Missile,Stasis,Dead,Invulnerable,Benign,Unstoppable" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="ArcAngle" valueSource="variable" value="StaggeringBlowArc" />
+    <property name="OutputTarget" value="StaggeringBlowTargetPoint" />
+    <property name="MaxTargetDistance" valueSource="variable" value="StaggeringBlowRadius" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+  </node>
+  <node name="Near Wall" type="FilterNearWall" id="EF09B4E3DB439ECB">
+    <property name="MaxWallDistance" valueSource="literal" value="2.5" />
+    <property name="DirectionSource" valueSource="intrinsic" value="Self" />
+    <insertChild id="37C8495CE2018BED" />
+  </node>
+  <node name="3+ Anything" type="FindBestArc" id="37C8495CE2018BED">
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToAOE,Missile,Stasis,Dead,Invulnerable,Benign,Unstoppable" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="ArcAngle" valueSource="variable" value="StaggeringBlowArc" />
+    <property name="OutputTarget" value="StaggeringBlowTargetPoint" />
+    <property name="MaxTargetDistance" valueSource="variable" value="StaggeringBlowRadius" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+  </node>
+  <node name="Throw Behind" type="FindPointOnLine" id="613224DA5333871C">
+    <property name="SourceUnit" valueSource="variable" value="Hoardapult Initial Target" />
+    <property name="DestinationUnit" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="Hoardapult Target Point" />
+    <property name="DistanceOffset" valueSource="literal" value="-2" />
+  </node>
+  <node name="Near Wall" type="FilterNearWall" id="F4F518304DE2C13C">
+    <property name="MaxWallDistance" valueSource="literal" value="2.5" />
+    <property name="DirectionSource" valueSource="intrinsic" value="Self" />
+    <insertChild id="987049A9693B79A2" />
+  </node>
+  <node name="2+ Creeps" type="FindBestArc" id="987049A9693B79A2">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Merc" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToAOE,Missile,Stasis,Dead,Invulnerable,Benign,Unstoppable" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="ArcAngle" valueSource="variable" value="StaggeringBlowArc" />
+    <property name="OutputTarget" value="StaggeringBlowTargetPoint" />
+    <property name="MaxTargetDistance" valueSource="variable" value="StaggeringBlowRadius" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+  </node>
+  <node name="5+ Anything" type="FindBestArc" id="E857FA966B00804C">
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToAOE,Missile,Stasis,Dead,Invulnerable,Benign,Unstoppable" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="ArcAngle" valueSource="variable" value="StaggeringBlowArc" />
+    <property name="OutputTarget" value="StaggeringBlowTargetPoint" />
+    <property name="MaxTargetDistance" valueSource="variable" value="StaggeringBlowRadius" />
+    <property name="TargetCount" valueSource="literal" value="5" />
+  </node>
+  <node name="" type="Or" id="1999E3410E878CD5">
+    <insertChild id="AE84634E96C444FD" />
+    <insertChild id="1452B33CCACCFDFB" />
+  </node>
+  <node name="" type="Or" id="BD64A5C3F40CF9E7">
+    <insertChild id="8CA224038ECB4E5F" />
+    <insertChild id="6B409A0B8FAB310C" />
+    <insertChild id="50C6A45D7CED5AE3" />
+  </node>
+  <node name="GT .75 Energy" type="EnergyFraction" id="50C6A45D7CED5AE3">
+    <property name="EnergyFraction" valueSource="literal" value="0.75" />
+    <insertChild id="FF6D45671C05A0A0" />
+  </node>
+  <node name="1+ Medium Heroes" type="FindBestVector" id="FF6D45671C05A0A0">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="PredictionMissileSpeed" valueSource="variable" value="Hogg Wild Prediction Seconds" />
+    <property name="MissileRadius" valueSource="variable" value="Hogg Wild Width" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsBehindAllyGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsInDangerousArea" valueSource="literal" value="true" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="OutputEndPoint" value="Hogg Wild Target Point" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Hogg Wild Range" />
+  </node>
+  <node name="GT .5 Energy" type="EnergyFraction" id="6B409A0B8FAB310C">
+    <property name="EnergyFraction" valueSource="literal" value="0.5" />
+    <insertChild id="06FADE5C5D60DF1B" />
+  </node>
+  <node name="1+ Low Heroes" type="FindBestVector" id="06FADE5C5D60DF1B">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="PredictionMissileSpeed" valueSource="variable" value="Hogg Wild Prediction Seconds" />
+    <property name="MissileRadius" valueSource="variable" value="Hogg Wild Width" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsBehindAllyGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsInDangerousArea" valueSource="literal" value="true" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="OutputEndPoint" value="Hogg Wild Target Point" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Hogg Wild Range" />
+  </node>
+  <node name="GT .5 Life" type="LifeFraction" id="1452B33CCACCFDFB">
+    <property name="LifeFraction" valueSource="literal" value="0.5" />
+    <insertChild id="F3CC5ED0E034CC3C" />
+  </node>
+  <node name="1+ Critical Heroes" type="FindBestVector" id="F3CC5ED0E034CC3C">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="PredictionMissileSpeed" valueSource="variable" value="Hogg Wild Prediction Seconds" />
+    <property name="MissileRadius" valueSource="variable" value="Hogg Wild Width" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsBehindAllyGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsInDangerousArea" valueSource="literal" value="true" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.1" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="OutputEndPoint" value="Hogg Wild Target Point" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Hogg Wild Range" />
+  </node>
+  <node name="Shockwave" type="AbilityUsable" id="1670A3A8BCFFD2BD">
+    <property name="Ability" valueSource="literal" value="HoggerShockwave" />
+    <insertChild id="CCF7967A8C7E7CEF" />
+  </node>
+  <node name="" type="And" id="CCF7967A8C7E7CEF">
+    <variable name="Shockwave Target Point" type="Point" />
+    <variable name="Shockwave Range" type="Number" value="14" />
+    <variable name="Shockwave Direct Hit Radius" type="Number" valueSource="lookup" value="Effect,HoggerShockwaveInitialSearch,AreaArray[0].Radius" />
+    <variable name="Shockwave Prediction Seconds" type="Number" value="0.5" />
+    <variable name="Shockwave Travel Width" type="Number" valueSource="lookup" value="Effect,HoggerShockwaveSecondarySearch,AreaArray[0].RectangleWidth" />
+    <insertChild id="91B48A4EA5D2B95A" />
+    <insertChild id="DE2D3A4C52A0E759" />
+  </node>
+  <node name="Use Cases" type="And" id="91B48A4EA5D2B95A">
+    <insertChild id="34ED5470D46F6C4B" />
+  </node>
+  <node name="" type="Or" id="34ED5470D46F6C4B">
+    <insertChild id="D064A1F0BE360D31" />
+    <insertChild id="91AC251F686333D6" />
+    <insertChild id="00FAD34F9F704705" />
+  </node>
+  <node name="2+ Heroes In Close Range" type="FindBestAOEPoint" id="D064A1F0BE360D31">
+    <property name="OutputTarget" value="Shockwave Target Point" />
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="AOERadius" valueSource="variable" value="Shockwave Direct Hit Radius" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Shockwave Direct Hit Radius" />
+    <property name="PredictionSeconds" valueSource="variable" value="Shockwave Prediction Seconds" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="1+ Critical Heroes In Close Range" type="FindBestAOEPoint" id="91AC251F686333D6">
+    <property name="OutputTarget" value="Shockwave Target Point" />
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="AOERadius" valueSource="variable" value="Shockwave Direct Hit Radius" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Shockwave Direct Hit Radius" />
+    <property name="PredictionSeconds" valueSource="variable" value="Shockwave Prediction Seconds" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="3+ Heroes In Total Line" type="FindBestVector" id="00FAD34F9F704705">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="PredictionSeconds" valueSource="variable" value="Shockwave Prediction Seconds" />
+    <property name="PredictionMissileSpeed" valueSource="literal" value="22" />
+    <property name="MissileRadius" valueSource="variable" value="Shockwave Travel Width" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Shockwave Range" />
+    <property name="OutputEndPoint" value="Shockwave Target Point" />
+    <property name="MinTargets" valueSource="literal" value="3" />
+  </node>
+  <node name="Shockwave" type="Ability" id="DE2D3A4C52A0E759">
+    <property name="Ability" valueSource="literal" value="HoggerShockwave" />
+    <property name="TargetPoint" valueSource="variable" value="Shockwave Target Point" />
+    <property name="PredictionSeconds" valueSource="variable" value="Shockwave Prediction Seconds" />
+  </node>
+  <node name="Loot Hoard" type="AbilityUsable" id="D5111924023F0D1F">
+    <property name="Ability" valueSource="literal" value="HoggerLootHoard" />
+    <insertChild id="40F57B8363A3F2B8" />
+  </node>
+  <node name="" type="And" id="40F57B8363A3F2B8">
+    <variable name="Loot Hoard Target Point" type="Point" />
+    <variable name="Loot Hoard Range" type="Number" valueSource="lookup" value="Abil,HoggerLootHoard,Range" />
+    <variable name="Loot Hoard Prediction Seconds" type="Number" value="0.25" />
+    <variable name="Loot Hoard Radius" type="Number" valueSource="lookup" value="Effect,HoggerLootHoardGroundImpactSearch,AreaArray[0].Radius" />
+    <variable name="Loot Hoard Initial Target" type="Unit" />
+    <insertChild id="A213F080AD5438F3" />
+    <insertChild id="14FD998EC8ED43F9" />
+  </node>
+  <node name="Use Cases" type="And" id="A213F080AD5438F3">
+    <insertChild id="2F0DADD3B85D9572" />
+  </node>
+  <node name="" type="Or" id="2F0DADD3B85D9572">
+    <insertChild id="3F62B211985E4C06" />
+    <insertChild id="41E9CF8462785F7D" />
+  </node>
+  <node name="Has Garbage Fire" type="UnitHasTalent" id="3F62B211985E4C06">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Talent" valueSource="literal" value="HoggerGarbageFire" />
+    <insertChild id="6F5DD967E1B6098E" />
+  </node>
+  <node name="" type="IfElse" id="6F5DD967E1B6098E">
+    <insertChild id="6D831067E3956233" />
+    <insertChild id="F14D93456B46E925" />
+    <insertChild id="FB9A369EA36F5B4C" />
+  </node>
+  <node name="Has Staggering Blow CD" type="AbilityUsable" id="6D831067E3956233">
+    <property name="Ability" valueSource="literal" value="HoggerStaggeringBlow" />
+  </node>
+  <node name="Nearby Hero" type="FindBestTarget" id="F14D93456B46E925">
+    <property name="TargetTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="OutputTarget" value="Loot Hoard Initial Target" />
+    <property name="MinTargetDistance" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Loot Hoard Range" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="PredictionSeconds" valueSource="variable" value="Loot Hoard Prediction Seconds" />
+    <insertChild id="3E13FDECAA36D0A2" />
+  </node>
+  <node name="Throw Behind" type="FindPointOnLine" id="3E13FDECAA36D0A2">
+    <property name="SourceUnit" valueSource="variable" value="Loot Hoard Initial Target" />
+    <property name="DestinationUnit" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="Loot Hoard Target Point" />
+    <property name="DistanceOffset" valueSource="literal" value="-2" />
+  </node>
+  <node name="Nearby Hero" type="FindBestTarget" id="FB9A369EA36F5B4C">
+    <property name="TargetTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="OutputTarget" value="Loot Hoard Initial Target" />
+    <property name="MinTargetDistance" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Loot Hoard Range" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="PredictionSeconds" valueSource="variable" value="Loot Hoard Prediction Seconds" />
+    <insertChild id="BBB64DB50C173B46" />
+  </node>
+  <node name="Throw At" type="FindPointInFrontOfUnit" id="BBB64DB50C173B46">
+    <property name="Unit" valueSource="variable" value="Loot Hoard Initial Target" />
+    <property name="OutputTarget" value="Loot Hoard Target Point" />
+    <property name="Distance" valueSource="literal" value="0" />
+  </node>
+  <node name="Nearby Hero" type="FindBestTarget" id="41E9CF8462785F7D">
+    <property name="TargetTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="OutputTarget" value="Loot Hoard Initial Target" />
+    <property name="MinTargetDistance" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Loot Hoard Range" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="PredictionSeconds" valueSource="variable" value="Loot Hoard Prediction Seconds" />
+    <insertChild id="373D5991EDA2278F" />
+  </node>
+  <node name="Throw Behind" type="FindPointOnLine" id="373D5991EDA2278F">
+    <property name="SourceUnit" valueSource="variable" value="Loot Hoard Initial Target" />
+    <property name="DestinationUnit" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="Loot Hoard Target Point" />
+    <property name="DistanceOffset" valueSource="literal" value="-2" />
+  </node>
+  <node name="Loot Hoard" type="Ability" id="14FD998EC8ED43F9">
+    <property name="Ability" valueSource="literal" value="HoggerLootHoard" />
+    <property name="TargetPoint" valueSource="variable" value="Loot Hoard Target Point" />
+    <property name="PredictionSeconds" valueSource="variable" value="Loot Hoard Prediction Seconds" />
+  </node>
+  <node name="1+ Hero" type="FindBestTarget" id="4078F1192CD2394E">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="OutputTarget" value="Hoardapult Initial Target" />
+    <property name="MinTargetDistance" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Hoardapult Range" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="PredictionSeconds" valueSource="variable" value="Hoardapult Prediction Seconds" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxLifeFraction" valueSource="literal" value="1" />
+    <insertChild id="2E70B5C17FA20F69" />
+  </node>
+  <node name="Throw Behind" type="FindPointOnLine" id="2E70B5C17FA20F69">
+    <property name="SourceUnit" valueSource="variable" value="Hoardapult Initial Target" />
+    <property name="DestinationUnit" valueSource="intrinsic" value="Self" />
+    <property name="OutputTarget" value="Hoardapult Target Point" />
+    <property name="DistanceOffset" valueSource="literal" value="-2" />
+  </node>
+  <node name="GT .5 Life" type="LifeFraction" id="B2CE065554F00179">
+    <property name="LifeFraction" valueSource="literal" value="0.5" />
+    <insertChild id="AE901448E85D7247" />
+  </node>
+  <node name="GT .66 Life" type="LifeFraction" id="BE8BEA7225C10C90">
+    <property name="LifeFraction" valueSource="literal" value="0.66" />
+  </node>
+  <node name="" type="And" id="1A1558969A26142B">
+    <insertChild id="BE8BEA7225C10C90" />
+    <insertChild id="4078F1192CD2394E" />
+    <insertChild id="E8BBC56048BCDDCC" />
+  </node>
+  <node name="1+ Allies Nearby" type="UnitCount" id="E8BBC56048BCDDCC">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.4" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Hoardapult Range" />
+  </node>
+  <node name="Cancel Hogg Wild" type="AbilityUsable" id="F121434AE12FA1DE">
+    <property name="Ability" valueSource="literal" value="HoggerCancelHoggWild" />
+    <insertChild id="58EBFEC0195DAF58" />
+  </node>
+  <node name="" type="And" id="58EBFEC0195DAF58">
+    <insertChild id="456775F62789CD44" />
+    <insertChild id="116734A34EAE9470" />
+  </node>
+  <node name="Use Cases" type="And" id="456775F62789CD44">
+    <insertChild id="A8083DA310609C0E" />
+  </node>
+  <node name="" type="Or" id="A8083DA310609C0E">
+    <insertChild id="32938E8A3ABDB866" />
+    <insertChild id="914BD39B4A3097DF" />
+  </node>
+  <node name="No Enemies Nearby" type="UnitCount" id="32938E8A3ABDB866">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+  </node>
+  <node name="Is In Danger" type="IsInDanger" id="914BD39B4A3097DF">
+    <insertChild id="8F4D3A281A861AA2" />
+  </node>
+  <node name="2+ Heroes Nearby" type="UnitCount" id="8F4D3A281A861AA2">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="Cancel Hogg Wild" type="Ability" id="116734A34EAE9470">
+    <property name="Ability" valueSource="literal" value="HoggerCancelHoggWild" />
+  </node>
+  <node name="Some Rage" type="EnergyFraction" id="B37900BEEFD7EC20">
+    <property name="EnergyFraction" valueSource="literal" value="0.25" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <insertChild id="3B5B75C0DFDB46DA" />
+  </node>
+  <node name="Not Low HP" type="LifeFraction" id="87E71503F2294F8E">
+    <property name="LifeFraction" valueSource="literal" value="0.6" />
+    <insertChild id="67011902DFB5F94A" />
+  </node>
+  <node name="On The Prowl" type="AbilityUsable" id="395C3B8E08D33F10">
+    <property name="Ability" valueSource="literal" value="HoggerOnTheProwl" />
+    <insertChild id="8BC3949215F9768D" />
+  </node>
+  <node name="" type="And" id="8BC3949215F9768D">
+    <insertChild id="F8DF842367BB4E78" />
+    <insertChild id="96024348021C63E2" />
+  </node>
+  <node name="Use Cases" type="And" id="F8DF842367BB4E78">
+    <insertChild id="4CAEB084139EBBC1" />
+  </node>
+  <node name="" type="Or" id="4CAEB084139EBBC1">
+    <insertChild id="7B832B0C5843C680" />
+    <insertChild id="5C706322DFBAC359" />
+    <insertChild id="34F22371FD57DA78" />
+  </node>
+  <node name="1 Hero Nearby" type="UnitCount" id="7B832B0C5843C680">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsInDangerousArea" valueSource="literal" value="true" />
+    <insertChild id="4D7555C26D48F291" />
+  </node>
+  <node name="Lots of Rage" type="EnergyFraction" id="4D7555C26D48F291">
+    <property name="EnergyFraction" valueSource="literal" value="0.5" />
+  </node>
+  <node name="1+ Critical Nearby" type="UnitCount" id="5C706322DFBAC359">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsInDangerousArea" valueSource="literal" value="true" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <insertChild id="C887803A5931781D" />
+  </node>
+  <node name="No Rage" type="EnergyFraction" id="C887803A5931781D">
+    <property name="EnergyFraction" valueSource="literal" value="0.1" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <insertChild id="295EE4ACE8803454" />
+  </node>
+  <node name="Not Low HP" type="LifeFraction" id="295EE4ACE8803454">
+    <property name="LifeFraction" valueSource="literal" value="0.6" />
+  </node>
+  <node name="2+ Hero Nearby" type="UnitCount" id="34F22371FD57DA78">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsInDangerousArea" valueSource="literal" value="true" />
+    <insertChild id="21103D853A92511A" />
+  </node>
+  <node name="2+ Allies Nearby" type="UnitCount" id="21103D853A92511A">
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="FilterTargetsInDangerousArea" valueSource="literal" value="true" />
+    <insertChild id="2CE2F86493EA1CDE" />
+  </node>
+  <node name="No Rage" type="EnergyFraction" id="2CE2F86493EA1CDE">
+    <property name="EnergyFraction" valueSource="literal" value="0.1" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+  </node>
+  <node name="On The Prowl" type="Ability" id="96024348021C63E2">
+    <property name="Ability" valueSource="literal" value="HoggerOnTheProwl" />
+  </node>
+  <node name="Not Low HP" type="LifeFraction" id="894CA86C9947B9D0">
+    <property name="LifeFraction" valueSource="literal" value="0.6" />
+    <insertChild id="B37900BEEFD7EC20" />
+  </node>
+  <node name="1+ Critical Hero" type="FindBestTarget" id="67011902DFB5F94A">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="OutputTarget" value="NoControlTarget" />
+    <property name="MinTargetDistance" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+  </node>
+  <node name="1+ Hero" type="FindBestTarget" id="3B5B75C0DFDB46DA">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="OutputTarget" value="NoControlTarget" />
+    <property name="MinTargetDistance" valueSource="literal" value="0" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="FilterTargetsBehindGate" valueSource="literal" value="true" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxLifeFraction" valueSource="literal" value="1" />
+  </node>
+</tree>

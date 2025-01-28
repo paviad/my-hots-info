@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Temple Arena</e>
+    <e id="2">A wide array of Blizzard Heroes meet and do battle in an epic, galactic arena!</e>
+    <e id="3">(Storm) Luxoria</e>
+    <e id="4">Other</e>
+    <e id="5">Unclassified game type.</e>
+    <e id="6">Standard</e>
+    <e id="7">Players can choose their Heroes.</e>
+    <e id="8">SkyTempleSimple</e>
+    <e id="9">Temple Arena</e>
+    <e id="10">A king of the hill style brawl where the team that spends the most time claiming temples wins</e>
+    <e id="11">Best of 3 rounds on Temple Arena</e>
+    <e id="12">Destroy the enemy&apos;s Core to win a round</e>
+    <e id="13">Claim Temples</e>
+    <e id="14">Claim Temples to attack the enemy&apos;s Core</e>
+    <e id="15">Shuffle Pick</e>
+    <e id="16">Choose from one of three randomly selected heroes. You only have 30 seconds, so think fast!</e>
+    <e id="17">Additional Info</e>
+    <e id="18">Regeneration Globes are twice as potent</e>
+    <e id="19">There&apos;s a small chance of all players being the same Hero</e>
+</Locale>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Mutageno - Cronomarchio</e>
+    <e id="2">Completamente mancante di qualunque descrizione.</e>
+    <e id="3">DodgeBrawl</e>
+    <e id="4">Palla Prigioniera</e>
+    <e id="5">È il momento di divertirsi! Le squadre si alternano attaccandosi con Detonazione di Sabbia fino a che una delle due non viene eliminata.</e>
+    <e id="6">Sabbia negli occhi</e>
+    <e id="7">Colpite i nemici con Detonazione di Sabbia, e schivate gli attacchi in arrivo. Aggiudicatevi due round su tre per vincere la partita.</e>
+    <e id="8">Ultimo sopravvissuto</e>
+    <e id="9">Una squadra attacca e l&apos;altra cerca di schivare i colpi. Le squadre si scambiano di ruolo dopo pochi secondi, e sempre più spesso nel corso dei round.</e>
+    <e id="10">Colpire un eroe cinque volte lo elimina dal round, ma gli eroi eliminati rinascono come spettri dal lato della squadra nemica.</e>
+    <e id="11">Le Cromie Spettrali possono usare Trappola Temporale e Sabbie del Tempo per disturbare gli attaccanti.</e>
+    <e id="12">Tutti sono Cromie</e>
+    <e id="13">Sembra che qualcuno abbia interferito con lo scorrere del tempo!</e>
+    <e id="14">Info aggiuntive</e>
+    <e id="15">La squadra in difesa è sempre rivelata agli avversari, gli attaccanti sono nascosti alla vista del nemico.</e>
+    <e id="16">Le Cromie Spettrali forniscono visuale agli alleati, consentendo alla squadra in difesa di individuare i nemici.</e>
+    <e id="17">Se un round dura troppo a lungo, dei tornado vengono generati agli angoli dell&apos;arena e si spostano verso l&apos;interno, spingendo i giocatori nella vasca.</e>
+</Locale>

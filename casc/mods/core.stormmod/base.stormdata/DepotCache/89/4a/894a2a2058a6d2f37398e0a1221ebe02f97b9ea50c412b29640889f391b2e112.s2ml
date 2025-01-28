@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Arena del castigador</e>
+    <e id="2">¡Tus héroes favoritos de Blizzard se reúnen para batallar en una épica arena galáctica!</e>
+    <e id="3">Otro</e>
+    <e id="4">Tipo de juego no clasificado.</e>
+    <e id="5">Estándar</e>
+    <e id="6">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="7">ShrinesSimple</e>
+    <e id="8">Arena del castigador</e>
+    <e id="9">Una batalla entre héroes y Castigadores donde vale todo. Acaba con tus enemigos para terminar la pelea.</e>
+    <e id="10">Partida al mejor de 3 rondas en la Arena del castigador</e>
+    <e id="11">El primer equipo en ganar 2 rondas se lleva la victoria</e>
+    <e id="12">El primero en llegar a 100 puntos gana</e>
+    <e id="13">Los Castigadores valen 10 puntos</e>
+    <e id="14">Los héroes valen 4 puntos</e>
+    <e id="15">Preselección</e>
+    <e id="16">Elige a uno de los tres héroes seleccionados aleatoriamente. Solo tienes 30 segundos. ¡Piensa rápido!</e>
+    <e id="17">Información adicional</e>
+    <e id="18">Hay una pequeña probabilidad de que todos los jugadores tengan el mismo héroe</e>
+</Locale>

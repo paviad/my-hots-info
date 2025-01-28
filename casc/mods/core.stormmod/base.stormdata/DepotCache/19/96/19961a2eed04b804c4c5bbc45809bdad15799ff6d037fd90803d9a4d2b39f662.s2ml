@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">StarCraft Heroes</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">Default</e>
+    <e id="4">Heroes of the Stars</e>
+    <e id="5">Heroes from across the Koprulu Sector (and a few visitors) duke it out on Braxis Holdout!</e>
+    <e id="6">Zerg Rush</e>
+    <e id="7">Capture the Beacons to fill your Holding Cell with Zerg. When one cell is filled, both cells will open!</e>
+    <e id="8">Hold Out</e>
+    <e id="9">Defeat the enemy’s wave of Zerg or help your own as it assaults the enemy’s core.</e>
+    <e id="10">Shuffle Pick</e>
+    <e id="11">Choose from one of three randomly selected StarCraft Heroes or Heroes with StarCraft-themed skins. You only have 30 seconds, so think fast!</e>
+    <e id="12">Additional Info</e>
+    <e id="13">The death timer is capped at a maximum of 40 seconds</e>
+</Locale>

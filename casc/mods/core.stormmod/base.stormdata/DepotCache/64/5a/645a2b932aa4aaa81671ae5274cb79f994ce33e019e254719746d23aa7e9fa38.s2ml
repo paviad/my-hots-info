@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="zhCN">
+    <e id="1">鬼灵矿</e>
+    <e id="2">多名身怀绝技的暴雪英雄相约在史诗级的银河竞技场一决高下！</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">其他</e>
+    <e id="5">未分类的游戏类型。</e>
+    <e id="6">标准游戏</e>
+    <e id="7">玩家可以选择英雄。</e>
+    <e id="8">收集的精华</e>
+    <e id="9">在矿井中获得的精华</e>
+    <e id="10">HauntedMines</e>
+    <e id="11">HauntedMines_zhCN</e>
+    <e id="12">恶灵魔像</e>
+    <e id="13">协助你的魔像向敌人的核心进发，并在敌人的魔像抵达我方核心之前将其消灭。</e>
+    <e id="14">收集精华</e>
+    <e id="15">矿井开启时，击败隧道里的亡灵矿工并收集他们的精华来强化你的魔像。</e>
+</Locale>

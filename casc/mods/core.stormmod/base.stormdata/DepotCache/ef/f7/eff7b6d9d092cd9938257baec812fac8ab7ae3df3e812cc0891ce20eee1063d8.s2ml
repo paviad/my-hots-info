@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Rissa nella Neve</e>
+    <e id="2">Mappa a 3 corsie&lt;br&gt;&lt;br&gt;Il Signore dei Corvi evoca dei tributi in determinati punti della Valle Maledetta. Combattete la squadra nemica e conquistate per primi i tributi. Quando avrete conquistato tre tributi, il Signore dei Corvi maledirà i nemici, disabilitandone le torri e riducendo la Salute dei loro servitori.</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Altro</e>
+    <e id="5">Tipo di gioco non classificato.</e>
+    <e id="6">Standard</e>
+    <e id="7">I giocatori possono scegliere i propri eroi.</e>
+    <e id="8">Tributi del Signore dei Corvi conquistati</e>
+    <e id="9">Tributi conquistati</e>
+    <e id="10">SnowBrawl</e>
+    <e id="11">Rissa nella Neve</e>
+    <e id="12">È inverno nella Valle Maledetta! Lanciate le palle di neve e raccogliete i doni del Signore dei Corvi!</e>
+    <e id="13">Raccogliete i tributi</e>
+    <e id="14">Raccogli Tributi di Neve per lanciare Palle di Neve Colossali contro le fortificazioni nemiche!</e>
+    <e id="15">Palle di neve</e>
+    <e id="16">Raccogliete e lanciate palle di neve (F) per infliggere ingenti danni.</e>
+    <e id="17">Sulla mappa iniziano periodicamente a formarsi dei Pupazzi di Neve. Colpiteli con le Palle di Neve per completarli.</e>
+    <e id="18">Scelta mista</e>
+    <e id="19">Scegli un eroe fra tre selezionati casualmente. Hai solo 30 secondi, per cui pensa in fretta!</e>
+    <e id="20">Info aggiuntive</e>
+    <e id="21">I Tributi di Neve appaiono in rapida successione.</e>
+    <e id="22">Le Palle di Neve appaiono vicino a eroi, strutture, tributi e globi rigeneranti.</e>
+    <e id="23">Le Palle di Neve Soffici respingono gli eroi nemici.</e>
+    <e id="24">Le Palle di Neve Pesanti rallentano i nemici e infliggono danni doppi a servitori e strutture.</e>
+    <e id="25">Una volta completati, i Pupazzi di Neve vi seguiranno, combattendo al vostro fianco.</e>
+</Locale>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Héros de StarCraft</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">Default</e>
+    <e id="4">Héros des étoiles</e>
+    <e id="5">Des héros venus du secteur de Koprulu (ainsi que quelques invités) s’affrontent au laboratoire de Braxis.</e>
+    <e id="6">Ruée zerg</e>
+    <e id="7">Prenez le contrôle des balises pour remplir votre cellule de détention de Zergs. Dès qu’une cellule est pleine, les deux s’ouvrent !</e>
+    <e id="8">Tenez bon</e>
+    <e id="9">Terrassez la vague de Zergs adverse ou aidez la vôtre à détruire l’idole de l’ennemi.</e>
+    <e id="10">Sélection aléatoire</e>
+    <e id="11">Choisissez parmi trois héros issus de StarCraft, ou dont le modèle en est inspiré, proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="12">Informations supplémentaires</e>
+    <e id="13">Le délai de résurrection est limité à un maximum de 40 secondes.</e>
+</Locale>

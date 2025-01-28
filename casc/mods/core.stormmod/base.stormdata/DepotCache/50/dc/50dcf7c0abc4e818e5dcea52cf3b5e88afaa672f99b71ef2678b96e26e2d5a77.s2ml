@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Mutación Guerra de magos</e>
+    <e id="2">Sin ningún tipo de descripción.</e>
+    <e id="3">TombSpiderQueen</e>
+    <e id="4">Guerra de magos</e>
+    <e id="5">¡Preparad vuestros hechizos más letales, pues esta contienda solo la ganarán los magos más poderosos!</e>
+    <e id="6">Invocad a las tejerredes</e>
+    <e id="7">Obtened el favor de la Reina Araña y sus tejerredes atacarán las defensas de vuestros enemigos.</e>
+    <e id="8">Recolectad gemas</e>
+    <e id="9">Las arañas y los héroes dejan caer gemas al morir. Recogedlas y entregadlas en los altares para liberar a las tejerredes.</e>
+    <e id="10">Todos magos</e>
+    <e id="11">Los equipos están formados por: Cromi, Gul&apos;dan, Jaina, Kael&apos;thas, Kel&apos;Thuzad, Li-Ming, Medivh y Nazeebo.</e>
+    <e id="12">Información adicional</e>
+    <e id="13">La regeneración de maná aumenta un 50%.</e>
+    <e id="14">25% de reducción de tiempo de reutilización de forma pasiva</e>
+    <e id="15">Las habilidades infligen el doble de daño a las estructuras.</e>
+    <e id="16">Hay una pequeña probabilidad de que todos los jugadores sean el mismo mago (excepto Medivh).</e>
+</Locale>

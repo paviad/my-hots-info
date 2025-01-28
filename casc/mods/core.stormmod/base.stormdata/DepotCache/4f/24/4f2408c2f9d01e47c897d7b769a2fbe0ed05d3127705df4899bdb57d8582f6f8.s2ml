@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Contenda na Neve</e>
+    <e id="2">Mapa de 3 trilhas&lt;br&gt;&lt;br&gt;O Senhor dos Corvos evoca tributos em certos pontos da Clareira Maldita. Enfrente a equipe inimiga e seja o primeiro a coletá-los. Quando o terceiro tributo tiver sido coletado, o Senhor dos Corvos vai amaldiçoar seus inimigos, incapacitando as torres deles e reduzindo a vida dos lacaios inimigos.</e>
+    <e id="3">(Atacar) Crista Régia (Paço dos Corvos)</e>
+    <e id="4">Outro</e>
+    <e id="5">Tipo de jogo não classificado.</e>
+    <e id="6">Padrão</e>
+    <e id="7">Os jogadores podem escolher os Heróis.</e>
+    <e id="8">Tributos do Corvo coletados</e>
+    <e id="9">Número de tributos coletados</e>
+    <e id="10">ContendaNeve</e>
+    <e id="11">Contenda na Neve</e>
+    <e id="12">Ai, tá fazendo um frio de arrepiar...</e>
+    <e id="13">As bolas de neve surgem em volta da cidade, nos globos de regeneração e em torno dos tributos.</e>
+    <e id="14">Colete Tributos de Neve para lançar Bolas de Neve Colossais nas fortificações do Inimigo! </e>
+    <e id="15">Bolas de Neve Fofinhas - Repelem heróis inimigos.</e>
+    <e id="16">Colete as Bolas de Neve e arremesse-as (F) para causar muito dano.</e>
+    <e id="17">Bonecos de Neve incompletos se formam periodicamente pelo campo de batalha. Use bolas de neve para terminá-los.</e>
+    <e id="18">Seleção Restrita</e>
+    <e id="19">Escolha um dos três Heróis selecionados aleatoriamente. Você só tem 30 segundos. Depressa!</e>
+    <e id="20">Informações adicionais</e>
+    <e id="21">Tributos Nevados vão aparecendo um depois do outro.</e>
+    <e id="22">Bolas de Neve aparecem perto de Heróis, Estruturas, Tributos e Globos de Regeneração</e>
+    <e id="23">Bolas de Neve Fofinhas repelem Heróis inimigos. </e>
+    <e id="24">Bolas de Neve Pesadas desaceleram inimigos e causam o dobro de dano a Tropas e Estruturas.</e>
+    <e id="25">Quando terminados, os Bonecos de Neve seguirão você e lutarão ao seu lado.</e>
+</Locale>

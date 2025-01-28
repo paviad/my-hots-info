@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Mondfest-Raketenrennen</e>
+    <e id="2">TBD</e>
+    <e id="3">(Storm) Kings Crest (Gardens)</e>
+    <e id="4">Kampf der Helden</e>
+    <e id="5">Helden schließen sich zusammen, um permanent Angriffe auf die Befestigungen der Gegner zu führen.</e>
+    <e id="6">Eigenes Spiel</e>
+    <e id="7">Alle Einstellungen können konfiguriert werden.</e>
+    <e id="8">LunarFestival</e>
+    <e id="9">Mondfest-Raketenrennen</e>
+    <e id="10">Zünde die Raketen! Liefere dir ein Wettrennen mit anderen Spielern und sichere dir deinen Platz auf der Bestenliste.</e>
+    <e id="11">Überquert die Ziellinie</e>
+    <e id="12">Das Wettrennen: Beende den Kurs mit einem Helden und überquere die Ziellinie, so schnell du kannst.</e>
+    <e id="13">Rocket &amp; Roll Racing</e>
+    <e id="14">Helden liefern sich auf einer einzigartigen Strecke ein Wettrennen mit Mondfestraketen.</e>
+    <e id="15">Sammle Umschläge auf, um zufällige Spezialfähigkeiten zu erhalten.</e>
+    <e id="16">Benutze die Förderbänder, um einen kurzen Geschwindigkeitsschub zu erhalten.</e>
+    <e id="17">Mondfest-Helden</e>
+    <e id="18">Du spielst als zufälliger Held aus einer speziellen Vorauswahl von Helden in ihren Mondfestgewändern.</e>
+    <e id="19">Zusatzinfos</e>
+    <e id="20">Sobald der erste Held die Ziellinie überquert, haben alle anderen noch 30 Sek., um das Rennen zu beenden und das Heldenchaos zu gewinnen.</e>
+    <e id="21">Wer die Ziellinie nicht überquert oder Letzter wird, erhält eine Niederlage.</e>
+    <e id="22">Raketen aus Umschlägen können abgefeuert werden und betäuben den ersten Gegner, den sie treffen.</e>
+    <e id="23">Knaller aus Umschlägen können hinter dich gelegt werden und betäuben Gegner, die darüber fliegen.</e>
+    <e id="24">Mondfestsegen aus Umschlägen gewähren dir Unverwundbarkeit und erhöhen die Geschwindigkeit.</e>
+</Locale>

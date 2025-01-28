@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Punkt Kontrolny: Hanamura</e>
+    <e id="2">MUSIMY POPYCHAĆ WÓZECZEK</e>
+    <e id="3">(Storm) Overwatch (Hanamura1)</e>
+    <e id="4">Inne</e>
+    <e id="5">Niesklasyfikowany rodzaj gry.</e>
+    <e id="6">Standardowy</e>
+    <e id="7">Gracze mogą wybrać swoich bohaterów.</e>
+    <e id="8">HanamuraPayloadPush</e>
+    <e id="9">Punkt Kontrolny: Hanamura</e>
+    <e id="10">Jedna drużyna popycha ładunek do przodu, druga usiłuje go cofnąć. Zabierzmy to stąd!</e>
+    <e id="11">Eskortuj ładunek</e>
+    <e id="12">Atakujący wygrywają, kiedy ładunek osiągnie punkt docelowy. Obrońcy wygrywają, kiedy skończy się czas.</e>
+    <e id="13">Ładunek w drodze</e>
+    <e id="14">Ładunek porusza się szybciej za każdego eskortującego go atakującego, ale zatrzymuje się, jeśli na jego obszar wkroczy choć jeden obrońca.</e>
+    <e id="15">Losowy wybór</e>
+    <e id="16">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="17">Dodatkowe informacje</e>
+    <e id="18">Czas oczekiwania na odrodzenie jest skrócony do 9 sek. W czasie trwania dogrywki wynosi on 12,5 sek.</e>
+    <e id="19">Bohaterowie nie mają talentów i nie zdobywają poziomów. Zdolności bohaterskie są wybierane na początku meczu.</e>
+    <e id="20">Apteczki znajdowane na polu bitwy natychmiast przywracają 35% zdrowia i many bohaterów.</e>
+    <e id="21">Limit czasu zostaje wydłużony, kiedy ładunek dotrze do punktu kontrolnego. Dogrywka rozpoczyna się, gdy upływa limit czasu.</e>
+    <e id="22">Dogrywka jest zatrzymywana, i odświeżana za każdym razem, kiedy jeden z atakujących zaczyna eskortować ładunek, ale jej maksymalny czas trwania spada wraz z upływem czasu.</e>
+</Locale>

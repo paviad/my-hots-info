@@ -1,0 +1,1331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TriggerData>
+    <Library Id="HHOG">
+        <Root>
+            <Item Type="Category" Library="HHOG" Id="5601FFCB"/>
+            <Item Type="Category" Library="HHOG" Id="40FC1885"/>
+        </Root>
+        <Element Type="Category" Id="5601FFCB">
+            <Item Type="Variable" Library="HHOG" Id="27BA6992"/>
+            <Item Type="FunctionDef" Library="HHOG" Id="C1B0286A"/>
+            <Item Type="FunctionDef" Library="HHOG" Id="27246FE9"/>
+        </Element>
+        <Element Type="Variable" Id="27BA6992">
+            <VariableType>
+                <Type Value="int"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="CEA50341"/>
+        </Element>
+        <Element Type="Param" Id="CEA50341">
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionDef" Id="C1B0286A">
+            <FlagCall/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="11C67D55"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="1BDE3979"/>
+        </Element>
+        <Element Type="FunctionCall" Id="11C67D55">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="A0F31305"/>
+            <Parameter Type="Param" Library="HHOG" Id="0FD3695F"/>
+            <Parameter Type="Param" Library="HHOG" Id="C30EDEDB"/>
+            <Parameter Type="Param" Library="HHOG" Id="AF0987EA"/>
+        </Element>
+        <Element Type="Param" Id="0FD3695F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="5BFF7323"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000085"/>
+        </Element>
+        <Element Type="Param" Id="C30EDEDB">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6725C0EB"/>
+            <Value>1</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Param" Id="AF0987EA">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="7B3B0884"/>
+            <Variable Type="Variable" Library="HHOG" Id="27BA6992"/>
+        </Element>
+        <Element Type="FunctionCall" Id="1BDE3979">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="F7409EA4"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="5100DED5"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="C9EBFC67"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="E12D5BE5"/>
+        </Element>
+        <Element Type="FunctionCall" Id="F7409EA4">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HHOG" Id="B244E10F"/>
+            <Parameter Type="Param" Library="HHOG" Id="CFDE4C94"/>
+        </Element>
+        <Element Type="Param" Id="B244E10F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000538"/>
+        </Element>
+        <Element Type="Param" Id="CFDE4C94">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HHOG" Id="779BABB7"/>
+        </Element>
+        <Element Type="FunctionCall" Id="5100DED5">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HHOG" Id="C9D7AE4E"/>
+            <Parameter Type="Param" Library="HHOG" Id="36907EB8"/>
+        </Element>
+        <Element Type="Param" Id="C9D7AE4E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000538"/>
+        </Element>
+        <Element Type="Param" Id="36907EB8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HHOG" Id="E749A255"/>
+        </Element>
+        <Element Type="FunctionCall" Id="C9EBFC67">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HHOG" Id="F3E594F1"/>
+            <Parameter Type="Param" Library="HHOG" Id="A5B4C334"/>
+        </Element>
+        <Element Type="Param" Id="F3E594F1">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000538"/>
+        </Element>
+        <Element Type="Param" Id="A5B4C334">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HHOG" Id="0476C278"/>
+        </Element>
+        <Element Type="FunctionCall" Id="E12D5BE5">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000003"/>
+            <Parameter Type="Param" Library="HHOG" Id="E1B35CA8"/>
+            <Parameter Type="Param" Library="HHOG" Id="800AC93F"/>
+            <Parameter Type="Param" Library="HHOG" Id="092591B1"/>
+        </Element>
+        <Element Type="Param" Id="E1B35CA8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HHOG" Id="27BA6992"/>
+        </Element>
+        <Element Type="Param" Id="800AC93F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="092591B1">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>1</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionDef" Id="27246FE9">
+            <FlagCall/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="393D286D"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="48069197"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="DAA51792"/>
+        </Element>
+        <Element Type="FunctionCall" Id="393D286D">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="A0F31305"/>
+            <Parameter Type="Param" Library="HHOG" Id="80D345F5"/>
+            <Parameter Type="Param" Library="HHOG" Id="68E04B9A"/>
+            <Parameter Type="Param" Library="HHOG" Id="0BD0B4E0"/>
+        </Element>
+        <Element Type="Param" Id="80D345F5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="5BFF7323"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000086"/>
+        </Element>
+        <Element Type="Param" Id="68E04B9A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6725C0EB"/>
+            <Value>1</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Param" Id="0BD0B4E0">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="7B3B0884"/>
+            <Variable Type="Variable" Library="HHOG" Id="27BA6992"/>
+        </Element>
+        <Element Type="FunctionCall" Id="48069197">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="A5AB37B2"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="A5ED1E87"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A5AB37B2">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HHOG" Id="1359935F"/>
+            <Parameter Type="Param" Library="HHOG" Id="3E255C53"/>
+        </Element>
+        <Element Type="Param" Id="1359935F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HHOG" Id="27BA6992"/>
+        </Element>
+        <Element Type="Param" Id="3E255C53">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A5ED1E87">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000003"/>
+            <Parameter Type="Param" Library="HHOG" Id="63FA6D03"/>
+            <Parameter Type="Param" Library="HHOG" Id="5518225C"/>
+            <Parameter Type="Param" Library="HHOG" Id="6E35F325"/>
+        </Element>
+        <Element Type="Param" Id="63FA6D03">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HHOG" Id="27BA6992"/>
+        </Element>
+        <Element Type="Param" Id="5518225C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="684CA9CE"/>
+        </Element>
+        <Element Type="Param" Id="6E35F325">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionCall" Id="DAA51792">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="294A04CD"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="75545B61"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="A9B4210F"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="61B8DDC0"/>
+        </Element>
+        <Element Type="FunctionCall" Id="294A04CD">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HHOG" Id="392F1920"/>
+            <Parameter Type="Param" Library="HHOG" Id="C686805A"/>
+        </Element>
+        <Element Type="Param" Id="392F1920">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000545"/>
+        </Element>
+        <Element Type="Param" Id="C686805A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HHOG" Id="779BABB7"/>
+        </Element>
+        <Element Type="FunctionCall" Id="75545B61">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HHOG" Id="7437514F"/>
+            <Parameter Type="Param" Library="HHOG" Id="CE5F0D83"/>
+        </Element>
+        <Element Type="Param" Id="7437514F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000545"/>
+        </Element>
+        <Element Type="Param" Id="CE5F0D83">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HHOG" Id="E749A255"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A9B4210F">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000111"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HHOG" Id="1DE34740"/>
+            <Parameter Type="Param" Library="HHOG" Id="4E862CA6"/>
+        </Element>
+        <Element Type="Param" Id="1DE34740">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000177"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000545"/>
+        </Element>
+        <Element Type="Param" Id="4E862CA6">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000176"/>
+            <ValueType Type="trigger"/>
+            <ValueElement Type="Trigger" Library="HHOG" Id="0476C278"/>
+        </Element>
+        <Element Type="FunctionCall" Id="61B8DDC0">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000003"/>
+            <Parameter Type="Param" Library="HHOG" Id="B5D30B95"/>
+            <Parameter Type="Param" Library="HHOG" Id="B2EC765C"/>
+            <Parameter Type="Param" Library="HHOG" Id="C7926E0E"/>
+        </Element>
+        <Element Type="Param" Id="B5D30B95">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HHOG" Id="27BA6992"/>
+        </Element>
+        <Element Type="Param" Id="B2EC765C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="C7926E0E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Category" Id="40FC1885">
+            <Item Type="Category" Library="HHOG" Id="AFE389AB"/>
+            <Item Type="Category" Library="HHOG" Id="C7A08852"/>
+        </Element>
+        <Element Type="Category" Id="AFE389AB">
+            <Item Type="FunctionDef" Library="HHOG" Id="16BA0CF6"/>
+            <Item Type="Trigger" Library="HHOG" Id="0476C278"/>
+            <Item Type="Trigger" Library="HHOG" Id="E92AD5B4"/>
+        </Element>
+        <Element Type="FunctionDef" Id="16BA0CF6">
+            <FlagAction/>
+            <Parameter Type="ParamDef" Library="HHOG" Id="5DAEF86F"/>
+            <Parameter Type="ParamDef" Library="HHOG" Id="969E5ACF"/>
+            <Parameter Type="ParamDef" Library="HHOG" Id="E97B6750"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="EBBF872C"/>
+        </Element>
+        <Element Type="ParamDef" Id="5DAEF86F">
+            <ParameterType>
+                <Type Value="unit"/>
+            </ParameterType>
+        </Element>
+        <Element Type="ParamDef" Id="969E5ACF">
+            <ParameterType>
+                <Type Value="int"/>
+            </ParameterType>
+        </Element>
+        <Element Type="ParamDef" Id="E97B6750">
+            <ParameterType>
+                <Type Value="fixed"/>
+            </ParameterType>
+        </Element>
+        <Element Type="FunctionCall" Id="EBBF872C">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="3EB1ADEE"/>
+            <Parameter Type="Param" Library="HHOG" Id="2DA41EB6"/>
+            <Parameter Type="Param" Library="HHOG" Id="43694BD8"/>
+            <Parameter Type="Param" Library="HHOG" Id="7E507F19"/>
+            <Parameter Type="Param" Library="HHOG" Id="A0E5CAB4"/>
+            <Parameter Type="Param" Library="HHOG" Id="C772701F"/>
+            <Parameter Type="Param" Library="HHOG" Id="C922BA97"/>
+        </Element>
+        <Element Type="Param" Id="2DA41EB6">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F45C2805"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="EC8897EF"/>
+        </Element>
+        <Element Type="FunctionCall" Id="EC8897EF">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000057"/>
+            <Parameter Type="Param" Library="HHOG" Id="39997F15"/>
+        </Element>
+        <Element Type="Param" Id="39997F15">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000094"/>
+            <Parameter Type="ParamDef" Library="HHOG" Id="969E5ACF"/>
+        </Element>
+        <Element Type="Param" Id="43694BD8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="29030E74"/>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="Param" Id="7E507F19">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="49150ED6"/>
+            <Parameter Type="ParamDef" Library="HHOG" Id="5DAEF86F"/>
+        </Element>
+        <Element Type="Param" Id="A0E5CAB4">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="474DE5A5"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="089881EE"/>
+        </Element>
+        <Element Type="FunctionCall" Id="089881EE">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="0FF0ADD6"/>
+            <Parameter Type="Param" Library="HHOG" Id="C2300E09"/>
+            <Parameter Type="Param" Library="HHOG" Id="66AF5A24"/>
+        </Element>
+        <Element Type="Param" Id="C2300E09">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0A06ABFD"/>
+            <Parameter Type="ParamDef" Library="HHOG" Id="E97B6750"/>
+        </Element>
+        <Element Type="Param" Id="66AF5A24">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="D2E5A641"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="06588939"/>
+        </Element>
+        <Element Type="Param" Id="C772701F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0EFC6A30"/>
+            <Variable Type="Variable" Library="Ntve" Id="AC43E1B5"/>
+        </Element>
+        <Element Type="Param" Id="C922BA97">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="334E7EFF"/>
+            <Value>Hogger/HoggerRageReceived</Value>
+            <ValueType Type="string"/>
+        </Element>
+        <Element Type="Trigger" Id="0476C278">
+            <Variable Type="Variable" Library="HHOG" Id="A7D1F628"/>
+            <Variable Type="Variable" Library="HHOG" Id="CCD59B67"/>
+            <Variable Type="Variable" Library="HHOG" Id="953E62A8"/>
+            <Event Type="FunctionCall" Library="HHOG" Id="CBD2A173"/>
+            <Event Type="FunctionCall" Library="HHOG" Id="4AB60CA9"/>
+            <Event Type="FunctionCall" Library="HHOG" Id="CB6A84E8"/>
+            <Event Type="FunctionCall" Library="HHOG" Id="75D88C3F"/>
+            <Event Type="FunctionCall" Library="HHOG" Id="58124C3F"/>
+            <Event Type="FunctionCall" Library="HHOG" Id="8CC93718"/>
+            <Action Type="FunctionCall" Library="HHOG" Id="07E04972"/>
+            <Action Type="FunctionCall" Library="HHOG" Id="ECFAE6B6"/>
+        </Element>
+        <Element Type="Variable" Id="A7D1F628">
+            <VariableType>
+                <Type Value="unit"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="3F720189"/>
+        </Element>
+        <Element Type="Param" Id="3F720189">
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="A20EDC32"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A20EDC32">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="BADA9C08"/>
+            <Parameter Type="Param" Library="HHOG" Id="9B46D9FF"/>
+        </Element>
+        <Element Type="Param" Id="9B46D9FF">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F6C0132E"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="090AE922"/>
+        </Element>
+        <Element Type="Variable" Id="CCD59B67">
+            <VariableType>
+                <Type Value="int"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="461F235B"/>
+        </Element>
+        <Element Type="Param" Id="461F235B">
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="59BA7592"/>
+        </Element>
+        <Element Type="FunctionCall" Id="59BA7592">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000081"/>
+            <Parameter Type="Param" Library="HHOG" Id="5EA726A2"/>
+        </Element>
+        <Element Type="Param" Id="5EA726A2">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000140"/>
+            <Variable Type="Variable" Library="HHOG" Id="A7D1F628"/>
+        </Element>
+        <Element Type="Variable" Id="953E62A8">
+            <VariableType>
+                <Type Value="fixed"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="136B59C5"/>
+        </Element>
+        <Element Type="Param" Id="136B59C5">
+            <Value>0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="FunctionCall" Id="CBD2A173">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="9FFA06A7"/>
+            <Parameter Type="Param" Library="HHOG" Id="90D5AE94"/>
+            <Parameter Type="Param" Library="HHOG" Id="EDAD644E"/>
+        </Element>
+        <Element Type="Param" Id="90D5AE94">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="44A8E2B6"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="EDAD644E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6FB1C942"/>
+            <Value>HoggerEzThroDynamiteDirectHitGnollFrenzyRage</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="FunctionCall" Id="4AB60CA9">
+            <Disabled/>
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="9FFA06A7"/>
+            <Parameter Type="Param" Library="HHOG" Id="2E64421C"/>
+            <Parameter Type="Param" Library="HHOG" Id="85648509"/>
+        </Element>
+        <Element Type="Param" Id="2E64421C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="44A8E2B6"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="85648509">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6FB1C942"/>
+            <Value>HoggerHeroWeaponGnollFrenzyModifyRage</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="FunctionCall" Id="CB6A84E8">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="9FFA06A7"/>
+            <Parameter Type="Param" Library="HHOG" Id="16BE2B61"/>
+            <Parameter Type="Param" Library="HHOG" Id="A5B1B4B7"/>
+        </Element>
+        <Element Type="Param" Id="16BE2B61">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="44A8E2B6"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="A5B1B4B7">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6FB1C942"/>
+            <Value>HoggerStaggeringBlowCollisionProcGnollFrenzyRage</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="FunctionCall" Id="75D88C3F">
+            <Disabled/>
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="9FFA06A7"/>
+            <Parameter Type="Param" Library="HHOG" Id="372ED449"/>
+            <Parameter Type="Param" Library="HHOG" Id="757B0C37"/>
+        </Element>
+        <Element Type="Param" Id="372ED449">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="44A8E2B6"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="757B0C37">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6FB1C942"/>
+            <Value>HoggerOnTheProwlGnollFrenzyRage</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="FunctionCall" Id="58124C3F">
+            <Disabled/>
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="9FFA06A7"/>
+            <Parameter Type="Param" Library="HHOG" Id="5299CFB2"/>
+            <Parameter Type="Param" Library="HHOG" Id="2AB1C90F"/>
+        </Element>
+        <Element Type="Param" Id="5299CFB2">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="44A8E2B6"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="2AB1C90F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6FB1C942"/>
+            <Value>HoggerHoggWildAggroRangeTalentGnollFrenzyHeroRage</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="FunctionCall" Id="8CC93718">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="9FFA06A7"/>
+            <Parameter Type="Param" Library="HHOG" Id="6919098C"/>
+            <Parameter Type="Param" Library="HHOG" Id="CB0D9723"/>
+        </Element>
+        <Element Type="Param" Id="6919098C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="44A8E2B6"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="CB0D9723">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6FB1C942"/>
+            <Value>HoggerShockwavePowerSpikeTalentRage</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="FunctionCall" Id="07E04972">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <Parameter Type="Param" Library="HHOG" Id="AEDB3BBF"/>
+            <Parameter Type="Param" Library="HHOG" Id="12A4735F"/>
+        </Element>
+        <Element Type="Param" Id="AEDB3BBF">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HHOG" Id="953E62A8"/>
+        </Element>
+        <Element Type="Param" Id="12A4735F">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="EA7D0437"/>
+        </Element>
+        <Element Type="FunctionCall" Id="EA7D0437">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="998571F2"/>
+            <Parameter Type="Param" Library="HHOG" Id="6FB60934"/>
+            <Parameter Type="Param" Library="HHOG" Id="6BE1DBEF"/>
+            <Parameter Type="Param" Library="HHOG" Id="59851EC5"/>
+            <Parameter Type="Param" Library="HHOG" Id="99A1E16A"/>
+        </Element>
+        <Element Type="Param" Id="6FB60934">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="9F61A04E"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="6BE1DBEF">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="333464F9"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000519"/>
+        </Element>
+        <Element Type="Param" Id="59851EC5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="2C59B9E9"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="6D5B36EF"/>
+        </Element>
+        <Element Type="FunctionCall" Id="6D5B36EF">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="7827DA5C"/>
+        </Element>
+        <Element Type="Param" Id="99A1E16A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="38B9D9B2"/>
+            <Value>VitalArray[0].Change</Value>
+            <ValueType Type="catalogfieldpath"/>
+            <ValueContext Value="CEffectModifyUnit"/>
+            <ValueParam Type="Param" Library="HHOG" Id="6AD24E28"/>
+        </Element>
+        <Element Type="Param" Id="6AD24E28">
+            <Preset Type="PresetValue" Library="Ntve" Id="AD175688"/>
+        </Element>
+        <Element Type="FunctionCall" Id="ECFAE6B6">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="B8C92CDB"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="A1AB0E47"/>
+        </Element>
+        <Element Type="FunctionCall" Id="B8C92CDB">
+            <FunctionDef Type="FunctionDef" Library="HHOG" Id="16BA0CF6"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HHOG" Id="C5FE61ED"/>
+            <Parameter Type="Param" Library="HHOG" Id="82837D29"/>
+            <Parameter Type="Param" Library="HHOG" Id="22DB916D"/>
+        </Element>
+        <Element Type="Param" Id="C5FE61ED">
+            <ParameterDef Type="ParamDef" Library="HHOG" Id="5DAEF86F"/>
+            <Variable Type="Variable" Library="HHOG" Id="A7D1F628"/>
+        </Element>
+        <Element Type="Param" Id="82837D29">
+            <ParameterDef Type="ParamDef" Library="HHOG" Id="969E5ACF"/>
+            <Variable Type="Variable" Library="HHOG" Id="CCD59B67"/>
+        </Element>
+        <Element Type="Param" Id="22DB916D">
+            <ParameterDef Type="ParamDef" Library="HHOG" Id="E97B6750"/>
+            <Variable Type="Variable" Library="HHOG" Id="953E62A8"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A1AB0E47">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000003"/>
+            <Parameter Type="Param" Library="HHOG" Id="92EAF221"/>
+            <Parameter Type="Param" Library="HHOG" Id="C0EF404D"/>
+            <Parameter Type="Param" Library="HHOG" Id="170AC237"/>
+        </Element>
+        <Element Type="Param" Id="92EAF221">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="3DF266CB"/>
+        </Element>
+        <Element Type="FunctionCall" Id="3DF266CB">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C65CC121"/>
+            <Parameter Type="Param" Library="HHOG" Id="65E83E9A"/>
+            <Parameter Type="Param" Library="HHOG" Id="52AA668D"/>
+            <Parameter Type="Param" Library="HHOG" Id="0FD439A0"/>
+        </Element>
+        <Element Type="Param" Id="65E83E9A">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="9ADE2B3B"/>
+            <Variable Type="Variable" Library="HHOG" Id="A7D1F628"/>
+        </Element>
+        <Element Type="Param" Id="52AA668D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="D1035B0C"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000031"/>
+        </Element>
+        <Element Type="Param" Id="0FD439A0">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="D006774F"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="E66C6645"/>
+        </Element>
+        <Element Type="Param" Id="C0EF404D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="684CA9CE"/>
+        </Element>
+        <Element Type="Param" Id="170AC237">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>99.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Trigger" Id="E92AD5B4">
+            <Variable Type="Variable" Library="HHOG" Id="D64C61CA"/>
+            <Variable Type="Variable" Library="HHOG" Id="BAD07738"/>
+            <Variable Type="Variable" Library="HHOG" Id="E9B70CB7"/>
+            <Variable Type="Variable" Library="HHOG" Id="4F3D30F8"/>
+            <Variable Type="Variable" Library="HHOG" Id="4E48C267"/>
+            <Event Type="FunctionCall" Library="HHOG" Id="C1D7A57B"/>
+            <Action Type="FunctionCall" Library="HHOG" Id="6E1CF3AE"/>
+            <Action Type="FunctionCall" Library="HHOG" Id="1884E264"/>
+        </Element>
+        <Element Type="Variable" Id="D64C61CA">
+            <VariableType>
+                <Type Value="unit"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="1E10D978"/>
+        </Element>
+        <Element Type="Param" Id="1E10D978">
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="3BBDF3FA"/>
+        </Element>
+        <Element Type="FunctionCall" Id="3BBDF3FA">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="BADA9C08"/>
+            <Parameter Type="Param" Library="HHOG" Id="2C060745"/>
+        </Element>
+        <Element Type="Param" Id="2C060745">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F6C0132E"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="090AE922"/>
+        </Element>
+        <Element Type="Variable" Id="BAD07738">
+            <VariableType>
+                <Type Value="int"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="9C288877"/>
+        </Element>
+        <Element Type="Param" Id="9C288877">
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="1F21D255"/>
+        </Element>
+        <Element Type="FunctionCall" Id="1F21D255">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000081"/>
+            <Parameter Type="Param" Library="HHOG" Id="E5BB6AD9"/>
+        </Element>
+        <Element Type="Param" Id="E5BB6AD9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000140"/>
+            <Variable Type="Variable" Library="HHOG" Id="D64C61CA"/>
+        </Element>
+        <Element Type="Variable" Id="E9B70CB7">
+            <VariableType>
+                <Type Value="fixed"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="5EE80615"/>
+        </Element>
+        <Element Type="Param" Id="5EE80615">
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="88EC09C8"/>
+        </Element>
+        <Element Type="FunctionCall" Id="88EC09C8">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000129"/>
+            <Parameter Type="Param" Library="HHOG" Id="16206931"/>
+            <Parameter Type="Param" Library="HHOG" Id="9F70B390"/>
+            <Parameter Type="Param" Library="HHOG" Id="6D2FBD31"/>
+        </Element>
+        <Element Type="Param" Id="16206931">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000209"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000087"/>
+        </Element>
+        <Element Type="Param" Id="9F70B390">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000210"/>
+            <Value>-1.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="6D2FBD31">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000208"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="8371B5B6"/>
+        </Element>
+        <Element Type="FunctionCall" Id="8371B5B6">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C65CC121"/>
+            <Parameter Type="Param" Library="HHOG" Id="77AD21AB"/>
+            <Parameter Type="Param" Library="HHOG" Id="0EDE7DD5"/>
+            <Parameter Type="Param" Library="HHOG" Id="317984D3"/>
+        </Element>
+        <Element Type="Param" Id="77AD21AB">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="9ADE2B3B"/>
+            <Variable Type="Variable" Library="HHOG" Id="D64C61CA"/>
+        </Element>
+        <Element Type="Param" Id="0EDE7DD5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="D1035B0C"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000031"/>
+        </Element>
+        <Element Type="Param" Id="317984D3">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="D006774F"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="E66C6645"/>
+        </Element>
+        <Element Type="Variable" Id="4F3D30F8">
+            <VariableType>
+                <Type Value="fixed"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="D1392279"/>
+        </Element>
+        <Element Type="Param" Id="D1392279">
+            <Value>0.0625</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Variable" Id="4E48C267">
+            <VariableType>
+                <Type Value="fixed"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="C476AFE9"/>
+        </Element>
+        <Element Type="Param" Id="C476AFE9">
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="852ECC31"/>
+        </Element>
+        <Element Type="FunctionCall" Id="852ECC31">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000129"/>
+            <Parameter Type="Param" Library="HHOG" Id="8C098E22"/>
+            <Parameter Type="Param" Library="HHOG" Id="E683B49D"/>
+            <Parameter Type="Param" Library="HHOG" Id="263275E9"/>
+        </Element>
+        <Element Type="Param" Id="8C098E22">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000209"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000088"/>
+        </Element>
+        <Element Type="Param" Id="E683B49D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000210"/>
+            <Value>100.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="263275E9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000208"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="9B182597"/>
+        </Element>
+        <Element Type="FunctionCall" Id="9B182597">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000129"/>
+            <Parameter Type="Param" Library="HHOG" Id="0EA5CB63"/>
+            <Parameter Type="Param" Library="HHOG" Id="C9601DBB"/>
+            <Parameter Type="Param" Library="HHOG" Id="2A31B308"/>
+        </Element>
+        <Element Type="Param" Id="0EA5CB63">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000209"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000087"/>
+        </Element>
+        <Element Type="Param" Id="C9601DBB">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000210"/>
+            <Variable Type="Variable" Library="HHOG" Id="4F3D30F8"/>
+        </Element>
+        <Element Type="Param" Id="2A31B308">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000208"/>
+            <Variable Type="Variable" Library="HHOG" Id="E9B70CB7"/>
+        </Element>
+        <Element Type="FunctionCall" Id="C1D7A57B">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="9FFA06A7"/>
+            <Parameter Type="Param" Library="HHOG" Id="8BA5ACC5"/>
+            <Parameter Type="Param" Library="HHOG" Id="94F1DB78"/>
+        </Element>
+        <Element Type="Param" Id="8BA5ACC5">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="44A8E2B6"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="2999701E"/>
+        </Element>
+        <Element Type="Param" Id="94F1DB78">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="6FB1C942"/>
+            <Value>HoggerGnollFrenzyDummyProcSet</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="FunctionCall" Id="6E1CF3AE">
+            <Disabled/>
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000118"/>
+            <Parameter Type="Param" Library="HHOG" Id="D8E660E3"/>
+            <Parameter Type="Param" Library="HHOG" Id="BB8E8647"/>
+            <Parameter Type="Param" Library="HHOG" Id="D5DE72BE"/>
+        </Element>
+        <Element Type="Param" Id="D8E660E3">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="C3CF50B0"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="AEB4446D"/>
+        </Element>
+        <Element Type="Param" Id="BB8E8647">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000187"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000071"/>
+        </Element>
+        <Element Type="Param" Id="D5DE72BE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000186"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="D61B4324"/>
+        </Element>
+        <Element Type="FunctionCall" Id="D61B4324">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="0FF0ADD6"/>
+            <Parameter Type="Param" Library="HHOG" Id="697A394B"/>
+            <Parameter Type="Param" Library="HHOG" Id="C3B98C13"/>
+        </Element>
+        <Element Type="Param" Id="697A394B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0A06ABFD"/>
+            <Variable Type="Variable" Library="HHOG" Id="4E48C267"/>
+        </Element>
+        <Element Type="Param" Id="C3B98C13">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="D2E5A641"/>
+            <Value>4</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionCall" Id="1884E264">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000137"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="F68CCEB0"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="50867A26"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="3EAF40AF"/>
+        </Element>
+        <Element Type="FunctionCall" Id="F68CCEB0">
+            <FunctionDef Type="FunctionDef" Library="Game" Id="D4CE11D5"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000004"/>
+            <Parameter Type="Param" Library="HHOG" Id="3DB381E8"/>
+            <Parameter Type="Param" Library="HHOG" Id="F79FEAC8"/>
+            <Parameter Type="Param" Library="HHOG" Id="A83056A4"/>
+            <Parameter Type="Param" Library="HHOG" Id="8C5D844F"/>
+            <Parameter Type="Param" Library="HHOG" Id="70D936BC"/>
+        </Element>
+        <Element Type="Param" Id="3DB381E8">
+            <ParameterDef Type="ParamDef" Library="Game" Id="F41AEF0D"/>
+            <Variable Type="Variable" Library="HHOG" Id="D64C61CA"/>
+        </Element>
+        <Element Type="Param" Id="F79FEAC8">
+            <ParameterDef Type="ParamDef" Library="Game" Id="6034887E"/>
+            <Value>false</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="Param" Id="A83056A4">
+            <ParameterDef Type="ParamDef" Library="Game" Id="B6E1E440"/>
+            <Value>true</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="Param" Id="8C5D844F">
+            <ParameterDef Type="ParamDef" Library="Game" Id="57A69CBD"/>
+            <Value>false</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="Param" Id="70D936BC">
+            <ParameterDef Type="ParamDef" Library="Game" Id="AD76373B"/>
+            <Variable Type="Variable" Library="HHOG" Id="4E48C267"/>
+        </Element>
+        <Element Type="FunctionCall" Id="50867A26">
+            <FunctionDef Type="FunctionDef" Library="Game" Id="D4CE11D5"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000005"/>
+            <Parameter Type="Param" Library="HHOG" Id="0B116D70"/>
+            <Parameter Type="Param" Library="HHOG" Id="B573F9AE"/>
+            <Parameter Type="Param" Library="HHOG" Id="826CA238"/>
+            <Parameter Type="Param" Library="HHOG" Id="DF9269DB"/>
+            <Parameter Type="Param" Library="HHOG" Id="A21EEA2A"/>
+        </Element>
+        <Element Type="Param" Id="0B116D70">
+            <ParameterDef Type="ParamDef" Library="Game" Id="F41AEF0D"/>
+            <Variable Type="Variable" Library="HHOG" Id="D64C61CA"/>
+        </Element>
+        <Element Type="Param" Id="B573F9AE">
+            <ParameterDef Type="ParamDef" Library="Game" Id="6034887E"/>
+            <Value>false</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="Param" Id="826CA238">
+            <ParameterDef Type="ParamDef" Library="Game" Id="B6E1E440"/>
+            <Value>false</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="Param" Id="DF9269DB">
+            <ParameterDef Type="ParamDef" Library="Game" Id="57A69CBD"/>
+            <Value>false</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="Param" Id="A21EEA2A">
+            <ParameterDef Type="ParamDef" Library="Game" Id="AD76373B"/>
+            <Variable Type="Variable" Library="HHOG" Id="4E48C267"/>
+        </Element>
+        <Element Type="FunctionCall" Id="3EAF40AF">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000003"/>
+            <Parameter Type="Param" Library="HHOG" Id="2E9A9B5C"/>
+            <Parameter Type="Param" Library="HHOG" Id="F144303B"/>
+            <Parameter Type="Param" Library="HHOG" Id="BC3FE835"/>
+        </Element>
+        <Element Type="Param" Id="2E9A9B5C">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="CEF26565"/>
+        </Element>
+        <Element Type="FunctionCall" Id="CEF26565">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="998A01FC"/>
+            <Parameter Type="Param" Library="HHOG" Id="6C66B4B7"/>
+            <Parameter Type="Param" Library="HHOG" Id="45F9C66B"/>
+        </Element>
+        <Element Type="Param" Id="6C66B4B7">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="C953F3CF"/>
+            <Variable Type="Variable" Library="HHOG" Id="BAD07738"/>
+        </Element>
+        <Element Type="Param" Id="45F9C66B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="5D378343"/>
+            <Value>HoggerPowerSpike</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Talent"/>
+        </Element>
+        <Element Type="Param" Id="F144303B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="BC3FE835">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>true</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="Category" Id="C7A08852">
+            <Item Type="Trigger" Library="HHOG" Id="E749A255"/>
+            <Item Type="Trigger" Library="HHOG" Id="779BABB7"/>
+            <Item Type="Variable" Library="HHOG" Id="2E2213F7"/>
+        </Element>
+        <Element Type="Trigger" Id="E749A255">
+            <InitOff/>
+            <Variable Type="Variable" Library="HHOG" Id="5C663AA9"/>
+            <Variable Type="Variable" Library="HHOG" Id="0B57AF04"/>
+            <Event Type="FunctionCall" Library="HHOG" Id="918BF6DA"/>
+            <Condition Type="FunctionCall" Library="HHOG" Id="61F66D1C"/>
+            <Action Type="FunctionCall" Library="HHOG" Id="03A57EBC"/>
+            <Action Type="FunctionCall" Library="HHOG" Id="A38B6BCA"/>
+        </Element>
+        <Element Type="Variable" Id="5C663AA9">
+            <VariableType>
+                <Type Value="unit"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="13953716"/>
+        </Element>
+        <Element Type="Param" Id="13953716">
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="EB1BFF17"/>
+        </Element>
+        <Element Type="FunctionCall" Id="EB1BFF17">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000092"/>
+        </Element>
+        <Element Type="Variable" Id="0B57AF04">
+            <VariableType>
+                <Type Value="point"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="CA5ED6E9"/>
+        </Element>
+        <Element Type="Param" Id="CA5ED6E9">
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="AE884977"/>
+        </Element>
+        <Element Type="FunctionCall" Id="AE884977">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="576D2D08"/>
+            <Parameter Type="Param" Library="HHOG" Id="03888A24"/>
+            <Parameter Type="Param" Library="HHOG" Id="D6175CC2"/>
+            <Parameter Type="Param" Library="HHOG" Id="96D2A09B"/>
+            <Parameter Type="Param" Library="HHOG" Id="4E827208"/>
+            <Parameter Type="Param" Library="HHOG" Id="8D4754F3"/>
+        </Element>
+        <Element Type="Param" Id="03888A24">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="CA1F9218"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="7B08EDA6"/>
+        </Element>
+        <Element Type="FunctionCall" Id="7B08EDA6">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000079"/>
+            <Parameter Type="Param" Library="HHOG" Id="979D0E1B"/>
+        </Element>
+        <Element Type="Param" Id="979D0E1B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000138"/>
+            <Variable Type="Variable" Library="HHOG" Id="5C663AA9"/>
+        </Element>
+        <Element Type="Param" Id="D6175CC2">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="16A9CB53"/>
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="Param" Id="96D2A09B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="9906BAE9"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="866F49DA"/>
+        </Element>
+        <Element Type="FunctionCall" Id="866F49DA">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000083"/>
+            <Parameter Type="Param" Library="HHOG" Id="1A17A3F1"/>
+        </Element>
+        <Element Type="Param" Id="1A17A3F1">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000144"/>
+            <Variable Type="Variable" Library="HHOG" Id="5C663AA9"/>
+        </Element>
+        <Element Type="Param" Id="4E827208">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="EB366FFD"/>
+            <Value>5.0</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="8D4754F3">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="89C44EAD"/>
+            <ValueType Type="preset"/>
+            <ValueElement Type="Preset" Library="Ntve" Id="7B0AE019"/>
+            <ValuePreset Type="PresetValue" Library="Ntve" Id="707FEE86"/>
+        </Element>
+        <Element Type="FunctionCall" Id="918BF6DA">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="3C0566C4"/>
+            <Parameter Type="Param" Library="HHOG" Id="172AE63B"/>
+            <Parameter Type="Param" Library="HHOG" Id="CB6E68E1"/>
+            <Parameter Type="Param" Library="HHOG" Id="8D696408"/>
+        </Element>
+        <Element Type="Param" Id="172AE63B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F3A8B0DC"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="C84C7A78"/>
+        </Element>
+        <Element Type="Param" Id="CB6E68E1">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="1CDCC284"/>
+            <Value>HoggerHoggWildBailOutStack</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="8D696408">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="3029CA3C"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00F337BD"/>
+        </Element>
+        <Element Type="FunctionCall" Id="61F66D1C">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HHOG" Id="A39FE17D"/>
+            <Parameter Type="Param" Library="HHOG" Id="A1A518C1"/>
+            <Parameter Type="Param" Library="HHOG" Id="196AD909"/>
+        </Element>
+        <Element Type="Param" Id="A39FE17D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="8A522CF4"/>
+        </Element>
+        <Element Type="FunctionCall" Id="8A522CF4">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000386"/>
+            <Parameter Type="Param" Library="HHOG" Id="9C6E2A23"/>
+            <Parameter Type="Param" Library="HHOG" Id="D7D70E15"/>
+        </Element>
+        <Element Type="Param" Id="9C6E2A23">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000765"/>
+            <Variable Type="Variable" Library="HHOG" Id="5C663AA9"/>
+        </Element>
+        <Element Type="Param" Id="D7D70E15">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000766"/>
+            <Value>HoggerHoggWildBailOutStack</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="A1A518C1">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="196AD909">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>3</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionCall" Id="03A57EBC">
+            <Disabled/>
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000118"/>
+            <Parameter Type="Param" Library="HHOG" Id="245B07DB"/>
+            <Parameter Type="Param" Library="HHOG" Id="BAE292D9"/>
+            <Parameter Type="Param" Library="HHOG" Id="989CFD37"/>
+        </Element>
+        <Element Type="Param" Id="245B07DB">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="C3CF50B0"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="AEB4446D"/>
+        </Element>
+        <Element Type="Param" Id="BAE292D9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000187"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000071"/>
+        </Element>
+        <Element Type="Param" Id="989CFD37">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000186"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="EEBA38F5"/>
+        </Element>
+        <Element Type="FunctionCall" Id="EEBA38F5">
+            <FunctionDef Type="FunctionDef" Library="Core" Id="677BCF15"/>
+            <Parameter Type="Param" Library="HHOG" Id="25C7BD5D"/>
+        </Element>
+        <Element Type="Param" Id="25C7BD5D">
+            <ParameterDef Type="ParamDef" Library="Core" Id="1C145074"/>
+            <Variable Type="Variable" Library="HHOG" Id="0B57AF04"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A38B6BCA">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="6263AB61"/>
+            <Parameter Type="Param" Library="HHOG" Id="01EA07E0"/>
+            <Parameter Type="Param" Library="HHOG" Id="ED626BFE"/>
+            <Parameter Type="Param" Library="HHOG" Id="3E99C385"/>
+        </Element>
+        <Element Type="Param" Id="01EA07E0">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A43AFC2"/>
+            <Variable Type="Variable" Library="HHOG" Id="5C663AA9"/>
+        </Element>
+        <Element Type="Param" Id="ED626BFE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="0054BBD3"/>
+            <Value>HoggerHoggWildBailoutSet</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="Param" Id="3E99C385">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="AD458092"/>
+            <Variable Type="Variable" Library="HHOG" Id="0B57AF04"/>
+        </Element>
+        <Element Type="Trigger" Id="779BABB7">
+            <InitOff/>
+            <Variable Type="Variable" Library="HHOG" Id="BAB8B465"/>
+            <Variable Type="Variable" Library="HHOG" Id="91DA3750"/>
+            <Event Type="FunctionCall" Library="HHOG" Id="5DDA896E"/>
+            <Condition Type="FunctionCall" Library="HHOG" Id="CF7A3940"/>
+            <Condition Type="FunctionCall" Library="HHOG" Id="E4824712"/>
+            <Condition Type="FunctionCall" Library="HHOG" Id="09D90F0A"/>
+            <Condition Type="FunctionCall" Library="HHOG" Id="A173AEDC"/>
+            <Action Type="FunctionCall" Library="HHOG" Id="8E5D1B5D"/>
+            <Action Type="FunctionCall" Library="HHOG" Id="A65CD691"/>
+            <Action Type="FunctionCall" Library="HHOG" Id="06829490"/>
+            <Action Type="FunctionCall" Library="HHOG" Id="8FA4197F"/>
+        </Element>
+        <Element Type="Variable" Id="BAB8B465">
+            <VariableType>
+                <Type Value="unit"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="993E1B15"/>
+        </Element>
+        <Element Type="Param" Id="993E1B15">
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="6336054B"/>
+        </Element>
+        <Element Type="FunctionCall" Id="6336054B">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000092"/>
+        </Element>
+        <Element Type="Variable" Id="91DA3750">
+            <VariableType>
+                <Type Value="int"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="19842BAD"/>
+        </Element>
+        <Element Type="Param" Id="19842BAD">
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="B568DF3E"/>
+        </Element>
+        <Element Type="FunctionCall" Id="B568DF3E">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000081"/>
+            <Parameter Type="Param" Library="HHOG" Id="7CF9670D"/>
+        </Element>
+        <Element Type="Param" Id="7CF9670D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000140"/>
+            <Variable Type="Variable" Library="HHOG" Id="BAB8B465"/>
+        </Element>
+        <Element Type="FunctionCall" Id="5DDA896E">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="6D29DCBA"/>
+            <Parameter Type="Param" Library="HHOG" Id="70154FC4"/>
+            <Parameter Type="Param" Library="HHOG" Id="485FD32B"/>
+        </Element>
+        <Element Type="Param" Id="70154FC4">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="E8C1A535"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="C84C7A78"/>
+        </Element>
+        <Element Type="Param" Id="485FD32B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="427B2830"/>
+            <Value>HoggerCancelHoggWild</Value>
+            <ValueType Type="abilcmd"/>
+        </Element>
+        <Element Type="FunctionCall" Id="CF7A3940">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HHOG" Id="0B02DAFC"/>
+            <Parameter Type="Param" Library="HHOG" Id="3939C0E8"/>
+            <Parameter Type="Param" Library="HHOG" Id="0DC35BEA"/>
+        </Element>
+        <Element Type="Param" Id="0B02DAFC">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HHOG" Id="2E2213F7"/>
+            <Array Type="Param" Library="HHOG" Id="3BCDC0D8"/>
+        </Element>
+        <Element Type="Param" Id="3BCDC0D8">
+            <Variable Type="Variable" Library="HHOG" Id="91DA3750"/>
+        </Element>
+        <Element Type="Param" Id="3939C0E8">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="0DC35BEA">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>false</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="FunctionCall" Id="E4824712">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HHOG" Id="9EF64854"/>
+            <Parameter Type="Param" Library="HHOG" Id="8C2947B0"/>
+            <Parameter Type="Param" Library="HHOG" Id="797D6646"/>
+        </Element>
+        <Element Type="Param" Id="9EF64854">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HHOG" Id="91DA3750"/>
+        </Element>
+        <Element Type="Param" Id="8C2947B0">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="40567BEE"/>
+        </Element>
+        <Element Type="Param" Id="797D6646">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>0</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionCall" Id="09D90F0A">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <Parameter Type="Param" Library="HHOG" Id="1E3100C9"/>
+            <Parameter Type="Param" Library="HHOG" Id="C043A9DE"/>
+            <Parameter Type="Param" Library="HHOG" Id="F5BDF5AC"/>
+        </Element>
+        <Element Type="Param" Id="1E3100C9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <Variable Type="Variable" Library="HHOG" Id="91DA3750"/>
+        </Element>
+        <Element Type="Param" Id="C043A9DE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="E123C832"/>
+        </Element>
+        <Element Type="Param" Id="F5BDF5AC">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Variable Type="Variable" Library="Core" Id="2BFE1B33"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A173AEDC">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000133"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="FF5284F5"/>
+        </Element>
+        <Element Type="FunctionCall" Id="FF5284F5">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="C439C375"/>
+            <SubFunctionType Type="SubFuncType" Library="Ntve" Id="00000001"/>
+            <Parameter Type="Param" Library="HHOG" Id="9F5B9D76"/>
+            <Parameter Type="Param" Library="HHOG" Id="D7B54AC0"/>
+            <Parameter Type="Param" Library="HHOG" Id="5D5F062B"/>
+        </Element>
+        <Element Type="Param" Id="9F5B9D76">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="ABB380C4"/>
+            <FunctionCall Type="FunctionCall" Library="HHOG" Id="F04E5C97"/>
+        </Element>
+        <Element Type="FunctionCall" Id="F04E5C97">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000386"/>
+            <Parameter Type="Param" Library="HHOG" Id="64385880"/>
+            <Parameter Type="Param" Library="HHOG" Id="AB30DE05"/>
+        </Element>
+        <Element Type="Param" Id="64385880">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000766"/>
+            <Value>HoggerHoggWildCasterBuff</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Behavior"/>
+        </Element>
+        <Element Type="Param" Id="AB30DE05">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000765"/>
+            <Variable Type="Variable" Library="HHOG" Id="BAB8B465"/>
+        </Element>
+        <Element Type="Param" Id="D7B54AC0">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="51567265"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="1E7A4625"/>
+        </Element>
+        <Element Type="Param" Id="5D5F062B">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="4A15EC5F"/>
+            <Value>1</Value>
+            <ValueType Type="int"/>
+        </Element>
+        <Element Type="FunctionCall" Id="8E5D1B5D">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <Parameter Type="Param" Library="HHOG" Id="569CE20E"/>
+            <Parameter Type="Param" Library="HHOG" Id="C422B38D"/>
+        </Element>
+        <Element Type="Param" Id="569CE20E">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HHOG" Id="2E2213F7"/>
+            <Array Type="Param" Library="HHOG" Id="F3705E14"/>
+        </Element>
+        <Element Type="Param" Id="F3705E14">
+            <Variable Type="Variable" Library="HHOG" Id="91DA3750"/>
+        </Element>
+        <Element Type="Param" Id="C422B38D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <Value>true</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="FunctionCall" Id="A65CD691">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="E50A5244"/>
+            <Parameter Type="Param" Library="HHOG" Id="2AB5F0A2"/>
+            <Parameter Type="Param" Library="HHOG" Id="D274F732"/>
+            <Parameter Type="Param" Library="HHOG" Id="373EE3D9"/>
+            <Parameter Type="Param" Library="HHOG" Id="BBFF06CE"/>
+            <Parameter Type="Param" Library="HHOG" Id="667CDEAF"/>
+        </Element>
+        <Element Type="Param" Id="2AB5F0A2">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="E4855579"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000510"/>
+        </Element>
+        <Element Type="Param" Id="D274F732">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="9E74363B"/>
+            <Value>HoggerCancelWhirlwind</Value>
+            <ValueType Type="catalogentry"/>
+        </Element>
+        <Element Type="Param" Id="373EE3D9">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="F8C601EF"/>
+            <Value>HoggerCancelHoggWildInitialSet</Value>
+            <ValueType Type="gamelink"/>
+            <ValueGameType Type="Effect"/>
+        </Element>
+        <Element Type="Param" Id="BBFF06CE">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="120BB893"/>
+            <Variable Type="Variable" Library="HHOG" Id="BAB8B465"/>
+        </Element>
+        <Element Type="Param" Id="667CDEAF">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="3458B56F"/>
+            <Variable Type="Variable" Library="HHOG" Id="BAB8B465"/>
+        </Element>
+        <Element Type="FunctionCall" Id="06829490">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000242"/>
+            <Parameter Type="Param" Library="HHOG" Id="DCACCACF"/>
+            <Parameter Type="Param" Library="HHOG" Id="528346CB"/>
+        </Element>
+        <Element Type="Param" Id="DCACCACF">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000419"/>
+            <Value>0.0625</Value>
+            <ValueType Type="fixed"/>
+        </Element>
+        <Element Type="Param" Id="528346CB">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000420"/>
+            <Preset Type="PresetValue" Library="Ntve" Id="00000013"/>
+        </Element>
+        <Element Type="FunctionCall" Id="8FA4197F">
+            <FunctionDef Type="FunctionDef" Library="Ntve" Id="00000136"/>
+            <Parameter Type="Param" Library="HHOG" Id="3927790D"/>
+            <Parameter Type="Param" Library="HHOG" Id="EC579096"/>
+        </Element>
+        <Element Type="Param" Id="3927790D">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000219"/>
+            <Variable Type="Variable" Library="HHOG" Id="2E2213F7"/>
+            <Array Type="Param" Library="HHOG" Id="C645F81A"/>
+        </Element>
+        <Element Type="Param" Id="C645F81A">
+            <Variable Type="Variable" Library="HHOG" Id="91DA3750"/>
+        </Element>
+        <Element Type="Param" Id="EC579096">
+            <ParameterDef Type="ParamDef" Library="Ntve" Id="00000220"/>
+            <Value>false</Value>
+            <ValueType Type="bool"/>
+        </Element>
+        <Element Type="Variable" Id="2E2213F7">
+            <VariableType>
+                <Type Value="bool"/>
+                <ArraySize Dim="0" Type="Variable" Library="Core" Id="2BFE1B33"/>
+            </VariableType>
+            <Value Type="Param" Library="HHOG" Id="64F3F863"/>
+        </Element>
+        <Element Type="Param" Id="64F3F863">
+            <Value>false</Value>
+            <ValueType Type="bool"/>
+        </Element>
+    </Library>
+</TriggerData>

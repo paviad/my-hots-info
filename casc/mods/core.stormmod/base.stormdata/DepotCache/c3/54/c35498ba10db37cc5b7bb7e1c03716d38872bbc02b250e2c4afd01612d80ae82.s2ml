@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Bójka Żądnych Krwi</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">Default</e>
+    <e id="4">Bójka Żądnych Krwi</e>
+    <e id="5">Bohaterowie zmagają się w Smoczych Włościach i co jakiś czas zostają losowo objęci działaniem Żądzy Krwi. Wyzwólcie swój gniew!</e>
+    <e id="6">Przebudźcie Smoczego Rycerza</e>
+    <e id="7">Przejmijcie kontrolę nad obiema kapliczkami jednocześnie, aby Smoczy Rycerz stanął do walki po waszej stronie!</e>
+    <e id="8">Żądza Krwi</e>
+    <e id="9">Dwoje losowych bohaterów w każdej z drużyn będzie otrzymywać w regularnych odstępach czasu tymczasową premię do szybkości ataku i ruchu oraz będą odzyskiwać zdrowie podczas wykonywania ataków podstawowych.</e>
+    <e id="10">Losowy wybór</e>
+    <e id="11">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="12">Dodatkowe informacje</e>
+    <e id="13">Smoczy Rycerz, najemnicy i wszyscy stronnicy zawsze znajdują się pod wpływem Żądzy Krwi.</e>
+    <e id="14">Istnieje niewielka szansa, że wszyscy bohaterowie w obu drużynach zostaną objęci działaniem Żądzy Krwi.</e>
+    <e id="15">Po upływie 17 minut wszyscy bohaterowie zostaną na stałe objęci działaniem Żądzy Krwi.</e>
+</Locale>

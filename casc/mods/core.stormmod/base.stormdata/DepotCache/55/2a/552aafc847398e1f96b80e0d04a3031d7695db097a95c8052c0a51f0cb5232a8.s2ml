@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Mutación Halloween</e>
+    <e id="2">¡Truco o trato! ¡Pies chamuscados! ¡Apagad las llamas o estaréis condenados!</e>
+    <e id="3">TowersOfDoom</e>
+    <e id="4">Halloween</e>
+    <e id="5">Preparaos bien o sufrid las consecuencias... ¡El Jinete desciende sobre estas tierras!</e>
+    <e id="6">Núcleo protegido</e>
+    <e id="7">Los jugadores no pueden atacar el núcleo de forma directa.</e>
+    <e id="8">¡Espeluznante!</e>
+    <e id="9">El Jinete lanzará de forma periódica varias calabazas por todo el campo de batalla.</e>
+    <e id="10">Al destruir una calabaza o matar a un enemigo, se inflige daño al núcleo del enemigo.</e>
+    <e id="11">Selección entre héroes aleatorios</e>
+    <e id="12">Elegid a uno de entre los tres héroes seleccionados al azar. Existe una pequeña posibilidad de que todos los jugadores sean el mismo héroe.</e>
+    <e id="13">Trucos y tratos</e>
+    <e id="14">Aplastar una calabaza también otorga a los jugadores un truco o un trato aleatorio. ¡Buena suerte!</e>
+    <e id="15">El tiempo de reaparición es de 5 segundos para todo el mundo.</e>
+</Locale>

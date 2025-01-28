@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Mutador Contienda nevada</e>
+    <e id="2">Completamente falto de descripción.</e>
+    <e id="3">SnowBrawl</e>
+    <e id="4">Contienda nevada</e>
+    <e id="5">¡Ha llegado el invierno a la Hondonada maldita! ¡Lanza unas cuantas bolas de nieve y recoge los regalos de Lord Cuervo!</e>
+    <e id="6">Recoge tributos</e>
+    <e id="7">¡Recoge tributos nevados para lanzar bolas de nieve enormes a las fortificaciones enemigas! </e>
+    <e id="8">Bolas de nieve</e>
+    <e id="9">Junta bolas de nieve y lánzalas (F) para causar más daño.</e>
+    <e id="10">Los muñecos de nieve incompletos se forman periódicamente en el campo de batalla. Usa bolas de nieve para completarlos.</e>
+    <e id="11">Preselección</e>
+    <e id="12">Elige a uno de los tres héroes seleccionados aleatoriamente. Solo tienes 30 segundos. ¡Piensa rápido!</e>
+    <e id="13">Información adicional</e>
+    <e id="14">Los tributos nevados aparecen rápidamente uno tras otro.</e>
+    <e id="15">Las bolas de nieve aparecen cerca de héroes, edificaciones, tributos y esferas de regeneración.</e>
+    <e id="16">Las bolas de nieve ligeras repelen a los héroes enemigos. </e>
+    <e id="17">Las bolas de nieve pesadas ralentizan a los enemigos e infligen el doble de daño a los esbirros y estructuras.</e>
+    <e id="18">Una vez completados, los muñecos de nieve te seguirán y lucharán a tu lado.</e>
+</Locale>

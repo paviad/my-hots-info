@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Arena del Templo</e>
+    <e id="2">¡Varios héroes de Blizzard se encuentran y se enfrentan en un épico campo de batalla galáctico!</e>
+    <e id="3">(Storm) Luxoria</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de partida no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">SkyTempleSimple</e>
+    <e id="9">Arena del Templo</e>
+    <e id="10">Una trifulca estilo &quot;rey de la colina&quot; donde el equipo que más tiempo controle los templos gana.</e>
+    <e id="11">Mejor de 3 rondas en la Arena del Templo</e>
+    <e id="12">Destruid el núcleo del enemigo para ganar una ronda.</e>
+    <e id="13">Reclamad templos</e>
+    <e id="14">Reclamad templos para atacar el núcleo del enemigo.</e>
+    <e id="15">Selección entre héroes aleatorios</e>
+    <e id="16">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="17">Información adicional</e>
+    <e id="18">Las esferas de regeneración son el doble de eficaces.</e>
+    <e id="19">Existe una pequeña posibilidad de que todos los jugadores sean el mismo héroe.</e>
+</Locale>

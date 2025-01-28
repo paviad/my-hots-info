@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Le baroud du mort</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">Zion</e>
+    <e id="4">Survie</e>
+    <e id="5">Restez en vie aussi longtemps que possible au milieu de hordes d’ennemis.</e>
+    <e id="6">Coopération</e>
+    <e id="7">Alliez-vous avec d’autres joueurs.</e>
+    <e id="8">DMSN</e>
+    <e id="9">Le baroud du mort</e>
+    <e id="10">La couvée oméga envahit la planète ! Repoussez-la jusqu’à ce que le disrupteur psi soit activé.</e>
+    <e id="11">Défendez la base</e>
+    <e id="12">La couvée oméga envahit la planète ! Repoussez-la jusqu’à ce que le disrupteur psi soit activé.</e>
+    <e id="13">Couvée oméga</e>
+    <e id="14">Des vagues de Zergs toujours plus puissantes attaqueront votre base.</e>
+    <e id="15">Certaines vagues comprendront parfois des héros adverses particulièrement puissants aux capacités renforcées.</e>
+    <e id="16">Des Archanges contaminés tenteront parfois de bombarder votre base. Ils doivent être détruits !</e>
+    <e id="17">Héros triés sur le volet</e>
+    <e id="18">Choisissez un héros parmi une sélection spécifique.</e>
+    <e id="19">Informations supplémentaires</e>
+    <e id="20">Les héros commencent au niveau 10 et en gagnent de nouveaux chaque fois qu’ils tuent un Archange. Certains talents ne peuvent être sélectionnés.</e>
+    <e id="21">Pas de réapparition. À leur mort, les héros doivent être ressuscités par un coéquipier. La partie prend fin si tous les héros de l’équipe sont morts.</e>
+    <e id="22">Les héros peuvent ramasser des objets qui leur confèrent des capacités supplémentaires. Un héros ne peut détenir qu’un objet à la fois.</e>
+    <e id="23">Les pierres de foyer sont désactivées.</e>
+</Locale>

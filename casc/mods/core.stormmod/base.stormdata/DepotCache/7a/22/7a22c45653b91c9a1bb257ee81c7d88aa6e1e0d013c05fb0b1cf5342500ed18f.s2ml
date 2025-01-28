@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Punisher Arena</e>
+    <e id="2">A wide array of Blizzard Heroes meet and do battle in an epic, galactic arena!</e>
+    <e id="3">Other</e>
+    <e id="4">Unclassified game type.</e>
+    <e id="5">Standard</e>
+    <e id="6">Players can choose their Heroes.</e>
+    <e id="7">ShrinesSimple</e>
+    <e id="8">Punisher Arena</e>
+    <e id="9">A no holds barred battle between Heroes and Punishers. Takedown your enemies to finish the fight.</e>
+    <e id="10">Best of 3 rounds on Punisher Arena</e>
+    <e id="11">The First team to win 2 rounds claims victory</e>
+    <e id="12">First to 100 Points Wins</e>
+    <e id="13">Punishers are worth 10 points</e>
+    <e id="14">Heroes are worth 4 points</e>
+    <e id="15">Shuffle Pick</e>
+    <e id="16">Choose from one of three randomly selected heroes. You only have 30 seconds, so think fast!</e>
+    <e id="17">Additional Info</e>
+    <e id="18">There&apos;s a small chance of all players being the same Hero</e>
+</Locale>

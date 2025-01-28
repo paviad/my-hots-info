@@ -9,3 +9,5 @@ Ocr/build/
 *.traineddata
 BugRepro/
 publish/
+packages/
+.vscode/

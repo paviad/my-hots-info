@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Campi d&apos;Addestramento</e>
+    <e id="2">Le forze del Nexus hanno preso il controllo della Fonderia Volskaya. Combattete fino alla morte per ottenere le ricompense!</e>
+    <e id="3">Altro</e>
+    <e id="4">Tipo di gioco non classificato.</e>
+    <e id="5">Standard</e>
+    <e id="6">I giocatori possono scegliere i propri eroi.</e>
+    <e id="7">TrialGrounds</e>
+    <e id="8">Zona di Addestramento</e>
+    <e id="9">Katya Volskaya sta sperimentando i poteri del Nexus. Impossessatevi dei suoi armamenti sperimentali e sconfiggete gli avversari.</e>
+    <e id="10">Eliminazione</e>
+    <e id="11">Sconfiggete tutti gli avversari per vincere un round. La prima squadra che vince due round vince la partita.</e>
+    <e id="12">Armi sperimentali</e>
+    <e id="13">Dopo 30 secondi, un obiettivo casuale è generato al centro del campo di battaglia. State pronti a tutto!</e>
+    <e id="14">Conquistate l&apos;obiettivo per ottenere un significativo vantaggio sugli avversari.</e>
+    <e id="15">Alcuni obiettivi provengono da altri campi di battaglia, altri sono nuovi!</e>
+    <e id="16">Siamo tutti uguali</e>
+    <e id="17">Tutti i giocatori utilizzano lo stesso eroe. L&apos;eroe selezionato cambia a ogni round.</e>
+    <e id="18">Info aggiuntive</e>
+    <e id="19">Nessuna resurrezione. Ogni eroe ha una vita per round.</e>
+    <e id="20">Se tutti i membri della squadra muoiono, il round è perso.</e>
+</Locale>

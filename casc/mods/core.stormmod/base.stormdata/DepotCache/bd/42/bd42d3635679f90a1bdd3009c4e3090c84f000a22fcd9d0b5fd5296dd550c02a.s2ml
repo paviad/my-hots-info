@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Kufry Umarlaka</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">BlackHeartsBay</e>
+    <e id="4">Kufry Umarlaka</e>
+    <e id="5">Czarnosercy już się szykuje, rybeńki! Jako pierwsi zapłaćcie mu 100 monet, a będzie ostrzeliwał bazę wroga, aż ją zniszczy. Zapłaćcie, aby wygrać!</e>
+    <e id="6">Zniszcz bazę</e>
+    <e id="7">Monety można oddawać Czarnosercemu w dowolnym momencie aż do chwili, gdy jedna z drużyn przekaże mu ich 100. Bazy można atakować i niszczyć bez konieczności płacenia kapitanowi piratów.</e>
+    <e id="8">Nieustraszeni łowcy przygód</e>
+    <e id="9">Jednocześnie pojawiają się dwie skrzynie. Co kilka sekund są one ostrzeliwane kulami armatnimi.</e>
+    <e id="10">Nie pojawiają się obozy z dublonami – zamiast tego najemnicy i bossowie upuszczają dodatkowe monety. Po zniszczeniu fortów i twierdz również pojawiają się monety.</e>
+    <e id="11">Losowy wybór</e>
+    <e id="12">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="13">Dodatkowe informacje</e>
+    <e id="14">Skrzynie pojawiają się częściej niż zazwyczaj w z góry ustalonych miejscach.</e>
+    <e id="15">Niektóre skrzynie są większe od pozostałych i skrywają dodatkowe monety.</e>
+    <e id="16">Po opróżnieniu wszystkich aktywnych skrzyń następuje trzydziestosekundowa przerwa, zanim pojawią się kolejne dwie skrzynie.</e>
+</Locale>

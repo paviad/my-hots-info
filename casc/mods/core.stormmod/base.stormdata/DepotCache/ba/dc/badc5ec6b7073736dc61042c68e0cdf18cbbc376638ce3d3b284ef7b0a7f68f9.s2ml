@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Gorączka minerałów</e>
+    <e id="2">Dane i wyzwalacze: Gorączka minerałów</e>
+    <e id="3">default</e>
+    <e id="4">Braxis Outpost</e>
+    <e id="5">Gorączka minerałów</e>
+    <e id="6">Jest tu miejsce tylko na jedną placówkę wydobywczą! Zbieraj minerały i wykorzystaj ich moc, aby zmiażdżyć konkurencję!</e>
+    <e id="7">Zniszcz bazę</e>
+    <e id="8">Aby zwyciężyć, zrównaj z ziemią bazę wroga.</e>
+    <e id="9">Potrzebujesz więcej minerałów</e>
+    <e id="10">Zabijaj ERK i zbieraj upuszczone przez nie minerały.</e>
+    <e id="11">ERK są chronione tak długo, jak żyje powiązany z nimi stronnik.</e>
+    <e id="12">Zebranie wystarczającej liczby minerałów zapewnia na pewien czas potężną aurę Przeciążenia.</e>
+    <e id="13">Losowy wybór</e>
+    <e id="14">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="15">Dodatkowe informacje</e>
+    <e id="16">W chwili śmierci tracisz połowę zebranych minerałów.</e>
+    <e id="17">Przeciążenie unieszkodliwia wrogie budowle, zabija wrogich stronników i rani wrogich bohaterów.</e>
+    <e id="18">Bohaterowie pod wpływem Przeciążenia co jakiś czas upuszczają minerały, które mogą zebrać przeciwnicy.</e>
+    <e id="19">Minerały znikają z czasem, więc musisz je zbierać szybko i sprawnie!</e>
+    <e id="20">Kamienie Powrotu (B) zostały dezaktywowane. Nie odzyskujesz zdrowia na obszarze startowym.</e>
+</Locale>

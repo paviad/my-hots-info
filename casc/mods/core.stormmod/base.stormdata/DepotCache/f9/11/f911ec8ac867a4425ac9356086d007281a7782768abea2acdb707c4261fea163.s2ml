@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Mutageno - Consegna Speciale</e>
+    <e id="2">Completamente mancante di qualunque descrizione.</e>
+    <e id="3">Default</e>
+    <e id="4">Consegna Speciale</e>
+    <e id="5">Due squadre composte da Tracer si affrontano mentre scortano i rispettivi carichi. Il tempo è dalla parte di tutti!</e>
+    <e id="6">Distruggete il nucleo nemico</e>
+    <e id="7">Non è possibile attaccare direttamente il nucleo. È possibile danneggiarlo solo con i boss, i carichi e uccidendo gli eroi nemici.</e>
+    <e id="8">Bombardamento a Tappeto</e>
+    <e id="9">Uccidere un eroe nemico infligge 1 danno al nucleo. Uccidere un eroe nemico con Bomba a Impulsi infligge 2 danni al nucleo.</e>
+    <e id="10">Tutti sono Tracer</e>
+    <e id="11">Tutti i giocatori utilizzano Tracer.</e>
+    <e id="12">Info aggiuntive</e>
+    <e id="13">Integrità del nucleo, potenziamento e danni del carico sono aumentati del 400%.</e>
+    <e id="14">I giocatori partono dal livello 20.</e>
+    <e id="15">Tracer parte con Flashback Migliorato, il tempo di recupero di Traslazione è ridotto del 50% e gli attacchi base contro gli eroi raddoppiano la velocità di ricarica di Bomba a Impulsi.</e>
+    <e id="16">Conquistare il boss infligge ingenti danni al nucleo nemico.</e>
+    <e id="17">Le Bombe a Impulsi esplodono all&apos;istante quando colpiscono un nemico.</e>
+</Locale>

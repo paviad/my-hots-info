@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Bottino dei Pirati</e>
+    <e id="2">Completamente mancante di qualunque descrizione.</e>
+    <e id="3">BlackHeartsBay</e>
+    <e id="4">Bottino dei Pirati</e>
+    <e id="5">Cuornero è sempre più avido! Se raccogliete 100 monete prima del nemico, bombarderà il nucleo avversario fino alla sua distruzione. Pagare per vincere!</e>
+    <e id="6">Distruggete il nucleo</e>
+    <e id="7">È possibile consegnare monete in qualsiasi momento fino a raggiungere un totale di 100. I nuclei possono essere attaccati e distrutti anche senza pagare Cuornero.</e>
+    <e id="8">Soldati di ventura</e>
+    <e id="9">I forzieri sono generati a coppie, e sono bombardati a intervalli regolari.</e>
+    <e id="10">Non ci sono campi di dobloni, ma i mercenari e i boss rilasciano monete aggiuntive. Anche forti e fortezze generano monete quando vengono distrutti.</e>
+    <e id="11">Scelta mista</e>
+    <e id="12">Scegli un eroe fra tre selezionati casualmente. Hai solo 30 secondi, per cui pensa in fretta!</e>
+    <e id="13">Info aggiuntive</e>
+    <e id="14">I forzieri sono generati più spesso del solito, in una serie di posizioni predefinite.</e>
+    <e id="15">Alcuni forzieri sono più grandi e contengono monete aggiuntive.</e>
+    <e id="16">Se tutti i forzieri attivi sono stati razziati, c&apos;è una finestra di 30 secondi prima che un&apos;altra coppia venga generata.</e>
+</Locale>

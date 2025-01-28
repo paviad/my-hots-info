@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Mutation AsmoDINGUE</e>
+    <e id="2">Aidez vos alliés en tuant des serviteurs avec Globe d’annihilation. Gagner des charges en conférera à votre équipe.</e>
+    <e id="3">TombSpiderQueen</e>
+    <e id="4">AsmoDINGUE !</e>
+    <e id="5">Des équipes d’Asmodan s’affrontent dans la tombe de la reine araignée au cours d’une rencontre qui promet d’être asmortelle !</e>
+    <e id="6">Détruire l’idole adverse</e>
+    <e id="7">Collectez des gemmes pour invoquer les serviteurs de la reine araignée et détruire l’idole adverse.</e>
+    <e id="8">Sport en équipe</e>
+    <e id="9">Tout le monde commence avec Goût du sang. Les charges sont partagées par toute l’équipe.</e>
+    <e id="10">Chaque gemme rapportée confère 5 charges de Goût du sang.</e>
+    <e id="11">Tous les joueurs incarnent Asmodan.</e>
+    <e id="12">C’est l’heure de l’Asmodanse !</e>
+    <e id="13">Informations supplémentaires</e>
+    <e id="14">Maximum de dégâts pour Globe d’annihilation porté à 5 000 points.</e>
+    <e id="15">Tuer des serviteurs avec Globe d’annihilation confère 5 points de dégâts au lieu de 2.</e>
+    <e id="16">Tuer des héros avec Globe d’annihilation confère 20 points de dégâts au lieu de 10.</e>
+    <e id="17">Tuer des héros avec Globe d’annihilation annule son temps de recharge et rembourse son coût en mana.</e>
+</Locale>

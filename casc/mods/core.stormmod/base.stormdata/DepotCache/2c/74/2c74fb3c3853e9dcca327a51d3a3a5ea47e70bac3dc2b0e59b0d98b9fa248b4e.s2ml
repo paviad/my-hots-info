@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Mutador - Marco Crono</e>
+    <e id="2">Completamente falto de descripción.</e>
+    <e id="3">CONTIENDA de Quemados</e>
+    <e id="4">CONTIENDA de Quemados</e>
+    <e id="5">¡Es hora de divertirse al sol! Dos equipos se turnan para golpearse con Explosiones de arena hasta que uno es eliminado.</e>
+    <e id="6">Arena vapuleadora</e>
+    <e id="7">Golpea a los enemigos con Explosión de arena y esquiva sus lanzamientos de Explosión de arena. Gana dos de las tres rondas para ganar la partida.</e>
+    <e id="8">La última gnoma de pie</e>
+    <e id="9">Un equipo lanza y el otro esquiva. Los que atacan y los que esquivan cambian tras unos pocos segundos, con mayor frecuencia a medida que transcurren las rondas.</e>
+    <e id="10">Al golpear a un héroe cinco veces, este queda fuera de la ronda, pero reaparece como un fantasma del lado del equipo enemigo.</e>
+    <e id="11">Los Cromi fantasma pueden usar Trampas temporales y Arenas ralentizadoras para interferir con los atacantes.</e>
+    <e id="12">Todos son Cromi</e>
+    <e id="13">¡Parece que alguien ha estado manipulando el flujo del tiempo!</e>
+    <e id="14">Información adicional</e>
+    <e id="15">El equipo que esquiva está siempre visible para el equipo ofensivo; en cambio, el equipo ofensivo no está visible para el equipo que esquiva.</e>
+    <e id="16">Los Cromi fantasma le otorgan visión a su equipo, lo cual le permite al equipo que esquiva ubicar a sus atacantes.</e>
+    <e id="17">Si una ronda se extiende mucho, aparecerán tornados en los límites de la arena, que se irán acercando lentamente hacia el centro, hasta empujar a los jugadores a la piscina.</e>
+</Locale>

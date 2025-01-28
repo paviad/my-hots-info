@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Mutation TEMPS-balle pas !</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">DodgeBrawl</e>
+    <e id="4">TEMPS-balle pas !</e>
+    <e id="5">C’est la mort à la plage ! Deux équipes s’affrontent à coup de Souffle de sable jusqu’à ce que l’une des deux soit éliminée.</e>
+    <e id="6">Tempête de boulettes de sable</e>
+    <e id="7">Touchez des ennemis avec Souffle de sable et esquivez leurs attaques. Gagnez deux manches pour remporter la victoire.</e>
+    <e id="8">Dernière gnomette en lice</e>
+    <e id="9">Une équipe attaque et l’autre doit esquiver. Les rôles s’inversent toutes les quelques secondes, puis de plus en plus vite à mesure que la manche se poursuit.</e>
+    <e id="10">Toucher un héros cinq fois l’élimine de la manche, mais il réapparaît sous forme de fantôme du côté de l’équipe adverse.</e>
+    <e id="11">Les fantômes de Chromie peuvent utiliser Piège temporel et Sables enlisants pour gêner les attaquants.</e>
+    <e id="12">Tous les joueurs incarnent Chromie.</e>
+    <e id="13">On dirait que la ligne temporelle a été altérée !</e>
+    <e id="14">Informations supplémentaires</e>
+    <e id="15">L’équipe qui esquive est toujours visible pour l’équipe qui attaque. Les attaquants, en revanche, ne sont visibles que par leur alliés.</e>
+    <e id="16">Les fantômes de Chromie confèrent de la visibilité, permettant ainsi à l’équipe qui esquive de localiser les attaquants.</e>
+    <e id="17">Si une manche dure trop longtemps, des tornades naissent sur les bords de l’arène, puis se rapprochent lentement de son centre, et pousse les joueurs dans la piscine.</e>
+</Locale>

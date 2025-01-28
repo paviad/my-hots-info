@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Blackheart&apos;s Revenge</e>
+    <e id="2">3-Lane Map&lt;br&gt;&lt;br&gt;</e>
+    <e id="3">(Storm) Kings Crest (Docks)</e>
+    <e id="4">Other</e>
+    <e id="5">Unclassified game type.</e>
+    <e id="6">Standard</e>
+    <e id="7">Players can choose their Heroes.</e>
+    <e id="8">Blackheart Doubloons Collected</e>
+    <e id="9">Blackheart Doubloons Turned In</e>
+    <e id="10">Number of Doubloons turned in to Blackheart</e>
+    <e id="11">BlackHeartsSimple</e>
+    <e id="12">BlackHeartsSimple_zhCN</e>
+    <e id="13">Blackheart&apos;s Revenge</e>
+    <e id="14">Blackheart seeks revenge against the Commodore in our first attack/defend battleground!</e>
+    <e id="15">Attack &amp; Defense Style Brawl</e>
+    <e id="16">One team protects the ship. Other team seeks to destroy it. The game lasts two rounds.</e>
+    <e id="17">Protect or Destroy the Ship</e>
+    <e id="18">Blackheart&apos;s team must help his ship reach the docks. Kill enemy Heroes to prevent them from firing cannons!</e>
+    <e id="19">The Commodore&apos;s team needs to destroy Blackheart&apos;s ship. Collect cannonballs and fire the cannons!</e>
+    <e id="20">The team that does more damage to the ship during their defending round wins!</e>
+    <e id="21">Shuffle Pick</e>
+    <e id="22">Choose from one of three randomly selected heroes. You only have 30 seconds, so think fast!</e>
+    <e id="23">Additional Info</e>
+    <e id="24">There&apos;s a small chance of all players being the same Hero</e>
+</Locale>

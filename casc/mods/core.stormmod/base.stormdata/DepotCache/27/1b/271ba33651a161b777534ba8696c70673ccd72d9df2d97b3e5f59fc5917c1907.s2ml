@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Campo de pruebas</e>
+    <e id="2">Las fuerzas del Nexo han tomado la Fundición de Volskaya. ¡Luchad a muerte por sus recompensas!</e>
+    <e id="3">Otro</e>
+    <e id="4">Tipo de partida no clasificado.</e>
+    <e id="5">Estándar</e>
+    <e id="6">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="7">TrialGrounds</e>
+    <e id="8">Campo de pruebas</e>
+    <e id="9">Katya Volskaya está experimentando con los poderes del Nexo. ¡Probad sus poderosas armas prototipo y derrotad al enemigo!</e>
+    <e id="10">Eliminación</e>
+    <e id="11">Derrotad a todos los oponentes para ganar una ronda. El primer equipo que obtenga la victoria en dos rondas ganará la partida.</e>
+    <e id="12">Artillería experimental</e>
+    <e id="13">Después de 30 s, aparece un objetivo aleatorio en el centro del campo de batalla. ¡Debéis estar preparados para todo!</e>
+    <e id="14">Capturad el objetivo para ganar una ventaja considerable con respecto al oponente.</e>
+    <e id="15">¡Algunos objetivos son de otros campos de batalla, y otros son completamente nuevos!</e>
+    <e id="16">Ahora todos somos el mismo héroe</e>
+    <e id="17">Todos los miembros de ambos equipos juegan con el mismo héroe. En cada ronda se selecciona un héroe aleatorio.</e>
+    <e id="18">Información adicional</e>
+    <e id="19">No hay reapariciones. Los héroes tienen solo una vida por ronda.</e>
+    <e id="20">Si no queda vivo ningún héroe de tu equipo, perdéis la ronda.</e>
+</Locale>

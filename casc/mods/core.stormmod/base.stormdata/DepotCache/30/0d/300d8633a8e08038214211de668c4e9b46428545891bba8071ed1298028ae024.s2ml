@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Mineralienfieber</e>
+    <e id="2">Daten und Auslöser für Mineralienfieber</e>
+    <e id="3">default</e>
+    <e id="4">Braxis Outpost</e>
+    <e id="5">Mineralienfieber</e>
+    <e id="6">Für mehr als ein Abbauunternehmen ist kein Platz auf diesem Planeten! Sammle Mineralien und nutze ihre Energie, um die Konkurrenz abzuhängen.</e>
+    <e id="7">Zerstöre die Zitadelle</e>
+    <e id="8">Zerstöre die Zitadelle des Gegners, um zu gewinnen.</e>
+    <e id="9">Wir brauchen mehr Mineralien</e>
+    <e id="10">Töte WBFs und sammle die Mineralien, die sie hinterlassen.</e>
+    <e id="11">WBFs sind geschützt, bis der mit ihnen verbundene Diener getötet wird.</e>
+    <e id="12">Sobald du genug Mineralien gesammelt hast, entsteht für kurze Zeit eine mächtige Aura der Überladung um dich herum.</e>
+    <e id="13">Zufallswahl</e>
+    <e id="14">Wähle einen von drei zufälligen Helden. Du hast nur 30 Sekunden Zeit, also entscheide dich schnell!</e>
+    <e id="15">Zusatzinfos</e>
+    <e id="16">Beim Tod verlierst du die Hälfte deiner gesammelten Mineralien.</e>
+    <e id="17">Überladung setzt gegnerische Gebäude außer Gefecht, tötet gegnerische Diener und fügt gegnerischen Helden Schaden zu.</e>
+    <e id="18">Überladene Helden hinterlassen regelmäßig Mineralien, die von Gegnern aufgehoben werden können.</e>
+    <e id="19">Mineralien bleiben nicht für immer bestehen, also sammle sie schnell ein!</e>
+    <e id="20">Ruhesteine (B) sind deaktiviert und im Startbereich wird dein Held nicht geheilt.</e>
+</Locale>

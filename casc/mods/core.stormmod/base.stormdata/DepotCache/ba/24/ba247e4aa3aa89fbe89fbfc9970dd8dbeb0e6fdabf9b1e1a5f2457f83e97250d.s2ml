@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Bohaterowie StarCraft</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">Default</e>
+    <e id="4">Bohaterowie z Gwiazd</e>
+    <e id="5">Bohaterowie z całego sektora Koprulu (w towarzystwie kilkorga przybyszów) zmagają się w Placówce na Braxis!</e>
+    <e id="6">Szturm zergów</e>
+    <e id="7">Zajmij nadajniki, aby zapełnić swoją celę zergami. Kiedy napełni się jedna z cel, obie się otworzą!</e>
+    <e id="8">Trzeba przetrzymać</e>
+    <e id="9">Pokonaj falę zergów przeciwnika lub wspomóż własną w ataku na bazę wroga.</e>
+    <e id="10">Losowy wybór</e>
+    <e id="11">Wybierz jednego z trzech losowych bohaterów ze StarCraft lub posiadających skórki inspirowane tym uniwersum. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="12">Dodatkowe informacje</e>
+    <e id="13">Maksymalny limit czasu oczekiwania na odrodzenie wynosi 40 sek.</e>
+</Locale>

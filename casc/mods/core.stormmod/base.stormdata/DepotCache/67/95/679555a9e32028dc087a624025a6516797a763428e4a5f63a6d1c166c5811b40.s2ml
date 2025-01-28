@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Tempio di Hanamura</e>
+    <e id="2">Una vasta schiera di eroi Blizzard si affronta in un&apos;epica arena galattica!</e>
+    <e id="3">Altro</e>
+    <e id="4">Tipo di gioco non classificato.</e>
+    <e id="5">Standard</e>
+    <e id="6">I giocatori possono scegliere i propri eroi.</e>
+    <e id="7">Miniere - Teschi raccolti</e>
+    <e id="8">Teschi raccolti nelle Miniere</e>
+</Locale>

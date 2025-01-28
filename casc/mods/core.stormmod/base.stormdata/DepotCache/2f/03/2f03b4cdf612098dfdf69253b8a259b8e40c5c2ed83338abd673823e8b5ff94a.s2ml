@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Grabkammer der Spinnenkönigin</e>
+    <e id="2">Ein breites Spektrum von Blizzard-Helden trifft sich zur Schlacht in einer galaktischen Arena.</e>
+    <e id="3">Luxoria - Grabkammer</e>
+    <e id="4">Andere</e>
+    <e id="5">Unklassifizierter Spieltyp.</e>
+    <e id="6">Standard</e>
+    <e id="7">Spieler können ihre Helden auswählen.</e>
+    <e id="8">Grabkammer der Spinnenkönigin</e>
+    <e id="9">Karte mit 3 Wegen</e>
+    <e id="10">Zerstöre die gegnerische Zitadelle</e>
+    <e id="11">Zerstöre die Zitadelle des Gegners, um zu gewinnen.</e>
+    <e id="12">Gib Juwelen ab</e>
+    <e id="13">Sammle Juwelen, um die Diener der Spinnenkönigin herbeizurufen.</e>
+</Locale>

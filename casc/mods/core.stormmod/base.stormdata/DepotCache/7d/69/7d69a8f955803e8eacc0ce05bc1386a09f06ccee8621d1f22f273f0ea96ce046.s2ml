@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Bastion Umarlaka (Modyfikacja)</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">Bastion Umarlaka</e>
+    <e id="4">Rój Omega atakuje tę krainę! Odpierajcie ich ataki, dopóki nie aktywuje się zakłócacz psioniczny.</e>
+    <e id="5">Brońcie posterunku</e>
+    <e id="6">Rój Omega atakuje tę krainę! Odpierajcie ich ataki, dopóki nie aktywuje się zakłócacz psioniczny.</e>
+    <e id="7">Rój Omega</e>
+    <e id="8">Fale zergów atakujące wasz posterunek będą coraz silniejsze.</e>
+    <e id="9">W niektórych falach pojawiać się będą szczególnie potężni wrodzy bohaterowie dysponujący wzmocnionymi zdolnościami.</e>
+    <e id="10">Zainfekowane Archanioły będą co jakiś czas usiłowały ostrzelać wasz posterunek z dystansu pociskami nuklearnymi. Musicie je szybko zniszczyć!</e>
+    <e id="11">Pula bohaterów</e>
+    <e id="12">Wybierz jednego spośród grona specjalnie wyselekcjonowanych bohaterów.</e>
+    <e id="13">Dodatkowe informacje</e>
+    <e id="14">Bohaterowie rozpoczynają na poziomie 10 i awansują za każdym razem, kiedy uda im się zgładzić Archanioła. Nie można wybierać niektórych talentów.</e>
+    <e id="15">Bohaterowie nie powracają samoczynnie do życia i po śmierci muszą zostać wskrzeszeni przez członków swojej drużyny. Mecz kończy się, jeśli wszyscy gracze zginą.</e>
+    <e id="16">Bohaterowie mogą zbierać przedmioty, które zapewniają dodatkowe zdolności. W danym momencie bohater może posiadać tylko jeden przedmiot.</e>
+    <e id="17">Nie można korzystać z Kamienia Powrotu (B).</e>
+</Locale>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Venganza de Almanegra</e>
+    <e id="2">Mapa de 3 caminos&lt;br&gt;&lt;br&gt;</e>
+    <e id="3">(Storm) Kings Crest (Docks)</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de partida no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">Doblones de Almanegra recogidos</e>
+    <e id="9">Doblones de Almanegra entregados</e>
+    <e id="10">Número de doblones entregados a Almanegra</e>
+    <e id="11">BlackHeartsSimple</e>
+    <e id="12">BlackHeartsSimple_zhCN</e>
+    <e id="13">Venganza de Almanegra</e>
+    <e id="14">¡Almanegra busca venganza contra el Comodoro en nuestro primer campo de batalla de ataque/defensa!</e>
+    <e id="15">Trifulca de ataque/defensa</e>
+    <e id="16">Un equipo protege el barco; el otro, intenta destruirlo. La partida dura dos rondas.</e>
+    <e id="17">Proteged o destruid el barco</e>
+    <e id="18">El equipo de Almanegra debe ayudar a su barco a llegar al muelle. ¡Matad a los héroes enemigos para evitar que disparen los cañones!</e>
+    <e id="19">El equipo del Comodoro debe destruir el barco de Almanegra. ¡Recoged bolas de cañón y disparad los cañones!</e>
+    <e id="20">¡El equipo que inflija más daño al barco durante su ronda en defensa gana!</e>
+    <e id="21">Selección entre héroes aleatorios</e>
+    <e id="22">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="23">Información adicional</e>
+    <e id="24">Existe una pequeña posibilidad de que todos los jugadores sean el mismo héroe.</e>
+</Locale>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Festival da Lua (Mod)</e>
+    <e id="2">Completa e absolutamente vazio e sem nenhum tipo de descrição.</e>
+    <e id="3">Corrida de Foguetes Lunares</e>
+    <e id="4">Ligue seus foguetes! Corra contra outros jogadores e garanta seu lugar entre os vencedores!</e>
+    <e id="5">Cruze a linha de chegada</e>
+    <e id="6">Valendo! Termine a corrida e cruze a linha de chegada o mais rápido que puder.</e>
+    <e id="7">Corrida Maluca de Foguetes</e>
+    <e id="8">Os jogadores pilotam Foguetes Lunares em uma única pista</e>
+    <e id="9">Pegue Envelopes na pista para ganhar uma habilidade especial aleatória</e>
+    <e id="10">Passe nas esteiras para ser empurrado na direção indicada e ganhar um bônus de velocidade</e>
+    <e id="11">Heróis do Festival da Lua</e>
+    <e id="12">Heróis são atribuídos aleatoriamente de um rol seleto de Heróis com os visuais do Festival da Lua.</e>
+    <e id="13">Mais detalhes</e>
+    <e id="14">Quando o primeiro Herói cruzar a linha de chegada, os outros terão 30 segundos para terminar a corrida e concluir a Contenda</e>
+    <e id="15">Perde quem não atravessar a linha ou ficar em último lugar</e>
+    <e id="16">Foguetes encontrados em Envelopes podem ser disparados para atordoar o primeiro inimigo no caminho</e>
+    <e id="17">Bombas encontradas em Envelopes podem ser deixadas na pista para atordoar inimigos que passarem por cima delas</e>
+    <e id="18">Bênçãos Lunares encontradas em Envelopes concedem Invulnerabilidade e aumentam a Velocidade de Movimento</e>
+</Locale>

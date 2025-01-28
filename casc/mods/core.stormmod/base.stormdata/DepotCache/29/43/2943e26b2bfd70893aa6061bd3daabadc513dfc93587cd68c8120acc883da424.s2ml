@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Hammer Time Mutator</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">Default</e>
+    <e id="4">TowersOfDoom</e>
+    <e id="5">Hammer Time</e>
+    <e id="6">Teams of Sgt. Hammer and Sgt. Doomhammer battle it out on Towers of Doom</e>
+    <e id="7">Protected Core</e>
+    <e id="8">The enemy&apos;s Core is protected from Hero attacks. Capture Altars to damage the Core!</e>
+    <e id="9">Claim Belltowers</e>
+    <e id="10">Defeat enemy Belltowers to turn them to your side</e>
+    <e id="11">Everyone is Sgt. Hammer</e>
+    <e id="12">Tanks? You&apos;re welcome</e>
+    <e id="13">Additional Info</e>
+    <e id="14">Hammer&apos;s mount ability is always active</e>
+</Locale>

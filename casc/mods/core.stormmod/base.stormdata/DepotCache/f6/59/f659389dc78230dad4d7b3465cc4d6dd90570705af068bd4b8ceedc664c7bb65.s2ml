@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Pancadaria Robótica</e>
+    <e id="2">Sem descrição.</e>
+    <e id="3">IndustrialDistrict</e>
+    <e id="4">Pancadaria Robótica</e>
+    <e id="5">Opere os Protetores na luta para destruir o Núcleo inimigo!</e>
+    <e id="6">Destrua o Núcleo do inimigo</e>
+    <e id="7">Destrua o Núcleo do inimigo para vencer.</e>
+    <e id="8">Protetores</e>
+    <e id="9">As duas equipes começam com um Protetor Triglav.</e>
+    <e id="10">Quando ambos os Protetores forem destruídos, outros dois aparecerão.</e>
+    <e id="11">Seleção Restrita</e>
+    <e id="12">Escolha um dos três Heróis selecionados aleatoriamente.</e>
+    <e id="13">Mais detalhes</e>
+    <e id="14">Dois jogadores podem entrar no Protetor Triglav: um Piloto e um Atirador.</e>
+    <e id="15">O Piloto e o Atirador têm acesso a habilidades exclusivas.</e>
+    <e id="16">Só o Piloto pode conduzir o Protetor.</e>
+</Locale>

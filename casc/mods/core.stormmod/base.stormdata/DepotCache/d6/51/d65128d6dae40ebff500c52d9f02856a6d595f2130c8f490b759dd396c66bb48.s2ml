@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Bestraferarena</e>
+    <e id="2">Ein breites Spektrum von Blizzard-Helden trifft sich zur Schlacht in einer galaktischen Arena.</e>
+    <e id="3">Andere</e>
+    <e id="4">Unklassifizierter Spieltyp.</e>
+    <e id="5">Standard</e>
+    <e id="6">Spieler können ihre Helden auswählen.</e>
+    <e id="7">ShrinesSimple</e>
+    <e id="8">Bestraferarena</e>
+    <e id="9">Ein erbarmungsloser Kampf zwischen Helden und Bestrafern. Gib deinen Gegnern den Rest, um zu gewinnen.</e>
+    <e id="10">Sieger nach maximal 3 Runden</e>
+    <e id="11">Das erste Team, das zwei Runden gewinnt, siegt.</e>
+    <e id="12">Das erste Team mit 100 Punkten gewinnt</e>
+    <e id="13">Bestrafer sind 10 Punkte wert.</e>
+    <e id="14">Helden sind 4 Punkte wert.</e>
+    <e id="15">Zufallswahl</e>
+    <e id="16">Wähle einen von drei zufälligen Helden. Du hast nur 30 Sekunden Zeit, also entscheide dich schnell!</e>
+    <e id="17">Zusatzinfos</e>
+    <e id="18">Es besteht eine kleine Chance, dass alle Spieler den gleichen Helden spielen.</e>
+</Locale>

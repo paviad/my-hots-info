@@ -1,0 +1,1796 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree>
+  <include file="AI/Templates/BaseHeroTemplate.aitree" />
+  <mod id="0404FCA4F12FA6C8">
+    <removeChild id="C269A066660F0020" />
+  </mod>
+  <mod id="288416FA2011E64B">
+    <removeChild id="873F8D7D2690E084" />
+  </mod>
+  <mod id="2AE0F14DF6A9ED21">
+    <removeChild id="F6324BFD9E32281C" />
+    <insertChild id="FBEAB5189F013B65" after="96F036CA3EF0B10B" />
+  </mod>
+  <mod id="4024197CCD7E28AB">
+    <removeChild id="9A5661DE9C2C8621" />
+    <insertChild id="32360CE7A8CE4D47" after="612D76A9AA8A94EA" />
+  </mod>
+  <mod name="Dragonflight (Altar Equivalent)" id="6DF986A0ED262DC5">
+    <removeChild id="868989628EB9016E" />
+    <removeChild id="3C32917AF424B145" />
+    <removeChild id="5AB5E43A538EAD37" />
+    <insertChild id="CF7E2A82888A7901" before="" />
+    <insertChild id="93D883AF1FB031B1" after="CF7E2A82888A7901" />
+    <insertChild id="F80F816A25D5C974" after="93D883AF1FB031B1" />
+    <insertChild id="E76FDB802CDA00D1" after="F80F816A25D5C974" />
+  </mod>
+  <mod id="87811D772E337EB7">
+    <insertChild id="0A5B01778C4F5051" />
+    <insertChild id="72029AE0222F7143" />
+    <insertChild id="B9F88C14E9F227D6" />
+    <insertChild id="D963C5A6DF4FF18D" />
+    <insertChild id="FB0C97EF05640E27" />
+    <insertChild id="7DCCC0F729465F6D" />
+    <insertChild id="F44AA582D7E8E30B" />
+    <insertChild id="81DE904310F08F72" />
+    <insertChild id="F0366A3316AE6608" />
+  </mod>
+  <mod id="890C66E8AC662702">
+    <removeChild id="689E36ACED4D53E5" />
+    <insertChild id="E7CD68D3263E4BFA" before="" />
+  </mod>
+  <mod id="93D883AF1FB031B1">
+    <insertChild id="F21BCB9B06948439" />
+  </mod>
+  <mod id="A4058AA255280C17">
+    <insertChild id="351C48C1E84FB249" />
+    <insertChild id="385E380A53FCC6EE" />
+    <insertChild id="F7E3CC943CA29D5F" />
+    <insertChild id="178249D3E9582BD1" />
+  </mod>
+  <mod id="F21BCB9B06948439">
+    <insertChild id="9E63AFFAD60E0A63" />
+  </mod>
+  <mod id="FCD592221157322E">
+    <insertChild id="B6E05168685B2CC8" after="890C66E8AC662702" />
+  </mod>
+  <node name="Incinerate" type="AbilityUsable" id="D963C5A6DF4FF18D" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="DeathwingIncinerate" />
+    <insertChild id="67C52A89B96A6F0B" />
+  </node>
+  <node name="Base Node" type="And" id="67C52A89B96A6F0B" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" value="4" comment="Range of the Ability" />
+    <variable name="AbilityTargetPoint" type="Point" comment="Target Point of the ability" />
+    <insertChild id="5C0758FE88971A42" />
+    <insertChild id="C566100AD035C640" />
+  </node>
+  <node name="" type="Or" id="5C0758FE88971A42">
+    <insertChild id="44EC5FCB5BBB7EA0" />
+    <insertChild id="EAFED3591E6B42FF" />
+  </node>
+  <node name="&gt;= 1 Hero" type="UnitCount" id="44EC5FCB5BBB7EA0">
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+  </node>
+  <node name="GE 4 Enemies" type="UnitCount" id="EAFED3591E6B42FF">
+    <property name="TargetCount" valueSource="literal" value="4" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+  </node>
+  <node name="Use Ability" type="Ability" id="C566100AD035C640">
+    <property name="Ability" valueSource="literal" value="DeathwingIncinerate" />
+    <property name="TargetPoint" valueSource="variable" value="AbilityTargetPoint" />
+  </node>
+  <node name="Onslaught" type="AbilityUsable" id="FB0C97EF05640E27" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="DeathwingOnslaught" />
+    <insertChild id="D6BE826891162BE2" />
+  </node>
+  <node name="Base Node" type="And" id="D6BE826891162BE2" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" value="7.5" comment="Range of the Ability" />
+    <variable name="AbilityTargetPoint" type="Point" comment="Target Point of the ability" />
+    <variable name="AbilityMissileRadius" type="Number" valueSource="lookup" value="Effect,DeathwingOnslaughtRectangleSearch,AreaArray[0].RectangleWidth" comment="Width of the Ability Searches" />
+    <variable name="AbilityMissilePierceCount" type="Number" comment="Number of Blockers this can go through" />
+    <variable name="AbilityHighManaThreshHold" type="Number" value="0.3" comment="High Mana ThreshHold" />
+    <variable name="AbilityLowManaThreshHold" type="Number" value="0.2" comment="Low Mana ThreshHold" />
+    <variable name="AbilityDamage" type="Number" valueSource="lookup" value="Effect,DeathwingOnslaughtDamage,Amount" />
+    <insertChild id="27DD3EE9228C6B96" />
+    <insertChild id="320D4D5FDCDE380C" />
+  </node>
+  <node name="" type="Or" id="27DD3EE9228C6B96">
+    <insertChild id="EEE98102F8C08CC4" />
+    <insertChild id="A74F48947EA72CC5" />
+  </node>
+  <node name="Elite" type="Difficulty" id="EEE98102F8C08CC4">
+    <insertChild id="2BE28156D2444C1E" />
+  </node>
+  <node name="" type="Or" id="2BE28156D2444C1E">
+    <insertChild id="DAB4F2CFE74587E7" />
+    <insertChild id="635CF68118BC8181" />
+  </node>
+  <node name="Debuffed" type="FilterBehaviorCategory" id="DAB4F2CFE74587E7">
+    <property name="Categories" valueSource="literal" value="Stun,KnockedOut,DebuffRoot,Taunt" />
+    <property name="ExcludeCategories" valueSource="literal" value="Sleeping" />
+    <insertChild id="25B966DFC884458F" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="25B966DFC884458F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+    <property name="TargetBlockingTypes" valueSource="literal" value="Structure" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.15" />
+  </node>
+  <node name="Fatal Damage" type="FilterLife" id="635CF68118BC8181">
+    <property name="MaxLife" valueSource="variable" value="AbilityDamage" />
+    <insertChild id="0550DEC39D8936EA" />
+  </node>
+  <node name="Kill Hero" type="FindBestVector" id="0550DEC39D8936EA">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+    <property name="TargetBlockingTypes" valueSource="literal" value="Structure" />
+  </node>
+  <node name="PvP/PvE" type="IfElse" id="A74F48947EA72CC5">
+    <insertChild id="CA79463A1318EB2A" />
+    <insertChild id="6F4C4EA6D1A16AB1" />
+    <insertChild id="4EF9D950D49AD04A" />
+  </node>
+  <node name="Enemy Is Nearby" type="CompareNumber" id="CA79463A1318EB2A">
+    <property name="LeftHandSide" valueSource="variable" value="Enemy Hero Count" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+  </node>
+  <node name="No Sleep" type="FilterBehaviorCategory" id="6F4C4EA6D1A16AB1">
+    <property name="ExcludeCategories" valueSource="literal" value="Sleeping" />
+    <insertChild id="05B07862A1F5AA01" />
+  </node>
+  <node name="PVP Targeting Node" type="Or" id="05B07862A1F5AA01">
+    <insertChild id="EB8781481DC9A676" />
+    <insertChild id="4CF13BF63C57F761" />
+  </node>
+  <node name="&gt; Low Mana" type="EnergyFraction" id="EB8781481DC9A676">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityLowManaThreshHold" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="6D4259518F62463A" />
+  </node>
+  <node name="High Mana Targeting" type="Or" id="6D4259518F62463A">
+    <insertChild id="3CF2A1ED4FF62F0C" />
+    <insertChild id="E88AD3CF021A8D0B" />
+  </node>
+  <node name="GE 85%" type="LifeFraction" id="3CF2A1ED4FF62F0C">
+    <property name="LifeFraction" valueSource="literal" value="0.85" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="7E855401A6803F01" />
+  </node>
+  <node name="" type="Or" id="7E855401A6803F01">
+    <insertChild id="DC54EA288DF21E14" />
+    <insertChild id="12A87FE14D143A5C" />
+    <insertChild id="1B5FB89930041FE3" />
+    <insertChild id="5220A84278F8F267" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="DC54EA288DF21E14">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="12A87FE14D143A5C">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="5 Units" type="FindBestVector" id="1B5FB89930041FE3">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="5" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature" />
+  </node>
+  <node name="LT 5 Units" type="UnitCount" id="5220A84278F8F267">
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="TargetCount" valueSource="literal" value="5" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <insertChild id="2793BC54A3483530" />
+  </node>
+  <node name="Any Hero" type="FindBestVector" id="2793BC54A3483530">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="LT 85%" type="LifeFraction" id="E88AD3CF021A8D0B">
+    <property name="LifeFraction" valueSource="literal" value="0.85" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="2A1FD9BE2A9F3D88" />
+  </node>
+  <node name="" type="Or" id="2A1FD9BE2A9F3D88">
+    <insertChild id="93B001BF306DC4BE" />
+    <insertChild id="A3A9D9502B49BC7C" />
+    <insertChild id="93D1586A037C93F7" />
+    <insertChild id="0DDC9ED3FCF94AC9" />
+    <insertChild id="5FD93BBA7FA0608E" />
+  </node>
+  <node name="GE 30%" type="LifeFraction" id="93B001BF306DC4BE">
+    <property name="LifeFraction" valueSource="literal" value="0.3" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="15D783BFB1264107" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="15D783BFB1264107">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="3 Heroes" type="FindBestVector" id="A3A9D9502B49BC7C">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="3" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="LT 55%" type="LifeFraction" id="93D1586A037C93F7">
+    <property name="LifeFraction" valueSource="literal" value="0.55" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="B7B9FE5F08FCB1DF" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="B7B9FE5F08FCB1DF">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="6 Units" type="FindBestVector" id="0DDC9ED3FCF94AC9">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="6" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature" />
+  </node>
+  <node name="LT 5 Units" type="UnitCount" id="5FD93BBA7FA0608E">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="TargetCount" valueSource="literal" value="5" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <insertChild id="8DFF2D008E42591C" />
+  </node>
+  <node name="Any Hero" type="FindBestVector" id="8DFF2D008E42591C">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="&lt; Low Mana" type="EnergyFraction" id="4CF13BF63C57F761">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityLowManaThreshHold" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="C2C127EA43B89A1A" />
+  </node>
+  <node name="Low Mana Targeting" type="Or" id="C2C127EA43B89A1A">
+    <insertChild id="19CF9A4E4BF02E45" />
+    <insertChild id="70C24FA88314C1DC" />
+  </node>
+  <node name="GE 65%" type="LifeFraction" id="19CF9A4E4BF02E45">
+    <property name="LifeFraction" valueSource="literal" value="0.65" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="5281A3F39A0F32F4" />
+  </node>
+  <node name="" type="Or" id="5281A3F39A0F32F4">
+    <insertChild id="C2B2248177C52763" />
+    <insertChild id="BB3AE732A6B86AC3" />
+    <insertChild id="F387C62FC7FFD26B" />
+    <insertChild id="517BA50DFAFB09DE" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="C2B2248177C52763">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="BB3AE732A6B86AC3">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="5 Units" type="FindBestVector" id="F387C62FC7FFD26B">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="5" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature" />
+  </node>
+  <node name="LT 5 Units" type="UnitCount" id="517BA50DFAFB09DE">
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="TargetCount" valueSource="literal" value="5" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <insertChild id="2640C0C9E1C3EC82" />
+  </node>
+  <node name="Any Hero" type="FindBestVector" id="2640C0C9E1C3EC82">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="LT 65%" type="LifeFraction" id="70C24FA88314C1DC">
+    <property name="LifeFraction" valueSource="literal" value="0.65" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="EF468A27FF6D3F35" />
+  </node>
+  <node name="" type="Or" id="EF468A27FF6D3F35">
+    <insertChild id="1E9AF519FDFF92A1" />
+    <insertChild id="26D16981660DD474" />
+    <insertChild id="D60C426581519053" />
+    <insertChild id="80D77D85F80EFC1B" />
+    <insertChild id="9AE60C961770E754" />
+  </node>
+  <node name="GE 30%" type="LifeFraction" id="1E9AF519FDFF92A1">
+    <property name="LifeFraction" valueSource="literal" value="0.3" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="13242D3C3E1035AD" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="13242D3C3E1035AD">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="3 Heroes" type="FindBestVector" id="26D16981660DD474">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="3" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="LT 55%" type="LifeFraction" id="D60C426581519053">
+    <property name="LifeFraction" valueSource="literal" value="0.55" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="AF099FD9BAE00A1F" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="AF099FD9BAE00A1F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="6 Units" type="FindBestVector" id="80D77D85F80EFC1B">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="6" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature" />
+  </node>
+  <node name="LT 5 Units" type="UnitCount" id="9AE60C961770E754">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="TargetCount" valueSource="literal" value="5" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <insertChild id="2C3BFFAF547C1CE1" />
+  </node>
+  <node name="Any Hero" type="FindBestVector" id="2C3BFFAF547C1CE1">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="PVE Targeting Node" type="Or" id="4EF9D950D49AD04A">
+    <insertChild id="53E0161E7A30F5BC" />
+    <insertChild id="76D65A0878680281" />
+  </node>
+  <node name="High Mana" type="EnergyFraction" id="53E0161E7A30F5BC">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityHighManaThreshHold" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="F7EEA855E4F670EA" />
+  </node>
+  <node name="High Mana Targeting" type="Or" id="F7EEA855E4F670EA">
+    <insertChild id="02962DE4A6DD3F2A" />
+  </node>
+  <node name="Find 4 Anything" type="FindBestVector" id="02962DE4A6DD3F2A">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="4" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="Low Mana" type="EnergyFraction" id="76D65A0878680281">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityLowManaThreshHold" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="F8219B79D12343DE" />
+  </node>
+  <node name="Medium Mana Targeting" type="Or" id="F8219B79D12343DE">
+    <insertChild id="69244D6060A33C0A" />
+  </node>
+  <node name="Find 6 Anything" type="FindBestVector" id="69244D6060A33C0A">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="6" />
+    <property name="MissileRadius" valueSource="literal" value="1.5" />
+  </node>
+  <node name="Use Ability" type="Ability" id="320D4D5FDCDE380C">
+    <property name="Ability" valueSource="literal" value="DeathwingOnslaught" />
+    <property name="TargetPoint" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+  </node>
+  <node name="Lava Burst" type="AbilityUsable" id="7DCCC0F729465F6D">
+    <property name="Ability" valueSource="literal" value="DeathwingLavaBurst" />
+    <insertChild id="4363965BBC4B5EF5" />
+  </node>
+  <node name="Lava Burst" type="And" id="4363965BBC4B5EF5">
+    <variable name="Lava Burst Target Unit" type="Unit" />
+    <variable name="Lava Burst Target Unit Point" type="Point" />
+    <variable name="Lava Burst Search Point" type="Point" />
+    <variable name="Lava Burst Target Point" type="Point" />
+    <variable name="Lava Burst AoE Radius" type="Number" valueSource="lookup" value="Effect,DeathwingLavaBurstExplosionSearch,AreaArray[0].Radius" />
+    <variable name="Lava Burst Buffered Crit Radius" type="Number" value="1" />
+    <variable name="Lava Burst Range" type="Number" valueSource="lookup" value="Abil,DeathwingLavaBurst,Range" />
+    <insertChild id="C4EB6EE1AB92525D" />
+    <insertChild id="1F833A3FA5FF8D69" />
+  </node>
+  <node name="Mana Filter" type="Or" id="C4EB6EE1AB92525D">
+    <insertChild id="505CF25C010A37C2" />
+    <insertChild id="F0B4D693B2180B8E" />
+    <insertChild id="8E6C8DDC4506C09D" />
+    <insertChild id="64DE6ADE819822E4" />
+  </node>
+  <node name="Critical Enemy Hero" type="FindBestTarget" id="505CF25C010A37C2">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Lava Burst Range" />
+    <property name="LifeFractionFactor" valueSource="literal" value="3" />
+    <property name="OutputTarget" value="Lava Burst Target Unit" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <insertChild id="68F6AE03D22DFCF4" />
+  </node>
+  <node name="Convert Unit to future point" type="UnitPosition" id="68F6AE03D22DFCF4">
+    <property name="InputUnit" valueSource="variable" value="Lava Burst Target Unit" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="OutputPosition" value="Lava Burst Target Point" />
+  </node>
+  <node name="Hit 2+ Heroes" type="FindBestAOEPoint" id="F0B4D693B2180B8E" comment="AoE Radius slightly smaller than normal crit radius to heighten chance of freezing at least 1 hero.">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Lava Burst Range" />
+    <property name="AOERadius" valueSource="variable" value="Lava Burst AoE Radius" />
+    <property name="OutputTarget" value="Lava Burst Target Point" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Target Anything" type="And" id="64DE6ADE819822E4">
+    <insertChild id="E3BFB8E93BDB57B2" />
+    <insertChild id="F1759153DC0AE17F" />
+  </node>
+  <node name="2+ 75% Enemy Heroes" type="FindBestAOEPoint" id="E3BFB8E93BDB57B2">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Lava Burst Range" />
+    <property name="AOERadius" valueSource="variable" value="Lava Burst AoE Radius" />
+    <property name="OutputTarget" value="Lava Burst Search Point" />
+    <property name="MaxBestTargetOffset" valueSource="variable" value="Lava Burst Buffered Crit Radius" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="50% Enemy Hero" type="FindBestTarget" id="F1759153DC0AE17F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Lava Burst Range" />
+    <property name="LifeFractionFactor" valueSource="literal" value="3" />
+    <property name="OutputTarget" value="Lava Burst Target Unit" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <insertChild id="B163DAFD32B63CFA" />
+  </node>
+  <node name="Convert Unit to future point" type="UnitPosition" id="B163DAFD32B63CFA">
+    <property name="InputUnit" valueSource="variable" value="Lava Burst Target Unit" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="OutputPosition" value="Lava Burst Target Point" />
+  </node>
+  <node name="Cast" type="Ability" id="1F833A3FA5FF8D69">
+    <property name="Ability" valueSource="literal" value="DeathwingLavaBurst" />
+    <property name="TargetPoint" valueSource="variable" value="Lava Burst Target Point" />
+  </node>
+  <node name="Earth Shatter" type="AbilityUsable" id="F44AA582D7E8E30B">
+    <property name="Ability" valueSource="literal" value="DeathwingEarthShatter" />
+    <insertChild id="7E0D844D81D9E695" />
+  </node>
+  <node name="Earth Shatter" type="And" id="7E0D844D81D9E695">
+    <variable name="ES Target Unit" type="Unit" />
+    <variable name="ES Target Unit Point" type="Point" />
+    <variable name="ES Search Point" type="Point" />
+    <variable name="ES Target Point" type="Point" />
+    <variable name="ES AoE Radius" type="Number" valueSource="lookup" value="Effect,DeathwingLavaBurstExplosionSearch,AreaArray[0].Radius" />
+    <variable name="ES Buffered Crit Radius" type="Number" value="1" />
+    <variable name="ES Range" type="Number" valueSource="lookup" value="Abil,DeathwingLavaBurst,Range" />
+    <insertChild id="46F66FA3C79B8A0B" />
+    <insertChild id="5B6ED7E1CE093F26" />
+  </node>
+  <node name="Mana Filter" type="Or" id="46F66FA3C79B8A0B">
+    <insertChild id="F9844C4FF824C73D" />
+    <insertChild id="B446418F9C34444A" />
+    <insertChild id="AB596244FF0F284A" />
+    <insertChild id="718E0F00BB3FCC9B" />
+  </node>
+  <node name="Critical Enemy Hero" type="FindBestTarget" id="F9844C4FF824C73D">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="ES Range" />
+    <property name="LifeFractionFactor" valueSource="literal" value="3" />
+    <property name="OutputTarget" value="ES Target Unit" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <insertChild id="C27014CFCB5C88DC" />
+  </node>
+  <node name="Convert Unit to future point" type="UnitPosition" id="C27014CFCB5C88DC">
+    <property name="InputUnit" valueSource="variable" value="ES Target Unit" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="OutputPosition" value="ES Target Point" />
+  </node>
+  <node name="Hit 2+ Heroes" type="FindBestAOEPoint" id="B446418F9C34444A" comment="AoE Radius slightly smaller than normal crit radius to heighten chance of freezing at least 1 hero.">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="ES Range" />
+    <property name="AOERadius" valueSource="variable" value="ES AoE Radius" />
+    <property name="OutputTarget" value="ES Target Point" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Target Anything" type="And" id="718E0F00BB3FCC9B">
+    <insertChild id="EBBE8DC9F42B2BDC" />
+    <insertChild id="DC113F6DB2249BC5" />
+  </node>
+  <node name="2+ 75% Enemy Heroes" type="FindBestAOEPoint" id="EBBE8DC9F42B2BDC">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="ES Range" />
+    <property name="AOERadius" valueSource="variable" value="ES AoE Radius" />
+    <property name="OutputTarget" value="ES Search Point" />
+    <property name="MaxBestTargetOffset" valueSource="variable" value="ES Buffered Crit Radius" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="50% Enemy Hero" type="FindBestTarget" id="DC113F6DB2249BC5">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="MaxTargetDistance" valueSource="variable" value="ES Range" />
+    <property name="LifeFractionFactor" valueSource="literal" value="3" />
+    <property name="OutputTarget" value="ES Target Unit" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <insertChild id="D3092FC4768109A8" />
+  </node>
+  <node name="Convert Unit to future point" type="UnitPosition" id="D3092FC4768109A8">
+    <property name="InputUnit" valueSource="variable" value="ES Target Unit" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="OutputPosition" value="ES Target Point" />
+  </node>
+  <node name="Cast" type="Ability" id="5B6ED7E1CE093F26">
+    <property name="Ability" valueSource="literal" value="DeathwingEarthShatter" />
+    <property name="TargetPoint" valueSource="variable" value="ES Target Point" />
+  </node>
+  <node name="Cataclysm" type="AbilityUsable" id="81DE904310F08F72">
+    <property name="Ability" valueSource="literal" value="DeathwingCataclysm" />
+    <insertChild id="B9848F3DF91770BE" />
+  </node>
+  <node name="GE 4 Enemies" type="UnitCount" id="8E6C8DDC4506C09D">
+    <property name="TargetCount" valueSource="literal" value="4" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Lava Burst Range" />
+  </node>
+  <node name="GE 4 Enemies" type="UnitCount" id="AB596244FF0F284A">
+    <property name="TargetCount" valueSource="literal" value="4" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="ES AoE Radius" />
+  </node>
+  <node name="Worldbreaker" type="AbilityUsable" id="F7E3CC943CA29D5F">
+    <property name="Ability" valueSource="literal" value="DeathwingFormSwitch" />
+    <insertChild id="48C5B68B577B3537" />
+  </node>
+  <node name="In Destroyer Form" type="UnitHasBehavior" id="D208CBCD5EEADC62">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="DeathwingDestroyerForm" />
+    <insertChild id="1BA853D119A8DA0B" />
+  </node>
+  <node name="" type="And" id="48C5B68B577B3537">
+    <insertChild id="D208CBCD5EEADC62" />
+    <insertChild id="F24E4C641EAE3E02" />
+    <insertChild id="8F12C7D50F783CB3" />
+  </node>
+  <node name="" type="Or" id="1BA853D119A8DA0B">
+    <insertChild id="DF83DB6D59B3909C" />
+    <insertChild id="36494AC99A45C374" />
+  </node>
+  <node name="LT 0.5" type="LifeFraction" id="DF83DB6D59B3909C">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="LifeFraction" valueSource="literal" value="0.5" />
+  </node>
+  <node name="Worldbreaker Form" type="Ability" id="8F12C7D50F783CB3">
+    <property name="Ability" valueSource="literal" value="DeathwingFormSwitch" />
+    <property name="TargetUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Destroyer" type="AbilityUsable" id="385E380A53FCC6EE">
+    <property name="Ability" valueSource="literal" value="DeathwingFormSwitch" />
+    <insertChild id="2FA128E14FC6A2D8" />
+  </node>
+  <node name="" type="And" id="2FA128E14FC6A2D8">
+    <insertChild id="EAF68E46611D79A1" />
+    <insertChild id="ACB47E1E76BF29B8" />
+    <insertChild id="87FA37588BBE2434" />
+  </node>
+  <node name="In Worldbreaker" type="UnitHasBehavior" id="EAF68E46611D79A1">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="DeathwingWorldbreakerForm" />
+    <insertChild id="1EDCBB1F50904CAF" />
+  </node>
+  <node name="" type="Or" id="1EDCBB1F50904CAF">
+    <insertChild id="D1572D013884DEBB" />
+    <insertChild id="60C97E984792D144" />
+  </node>
+  <node name="GT 0.8" type="LifeFraction" id="D1572D013884DEBB">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="GT" />
+    <property name="LifeFraction" valueSource="literal" value="0.8" />
+  </node>
+  <node name="Destroyer Form" type="Ability" id="87FA37588BBE2434">
+    <property name="Ability" valueSource="literal" value="DeathwingFormSwitch" />
+    <property name="TargetUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="" type="Not" id="ACB47E1E76BF29B8">
+    <insertChild id="206CD2B3F7997EEB" />
+  </node>
+  <node name="" type="IsInDanger" id="206CD2B3F7997EEB">
+    <property name="TargetPoint" valueSource="intrinsic" value="SelfPos" />
+    <property name="ForceIncludeUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="" type="Not" id="F24E4C641EAE3E02">
+    <insertChild id="FE78AF4D618FED44" />
+  </node>
+  <node name="" type="IsInDanger" id="FE78AF4D618FED44">
+    <property name="TargetPoint" valueSource="intrinsic" value="SelfPos" />
+    <property name="ForceIncludeUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Dragonflight" type="AbilityUsable" id="351C48C1E84FB249">
+    <property name="Ability" valueSource="literal" value="DeathwingDragonflight" />
+    <insertChild id="9E384C1DDCC9B45C" />
+  </node>
+  <node name="" type="And" id="9E384C1DDCC9B45C">
+    <insertChild id="0C39A294EA20BB5C" />
+    <insertChild id="4F675917EE1F9650" />
+    <insertChild id="E91D1012E0B193A9" />
+    <insertChild id="7AAA77741D5E4416" />
+  </node>
+  <node name="" type="Or" id="0C39A294EA20BB5C">
+    <insertChild id="E31E05CA05A7DC7A" />
+  </node>
+  <node name="LT 0.3" type="LifeFraction" id="E31E05CA05A7DC7A">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="LifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="" type="Not" id="E91D1012E0B193A9">
+    <insertChild id="8A9A3E66F5406C8C" />
+  </node>
+  <node name="" type="IsInDanger" id="8A9A3E66F5406C8C">
+    <property name="TargetPoint" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="Dragonflight" type="Ability" id="7AAA77741D5E4416">
+    <property name="Ability" valueSource="literal" value="DeathwingDragonflight" />
+    <property name="TargetUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Land Destroyer" type="AbilityUsable" id="178249D3E9582BD1">
+    <property name="Ability" valueSource="literal" value="DeathwingDestroyerForm" />
+    <insertChild id="DDD9281BBC09BFD0" />
+  </node>
+  <node name="Full Health" type="LifeFraction" id="0A4A270CA6665CEF">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="LifeFraction" valueSource="literal" value="1" />
+    <insertChild id="0E1FE9E5F47AF10A" />
+  </node>
+  <node name="Destroyer Form" type="Ability" id="4D4085B349EFB266">
+    <property name="Ability" valueSource="literal" value="DeathwingDestroyerForm" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="TargetPoint" valueSource="variable" value="TargetPoint" />
+  </node>
+  <node name="Base Node" type="And" id="DDD9281BBC09BFD0">
+    <variable name="TargetUnit" type="Unit" />
+    <variable name="TargetUnitPoint" type="Point" />
+    <variable name="SearchPoint" type="Point" />
+    <variable name="TargetPoint" type="Point" />
+    <variable name="Radius" type="Number" valueSource="lookup" value="Effect,DeathwingDragonflightLandSearchArea,AreaArray[0].Radius" />
+    <variable name="Range" type="Number" value="500" />
+    <insertChild id="E81EEEA9DF9E731C" />
+    <insertChild id="4D4085B349EFB266" />
+  </node>
+  <node name="Mana Filter" type="Or" id="78134AEF457578F2">
+    <insertChild id="D3D4636F78184959" />
+    <insertChild id="00A67729D8B23B11" />
+    <insertChild id="078B17A4DB5475E3" />
+    <insertChild id="BA8BACBBB2E84C12" />
+  </node>
+  <node name="Critical Enemy Hero" type="FindBestTarget" id="D3D4636F78184959">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Range" />
+    <property name="LifeFractionFactor" valueSource="literal" value="3" />
+    <property name="OutputTarget" value="TargetUnit" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <insertChild id="0E96DC11618B9D19" />
+  </node>
+  <node name="Convert Unit to future point" type="UnitPosition" id="0E96DC11618B9D19">
+    <property name="InputUnit" valueSource="variable" value="TargetUnit" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="OutputPosition" value="TargetPoint" />
+  </node>
+  <node name="Hit 2+ Heroes" type="FindBestAOEPoint" id="00A67729D8B23B11" comment="AoE Radius slightly smaller than normal crit radius to heighten chance of freezing at least 1 hero.">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Range" />
+    <property name="AOERadius" valueSource="variable" value="Radius" />
+    <property name="OutputTarget" value="TargetPoint" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="GE 4 Enemies" type="UnitCount" id="078B17A4DB5475E3">
+    <property name="TargetCount" valueSource="literal" value="4" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Range" />
+  </node>
+  <node name="Target Anything" type="And" id="BA8BACBBB2E84C12">
+    <insertChild id="2712904F57ABDCC8" />
+    <insertChild id="B3E872E4380308DB" />
+  </node>
+  <node name="2+ 75% Enemy Heroes" type="FindBestAOEPoint" id="2712904F57ABDCC8">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Range" />
+    <property name="AOERadius" valueSource="variable" value="Radius" />
+    <property name="OutputTarget" value="SearchPoint" />
+    <property name="MaxBestTargetOffset" valueSource="variable" value="Radius" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="50% Enemy Hero" type="FindBestTarget" id="B3E872E4380308DB">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Range" />
+    <property name="LifeFractionFactor" valueSource="literal" value="3" />
+    <property name="OutputTarget" value="TargetUnit" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <insertChild id="ED913C20E5E91DF7" />
+  </node>
+  <node name="Convert Unit to future point" type="UnitPosition" id="ED913C20E5E91DF7">
+    <property name="InputUnit" valueSource="variable" value="TargetUnit" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="OutputPosition" value="TargetPoint" />
+  </node>
+  <node name="GE 4 Enemies" type="UnitCount" id="0E1FE9E5F47AF10A">
+    <property name="TargetCount" valueSource="literal" value="4" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Range" />
+    <insertChild id="8937FA3C86E552D8" />
+  </node>
+  <node name="Hit Anything" type="FindBestAOEPoint" id="8937FA3C86E552D8" comment="AoE Radius slightly smaller than normal crit radius to heighten chance of freezing at least 1 hero.">
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Range" />
+    <property name="AOERadius" valueSource="variable" value="Radius" />
+    <property name="OutputTarget" value="TargetPoint" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="" type="Or" id="E81EEEA9DF9E731C">
+    <insertChild id="0A4A270CA6665CEF" />
+    <insertChild id="78134AEF457578F2" />
+  </node>
+  <node name="No Immediate Enemies" type="UnitCount" id="E66E7752514C4621">
+    <property name="TargetCount" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="Structure,Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="No Immediate Enemies" type="UnitCount" id="77EF4F5B0D527727">
+    <property name="TargetCount" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="Structure,Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="No Enemies Around" type="UnitCount" id="4F675917EE1F9650">
+    <property name="TargetCount" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Play Safer" type="And" id="36494AC99A45C374">
+    <insertChild id="77EF4F5B0D527727" />
+    <insertChild id="C1C84A42E9A087FB" />
+    <insertChild id="F6F4F3827EFC6766" />
+  </node>
+  <node name="GT 0.7" type="LifeFraction" id="F6F4F3827EFC6766">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="GT" />
+    <property name="LifeFraction" valueSource="literal" value="0.7" />
+  </node>
+  <node name="3+ Heroes" type="UnitCount" id="C1C84A42E9A087FB">
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="16" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+  </node>
+  <node name="Get Aggressive" type="And" id="60C97E984792D144">
+    <insertChild id="E66E7752514C4621" />
+    <insertChild id="0FA7E11AD7FC6171" />
+    <insertChild id="08BD66DBC6048431" />
+    <insertChild id="4953492FD389163C" />
+  </node>
+  <node name="&lt;=2 Heroes" type="UnitCount" id="0FA7E11AD7FC6171">
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="16" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+  </node>
+  <node name="GT 0.6" type="LifeFraction" id="4953492FD389163C">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="GT" />
+    <property name="LifeFraction" valueSource="literal" value="0.6" />
+  </node>
+  <node name="Not Sieging" type="UnitCount" id="08BD66DBC6048431">
+    <property name="TargetCount" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Structure" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Elementium Plating" type="AbilityUsable" id="9E63AFFAD60E0A63">
+    <property name="Ability" valueSource="literal" value="DeathwingElementiumPlating" />
+    <insertChild id="EACB914B845A1BC1" />
+  </node>
+  <node name="" type="And" id="EACB914B845A1BC1">
+    <insertChild id="9E6AE3F6FAA6ABDA" />
+    <insertChild id="F1EE6F611B148FCD" />
+  </node>
+  <node name="" type="And" id="440B38E8FCF90B9A">
+    <insertChild id="6BBFBACD99B7B748" />
+    <insertChild id="9593A2B3E52041A0" />
+  </node>
+  <node name="LE 0.25" type="LifeFraction" id="9593A2B3E52041A0">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="LifeFraction" valueSource="literal" value="0.25" />
+  </node>
+  <node name="Enemy Heroes Around" type="UnitCount" id="6BBFBACD99B7B748">
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="Elementium Plating" type="Ability" id="F1EE6F611B148FCD">
+    <property name="Ability" valueSource="literal" value="DeathwingElementiumPlating" />
+    <property name="TargetUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="" type="Or" id="9E6AE3F6FAA6ABDA">
+    <insertChild id="440B38E8FCF90B9A" />
+    <insertChild id="049F939AF7F2B4DF" />
+  </node>
+  <node name="" type="And" id="049F939AF7F2B4DF">
+    <insertChild id="43B3F2231BC5FB23" />
+    <insertChild id="944404307A07A122" />
+    <insertChild id="4F1495D14FA82EB3" />
+  </node>
+  <node name="3+ Heroes" type="UnitCount" id="43B3F2231BC5FB23">
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="11" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="LE 0.5" type="LifeFraction" id="944404307A07A122">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="LifeFraction" valueSource="literal" value="0.5" />
+  </node>
+  <node name="All Alone :(" type="UnitCount" id="4F1495D14FA82EB3">
+    <property name="TargetCount" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally,Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="Bellowing Roar" type="AbilityUsable" id="B9F88C14E9F227D6" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="DeathwingIncinerate" />
+    <insertChild id="8EFF781FDD2E5DCD" />
+  </node>
+  <node name="Base Node" type="And" id="8EFF781FDD2E5DCD" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" value="6" comment="Range of the Ability" />
+    <variable name="AbilityTargetPoint" type="Point" comment="Target Point of the ability" />
+    <insertChild id="3B852FFC72C3C265" />
+    <insertChild id="1B051AE7B9B97626" />
+  </node>
+  <node name="" type="Or" id="3B852FFC72C3C265">
+    <insertChild id="4914C77AAED4FF8A" />
+  </node>
+  <node name="&gt;=2 Heroes" type="UnitCount" id="B2074A9675A796AF">
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+  </node>
+  <node name="Use Ability" type="Ability" id="1B051AE7B9B97626">
+    <property name="Ability" valueSource="literal" value="DeathwingBellowingRoar" />
+    <property name="TargetPoint" valueSource="variable" value="AbilityTargetPoint" />
+  </node>
+  <node name="" type="And" id="4914C77AAED4FF8A">
+    <insertChild id="B2074A9675A796AF" />
+    <insertChild id="6B6918BBC318E43C" />
+  </node>
+  <node name="" type="IsInTeamfight" id="6B6918BBC318E43C">
+    <property name="TargetUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Molten Flame" type="AbilityUsable" id="0A5B01778C4F5051" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="DeathwingMoltenFlame" />
+    <insertChild id="943F32484BA65DF2" />
+  </node>
+  <node name="Base Node" type="And" id="943F32484BA65DF2" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" value="11" comment="Range of the Ability" />
+    <variable name="AbilityTargetPoint" type="Point" comment="Target Point of the ability" />
+    <variable name="AbilityMissileRadius" type="Number" valueSource="lookup" value="Effect,DeathwingMoltenFlameSearch,AreaArray[0].RectangleWidth" comment="Width of the Ability Searches" />
+    <variable name="AbilityMissilePierceCount" type="Number" comment="Number of Blockers this can go through" />
+    <variable name="AbilityHighManaThreshHold" type="Number" value="0.8" comment="High Mana ThreshHold" />
+    <variable name="AbilityLowManaThreshHold" type="Number" value="0.5" comment="Low Mana ThreshHold" />
+    <variable name="AbilityDamage" type="Number" valueSource="lookup" value="Effect,DeathwingMoltenFlameDamage,Amount" />
+    <insertChild id="DACBE49C5B72C938" />
+    <insertChild id="AC5AF8810E97663D" />
+  </node>
+  <node name="" type="Or" id="DACBE49C5B72C938">
+    <insertChild id="343F5A9F2BC04A39" />
+  </node>
+  <node name="Debuffed" type="FilterBehaviorCategory" id="993765A99CF583AB">
+    <property name="Categories" valueSource="literal" value="Stun,KnockedOut,DebuffRoot,Taunt" />
+    <property name="ExcludeCategories" valueSource="literal" value="Sleeping" />
+    <insertChild id="5542F389882B8EA1" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="5542F389882B8EA1">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="PvP/PvE" type="IfElse" id="343F5A9F2BC04A39">
+    <insertChild id="8CD2C5855F54FC84" />
+    <insertChild id="568D0CE007042A68" />
+    <insertChild id="23AEDC667A779120" />
+  </node>
+  <node name="Enemy Is Nearby" type="CompareNumber" id="B6BCF5D59F1B6E53">
+    <property name="LeftHandSide" valueSource="variable" value="Enemy Hero Count" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="RightHandSide" valueSource="literal" value="1" />
+  </node>
+  <node name="No Sleep" type="FilterBehaviorCategory" id="568D0CE007042A68">
+    <property name="ExcludeCategories" valueSource="literal" value="Sleeping" />
+    <insertChild id="1C9C242EB53419A5" />
+  </node>
+  <node name="PVP Targeting Node" type="Or" id="1C9C242EB53419A5">
+    <insertChild id="993765A99CF583AB" />
+    <insertChild id="07235ACD718703AF" />
+    <insertChild id="CBDF2BCCF8B8D301" />
+  </node>
+  <node name="&gt; Low Mana" type="EnergyFraction" id="07235ACD718703AF">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityLowManaThreshHold" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="5867EE4874B28F02" />
+  </node>
+  <node name="High Mana Targeting" type="Or" id="5867EE4874B28F02">
+    <insertChild id="224D67E8E0D3586D" />
+    <insertChild id="D722B50B14923870" />
+  </node>
+  <node name="GE 85%" type="LifeFraction" id="224D67E8E0D3586D">
+    <property name="LifeFraction" valueSource="literal" value="0.85" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="6E169C74A150D3AD" />
+  </node>
+  <node name="" type="Or" id="6E169C74A150D3AD">
+    <insertChild id="9DC7BA23D8C19A7C" />
+    <insertChild id="538F71959A81689D" />
+    <insertChild id="7817DDDE178B3A84" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="9DC7BA23D8C19A7C">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="538F71959A81689D">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="5 Units" type="FindBestVector" id="7817DDDE178B3A84">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="5" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature" />
+  </node>
+  <node name="LT 85%" type="LifeFraction" id="D722B50B14923870">
+    <property name="LifeFraction" valueSource="literal" value="0.85" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="ED4502DA77DC5A11" />
+  </node>
+  <node name="" type="Or" id="ED4502DA77DC5A11">
+    <insertChild id="36CCDEDFA61A8631" />
+    <insertChild id="5DB5877BEFBD74C6" />
+    <insertChild id="90DE274375409BD6" />
+    <insertChild id="3BE91E2FD131A36D" />
+  </node>
+  <node name="GE 30%" type="LifeFraction" id="36CCDEDFA61A8631">
+    <property name="LifeFraction" valueSource="literal" value="0.3" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="47B1FC5EC7D3EFAD" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="47B1FC5EC7D3EFAD">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="3 Heroes" type="FindBestVector" id="5DB5877BEFBD74C6">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="3" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="LT 55%" type="LifeFraction" id="90DE274375409BD6">
+    <property name="LifeFraction" valueSource="literal" value="0.55" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="37E4908B44B11C2B" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="37E4908B44B11C2B">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="6 Units" type="FindBestVector" id="3BE91E2FD131A36D">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="6" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature" />
+  </node>
+  <node name="&lt; Low Mana" type="EnergyFraction" id="CBDF2BCCF8B8D301">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityLowManaThreshHold" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="F987C88FC9AAF587" />
+  </node>
+  <node name="Low Mana Targeting" type="Or" id="F987C88FC9AAF587">
+    <insertChild id="BA080F8185928CD6" />
+    <insertChild id="F2473AAC2BF29FA0" />
+  </node>
+  <node name="GE 65%" type="LifeFraction" id="BA080F8185928CD6">
+    <property name="LifeFraction" valueSource="literal" value="0.65" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="701E5E8438F50B22" />
+  </node>
+  <node name="" type="Or" id="701E5E8438F50B22">
+    <insertChild id="35AF55CFB515625F" />
+    <insertChild id="056C0A92169D248D" />
+    <insertChild id="572B6DF67FD692BF" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="35AF55CFB515625F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="056C0A92169D248D">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="5 Units" type="FindBestVector" id="572B6DF67FD692BF">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="5" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature" />
+  </node>
+  <node name="LT 65%" type="LifeFraction" id="F2473AAC2BF29FA0">
+    <property name="LifeFraction" valueSource="literal" value="0.65" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="891F4D79AF5B0BBC" />
+  </node>
+  <node name="" type="Or" id="891F4D79AF5B0BBC">
+    <insertChild id="676560960B5FFF8E" />
+    <insertChild id="949F9F6781A6F478" />
+    <insertChild id="C6F06EF496173800" />
+    <insertChild id="EAF316E823FEDC28" />
+  </node>
+  <node name="GE 30%" type="LifeFraction" id="676560960B5FFF8E">
+    <property name="LifeFraction" valueSource="literal" value="0.3" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="540CB833CE866D38" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="540CB833CE866D38">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="3 Heroes" type="FindBestVector" id="949F9F6781A6F478">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="3" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="LT 55%" type="LifeFraction" id="C6F06EF496173800">
+    <property name="LifeFraction" valueSource="literal" value="0.55" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="EE22B78753500780" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="EE22B78753500780">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="6 Units" type="FindBestVector" id="EAF316E823FEDC28">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="6" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Structure,Heroic,Summoned,MapBoss,MapCreature" />
+  </node>
+  <node name="PVE Targeting Node" type="Or" id="23AEDC667A779120">
+    <insertChild id="D602B71175D37ED4" />
+    <insertChild id="3E38E1EEDB5D0511" />
+  </node>
+  <node name="High Mana" type="EnergyFraction" id="CB2C72ECA668896B">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityHighManaThreshHold" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="CAF2942EBCBB7E76" />
+  </node>
+  <node name="High Mana Targeting" type="Or" id="CAF2942EBCBB7E76">
+    <insertChild id="8AC4AA5210A17CA2" />
+  </node>
+  <node name="Find 4 Anything" type="FindBestVector" id="8AC4AA5210A17CA2">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="4" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="Low Mana" type="EnergyFraction" id="D10DF219B2313B54">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityLowManaThreshHold" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="EEE179B789C03838" />
+  </node>
+  <node name="Medium Mana Targeting" type="Or" id="EEE179B789C03838">
+    <insertChild id="2DA66B0624AEC6FD" />
+  </node>
+  <node name="Find 6 Anything" type="FindBestVector" id="2DA66B0624AEC6FD">
+    <property name="TargetTypes" valueSource="literal" value="Creep,Minion,Merc,Structure,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="6" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="Use Ability" type="Ability" id="AC5AF8810E97663D">
+    <property name="Ability" valueSource="literal" value="DeathwingMoltenFlame" />
+    <property name="TargetPoint" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+  </node>
+  <node name="Low Mana" type="EnergyFraction" id="01591E810D23444F">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityLowManaThreshHold" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Cancel Molten Flame" type="AbilityUsable" id="72029AE0222F7143" comment="This Node is the start of the branch. It check that the ability is actually usable before doing any logic for it.">
+    <property name="Ability" valueSource="literal" value="DeathwingMoltenFlameCancel" />
+    <insertChild id="38FA73B61264D03A" />
+  </node>
+  <node name="Base Node" type="And" id="38FA73B61264D03A" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" value="11" comment="Range of the Ability" />
+    <variable name="AbilityTargetPoint" type="Point" comment="Target Point of the ability" />
+    <variable name="AbilityMissileRadius" type="Number" valueSource="lookup" value="Effect,DeathwingMoltenFlameSearch,AreaArray[0].RectangleWidth" comment="Width of the Ability Searches" />
+    <variable name="AbilityMissilePierceCount" type="Number" comment="Number of Blockers this can go through" />
+    <variable name="AbilityHighManaThreshHold" type="Number" value="0.8" comment="High Mana ThreshHold" />
+    <variable name="AbilityLowManaThreshHold" type="Number" value="0.3" comment="Low Mana ThreshHold" />
+    <variable name="AbilityDamage" type="Number" valueSource="lookup" value="Effect,DeathwingMoltenFlameDamage,Amount" />
+    <insertChild id="E0D6A37F9F19D7EE" />
+    <insertChild id="3E1552EE123B06CB" />
+  </node>
+  <node name="" type="Or" id="E0D6A37F9F19D7EE">
+    <insertChild id="99621C7C0C2C6EE7" />
+    <insertChild id="364AFAF7DB34A726" />
+  </node>
+  <node name="Use Ability" type="Ability" id="3E1552EE123B06CB">
+    <property name="Ability" valueSource="literal" value="DeathwingMoltenFlameCancel" />
+    <property name="TargetPoint" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="PredictionSeconds" valueSource="literal" value="0" />
+  </node>
+  <node name="No Units Around" type="UnitCount" id="99621C7C0C2C6EE7">
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Heroic,Summoned,MapBoss,MapCreature,AITargetableStructure" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="RequiredTypes" valueSource="literal" value="" />
+  </node>
+  <node name="Low Mana" type="EnergyFraction" id="F9A98A31624FFBC2">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityLowManaThreshHold" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+  </node>
+  <node name="" type="And" id="364AFAF7DB34A726">
+    <insertChild id="3D73C1B350091E73" />
+    <insertChild id="F9A98A31624FFBC2" />
+    <insertChild id="638B083073ADF5FF" />
+  </node>
+  <node name="LT 30%" type="LifeFraction" id="638B083073ADF5FF">
+    <property name="LifeFraction" valueSource="literal" value="0.3" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+  </node>
+  <node name="3+ Heroes" type="UnitCount" id="3D73C1B350091E73">
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic,MapBoss,MapCreature" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="" type="And" id="8CD2C5855F54FC84">
+    <insertChild id="01591E810D23444F" />
+    <insertChild id="B6BCF5D59F1B6E53" />
+  </node>
+  <node name="" type="And" id="D602B71175D37ED4">
+    <insertChild id="506B12F54CEB07EE" />
+    <insertChild id="CB2C72ECA668896B" />
+  </node>
+  <node name="" type="And" id="3E38E1EEDB5D0511">
+    <insertChild id="C3A3943EE5184A5B" />
+    <insertChild id="D10DF219B2313B54" />
+  </node>
+  <node name="No Heroes" type="UnitCount" id="506B12F54CEB07EE">
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="No Heroes" type="UnitCount" id="C3A3943EE5184A5B">
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="variable" value="AbilityRange" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="Skyfall" type="AbilityUsable" id="F0366A3316AE6608">
+    <property name="Ability" valueSource="literal" value="DeathwingSkyfall" />
+    <insertChild id="9DDAEE0BA2722AB3" />
+  </node>
+  <node name="Skyfall" type="And" id="9DDAEE0BA2722AB3">
+    <variable name="Skyfall Target Unit" type="Unit" />
+    <variable name="Skyfall Target Unit Point" type="Point" />
+    <variable name="Skyfall Search Point" type="Point" />
+    <variable name="Skyfall Target Point" type="Point" />
+    <variable name="Skyfall AOE Radius" type="Number" valueSource="lookup" value="Effect,DeathwingSkyfallExplosionSearch,AreaArray[0].Radius" />
+    <variable name="Skyfall Range" type="Number" valueSource="lookup" value="Abil,DeathwingSkyfall,Range" />
+    <insertChild id="DF1CBF4C751B6AF7" />
+    <insertChild id="5DBE969749B373EE" />
+  </node>
+  <node name="Mana Filter" type="Or" id="DF1CBF4C751B6AF7">
+    <insertChild id="DB79C16F2557C08F" />
+    <insertChild id="E381A0A92AD7E119" />
+    <insertChild id="C9E715E4B0D95A0B" />
+  </node>
+  <node name="Critical Enemy Hero" type="FindBestTarget" id="DB79C16F2557C08F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Skyfall Range" />
+    <property name="LifeFractionFactor" valueSource="literal" value="3" />
+    <property name="OutputTarget" value="Skyfall Target Unit" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.25" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <insertChild id="B1286660927AB399" />
+  </node>
+  <node name="Convert Unit to future point" type="UnitPosition" id="B1286660927AB399">
+    <property name="InputUnit" valueSource="variable" value="Skyfall Target Unit" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="OutputPosition" value="Skyfall Target Point" />
+  </node>
+  <node name="Hit 2+ Heroes" type="FindBestAOEPoint" id="E381A0A92AD7E119" comment="AoE Radius slightly smaller than normal crit radius to heighten chance of freezing at least 1 hero.">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="1" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Skyfall Range" />
+    <property name="AOERadius" valueSource="variable" value="Skyfall AOE Radius" />
+    <property name="OutputTarget" value="Skyfall Target Point" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="GE 4 Enemies" type="UnitCount" id="6556DB62E1E3CA12">
+    <property name="TargetCount" valueSource="literal" value="4" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Skyfall Range" />
+  </node>
+  <node name="Target Anything" type="Or" id="C9E715E4B0D95A0B">
+    <insertChild id="D0FE7F174821261F" />
+    <insertChild id="4EBD881D1C7BBC8A" />
+    <insertChild id="6556DB62E1E3CA12" />
+  </node>
+  <node name="2+ 75% Enemy Heroes" type="FindBestAOEPoint" id="D0FE7F174821261F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Skyfall Range" />
+    <property name="AOERadius" valueSource="variable" value="Skyfall AOE Radius" />
+    <property name="OutputTarget" value="Skyfall Search Point" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="50% Enemy Hero" type="FindBestTarget" id="4EBD881D1C7BBC8A">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Skyfall Range" />
+    <property name="LifeFractionFactor" valueSource="literal" value="3" />
+    <property name="OutputTarget" value="Skyfall Target Unit" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <insertChild id="735AEE4B6935DA99" />
+  </node>
+  <node name="Convert Unit to future point" type="UnitPosition" id="735AEE4B6935DA99">
+    <property name="InputUnit" valueSource="variable" value="Skyfall Target Unit" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+    <property name="OutputPosition" value="Skyfall Target Point" />
+  </node>
+  <node name="Cast" type="Ability" id="5DBE969749B373EE">
+    <property name="Ability" valueSource="literal" value="DeathwingSkyfall" />
+    <property name="TargetPoint" valueSource="variable" value="Skyfall Target Point" />
+  </node>
+  <node name="Base Node" type="And" id="B9848F3DF91770BE" comment="This Node links targeting Logic, ability use and talent modifications">
+    <variable name="AbilityRange" type="Number" value="18" comment="Range of the Ability" />
+    <variable name="AbilityTargetPoint" type="Point" comment="Target Point of the ability" />
+    <variable name="AbilityMissileRadius" type="Number" valueSource="lookup" value="Effect,DeathwingCataclysmSearchArea,AreaArray[0].RectangleWidth" comment="Width of the Ability Searches" />
+    <variable name="AbilityMissilePierceCount" type="Number" comment="Number of Blockers this can go through" />
+    <variable name="AbilityHighManaThreshHold" type="Number" value="0.8" comment="High Mana ThreshHold" />
+    <variable name="AbilityLowManaThreshHold" type="Number" value="0.5" comment="Low Mana ThreshHold" />
+    <variable name="AbilityDamage" type="Number" valueSource="lookup" value="Effect,DeathwingCataclysmDamage,Amount" />
+    <insertChild id="CBBC632549A66F9D" />
+    <insertChild id="EB53157C5CD716DF" />
+  </node>
+  <node name="PVP Targeting Node" type="Or" id="DF4EE3392739FBC0">
+    <insertChild id="E0F6999CB86BA376" />
+    <insertChild id="BEF2C0FB6AB81667" />
+  </node>
+  <node name="&gt; Low Mana" type="EnergyFraction" id="E0F6999CB86BA376">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityLowManaThreshHold" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="07BABB193F5734F1" />
+  </node>
+  <node name="High Mana Targeting" type="Or" id="07BABB193F5734F1">
+    <insertChild id="4028632B898E6CA2" />
+    <insertChild id="86271BA89F6DE241" />
+  </node>
+  <node name="GE 85%" type="LifeFraction" id="4028632B898E6CA2">
+    <property name="LifeFraction" valueSource="literal" value="0.85" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="B66D50E963ADEEF9" />
+  </node>
+  <node name="" type="Or" id="B66D50E963ADEEF9">
+    <insertChild id="72A0F9A249FD0FC7" />
+    <insertChild id="A84B2E870165BD43" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="72A0F9A249FD0FC7">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="A84B2E870165BD43">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="LT 85%" type="LifeFraction" id="86271BA89F6DE241">
+    <property name="LifeFraction" valueSource="literal" value="0.85" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="5A861FE0FE37FB4D" />
+  </node>
+  <node name="" type="Or" id="5A861FE0FE37FB4D">
+    <insertChild id="368EBE8D0D7E8CF5" />
+    <insertChild id="B3213F8D8075F6C5" />
+    <insertChild id="81DC7B502A71EF54" />
+  </node>
+  <node name="GE 30%" type="LifeFraction" id="368EBE8D0D7E8CF5">
+    <property name="LifeFraction" valueSource="literal" value="0.3" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="581ACF335BF6BB58" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="581ACF335BF6BB58">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="3 Heroes" type="FindBestVector" id="B3213F8D8075F6C5">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="3" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="LT 55%" type="LifeFraction" id="81DC7B502A71EF54">
+    <property name="LifeFraction" valueSource="literal" value="0.55" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="374CA1DDB350AEC4" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="374CA1DDB350AEC4">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="&lt; Low Mana" type="EnergyFraction" id="BEF2C0FB6AB81667">
+    <property name="EnergyFraction" valueSource="variable" value="AbilityLowManaThreshHold" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="0E5BD5C83D158708" />
+  </node>
+  <node name="Low Mana Targeting" type="Or" id="0E5BD5C83D158708">
+    <insertChild id="E746CC362E79B23C" />
+    <insertChild id="44F128E998CFD927" />
+  </node>
+  <node name="GE 65%" type="LifeFraction" id="E746CC362E79B23C">
+    <property name="LifeFraction" valueSource="literal" value="0.65" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="95E94872BBA8B266" />
+  </node>
+  <node name="" type="Or" id="95E94872BBA8B266">
+    <insertChild id="61E3E04A89C67117" />
+    <insertChild id="7514912F20FB3284" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="61E3E04A89C67117">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="7514912F20FB3284">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="LT 65%" type="LifeFraction" id="44F128E998CFD927">
+    <property name="LifeFraction" valueSource="literal" value="0.65" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="1B132CEF8EBC04F5" />
+  </node>
+  <node name="" type="Or" id="1B132CEF8EBC04F5">
+    <insertChild id="90D9FDFF7F930746" />
+    <insertChild id="6094B6391C991448" />
+    <insertChild id="572BD101DC074BE5" />
+  </node>
+  <node name="GE 30%" type="LifeFraction" id="90D9FDFF7F930746">
+    <property name="LifeFraction" valueSource="literal" value="0.3" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="B8A79B9698423F00" />
+  </node>
+  <node name="Weak Hero" type="FindBestVector" id="B8A79B9698423F00">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.3" />
+  </node>
+  <node name="3 Heroes" type="FindBestVector" id="6094B6391C991448">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="3" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="LT 55%" type="LifeFraction" id="572BD101DC074BE5">
+    <property name="LifeFraction" valueSource="literal" value="0.55" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <insertChild id="99AA3F02C905E182" />
+  </node>
+  <node name="2 Heroes" type="FindBestVector" id="99AA3F02C905E182">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="OutputEndPoint" value="AbilityTargetPoint" />
+    <property name="MaxVectorLength" valueSource="variable" value="AbilityRange" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MissileRadius" valueSource="variable" value="AbilityMissileRadius" />
+  </node>
+  <node name="Use Ability" type="Ability" id="EB53157C5CD716DF">
+    <property name="Ability" valueSource="literal" value="DeathwingCataclysm" />
+    <property name="TargetPoint" valueSource="variable" value="AbilityTargetPoint" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.5" />
+  </node>
+  <node name="" type="And" id="CBBC632549A66F9D">
+    <insertChild id="DF4EE3392739FBC0" />
+    <insertChild id="DACC875C88544713" />
+    <insertChild id="648914C6C01095E9" />
+  </node>
+  <node name="Allies Nearby" type="UnitCount" id="DACC875C88544713">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+  </node>
+  <node name="" type="IsInTeamfight" id="648914C6C01095E9">
+    <property name="TargetUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Dragonflight" type="AbilityUsable" id="F80F816A25D5C974">
+    <property name="Ability" valueSource="literal" value="DeathwingDragonflight" />
+    <insertChild id="38ACA945DEA615B3" />
+  </node>
+  <node name="" type="And" id="38ACA945DEA615B3">
+    <insertChild id="269347255495450A" />
+    <insertChild id="6F1A35DDE4C3F129" />
+    <insertChild id="50F18006AD82A3A7" />
+  </node>
+  <node name="No Enemies Around" type="UnitCount" id="269347255495450A">
+    <property name="TargetCount" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="" type="Not" id="6F1A35DDE4C3F129">
+    <insertChild id="FFA3166B21CC1828" />
+  </node>
+  <node name="" type="IsInDanger" id="FFA3166B21CC1828">
+    <property name="TargetPoint" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="Dragonflight" type="Ability" id="50F18006AD82A3A7">
+    <property name="Ability" valueSource="literal" value="DeathwingDragonflight" />
+    <property name="TargetUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Is Human Player" type="UnitHasBehavior" id="B6E05168685B2CC8">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="IsHumanPlayer" />
+    <insertChild id="472B9056F3991195" />
+  </node>
+  <node name="Life Full" type="LifeFraction" id="472B9056F3991195">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="LifeFraction" valueSource="literal" value="1" />
+    <insertChild id="DC573120B5784EDC" />
+  </node>
+  <node name="Land Destroyer in Altar" type="AbilityUsable" id="DC573120B5784EDC">
+    <property name="Ability" valueSource="literal" value="DeathwingDestroyerForm" />
+    <insertChild id="ABF41B40506314C6" />
+  </node>
+  <node name="Destroyer Form" type="Ability" id="BC9010AE6329E1EE">
+    <property name="Ability" valueSource="literal" value="DeathwingDestroyerForm" />
+    <property name="TargetPoint" valueSource="variable" value="AltarUnit" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="Find Altar" type="FindBestTarget" id="ABF41B40506314C6">
+    <property name="UnitType" valueSource="literal" value="HallOfStormsLocationUnit" />
+    <property name="OutputTarget" value="AltarUnit" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+    <property name="MaxTargetDistance" valueSource="literal" value="500" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <insertChild id="BC9010AE6329E1EE" />
+  </node>
+  <node name="Not already in flight" type="UnitHasBehavior" id="E76FDB802CDA00D1">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="DeathwingDragonflightBuff" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <insertChild id="5AB5E43A538EAD37" />
+  </node>
+  <node name="" type="IfElse" id="FBEAB5189F013B65">
+    <insertChild id="45BC365AB9CA47F8" />
+    <insertChild id="A4B6C382047AA30F" />
+    <insertChild id="F6324BFD9E32281C" />
+  </node>
+  <node name="Dragonflight" type="AbilityUsable" id="45BC365AB9CA47F8">
+    <property name="Ability" valueSource="literal" value="DeathwingDragonflight" />
+    <insertChild id="477930BFCB23FCC3" />
+  </node>
+  <node name="" type="And" id="477930BFCB23FCC3">
+    <insertChild id="DF1EBEC375D27161" />
+    <insertChild id="B9170DCF54E460F8" />
+  </node>
+  <node name="No Enemies Around" type="UnitCount" id="DF1EBEC375D27161">
+    <property name="TargetCount" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy,Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="" type="Not" id="B9170DCF54E460F8">
+    <insertChild id="C638588939C4103F" />
+  </node>
+  <node name="" type="IsInDanger" id="C638588939C4103F">
+    <property name="TargetPoint" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="Dragonflight" type="Ability" id="A4B6C382047AA30F">
+    <property name="Ability" valueSource="literal" value="DeathwingDragonflight" />
+    <property name="TargetUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="" type="IfElse" id="32360CE7A8CE4D47">
+    <insertChild id="0CD661E258672EA8" />
+    <insertChild id="1342176E5A92BEA7" />
+    <insertChild id="9A5661DE9C2C8621" />
+  </node>
+  <node name="Able to land?" type="AbilityUsable" id="0CD661E258672EA8">
+    <property name="Ability" valueSource="literal" value="DeathwingDestroyerForm" />
+    <insertChild id="513F1D7FD465F1D7" />
+  </node>
+  <node name="Land" type="Ability" id="1342176E5A92BEA7">
+    <property name="Ability" valueSource="literal" value="DeathwingDestroyerForm" />
+    <property name="TargetPoint" valueSource="variable" value="GoalTargetPosition" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="Life Full" type="LifeFraction" id="513F1D7FD465F1D7">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="LifeFraction" valueSource="literal" value="1" />
+  </node>
+  <node name="Life Not Full" type="LifeFraction" id="8766FE0B50A949BC">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LT" />
+    <property name="LifeFraction" valueSource="literal" value="1" />
+  </node>
+  <node name="" type="And" id="E7CD68D3263E4BFA">
+    <insertChild id="1CDD70883451734A" />
+    <insertChild id="6DF986A0ED262DC5" />
+  </node>
+  <node name="" type="Or" id="1CDD70883451734A">
+    <insertChild id="8766FE0B50A949BC" />
+    <insertChild id="1AC02D9547093943" />
+  </node>
+  <node name="Not in altar" type="UnitHasBehavior" id="1AC02D9547093943">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <property name="Behavior" valueSource="literal" value="HallOfStormsProtectionBuff" />
+  </node>
+  <node name="Find Altar" type="FindBestTarget" id="CF7E2A82888A7901">
+    <property name="UnitType" valueSource="literal" value="HallOfStormsLocationUnit" />
+    <property name="OutputTarget" value="AltarUnit" />
+    <property name="SearchCenter" valueSource="intrinsic" value="SelfPos" />
+    <property name="MaxTargetDistance" valueSource="literal" value="500" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+  </node>
+</tree>

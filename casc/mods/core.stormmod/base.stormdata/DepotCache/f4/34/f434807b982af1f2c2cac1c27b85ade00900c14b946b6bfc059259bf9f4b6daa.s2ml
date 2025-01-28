@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Rückkehr in die Geisterminen</e>
+    <e id="2">Vollkommen ohne Beschreibung.</e>
+    <e id="3">Rückkehr in die Geisterminen</e>
+    <e id="4">Die Geisterminen sind wieder offen! Erwecke die Grabgolems und sichere deinem Team den Sieg!</e>
+    <e id="5">Zufallswahl</e>
+    <e id="6">Wähle einen von drei zufälligen Helden. Du hast nur 30 Sekunden Zeit, also entscheide dich schnell!</e>
+    <e id="7">Zusatzinfos</e>
+    <e id="8">Es gibt mehrere Mineneingänge, die auf der Karte verteilt sind. Nutze ihre Platzierung aus!</e>
+</Locale>

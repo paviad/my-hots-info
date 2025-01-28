@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Podniebna Świątynia</e>
+    <e id="2">Bohaterowie z uniwersów Blizzarda spotkają się, by toczyć walki na wielkiej, galaktycznej arenie!</e>
+    <e id="3">(Storm) Luxoria</e>
+    <e id="4">Inne</e>
+    <e id="5">Niesklasyfikowany rodzaj gry.</e>
+    <e id="6">Standardowa</e>
+    <e id="7">Gracze mogą wybrać swoich bohaterów.</e>
+    <e id="8">Podniebna Świątynia</e>
+    <e id="9">Mapa z 3 alejami</e>
+</Locale>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Ich glaub, es hakt (Mutator)</e>
+    <e id="2">Ich glaub, es hakt</e>
+    <e id="3">PullParty</e>
+    <e id="4">Ich glaub, es hakt</e>
+    <e id="5">Zeit zum Spielen! Ziehe gegnerische Helden mit dem Haken auf deine Seite des Schwimmbeckens, um sie auszuschalten.</e>
+    <e id="6">Triff Gegner mit dem Haken</e>
+    <e id="7">Das erste Team, das 20 Gegner mit dem Haken erwischt und tötet, gewinnt das Spiel.</e>
+    <e id="8">Der Haken an der Sache</e>
+    <e id="9">Die Abklingzeit des Hakens und seine Geschwindigkeit sind deutlich verringert. Das Talent Helfende Hand ist standardmäßig aktiviert, wodurch auch Verbündete herangezogen werden können.</e>
+    <e id="10">Nur Kleiner</e>
+    <e id="11">Alle gute Freunde! Kleiner will spielen!</e>
+    <e id="12">Zusatzinfos</e>
+    <e id="13">Die Todestimer sind verringert und alle Spieler werden nach 5 Sek. wiederbelebt.</e>
+    <e id="14">Helden haben keine Talente und die Stufe bleibt unverändert.</e>
+    <e id="15">Wird ein Held, der bereits am Haken hängt, mit einem zweiten Haken erwischt, stirbt er sofort.</e>
+    <e id="16">Wenn ein Verbündeter am Haken vom eigenen Team getötet wird, zählt das nicht als Kill für das gegnerische Team.</e>
+</Locale>

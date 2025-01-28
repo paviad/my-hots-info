@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Przesyłka Specjalna (Mutator)</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">Default</e>
+    <e id="4">Przesyłka Specjalna</e>
+    <e id="5">Dwie drużyny, w których wszyscy są Smugą, ścierają się na polu bitwy, a jednocześnie transportują swoje ładunki. Czas jest po stronie każdego!</e>
+    <e id="6">Zniszcz bazę wroga</e>
+    <e id="7">Nie można zaatakować żadnej z baz bezpośrednio. Wyłącznie ładunki, bossowie oraz zabijanie wrogich graczy mogą spowodować obrażenia bazy.</e>
+    <e id="8">Uwaga, bomba!</e>
+    <e id="9">Zabicie wrogiego bohatera powoduje zadanie 1 pkt. obrażeń bazie wroga, a zabicie wrogiego bohatera Bombą Pulsacyjną powoduje zadanie 2 pkt. obrażeń.</e>
+    <e id="10">Wszyscy są Smugą</e>
+    <e id="11">Wszyscy gracze w obu drużynach grają Smugą.</e>
+    <e id="12">Dodatkowe informacje</e>
+    <e id="13">Energia bazy, obrażenia ładunku oraz Wzmocnienie wzrastają o 400%.</e>
+    <e id="14">Gracze rozpoczynają grę na poziomie 20.</e>
+    <e id="15">Smuga rozpoczyna grę z Déjà Vu, czas odnowienia Mignięcia jest skrócony o 50%, a Bomba Pulsacyjna oraz ataki podstawowe wymierzone w bohaterów doładowują się dwukrotnie szybciej.</e>
+    <e id="16">Przejęcie kontroli nad bossem powoduje zadanie znaczących obrażeń bazie wroga.</e>
+    <e id="17">Bomby Pulsacyjne eksplodują natychmiast po trafieniu wroga.</e>
+</Locale>

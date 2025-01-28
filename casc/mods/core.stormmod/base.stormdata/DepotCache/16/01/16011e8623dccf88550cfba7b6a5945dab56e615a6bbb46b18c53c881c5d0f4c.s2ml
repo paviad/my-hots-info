@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Heroiczna Ucieczka z Braxis</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">Braxis</e>
+    <e id="4">Przetrwanie</e>
+    <e id="5">Utrzymaj się jak najdłużej przy życiu walcząc z hordami wrogów.</e>
+    <e id="6">Współpraca</e>
+    <e id="7">Sprzymierz się z innymi graczami</e>
+    <e id="8">EFBH</e>
+    <e id="9">Heroiczna Ucieczka z Braxis</e>
+    <e id="10">Rój Omega atakuje tę krainę i jest potężniejszy niż kiedykolwiek wcześniej! Połączcie siły, by stawić czoła jeszcze bardziej wymagającemu wyzwaniu.</e>
+    <e id="11">Dotrzyjcie do schronu</e>
+    <e id="12">Przebijajcie się przez hordy zergów i utrzymajcie pozycję na każdym z punktów kontrolnych, aby przejść do następnego obszaru.</e>
+    <e id="13">Rój Omega</e>
+    <e id="14">Podczas meczu będziecie odpierać ataki fal zergów.</e>
+    <e id="15">Co jakiś czas będziecie się natykać na szczególnie potężnych bohaterów dysponujących wzmocnionymi zdolnościami.</e>
+    <e id="16">Pula bohaterów</e>
+    <e id="17">Wybierz jednego spośród grona specjalnie wyselekcjonowanych bohaterów.</e>
+    <e id="18">Dodatkowe informacje</e>
+    <e id="19">Bohaterowie rozpoczynają na poziomie 10 i awansują za każdym razem, kiedy uda im się osiągnąć punkt kontrolny. Nie można wybierać niektórych talentów.</e>
+    <e id="20">Bohaterowie nie powracają samoczynnie do życia i po śmierci muszą zostać wskrzeszeni przez członków swojej drużyny. Mecz kończy się, jeśli wszyscy gracze zginą.</e>
+    <e id="21">Bohaterowie mogą zbierać przedmioty, które zapewniają dodatkowe zdolności. W danym momencie bohater może posiadać tylko jeden przedmiot.</e>
+    <e id="22">Nie można korzystać z wierzchowców i Kamienia Powrotu.</e>
+</Locale>

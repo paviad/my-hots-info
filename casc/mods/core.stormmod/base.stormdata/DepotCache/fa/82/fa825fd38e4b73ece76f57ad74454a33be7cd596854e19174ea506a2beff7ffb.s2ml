@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Special Delivery Mutator</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">Default</e>
+    <e id="4">Special Delivery</e>
+    <e id="5">Two teams comprised entirely of Tracer shoot it out while pushing the Payloads. Time is on everyone’s side!</e>
+    <e id="6">Destroy the Enemy Core</e>
+    <e id="7">Cores cannot be attacked directly. Only Payloads, Bosses, and killing other players will damage the Core.</e>
+    <e id="8">Bombs Away</e>
+    <e id="9">Killing an enemy Hero deals 1 damage to their Core. Killing an enemy Hero with Pulse Bomb deals 2 damage to the Core.</e>
+    <e id="10">Everyone is Tracer</e>
+    <e id="11">All players on both teams play as Tracer.</e>
+    <e id="12">Additional Info</e>
+    <e id="13">Core health, Payload damage and Empowerment are increased by 400%.</e>
+    <e id="14">Players start at level 20.</e>
+    <e id="15">Tracer starts with Total Recall, Blink&apos;s cooldown is reduced by 50%, and Pulse Bomb Basic Attack charge rate is doubled versus Heroes.</e>
+    <e id="16">Capturing the Boss deals significant damage to the enemy Core.</e>
+    <e id="17">Pulse Bombs instantly detonate upon hitting an enemy.</e>
+</Locale>

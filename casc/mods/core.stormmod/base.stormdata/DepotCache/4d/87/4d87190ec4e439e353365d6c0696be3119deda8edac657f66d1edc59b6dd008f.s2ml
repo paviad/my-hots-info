@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Ghost Protocol Mutator</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">TowersOfDoom</e>
+    <e id="4">Ghost Protocol</e>
+    <e id="5">A ghost&apos;s most dangerous opponent is herself. Kill enemy Novas to destroy the Core.</e>
+    <e id="6">Protected Core</e>
+    <e id="7">The enemy&apos;s Core is protected from Hero attacks</e>
+    <e id="8">One Kill, One Shot</e>
+    <e id="9">Takedowns deal 1 damage to the Core</e>
+    <e id="10">Everyone is Nova</e>
+    <e id="11">Now who&apos;s a ghost? Everyone, that&apos;s who.</e>
+    <e id="12">Additional Info</e>
+    <e id="13">Nova&apos;s Snipe ability kills instantly</e>
+</Locale>

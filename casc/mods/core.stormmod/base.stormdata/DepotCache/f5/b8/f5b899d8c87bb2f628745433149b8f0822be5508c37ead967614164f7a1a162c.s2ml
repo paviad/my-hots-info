@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Guerre des Balafrés</e>
+    <e id="2">Accro au crochet</e>
+    <e id="3">PullParty</e>
+    <e id="4">Accro au crochet</e>
+    <e id="5">L’heure est au jeu ! Ferrez et attirez les héros adverses de votre côté de la piscine puis éliminez-les.</e>
+    <e id="6">Pêche aux héros adverses</e>
+    <e id="7">La première équipe à ferrer et tuer 20 ennemis remporte la partie.</e>
+    <e id="8">Les lois de l’attraction</e>
+    <e id="9">Le temps de recharge de Crochet et la vitesse de déplacement sont grandement réduits. Main secourable est toujours active, vous permettant de ferrer vos alliés.</e>
+    <e id="10">Tout le monde joue Balafré.</e>
+    <e id="11">Vous, bons copains ! Balaf’ prêt pour jouer !</e>
+    <e id="12">Informations supplémentaires</e>
+    <e id="13">Temps de résurrection réduits. Tous les joueurs réapparaissent au bout de 5 secondes.</e>
+    <e id="14">Les héros ne gagnent ni talents, ni niveaux.</e>
+    <e id="15">Ferrer un héros déjà harponné provoque sa mort instantanée.</e>
+    <e id="16">Tuer un allié harponné n’accorde pas de point à l’équipe adverse.</e>
+</Locale>

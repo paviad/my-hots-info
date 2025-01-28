@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Distrito Industrial</e>
+    <e id="2">Vários Heróis da Blizzard se enfrentam numa arena galáctica!</e>
+    <e id="3">Outro</e>
+    <e id="4">Tipo de jogo não classificado.</e>
+    <e id="5">Padrão</e>
+    <e id="6">Todas as configurações podem ser personalizadas.</e>
+    <e id="7">Distrito Industrial</e>
+    <e id="8">Heróis escolhidos aleatoriamente se enfrentam em uma única trilha!</e>
+    <e id="9">Destrua o Núcleo do inimigo.</e>
+    <e id="10">Destrua o Núcleo inimigo para vencer.</e>
+    <e id="11">Trilha única</e>
+    <e id="12">Nenhum objetivo adicional de campo de batalha presente. Prepare-se para ação ininterrupta.</e>
+    <e id="13">Seleção Restrita</e>
+    <e id="14">Escolha um dos três Heróis selecionados aleatoriamente.</e>
+    <e id="15">Mais detalhes</e>
+    <e id="16">Pedras de Regresso (B) são desabilitadas e sua área inicial não regenera vida.</e>
+    <e id="17">Geradores de globo geram globos de regeneração no campo de batalha.</e>
+</Locale>

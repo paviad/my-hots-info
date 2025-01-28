@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">As minas se abrem novamente</e>
+    <e id="2">Sem descrição.</e>
+    <e id="3">As minas se abrem novamente</e>
+    <e id="4">Os Heróis voltaram à Mina Assombrada! Desperte os Golens do Túmulo e conquiste essa vitória!</e>
+    <e id="5">Seleção Restrita</e>
+    <e id="6">Escolha um dos três Heróis selecionados aleatoriamente. Você só tem 30 segundos. Depressa!</e>
+    <e id="7">Informações adicionais</e>
+    <e id="8">Há diversos acessos à mina espalhados pelo mapa. Use-os estrategicamente para garantir a vantagem!</e>
+</Locale>

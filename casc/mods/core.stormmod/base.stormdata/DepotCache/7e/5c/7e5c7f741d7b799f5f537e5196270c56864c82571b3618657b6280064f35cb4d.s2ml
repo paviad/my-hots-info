@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Le terrain d’entraînement</e>
+    <e id="2">Les forces du Nexus ont envahi l’usine Volskaya. Battez-vous à mort pour y récupérer du butin !</e>
+    <e id="3">Autre</e>
+    <e id="4">Type de jeu sans classification.</e>
+    <e id="5">Standard</e>
+    <e id="6">Les joueurs peuvent choisir leur héros.</e>
+    <e id="7">TrialGrounds</e>
+    <e id="8">Le terrain d’entraînement</e>
+    <e id="9">Katya Volskaya met les pouvoirs du Nexus au banc d’essai. Mettez la main sur ses prototypes d’armes dévastatrices et éliminez vos adversaires !</e>
+    <e id="10">Élimination</e>
+    <e id="11">Terrassez tous les adversaires pour gagner la manche. La première équipe à gagner deux manches remporte la partie.</e>
+    <e id="12">Armement expérimental</e>
+    <e id="13">Après 30 secondes, un objectif aléatoire apparaît au centre du champ de bataille. Attendez-vous à tout !</e>
+    <e id="14">Capturez l’objectif pour obtenir un avantage décisif sur vos adversaires.</e>
+    <e id="15">Certains objectifs proviennent de champs de bataille existants tandis que d’autres sont totalement inédits !</e>
+    <e id="16">Logés à la même enseigne</e>
+    <e id="17">Les joueurs des deux équipes incarnent le même héros. Celui-ci est choisi aléatoirement au début chaque manche.</e>
+    <e id="18">Informations supplémentaires</e>
+    <e id="19">Pas de réapparition. Chaque héros dispose d’une unique vie par manche.</e>
+    <e id="20">Si tous les héros de votre équipe succombent, la manche est perdue.</e>
+</Locale>

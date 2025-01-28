@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog>
+    <CActorEventMacroRunnable id="AbathurUltimatePurpleMacro">
+        <Do Send="TextureSelectById Storm_Hero_Abathur_Ultimate_Purple_Diff"/>
+        <Do Send="TextureSelectById Storm_Hero_Abathur_Ultimate_Purple_Emis"/>
+        <Do Send="TextureSelectById Storm_Effect_AbathurDrool_Purple_Emis"/>
+    </CActorEventMacroRunnable>
+    <CRewardSkin id="AbathurUltimatePurple">
+        <License value="21848"/>
+    </CRewardSkin>
+    <CSkin id="AbathurUltimatePurple" parent="AbathurUltimateCommon">
+        <AttributeId value="Aba8"/>
+        <ModelMacroRun Models="AbathurUltimateModels" Macro="AbathurUltimatePurpleMacro"/>
+        <RequiredRewardArray value="AbathurUltimatePurple"/>
+        <ProductId value="28111"/>
+        <HyperlinkId value="FeralSwarmAbathur"/>
+        <ReleaseDate Day="8" Year="2017"/>
+        <Rarity value="Rare"/>
+        <SortName value="Skin/SortName/AbathurSwarmF"/>
+    </CSkin>
+    <CTexture id="Storm_Hero_Abathur_Ultimate_Purple_Diff" parent="MainSlotTexture"/>
+    <CTexture id="Storm_Hero_Abathur_Ultimate_Purple_Emis" parent="MainSlotTexture"/>
+    <CTexture id="Storm_Effect_AbathurDrool_Purple_Emis" parent="Generic01SlotTexture">
+        <File value="Assets\Textures\storm_effect_abathurdrool_purple_emis.dds"/>
+    </CTexture>
+</Catalog>

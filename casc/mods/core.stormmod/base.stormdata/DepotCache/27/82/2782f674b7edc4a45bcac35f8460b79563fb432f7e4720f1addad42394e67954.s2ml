@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Bójki Robotów</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">IndustrialDistrict</e>
+    <e id="4">Bójki Robotów</e>
+    <e id="5">Pilotuj Protektory i staraj się zniszczyć bazę wroga!</e>
+    <e id="6">Zniszcz bazę wroga</e>
+    <e id="7">Aby zwyciężyć, zrównaj z ziemią bazę wroga.</e>
+    <e id="8">Protektory</e>
+    <e id="9">Obydwie drużyny rozpoczynają mecz z Protektorem Trygław.</e>
+    <e id="10">Kiedy oba Protektory zostaną zniszczone, pojawiają się dwa nowe.</e>
+    <e id="11">Losowy wybór</e>
+    <e id="12">Wybierz jednego z trzech losowych bohaterów.</e>
+    <e id="13">Dodatkowe informacje</e>
+    <e id="14">Na pokładzie Protektora Trygław może znajdować się dwoje graczy: pilot i strzelec.</e>
+    <e id="15">Zarówno pilot, jak i strzelec mają dostęp do specjalnych zdolności.</e>
+    <e id="16">Tylko pilot może kontrolować ruchy Protektora.</e>
+</Locale>

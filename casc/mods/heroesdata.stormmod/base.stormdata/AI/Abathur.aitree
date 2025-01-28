@@ -1,0 +1,2062 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree>
+  <include file="AI/HeroMutator.aitree" />
+  <mod id="0404FCA4F12FA6C8">
+    <removeChild id="C8C1718B7484860F" />
+  </mod>
+  <mod id="6C616369000C0E06">
+    <insertChild id="30B5607FFC50C28D" after="3FAD3B6CDC9F26F4" />
+    <insertChild id="4FD5A760ED981647" after="30B5607FFC50C28D" />
+  </mod>
+  <mod id="746F6F526F726548">
+    <variable name="Health_StartOffensive" type="Number" value="0.6" />
+    <variable name="Health_High" type="Number" value="0.9" />
+    <variable name="FleeTimer" type="Time" />
+    <variable name="ChaseAllowedTime" type="Time" />
+    <variable name="ChasePreventTime" type="Time" />
+    <variable name="Gank Start Location" type="Point" />
+    <variable name="Symbiote Unit" type="Unit" />
+    <variable name="Symbiote Stored" type="Boolean" />
+    <variable name="Locust Nest Scan Time" type="Time" />
+    <variable name="Locust Nest Unit" type="Unit" />
+    <variable name="Hiding Spot" type="Point" valueSource="intrinsic" value="SelfPos" />
+    <variable name="Pace Timer" type="Time" />
+    <variable name="Pace Location" type="Point" valueSource="intrinsic" value="SelfPos" />
+    <variable name="Relocate Timer" type="Time" />
+    <variable name="Largest Enemy Minion Wave" type="Point" />
+    <removeChild id="FCD592221157322E" />
+    <insertChild id="0404FCA4F12FA6C8" before="" />
+  </mod>
+  <mod id="87811D772E337EB7">
+    <insertChild id="0A24F811C81DAE67" />
+    <insertChild id="89CBA607E62C00F8" />
+    <insertChild id="2F4579C1E5A05BCB" />
+    <insertChild id="BADFA3B345821BBD" />
+  </mod>
+  <mod id="93801AED1753AA9B">
+    <insertChild id="8387532C25C84F1F" />
+    <insertChild id="C866A19115B01510" />
+  </mod>
+  <mod id="A4058AA255280C17">
+    <insertChild id="883242A2107C8DE2" />
+    <insertChild id="384EFFBD878DD7F9" />
+    <insertChild id="6346CFF8FA2D85C6" />
+    <insertChild id="DFE0C41AF4F7ED79" />
+  </mod>
+  <mod id="C288EAD933C9CA25">
+    <insertChild id="FCD592221157322E" />
+  </mod>
+  <mod id="F21BCB9B06948439">
+    <insertChild id="E93CFD16C7C5709F" />
+    <insertChild id="A426AB18F85ED5B0" />
+  </mod>
+  <mod id="FCD592221157322E">
+    <removeChild id="0404FCA4F12FA6C8" />
+  </mod>
+  <node name="Has Symbiote Active" type="UnitHasBehavior" id="883242A2107C8DE2">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="SymbioteCasterDummyBehavior" />
+    <insertChild id="DA0F0131702FACEC" />
+  </node>
+  <node name="" type="Or" id="DA0F0131702FACEC">
+    <insertChild id="012A18A329880EAD" />
+    <insertChild id="B38546182F5C03E6" />
+  </node>
+  <node name="Cancel Symbiote" type="And" id="012A18A329880EAD">
+    <insertChild id="1280ED28C1000EC6" />
+    <insertChild id="C0082C1753F2D847" />
+  </node>
+  <node name="" type="Or" id="1280ED28C1000EC6">
+    <insertChild id="970EF9FC84B9A602" />
+    <insertChild id="1027B75FA326DDEE" />
+    <insertChild id="D2AF4A034CC460DE" />
+  </node>
+  <node name="Recently Damaged" type="RecentlyDamaged" id="970EF9FC84B9A602">
+    <property name="WithinSeconds" valueSource="literal" value="2" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Standing In AoE" type="IsInAOE" id="1027B75FA326DDEE">
+    <property name="TargetPoint" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="1+ Enemy Hero Nearby" type="UnitCount" id="D2AF4A034CC460DE">
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="Cast Cancel" type="IssueAbility" id="C0082C1753F2D847">
+    <property name="IssueTarget" valueSource="variable" value="Symbiote Unit" />
+    <property name="Ability" valueSource="literal" value="AbathurAssumingDirectControlCancel" />
+  </node>
+  <node name="Dummy Move Command" type="HeroMoveToPoint" id="B38546182F5C03E6">
+    <property name="TargetPosition" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="Calldown MULE" type="AbilityUsable" id="384EFFBD878DD7F9">
+    <property name="Ability" valueSource="literal" value="TalentBucketCalldownMule" />
+    <insertChild id="94B112BE0A08BD23" />
+  </node>
+  <node name="Calldown MULE" type="And" id="94B112BE0A08BD23">
+    <variable name="MULE Target Point" type="Point" />
+    <variable name="MULE Target Unit" type="Unit" />
+    <insertChild id="8C7DAC89638FA347" />
+    <insertChild id="FBCA1EF78DC37C56" />
+    <insertChild id="7C2C4D82FA764630" />
+    <insertChild id="906A2C037C5448A5" />
+  </node>
+  <node name="Find Lowest Friendly Structure" type="FindBestTarget" id="8C7DAC89638FA347">
+    <property name="MinLifeFraction" valueSource="literal" value="0.25" />
+    <property name="LifeFractionFactor" valueSource="literal" value="5" />
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="MaxTargetDistance" valueSource="literal" value="100" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="OutputTarget" value="MULE Target Unit" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.9" />
+  </node>
+  <node name="LE 2 Enemy Hero Near MULE Target" type="UnitCount" id="FBCA1EF78DC37C56">
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="SearchCenter" valueSource="variable" value="MULE Target Unit" />
+  </node>
+  <node name="Offset Towards Core by 3" type="FindPointOnLine" id="7C2C4D82FA764630">
+    <property name="OutputTarget" value="MULE Target Point" />
+    <property name="DestinationPoint" valueSource="intrinsic" value="AllyCore" />
+    <property name="DistanceOffset" valueSource="literal" value="3" />
+    <property name="SourceUnit" valueSource="variable" value="MULE Target Unit" />
+  </node>
+  <node name="Cast" type="AbilityEnqueue" id="906A2C037C5448A5">
+    <property name="Ability" valueSource="literal" value="TalentBucketCalldownMule" />
+    <property name="TargetPoint" valueSource="variable" value="MULE Target Point" />
+  </node>
+  <node name="Locust Brood" type="AbilityUsable" id="6346CFF8FA2D85C6">
+    <property name="Ability" valueSource="literal" value="AbathurLocustSwarm" />
+    <insertChild id="FA1EDF7A393DB3F6" />
+  </node>
+  <node name="Locust Brood" type="And" id="FA1EDF7A393DB3F6">
+    <variable name="Locust Brood Target Point" type="Point" />
+    <insertChild id="A522CC162BB6CAE0" />
+    <insertChild id="33EC1FEC9B94593E" />
+  </node>
+  <node name="Convert Self Point (for testing)" type="FindPointOnLine" id="A522CC162BB6CAE0">
+    <property name="SourcePoint" valueSource="intrinsic" value="SelfPos" />
+    <property name="OutputTarget" value="Locust Brood Target Point" />
+    <property name="DestinationPoint" valueSource="intrinsic" value="AllyCore" />
+  </node>
+  <node name="Cast" type="AbilityEnqueue" id="33EC1FEC9B94593E">
+    <property name="Ability" valueSource="literal" value="AbathurLocustSwarm" />
+    <property name="TargetPoint" valueSource="variable" value="Locust Brood Target Point" />
+  </node>
+  <node name="Locust Nest" type="AbilityUsable" id="DFE0C41AF4F7ED79">
+    <property name="Ability" valueSource="literal" value="AbathurLocustNest" />
+    <insertChild id="7FEA607879A5885A" />
+  </node>
+  <node name="Locust Nest" type="And" id="7FEA607879A5885A">
+    <variable name="Locust Nest Target Point" type="Point" />
+    <insertChild id="E43A0696BC5C8329" />
+    <insertChild id="64239BF04FEF04FF" />
+    <insertChild id="74CB801C4EB5B538" />
+    <insertChild id="48354C244019499D" />
+  </node>
+  <node name="" type="Not" id="E43A0696BC5C8329">
+    <insertChild id="16AC6E0001BD2C65" />
+  </node>
+  <node name="Locust Nest Healthy" type="LifeFraction" id="16AC6E0001BD2C65">
+    <property name="LifeFraction" valueSource="literal" value="0.05" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="Target" valueSource="variable" value="Locust Nest Unit" />
+  </node>
+  <node name="Convert Self Point (for testing)" type="FindPointOnLine" id="64239BF04FEF04FF">
+    <property name="SourcePoint" valueSource="intrinsic" value="SelfPos" />
+    <property name="OutputTarget" value="Locust Nest Target Point" />
+    <property name="DestinationPoint" valueSource="intrinsic" value="AllyCore" />
+  </node>
+  <node name="Cast" type="AbilityEnqueue" id="74CB801C4EB5B538">
+    <property name="Ability" valueSource="literal" value="AbathurLocustNest" />
+    <property name="TargetPoint" valueSource="variable" value="Locust Nest Target Point" />
+  </node>
+  <node name="Start Scan Timer" type="TimerStart" id="48354C244019499D">
+    <property name="OutputFinishTime" value="Locust Nest Scan Time" />
+    <property name="DurationSeconds" valueSource="literal" value="1" />
+  </node>
+  <node name="Ultimate Evolution" type="AbilityUsable" id="0A24F811C81DAE67">
+    <property name="Ability" valueSource="literal" value="AbathurUltimateEvolution" />
+    <insertChild id="D0E475BBF0196D1F" />
+  </node>
+  <node name="Ultimate Evolution" type="And" id="D0E475BBF0196D1F">
+    <variable name="Ultimate Evolution Target Unit" type="Unit" />
+    <variable name="Team Fight Point" type="Point" />
+    <insertChild id="C17939037002B898" />
+    <insertChild id="3D2C89B745F5B108" />
+    <insertChild id="2B8BAC42B84DE4FD" />
+  </node>
+  <node name="Not Quarter Value Hero" type="FilterBehavior" id="C17939037002B898">
+    <property name="Behavior" valueSource="literal" value="OneQuarterValueHero" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <insertChild id="3D7AADC2793D75F9" />
+  </node>
+  <node name="Find 2+ Enemy Heroes" type="FindBestAOEPoint" id="3D7AADC2793D75F9">
+    <property name="OutputTarget" value="Team Fight Point" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="AOERadius" valueSource="literal" value="6" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="literal" value="500" />
+  </node>
+  <node name="" type="Or" id="3D2C89B745F5B108">
+    <insertChild id="C1D07BEBFC8F5AF6" />
+    <insertChild id="7DDD79554408F04C" />
+    <insertChild id="8C29AA92775EEE00" />
+    <insertChild id="64A2225C96ED7B93" />
+  </node>
+  <node name="" type="And" id="C1D07BEBFC8F5AF6">
+    <insertChild id="F1D23EB1B4C11C04" />
+    <insertChild id="3B95B2D56FE41E3F" />
+  </node>
+  <node name="Caster" type="FilterPlaystyle" id="F1D23EB1B4C11C04">
+    <property name="Playstyles" valueSource="literal" value="RoleCaster" />
+    <insertChild id="FFEA96F4DF483951" />
+  </node>
+  <node name="Not Quarter Value Hero" type="FilterBehavior" id="FFEA96F4DF483951">
+    <property name="Behavior" valueSource="literal" value="OneQuarterValueHero" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <insertChild id="22E717CE98925CD6" />
+  </node>
+  <node name="Find Nearest Ally Hero" type="FindBestTarget" id="22E717CE98925CD6">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="OutputTarget" value="Ultimate Evolution Target Unit" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="SearchCenter" valueSource="variable" value="Team Fight Point" />
+  </node>
+  <node name="" type="Or" id="3B95B2D56FE41E3F">
+    <insertChild id="557C8D3C81879698" />
+    <insertChild id="86445AAAB8685517" />
+    <insertChild id="58C615E146D3730B" />
+  </node>
+  <node name="2 Enemies Nearby" type="UnitCount" id="557C8D3C81879698">
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="SearchCenter" valueSource="variable" value="Ultimate Evolution Target Unit" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="2+ Allies Nearby" type="UnitCount" id="86445AAAB8685517">
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="SearchCenter" valueSource="variable" value="Ultimate Evolution Target Unit" />
+  </node>
+  <node name="Is in Team Fight" type="IsInTeamfight" id="58C615E146D3730B">
+    <property name="TargetUnit" valueSource="variable" value="Ultimate Evolution Target Unit" />
+  </node>
+  <node name="" type="And" id="7DDD79554408F04C">
+    <insertChild id="5CCCFCD75D7C3A5A" />
+    <insertChild id="BCC77B18C25B161D" />
+  </node>
+  <node name="Specialist" type="FilterPlaystyle" id="5CCCFCD75D7C3A5A">
+    <property name="Playstyles" valueSource="literal" value="RoleSpecialist" />
+    <insertChild id="3A4761BFC739F747" />
+  </node>
+  <node name="Not Quarter Value Hero" type="FilterBehavior" id="3A4761BFC739F747">
+    <property name="Behavior" valueSource="literal" value="OneQuarterValueHero" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <insertChild id="815BE30792F341AC" />
+  </node>
+  <node name="Find Nearest Ally Hero" type="FindBestTarget" id="815BE30792F341AC">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="OutputTarget" value="Ultimate Evolution Target Unit" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="SearchCenter" valueSource="variable" value="Team Fight Point" />
+  </node>
+  <node name="" type="Or" id="BCC77B18C25B161D">
+    <insertChild id="087CBFFA514231B9" />
+    <insertChild id="91207AFE015D688B" />
+    <insertChild id="A96FDED372E0B782" />
+  </node>
+  <node name="2 Enemies Nearby" type="UnitCount" id="087CBFFA514231B9">
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="SearchCenter" valueSource="variable" value="Ultimate Evolution Target Unit" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="2+ Allies Nearby" type="UnitCount" id="91207AFE015D688B">
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="SearchCenter" valueSource="variable" value="Ultimate Evolution Target Unit" />
+  </node>
+  <node name="Is in Team Fight" type="IsInTeamfight" id="A96FDED372E0B782">
+    <property name="TargetUnit" valueSource="variable" value="Ultimate Evolution Target Unit" />
+  </node>
+  <node name="" type="And" id="8C29AA92775EEE00">
+    <insertChild id="5F2373B0C8F6A6BA" />
+    <insertChild id="37D92856CA69E646" />
+  </node>
+  <node name="Auto Attacker" type="FilterPlaystyle" id="5F2373B0C8F6A6BA">
+    <property name="Playstyles" valueSource="literal" value="RoleAutoAttacker" />
+    <insertChild id="9037A5D8FB3DD7E4" />
+  </node>
+  <node name="Not Quarter Value Hero" type="FilterBehavior" id="9037A5D8FB3DD7E4">
+    <property name="Behavior" valueSource="literal" value="OneQuarterValueHero" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <insertChild id="C355301885ABDAD6" />
+  </node>
+  <node name="Find Nearest Ally Hero" type="FindBestTarget" id="C355301885ABDAD6">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="OutputTarget" value="Ultimate Evolution Target Unit" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="SearchCenter" valueSource="variable" value="Team Fight Point" />
+  </node>
+  <node name="" type="Or" id="37D92856CA69E646">
+    <insertChild id="D43C4FE31A7CDE4C" />
+    <insertChild id="92C001BC08B50F55" />
+    <insertChild id="8D701EEE41517FDA" />
+  </node>
+  <node name="2 Enemies Nearby" type="UnitCount" id="D43C4FE31A7CDE4C">
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="SearchCenter" valueSource="variable" value="Ultimate Evolution Target Unit" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="2+ Allies Nearby" type="UnitCount" id="92C001BC08B50F55">
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="SearchCenter" valueSource="variable" value="Ultimate Evolution Target Unit" />
+  </node>
+  <node name="Is in Team Fight" type="IsInTeamfight" id="8D701EEE41517FDA">
+    <property name="TargetUnit" valueSource="variable" value="Ultimate Evolution Target Unit" />
+  </node>
+  <node name="" type="And" id="64A2225C96ED7B93">
+    <insertChild id="6EF1E0750BF4736F" />
+    <insertChild id="AE6AE036816ADB6E" />
+  </node>
+  <node name="Tank" type="FilterPlaystyle" id="6EF1E0750BF4736F">
+    <property name="Playstyles" valueSource="literal" value="RoleTank" />
+    <insertChild id="2024843B4E588CEA" />
+  </node>
+  <node name="Not Quarter Value Hero" type="FilterBehavior" id="2024843B4E588CEA">
+    <property name="Behavior" valueSource="literal" value="OneQuarterValueHero" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <insertChild id="D5EC40F43F7D93D9" />
+  </node>
+  <node name="Find Nearest Ally Hero" type="FindBestTarget" id="D5EC40F43F7D93D9">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="OutputTarget" value="Ultimate Evolution Target Unit" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+    <property name="SearchCenter" valueSource="variable" value="Team Fight Point" />
+  </node>
+  <node name="" type="Or" id="AE6AE036816ADB6E">
+    <insertChild id="788881EA6CD640E7" />
+    <insertChild id="4C134FA31F66492F" />
+    <insertChild id="68F4AA0FF4C15BCE" />
+  </node>
+  <node name="2 Enemies Nearby" type="UnitCount" id="788881EA6CD640E7">
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="SearchCenter" valueSource="variable" value="Ultimate Evolution Target Unit" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="2+ Allies Nearby" type="UnitCount" id="4C134FA31F66492F">
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="SearchCenter" valueSource="variable" value="Ultimate Evolution Target Unit" />
+  </node>
+  <node name="Is in Team Fight" type="IsInTeamfight" id="68F4AA0FF4C15BCE">
+    <property name="TargetUnit" valueSource="variable" value="Ultimate Evolution Target Unit" />
+  </node>
+  <node name="Cast" type="Ability" id="2B8BAC42B84DE4FD">
+    <property name="Ability" valueSource="literal" value="AbathurUltimateEvolution" />
+    <property name="TargetUnit" valueSource="variable" value="Ultimate Evolution Target Unit" />
+  </node>
+  <node name="Evolve Monstrosity" type="AbilityUsable" id="89CBA607E62C00F8">
+    <property name="Ability" valueSource="literal" value="AbathurEvolveMonstrosity" />
+    <insertChild id="6AAE2DC0D7D8EEB8" />
+  </node>
+  <node name="Evolve Monstrosity" type="And" id="6AAE2DC0D7D8EEB8">
+    <variable name="Evolve Monstrosity Target Unit" type="Unit" />
+    <variable name="Evolve Monstrosity Search Point" type="Point" />
+    <insertChild id="33B7C176C6C0066A" />
+    <insertChild id="82071F8F9FE8BCC8" />
+  </node>
+  <node name="Use Cases" type="Or" id="33B7C176C6C0066A">
+    <insertChild id="C58AF5E7B699BA88" />
+    <insertChild id="64ED918E30865191" />
+  </node>
+  <node name="Big Enemy Wave" type="And" id="C58AF5E7B699BA88">
+    <insertChild id="2405F05F8A71083F" />
+    <insertChild id="85847AAB26F20B27" />
+    <insertChild id="CD6B4D22D5FAAB88" />
+  </node>
+  <node name="5+ Enemy Minions" type="FindPopulousWave" id="2405F05F8A71083F">
+    <property name="MinCount" valueSource="literal" value="5" />
+    <property name="OutputPosition" value="Evolve Monstrosity Search Point" />
+  </node>
+  <node name="Find Target Unit" type="Or" id="85847AAB26F20B27">
+    <insertChild id="6A33F3BE5884AB8E" />
+    <insertChild id="1BF0523A59EEA23C" />
+  </node>
+  <node name="Find Locust Unit" type="FindBestTarget" id="6A33F3BE5884AB8E">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="OutputTarget" value="Evolve Monstrosity Target Unit" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0.5" />
+    <property name="BehaviorRequiredCaster" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="LocustTimedLife" />
+    <property name="LifeFractionFactor" valueSource="literal" value="5" />
+    <property name="SearchCenter" valueSource="variable" value="Evolve Monstrosity Search Point" />
+  </node>
+  <node name="Find Minion Unit" type="FindBestTarget" id="1BF0523A59EEA23C">
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="OutputTarget" value="Evolve Monstrosity Target Unit" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="ExcludeTypes" valueSource="literal" value="Merc,Missile,Stasis,Dead,Invulnerable,Benign" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="LifeFractionFactor" valueSource="literal" value="5" />
+    <property name="DistanceFactor" valueSource="literal" value="0.5" />
+    <property name="SearchCenter" valueSource="variable" value="Evolve Monstrosity Search Point" />
+  </node>
+  <node name="0 Enemy Heroes Nearby" type="UnitCount" id="CD6B4D22D5FAAB88">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="SearchCenter" valueSource="variable" value="Evolve Monstrosity Target Unit" />
+  </node>
+  <node name="Big Friendly Wave" type="And" id="64ED918E30865191">
+    <insertChild id="94905AB03446BAA2" />
+    <insertChild id="4CBFA098CD5E356C" />
+    <insertChild id="DFB05C20B77C5928" />
+    <insertChild id="4BAB61388B432201" />
+    <insertChild id="7806C9315E537154" />
+  </node>
+  <node name="5+ Ally Minions" type="FindPopulousWave" id="94905AB03446BAA2">
+    <property name="MinCount" valueSource="literal" value="5" />
+    <property name="OutputPosition" value="Evolve Monstrosity Search Point" />
+    <property name="FindAllyWave" valueSource="literal" value="true" />
+  </node>
+  <node name="Find Target Unit" type="Or" id="4CBFA098CD5E356C">
+    <insertChild id="B1A8E625F6EBC83D" />
+    <insertChild id="FB2F2951516193A2" />
+  </node>
+  <node name="Find Locust Unit" type="FindBestTarget" id="B1A8E625F6EBC83D">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="OutputTarget" value="Evolve Monstrosity Target Unit" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="DistanceFactor" valueSource="literal" value="0.5" />
+    <property name="BehaviorRequiredCaster" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="LocustTimedLife" />
+    <property name="LifeFractionFactor" valueSource="literal" value="5" />
+    <property name="SearchCenter" valueSource="variable" value="Evolve Monstrosity Search Point" />
+  </node>
+  <node name="Find Minion Unit" type="FindBestTarget" id="FB2F2951516193A2">
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="OutputTarget" value="Evolve Monstrosity Target Unit" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="ExcludeTypes" valueSource="literal" value="Merc,Missile,Stasis,Dead,Invulnerable,Benign" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="LifeFractionFactor" valueSource="literal" value="5" />
+    <property name="DistanceFactor" valueSource="literal" value="0.5" />
+    <property name="SearchCenter" valueSource="variable" value="Evolve Monstrosity Search Point" />
+  </node>
+  <node name="3+ Enemy Minions Nearby" type="UnitCount" id="DFB05C20B77C5928">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="SearchCenter" valueSource="variable" value="Evolve Monstrosity Target Unit" />
+  </node>
+  <node name="0 Enemy Heroes Nearby" type="UnitCount" id="4BAB61388B432201">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="SearchCenter" valueSource="variable" value="Evolve Monstrosity Target Unit" />
+  </node>
+  <node name="0 Ally Heroes Nearby" type="UnitCount" id="7806C9315E537154">
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="SearchCenter" valueSource="variable" value="Evolve Monstrosity Target Unit" />
+  </node>
+  <node name="Cast" type="Ability" id="82071F8F9FE8BCC8">
+    <property name="Ability" valueSource="literal" value="AbathurEvolveMonstrosity" />
+    <property name="TargetUnit" valueSource="variable" value="Evolve Monstrosity Target Unit" />
+  </node>
+  <node name="Symbiote Save" type="AbilityUsable" id="2F4579C1E5A05BCB">
+    <property name="Ability" valueSource="literal" value="AbathurSymbiote" />
+    <insertChild id="33C91929A3DB7404" />
+  </node>
+  <node name="Symbiote Save" type="And" id="33C91929A3DB7404">
+    <variable name="Symbiote Target Unit" type="Unit" />
+    <variable name="Spike Burst Radius" type="Number" valueSource="lookup" value="Effect,AbathurSymbioteSpikeBurstDamageSearch,AreaArray[0].Radius" />
+    <insertChild id="119D4088F5660169" />
+    <insertChild id="FFF44B08019B767E" />
+    <insertChild id="C28BB87403BF53BC" />
+  </node>
+  <node name="0 Enemy Heroes Within 15 of Abathur" type="UnitCount" id="119D4088F5660169">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="" type="Or" id="FFF44B08019B767E">
+    <insertChild id="82E25B0C4DA37349" />
+    <insertChild id="DF71024737865DF2" />
+  </node>
+  <node name="Damaged Recently" type="FilterRecentlyDamaged" id="82E25B0C4DA37349">
+    <insertChild id="6F91CB47EBFA3BCC" />
+  </node>
+  <node name="&lt; 35% Ally Hero" type="FindBestTarget" id="6F91CB47EBFA3BCC">
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.35" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Hallucination,Invulnerable,Benign" />
+    <property name="LifeFractionFactor" valueSource="literal" value="3" />
+  </node>
+  <node name="&lt; 35% Ally Hero" type="FindBestTarget" id="DF71024737865DF2">
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.35" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Hallucination,Invulnerable,Benign" />
+    <property name="LifeFractionFactor" valueSource="literal" value="3" />
+    <insertChild id="FDAEB5B31FD26E31" />
+  </node>
+  <node name="1+ Enemy Heroes Nearby" type="UnitCount" id="FDAEB5B31FD26E31">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+  </node>
+  <node name="Cast" type="Ability" id="C28BB87403BF53BC">
+    <property name="Ability" valueSource="literal" value="AbathurSymbiote" />
+    <property name="TargetUnit" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="Symbiote Harass" type="AbilityUsable" id="BADFA3B345821BBD">
+    <property name="Ability" valueSource="literal" value="AbathurSymbiote" />
+    <insertChild id="DAEBE325519C067A" />
+  </node>
+  <node name="Symbiote Harass" type="And" id="DAEBE325519C067A">
+    <variable name="Symbiote Target Unit" type="Unit" />
+    <variable name="Spike Burst Radius" type="Number" valueSource="lookup" value="Effect,AbathurSymbioteSpikeBurstDamageSearch,AreaArray[0].Radius" />
+    <variable name="Harass Target Unit" type="Unit" />
+    <insertChild id="1E275856ACE93F26" />
+    <insertChild id="EF4620CA188F3645" />
+    <insertChild id="36CE2A0E81B1506F" />
+    <insertChild id="69DF57862D2A8F0C" />
+  </node>
+  <node name="0 Enemy Heroes Within 15 of Abathur" type="UnitCount" id="1E275856ACE93F26">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="&lt; 50% Enemy Hero" type="FindBestTarget" id="EF4620CA188F3645">
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+    <property name="LifeFractionFactor" valueSource="literal" value="5" />
+    <property name="OutputTarget" value="Harass Target Unit" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AllHeroicUnitsTrackingBehavior" />
+  </node>
+  <node name="Ally Target Near Enemy" type="FindBestTarget" id="36CE2A0E81B1506F">
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Hallucination,Invulnerable,Benign" />
+    <property name="SearchCenter" valueSource="variable" value="Harass Target Unit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-5" />
+  </node>
+  <node name="Cast" type="Ability" id="69DF57862D2A8F0C">
+    <property name="Ability" valueSource="literal" value="AbathurSymbiote" />
+    <property name="TargetUnit" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="Toxic Nest" type="AbilityUsable" id="E93CFD16C7C5709F">
+    <property name="Ability" valueSource="literal" value="AbathurToxicNest" />
+    <insertChild id="57162CCF7D2B877B" />
+  </node>
+  <node name="Toxic Nest Lane" type="And" id="57162CCF7D2B877B">
+    <variable name="Toxic Nest Range" type="Number" valueSource="lookup" value="Abil,AbathurToxicNest,Range" />
+    <variable name="Toxic Nest Target Point" type="Point" />
+    <variable name="Toxic Nest Target Unit" type="Unit" />
+    <insertChild id="DF8711967F65A534" />
+    <insertChild id="6F8925DB8F7F59E0" />
+    <insertChild id="77D63CC099EE9CE7" />
+  </node>
+  <node name="5+ Enemy Wave in Range" type="FindPopulousWave" id="DF8711967F65A534">
+    <property name="MinCount" valueSource="literal" value="5" />
+    <property name="OutputPosition" value="Largest Enemy Minion Wave" />
+    <property name="Range" valueSource="variable" value="Toxic Nest Range" />
+  </node>
+  <node name="Target Selection" type="Or" id="6F8925DB8F7F59E0">
+    <insertChild id="721C4C467F070781" />
+    <insertChild id="95AA07C27DE8FE48" />
+    <insertChild id="FB6AD604E31C3E05" />
+  </node>
+  <node name="Random Point in Circle" type="RandomPointInCircle" id="721C4C467F070781">
+    <property name="CenterPoint" valueSource="variable" value="Largest Enemy Minion Wave" />
+    <property name="Radius" valueSource="literal" value="4" />
+    <property name="RequirePathable" valueSource="literal" value="true" />
+    <property name="OutputPoint" value="Toxic Nest Target Point" />
+    <insertChild id="DB7963CBCC8429BD" />
+  </node>
+  <node name="Conditions" type="And" id="DB7963CBCC8429BD">
+    <insertChild id="0DFC091153C6B083" />
+    <insertChild id="3EB5CEAE7F2819B1" />
+    <insertChild id="0A8B97D0456AB481" />
+    <insertChild id="6E134B190C87C39C" />
+    <insertChild id="842FC4B1FE1716BE" />
+  </node>
+  <node name="1+ Minion In Range of Target Point" type="UnitCount" id="0DFC091153C6B083">
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="lookup" value="Effect,ToxicNestSearchAreaDamage,AreaArray[0].Radius" />
+  </node>
+  <node name="No Hero" type="UnitCount" id="3EB5CEAE7F2819B1">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+  </node>
+  <node name="No Enemy Tower Nearby" type="UnitCount" id="0A8B97D0456AB481">
+    <property name="TargetTypes" valueSource="literal" value="Tower" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="LE 2 Nests Nearby" type="UnitCount" id="6E134B190C87C39C">
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="MaxTargetDistance" valueSource="literal" value="3" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Stasis,Dead,Invulnerable" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="UnitType" valueSource="literal" value="AbathurToxicNest" />
+  </node>
+  <node name="Inside Cast Range" type="Distance" id="842FC4B1FE1716BE">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetPoint" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Distance" valueSource="variable" value="Toxic Nest Range" />
+  </node>
+  <node name="Find AoE 3+ Minion Point" type="FindBestAOEPoint" id="95AA07C27DE8FE48">
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="Toxic Nest Target Point" />
+    <property name="AOERadius" valueSource="lookup" value="Effect,ToxicNestSearchAreaDamage,AreaArray[0].Radius" />
+    <property name="MinTargets" valueSource="literal" value="3" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="Largest Enemy Minion Wave" />
+    <property name="ClipCenter" valueSource="intrinsic" value="Self" />
+    <property name="ClipRadius" valueSource="variable" value="Toxic Nest Range" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <insertChild id="C1F24942F949082D" />
+  </node>
+  <node name="No Hero" type="UnitCount" id="C1F24942F949082D">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <insertChild id="3BD7E83B5B8EF00F" />
+  </node>
+  <node name="No Enemy Tower Nearby" type="UnitCount" id="3BD7E83B5B8EF00F">
+    <property name="TargetTypes" valueSource="literal" value="Tower" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Find AoE 2+ Minion Point" type="FindBestAOEPoint" id="FB6AD604E31C3E05">
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="Toxic Nest Target Point" />
+    <property name="AOERadius" valueSource="lookup" value="Effect,ToxicNestSearchAreaDamage,AreaArray[0].Radius" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="Largest Enemy Minion Wave" />
+    <property name="ClipCenter" valueSource="intrinsic" value="Self" />
+    <property name="ClipRadius" valueSource="variable" value="Toxic Nest Range" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <insertChild id="0805908B3641BABD" />
+  </node>
+  <node name="No Hero" type="UnitCount" id="0805908B3641BABD">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <insertChild id="C1512D99B2633B52" />
+  </node>
+  <node name="No Enemy Tower Nearby" type="UnitCount" id="C1512D99B2633B52">
+    <property name="TargetTypes" valueSource="literal" value="Tower" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Cast" type="Ability" id="77D63CC099EE9CE7">
+    <property name="TargetPoint" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="Ability" valueSource="literal" value="AbathurToxicNest" />
+  </node>
+  <node name="Symbiote Push Biggest Wave" type="AbilityUsable" id="A426AB18F85ED5B0">
+    <property name="Ability" valueSource="literal" value="AbathurSymbiote" />
+    <insertChild id="6A2C26358752B571" />
+  </node>
+  <node name="Symbiote Most Populous Wave" type="And" id="6A2C26358752B571">
+    <variable name="Spike Burst Radius" type="Number" valueSource="lookup" value="Effect,AbathurSymbioteSpikeBurstDamageSearch,AreaArray[0].Radius" />
+    <variable name="Symbiote Target Unit" type="Unit" />
+    <variable name="Symbiote Search Point" type="Point" />
+    <insertChild id="EE5C91B458F765EC" />
+    <insertChild id="ADA579E58E46B5A9" />
+    <insertChild id="4AA0BD031DF37032" />
+    <insertChild id="A21B8E5CE05A5F03" />
+  </node>
+  <node name="0 Enemy Heroes Within 15 of Abathur" type="UnitCount" id="EE5C91B458F765EC">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Find 5+ Enemy Wave" type="FindPopulousWave" id="ADA579E58E46B5A9">
+    <property name="OutputPosition" value="Symbiote Search Point" />
+    <property name="MinCount" valueSource="literal" value="5" />
+  </node>
+  <node name="Find Unit Target Near Wave" type="Or" id="4AA0BD031DF37032">
+    <variable name="Search Distance" type="Number" value="10" />
+    <insertChild id="FDA2BCE688B02997" />
+    <insertChild id="C08D944088453772" />
+    <insertChild id="20C9FE09B9A413AE" />
+    <insertChild id="0A4D6DDE331AEAA5" />
+    <insertChild id="F6F141C66FFB4BF0" />
+    <insertChild id="C4C841330B46416F" />
+    <insertChild id="C87C982D6679B4A1" />
+  </node>
+  <node name="Ally Hero" type="And" id="FDA2BCE688B02997">
+    <insertChild id="E59C8F741C8E29F4" />
+    <insertChild id="7563CA29B8C2839C" />
+  </node>
+  <node name="Not Mounted" type="FilterBehavior" id="E59C8F741C8E29F4">
+    <property name="Behavior" valueSource="literal" value="Mounted" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <insertChild id="192CF3E0345591B9" />
+  </node>
+  <node name="Ally Hero" type="FindBestTarget" id="192CF3E0345591B9">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Search Point" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Hallucination,Invulnerable,Benign" />
+  </node>
+  <node name="" type="Or" id="7563CA29B8C2839C">
+    <insertChild id="BD21AF85FDF7E8B9" />
+    <insertChild id="291213EC603269A5" />
+    <insertChild id="144A9A0F1FCF7458" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="BD21AF85FDF7E8B9">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="291213EC603269A5">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="144A9A0F1FCF7458">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="My Monstrosity" type="FindBestTarget" id="C08D944088453772">
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Search Point" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AbathurEvolveMonstrosityTrackingBehavior" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+    <insertChild id="64B4F31DE7889602" />
+  </node>
+  <node name="" type="Or" id="64B4F31DE7889602">
+    <insertChild id="8DEF0BF99D314633" />
+    <insertChild id="21062701E449E99C" />
+    <insertChild id="94987E0E81962D8D" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="8DEF0BF99D314633">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="21062701E449E99C">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="94987E0E81962D8D">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Basic Locusts" type="And" id="20C9FE09B9A413AE">
+    <insertChild id="82290A86081C0798" />
+    <insertChild id="C5ABA842FABA0E14" />
+  </node>
+  <node name="Locust Timed Life &gt; 6" type="FilterBehavior" id="82290A86081C0798">
+    <property name="Behavior" valueSource="literal" value="LocustTimedLife" />
+    <property name="TimeRemaining" valueSource="literal" value="6" />
+    <insertChild id="307BC9AA7F75DA4A" />
+  </node>
+  <node name="My Basic Locusts" type="FindBestTarget" id="307BC9AA7F75DA4A">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.5" />
+    <property name="UnitType" valueSource="literal" value="AbathurLocustNormal" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Search Point" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+  </node>
+  <node name="" type="Or" id="C5ABA842FABA0E14">
+    <insertChild id="F1801EF5F48BA9F3" />
+    <insertChild id="0B360604DB365F84" />
+    <insertChild id="E5C55FB78069F767" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="F1801EF5F48BA9F3">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="0B360604DB365F84">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="E5C55FB78069F767">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Assault Locusts" type="And" id="0A4D6DDE331AEAA5">
+    <insertChild id="2DE739DABC5A1986" />
+    <insertChild id="73C24AFC73F765A2" />
+  </node>
+  <node name="Locust Timed Life &gt; 6" type="FilterBehavior" id="2DE739DABC5A1986">
+    <property name="Behavior" valueSource="literal" value="LocustTimedLife" />
+    <property name="TimeRemaining" valueSource="literal" value="6" />
+    <insertChild id="7AC134C888161FCA" />
+  </node>
+  <node name="My Assault Locusts" type="FindBestTarget" id="7AC134C888161FCA">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.5" />
+    <property name="UnitType" valueSource="literal" value="AbathurLocustAssaultStrain" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Search Point" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+  </node>
+  <node name="" type="Or" id="73C24AFC73F765A2">
+    <insertChild id="891CD0A53A7F9575" />
+    <insertChild id="C363248A76A72860" />
+    <insertChild id="EE9C324236F89FC9" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="891CD0A53A7F9575">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="C363248A76A72860">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="EE9C324236F89FC9">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Merc" type="FindBestTarget" id="F6F141C66FFB4BF0">
+    <property name="TargetTypes" valueSource="literal" value="Merc" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.5" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Search Point" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+    <insertChild id="F8CF3B26D12F1921" />
+  </node>
+  <node name="" type="Or" id="F8CF3B26D12F1921">
+    <insertChild id="F039867E81929B74" />
+    <insertChild id="6DADA1190B38952B" />
+    <insertChild id="D0876F946F0AA89F" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="F039867E81929B74">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="6DADA1190B38952B">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="D0876F946F0AA89F">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Minion" type="FindBestTarget" id="C4C841330B46416F">
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.5" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Search Point" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+    <insertChild id="1E709E22DED93BDE" />
+  </node>
+  <node name="" type="Or" id="1E709E22DED93BDE">
+    <insertChild id="8E86BFE4D0D7E9D3" />
+    <insertChild id="166F8233ED51A9C4" />
+    <insertChild id="F6C2B3096D3DA182" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="8E86BFE4D0D7E9D3">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="166F8233ED51A9C4">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="F6C2B3096D3DA182">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Tower" type="FindBestTarget" id="C87C982D6679B4A1">
+    <property name="TargetTypes" valueSource="literal" value="Tower" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.5" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Search Point" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+    <insertChild id="0A98DD75E55FCEB2" />
+  </node>
+  <node name="" type="Or" id="0A98DD75E55FCEB2">
+    <insertChild id="A0C689DF8F4EB87E" />
+    <insertChild id="378985256AB4DE00" />
+    <insertChild id="DDE1C5D567E6962E" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="A0C689DF8F4EB87E">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="378985256AB4DE00">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="DDE1C5D567E6962E">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Cast" type="Ability" id="A21B8E5CE05A5F03">
+    <property name="Ability" valueSource="literal" value="AbathurSymbiote" />
+    <property name="TargetUnit" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="Toxic Nest" type="AbilityUsable" id="8387532C25C84F1F">
+    <property name="Ability" valueSource="literal" value="AbathurToxicNest" />
+    <insertChild id="CFE07CD7E21C040F" />
+  </node>
+  <node name="Toxic Nest Lane" type="And" id="CFE07CD7E21C040F">
+    <variable name="Toxic Nest Range" type="Number" valueSource="lookup" value="Abil,AbathurToxicNest,Range" />
+    <variable name="Toxic Nest Target Point" type="Point" />
+    <variable name="Toxic Nest Target Unit" type="Unit" />
+    <insertChild id="C5C0D371A103B689" />
+    <insertChild id="3467EB2F6254289B" />
+  </node>
+  <node name="Target Selection" type="Or" id="C5C0D371A103B689">
+    <insertChild id="235D795801B235C4" />
+    <insertChild id="63F1AEC9E5C02B7C" />
+    <insertChild id="F93DB4AD683F4F48" />
+  </node>
+  <node name="Random Point in Circle" type="RandomPointInCircle" id="235D795801B235C4">
+    <property name="CenterPoint" valueSource="variable" value="GoalTargetPosition" />
+    <property name="Radius" valueSource="literal" value="4" />
+    <property name="RequirePathable" valueSource="literal" value="true" />
+    <property name="OutputPoint" value="Toxic Nest Target Point" />
+    <insertChild id="1B68ECA8CB435816" />
+  </node>
+  <node name="Conditions" type="And" id="1B68ECA8CB435816">
+    <insertChild id="A01F717F55726CFB" />
+    <insertChild id="9D1FFA12518ACB04" />
+    <insertChild id="641769412B13A258" />
+    <insertChild id="0C620D7BA271CCF7" />
+    <insertChild id="266A5BD3A06C107B" />
+  </node>
+  <node name="2+ Minions In Range of Target Point" type="UnitCount" id="A01F717F55726CFB">
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="lookup" value="Effect,ToxicNestSearchAreaDamage,AreaArray[0].Radius" />
+  </node>
+  <node name="No Hero" type="UnitCount" id="9D1FFA12518ACB04">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+  </node>
+  <node name="No Enemy Tower Nearby" type="UnitCount" id="641769412B13A258">
+    <property name="TargetTypes" valueSource="literal" value="Tower" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="LE 2 Nests Nearby" type="UnitCount" id="0C620D7BA271CCF7">
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="MaxTargetDistance" valueSource="literal" value="3" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Stasis,Dead,Invulnerable" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="UnitType" valueSource="literal" value="AbathurToxicNest" />
+  </node>
+  <node name="Inside Cast Range" type="Distance" id="266A5BD3A06C107B">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetPoint" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Distance" valueSource="variable" value="Toxic Nest Range" />
+  </node>
+  <node name="Find AoE 3+ Minion Point" type="FindBestAOEPoint" id="63F1AEC9E5C02B7C">
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="Toxic Nest Target Point" />
+    <property name="AOERadius" valueSource="lookup" value="Effect,ToxicNestSearchAreaDamage,AreaArray[0].Radius" />
+    <property name="MinTargets" valueSource="literal" value="3" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="ClipCenter" valueSource="intrinsic" value="Self" />
+    <property name="ClipRadius" valueSource="variable" value="Toxic Nest Range" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <insertChild id="5DA5190494B11870" />
+  </node>
+  <node name="No Hero" type="UnitCount" id="5DA5190494B11870">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <insertChild id="297E844C256EED68" />
+  </node>
+  <node name="No Enemy Tower Nearby" type="UnitCount" id="297E844C256EED68">
+    <property name="TargetTypes" valueSource="literal" value="Tower" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Find AoE 2+ Minion Point" type="FindBestAOEPoint" id="F93DB4AD683F4F48">
+    <property name="DistanceFactor" valueSource="literal" value="0" />
+    <property name="OutputTarget" value="Toxic Nest Target Point" />
+    <property name="AOERadius" valueSource="lookup" value="Effect,ToxicNestSearchAreaDamage,AreaArray[0].Radius" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="ClipCenter" valueSource="intrinsic" value="Self" />
+    <property name="ClipRadius" valueSource="variable" value="Toxic Nest Range" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <insertChild id="98927A24B2359852" />
+  </node>
+  <node name="No Hero" type="UnitCount" id="98927A24B2359852">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <insertChild id="822FFB7C0853D2ED" />
+  </node>
+  <node name="No Enemy Tower Nearby" type="UnitCount" id="822FFB7C0853D2ED">
+    <property name="TargetTypes" valueSource="literal" value="Tower" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Cast" type="Ability" id="3467EB2F6254289B">
+    <property name="TargetPoint" valueSource="variable" value="Toxic Nest Target Point" />
+    <property name="Ability" valueSource="literal" value="AbathurToxicNest" />
+  </node>
+  <node name="Symbiote Push Biggest Wave" type="AbilityUsable" id="C866A19115B01510">
+    <property name="Ability" valueSource="literal" value="AbathurSymbiote" />
+    <insertChild id="3E1FE428DEC0A7AC" />
+  </node>
+  <node name="Symbiote Most Populous Wave" type="And" id="3E1FE428DEC0A7AC">
+    <variable name="Spike Burst Radius" type="Number" valueSource="lookup" value="Effect,AbathurSymbioteSpikeBurstDamageSearch,AreaArray[0].Radius" />
+    <variable name="Symbiote Target Unit" type="Unit" />
+    <insertChild id="F47AEC46165733A8" />
+    <insertChild id="AC9C2F5D3175C1AB" />
+    <insertChild id="CA78660F69B8B80E" />
+  </node>
+  <node name="0 Enemy Heroes Within 15 of Abathur" type="UnitCount" id="F47AEC46165733A8">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Find Unit Target Near Wave" type="Or" id="AC9C2F5D3175C1AB">
+    <variable name="Search Distance" type="Number" value="10" />
+    <insertChild id="452519AF298CD080" />
+    <insertChild id="67A9A2E8B4E22F79" />
+    <insertChild id="963937DD99B2FBF3" />
+    <insertChild id="BE4F6BCB939DB84A" />
+    <insertChild id="0B8539366FFC3116" />
+    <insertChild id="D4E30CE2CC3B9FEC" />
+    <insertChild id="D2155B94AA67A486" />
+  </node>
+  <node name="Ally Hero" type="And" id="452519AF298CD080">
+    <insertChild id="010C9198656239FB" />
+    <insertChild id="06B09C7B40F0AD7E" />
+  </node>
+  <node name="Not Mounted" type="FilterBehavior" id="010C9198656239FB">
+    <property name="Behavior" valueSource="literal" value="Mounted" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <insertChild id="85E416D32D8D53D7" />
+  </node>
+  <node name="Ally Hero" type="FindBestTarget" id="85E416D32D8D53D7">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Hallucination,Invulnerable,Benign" />
+  </node>
+  <node name="" type="Or" id="06B09C7B40F0AD7E">
+    <insertChild id="DCD4EB242658E7EE" />
+    <insertChild id="0591D5482428FF00" />
+    <insertChild id="812D68E49A72CB2A" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="DCD4EB242658E7EE">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="0591D5482428FF00">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="812D68E49A72CB2A">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="My Monstrosity" type="FindBestTarget" id="67A9A2E8B4E22F79">
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="SearchBehaviorTracker" valueSource="literal" value="AbathurEvolveMonstrosityTrackingBehavior" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+    <insertChild id="0CB296423DCDA3FC" />
+  </node>
+  <node name="" type="Or" id="0CB296423DCDA3FC">
+    <insertChild id="02BD17260EAF7E83" />
+    <insertChild id="FF8A159A31D8087E" />
+    <insertChild id="AE854A79836A457B" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="02BD17260EAF7E83">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="FF8A159A31D8087E">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="AE854A79836A457B">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Basic Locusts" type="And" id="963937DD99B2FBF3">
+    <insertChild id="7FDDDE0748C8025C" />
+    <insertChild id="983FD57ED864DA09" />
+  </node>
+  <node name="Locust Timed Life &gt; 6" type="FilterBehavior" id="7FDDDE0748C8025C">
+    <property name="Behavior" valueSource="literal" value="LocustTimedLife" />
+    <property name="TimeRemaining" valueSource="literal" value="6" />
+    <insertChild id="35EA235995CC1683" />
+  </node>
+  <node name="My Basic Locusts" type="FindBestTarget" id="35EA235995CC1683">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.5" />
+    <property name="UnitType" valueSource="literal" value="AbathurLocustNormal" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+  </node>
+  <node name="" type="Or" id="983FD57ED864DA09">
+    <insertChild id="2FDA53B88F99F00A" />
+    <insertChild id="A65376342D6A8E6A" />
+    <insertChild id="2645C38171553556" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="2FDA53B88F99F00A">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="A65376342D6A8E6A">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="2645C38171553556">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Assault Locusts" type="And" id="BE4F6BCB939DB84A">
+    <insertChild id="09DBCDABBBC92FED" />
+    <insertChild id="3C927288C118A2A5" />
+  </node>
+  <node name="Locust Timed Life &gt; 6" type="FilterBehavior" id="09DBCDABBBC92FED">
+    <property name="Behavior" valueSource="literal" value="LocustTimedLife" />
+    <property name="TimeRemaining" valueSource="literal" value="6" />
+    <insertChild id="46261499B08FA2EF" />
+  </node>
+  <node name="My Assault Locusts" type="FindBestTarget" id="46261499B08FA2EF">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.5" />
+    <property name="UnitType" valueSource="literal" value="AbathurLocustAssaultStrain" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+  </node>
+  <node name="" type="Or" id="3C927288C118A2A5">
+    <insertChild id="900FA34E5506852A" />
+    <insertChild id="C5ED0E2EA0C88837" />
+    <insertChild id="7AE8AD262E845174" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="900FA34E5506852A">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="C5ED0E2EA0C88837">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="7AE8AD262E845174">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Merc" type="FindBestTarget" id="0B8539366FFC3116">
+    <property name="TargetTypes" valueSource="literal" value="Merc" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.5" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+    <insertChild id="58A2929CF043B02B" />
+  </node>
+  <node name="" type="Or" id="58A2929CF043B02B">
+    <insertChild id="6DA3FC6832F6B73F" />
+    <insertChild id="0495B755283C33D9" />
+    <insertChild id="F907B5C39E302C7D" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="6DA3FC6832F6B73F">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="0495B755283C33D9">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="F907B5C39E302C7D">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Minion" type="FindBestTarget" id="D4E30CE2CC3B9FEC">
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,MapCreature" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.5" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+    <insertChild id="B4A21E6089C8E4BD" />
+  </node>
+  <node name="" type="Or" id="B4A21E6089C8E4BD">
+    <insertChild id="B876267BEB13D773" />
+    <insertChild id="82E89F465526D7D3" />
+    <insertChild id="491759311426C068" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="B876267BEB13D773">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="82E89F465526D7D3">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="491759311426C068">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Tower" type="FindBestTarget" id="D2155B94AA67A486">
+    <property name="TargetTypes" valueSource="literal" value="Tower" />
+    <property name="RequiredTypes" valueSource="literal" value="Ally" />
+    <property name="DistanceFactor" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Search Distance" />
+    <property name="OutputTarget" value="Symbiote Target Unit" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-3" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.5" />
+    <property name="SearchCenter" valueSource="variable" value="GoalTargetPosition" />
+    <property name="ExcludeTypes" valueSource="literal" value="ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Invulnerable,Benign" />
+    <insertChild id="BDD8046544FA0BD4" />
+  </node>
+  <node name="" type="Or" id="BDD8046544FA0BD4">
+    <insertChild id="F5EC01718EE7ACCD" />
+    <insertChild id="2105224FE8484170" />
+    <insertChild id="B97283769F44DB0E" />
+  </node>
+  <node name="3+ Enemies in Burst Range" type="UnitCount" id="F5EC01718EE7ACCD">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="1+ Enemy Heroes in Burst Range" type="UnitCount" id="2105224FE8484170">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+  </node>
+  <node name="1+ Enemy Structures in Burst Range" type="UnitCount" id="B97283769F44DB0E">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Spike Burst Radius" />
+    <property name="SearchCenter" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="variable" value="Symbiote Target Unit" />
+    <property name="TargetTypes" valueSource="literal" value="AITargetableStructure" />
+  </node>
+  <node name="Cast" type="Ability" id="CA78660F69B8B80E">
+    <property name="Ability" valueSource="literal" value="AbathurSymbiote" />
+    <property name="TargetUnit" valueSource="variable" value="Symbiote Target Unit" />
+  </node>
+  <node name="" type="Select" id="30B5607FFC50C28D">
+    <insertChild id="8E423E77E477A646" />
+    <insertChild id="F069D26EE0B5CF3D" />
+    <insertChild id="64AB3D1279428746" />
+    <insertChild id="90E7C21E69ACB27D" />
+  </node>
+  <node name="Symbiote Not Stored" type="CompareBoolean" id="8E423E77E477A646">
+    <property name="LeftHandSide" valueSource="variable" value="Symbiote Stored" />
+    <insertChild id="E542F849D174A08A" />
+  </node>
+  <node name="Has Symbiote Active" type="UnitHasBehavior" id="E542F849D174A08A">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="SymbioteCasterDummyBehavior" />
+    <insertChild id="AB65C316606194BE" />
+  </node>
+  <node name="Store Symbiote" type="And" id="AB65C316606194BE">
+    <insertChild id="ACC420B86E9B1331" />
+    <insertChild id="B8CFF4D1EC38A49F" />
+  </node>
+  <node name="Find Symbiote Unit" type="FindBestTarget" id="ACC420B86E9B1331">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Dead" />
+    <property name="OutputTarget" value="Symbiote Unit" />
+    <property name="MaxTargetDistance" valueSource="literal" value="500" />
+    <property name="UnitType" valueSource="literal" value="AbathurSymbiote" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+  </node>
+  <node name="Set Symbiote Stored to True" type="SetBoolean" id="B8CFF4D1EC38A49F">
+    <property name="Variable" value="Symbiote Stored" />
+    <property name="Value" valueSource="literal" value="true" />
+  </node>
+  <node name="Store Locust Nest Unit" type="And" id="F069D26EE0B5CF3D">
+    <insertChild id="550DFD4CB87A906C" />
+    <insertChild id="38DA24C000EA4162" />
+  </node>
+  <node name="" type="Not" id="550DFD4CB87A906C">
+    <insertChild id="22DD6C33E265C9C1" />
+  </node>
+  <node name="Locust Nest Scan Timer" type="TimerFinished" id="22DD6C33E265C9C1">
+    <property name="FinishTime" valueSource="variable" value="Locust Nest Scan Time" />
+  </node>
+  <node name="Find Locust Nest Unit" type="FindBestTarget" id="38DA24C000EA4162">
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Dead" />
+    <property name="OutputTarget" value="Locust Nest Unit" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="UnitType" valueSource="literal" value="AbathurLocustNest" />
+    <property name="RequiredTypes" valueSource="literal" value="Player" />
+  </node>
+  <node name="Symbiote Stored" type="CompareBoolean" id="64AB3D1279428746">
+    <property name="LeftHandSide" valueSource="variable" value="Symbiote Stored" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+    <insertChild id="A3832109334F1DE5" />
+  </node>
+  <node name="Does Not Have Symbiote Active" type="UnitHasBehavior" id="A3832109334F1DE5">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="SymbioteCasterDummyBehavior" />
+    <property name="StackComparison" valueSource="literal" value="Eq" />
+    <insertChild id="9433BAD591819EB7" />
+  </node>
+  <node name="Set Symbiote Stored to False" type="SetBoolean" id="9433BAD591819EB7">
+    <property name="Variable" value="Symbiote Stored" />
+  </node>
+  <node name="Is Tunneling" type="OrderActive" id="90E7C21E69ACB27D">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Ability" valueSource="literal" value="AbathurDeepTunnel" />
+    <insertChild id="F4CDDAB89A817C0F" />
+  </node>
+  <node name="Deep Tunnel Check" type="IfElse" id="F4CDDAB89A817C0F">
+    <insertChild id="535C4C06355C7322" />
+    <insertChild id="9C9DFE006F4B0C34" />
+    <insertChild id="5B37D58DC771FE82" />
+  </node>
+  <node name="Continue Checks" type="Or" id="535C4C06355C7322">
+    <insertChild id="90AE94F4F462FD13" />
+    <insertChild id="558085EFB5339107" />
+    <insertChild id="C36E85D24B641624" />
+  </node>
+  <node name="Over 50% Health" type="LifeFraction" id="90AE94F4F462FD13">
+    <property name="LifeFraction" valueSource="literal" value="0.5" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="AlmostDone" type="OrderProgress" id="558085EFB5339107">
+    <property name="ProgressFraction" valueSource="literal" value="0.8" />
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="NoHeroNear" type="EnemyThreat" id="C36E85D24B641624" comment="This EnemyThreat node is needed to make sure structures and heroes were not seen nearby recently.">
+    <property name="Position" valueSource="intrinsic" value="SelfPos" />
+    <property name="Radius" valueSource="literal" value="10" />
+    <property name="MaxLastSeenAge" valueSource="literal" value="5" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <insertChild id="12CD4B1CC6D839FD" />
+  </node>
+  <node name="NoEnemyNear" type="UnitCount" id="12CD4B1CC6D839FD" comment="This UnitCount node is needed to ensure minions and summons are not nearby.">
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Summoned,MapBoss,MapCreature" />
+    <property name="ExcludeTypes" valueSource="literal" value="Missile,Dead,Benign" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Deep Tunnel" type="Ability" id="9C9DFE006F4B0C34">
+    <property name="Ability" valueSource="literal" value="AbathurDeepTunnel" />
+  </node>
+  <node name="Stop" type="MoveToPoint" id="5B37D58DC771FE82">
+    <property name="Target" valueSource="intrinsic" value="SelfPos" />
+    <property name="HoldIfInRange" valueSource="literal" value="true" />
+  </node>
+  <node name="Movement Logic" type="And" id="4FD5A760ED981647">
+    <variable name="Nearby Town Unit" type="Unit" />
+    <variable name="Current Lane" type="Integer" />
+    <insertChild id="4C03701B5811E14A" />
+    <insertChild id="653A36C8F4C78BB6" />
+    <insertChild id="EE08C94E0544DB07" />
+  </node>
+  <node name="Reasons to Try Moving" type="Or" id="4C03701B5811E14A">
+    <insertChild id="5CE4BDC0ADF1C0C3" />
+    <insertChild id="420F5797B8ECE8E4" />
+  </node>
+  <node name="" type="Not" id="5CE4BDC0ADF1C0C3">
+    <insertChild id="ECC45D31E7FD0D9E" />
+  </node>
+  <node name="In Base" type="UnitHasBehavior" id="ECC45D31E7FD0D9E">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="HallOfStormsProtectionBuff" />
+  </node>
+  <node name="In Base and Base not under Threat" type="And" id="420F5797B8ECE8E4">
+    <insertChild id="0B734C11E2DE190F" />
+    <insertChild id="E6AD59413F8FFC85" />
+    <insertChild id="B961A2B05C4B4754" />
+  </node>
+  <node name="In Base" type="UnitHasBehavior" id="0B734C11E2DE190F">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Behavior" valueSource="literal" value="HallOfStormsProtectionBuff" />
+  </node>
+  <node name="Health = 100%" type="LifeFraction" id="E6AD59413F8FFC85">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="LifeFraction" valueSource="literal" value="1" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="0 Enemy Units Within 24 of Core" type="UnitCount" id="B961A2B05C4B4754">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="0" />
+    <property name="MaxTargetDistance" valueSource="literal" value="24" />
+    <property name="SearchCenter" valueSource="intrinsic" value="AllyCore" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="AllyCore" />
+    <property name="TargetTypes" valueSource="literal" value="Minion,Merc,Heroic,Summoned,MapCreature" />
+  </node>
+  <node name="Find Nearby Town and Lane Number" type="Sequence" id="653A36C8F4C78BB6">
+    <property name="IgnoreChildFailures" valueSource="literal" value="true" />
+    <insertChild id="A75CEEF8F8D39FE3" />
+    <insertChild id="8A76931CDE002AAA" />
+    <insertChild id="97040B900A4DC9BC" />
+  </node>
+  <node name="Fort Within 15 of Abathur" type="FindBestTarget" id="A75CEEF8F8D39FE3">
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="UnitType" valueSource="literal" value="TownTownHallL2" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="OutputTarget" value="Nearby Town Unit" />
+    <property name="DistanceFactor" valueSource="literal" value="10" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+  </node>
+  <node name="Keep Within 15 of Abathur" type="FindBestTarget" id="8A76931CDE002AAA">
+    <property name="TargetTypes" valueSource="literal" value="Ally" />
+    <property name="UnitType" valueSource="literal" value="TownTownHallL3" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="OutputTarget" value="Nearby Town Unit" />
+    <property name="DistanceFactor" valueSource="literal" value="10" />
+    <property name="LifeFractionFactor" valueSource="literal" value="0" />
+  </node>
+  <node name="Determine Lane" type="FindClosestLane" id="97040B900A4DC9BC">
+    <property name="InputPoint" valueSource="intrinsic" value="SelfPos" />
+    <property name="OutputLaneIndex" value="Current Lane" />
+  </node>
+  <node name="Tunnel or Walk" type="Or" id="EE08C94E0544DB07">
+    <variable name="Desired Movement Point" type="Point" />
+    <variable name="Desired Town Hall" type="Unit" />
+    <insertChild id="AB4B5A42E8D9EB66" />
+    <insertChild id="0B4D4F37919AE4C6" />
+    <insertChild id="5A995C664A9F65D2" />
+  </node>
+  <node name="Deep Tunnel" type="And" id="AB4B5A42E8D9EB66">
+    <insertChild id="1176A171891FB72D" />
+    <insertChild id="0B1383FB65071EB5" />
+    <insertChild id="5B57F714AB18A608" />
+    <insertChild id="27F95B5816520CF1" />
+    <insertChild id="05006581E66F8C81" />
+    <insertChild id="10F8E75565A32645" />
+    <insertChild id="4D8424B25B6AD58A" />
+  </node>
+  <node name="Deep Tunnel" type="AbilityUsable" id="1176A171891FB72D">
+    <property name="Ability" valueSource="literal" value="AbathurDeepTunnel" />
+  </node>
+  <node name="Danger Checks" type="Or" id="0B1383FB65071EB5">
+    <insertChild id="0C8A390AF648A65A" />
+    <insertChild id="96D406567C2E6F39" />
+    <insertChild id="F32B291D613F3AA1" />
+    <insertChild id="7CDF346D8BCBDC87" />
+    <insertChild id="E6996C75C080D2B6" />
+    <insertChild id="BB63872F242AA516" />
+    <insertChild id="DD220DB65389926C" />
+    <insertChild id="77EFBA390902B0B4" />
+    <insertChild id="930D85FE0893842A" />
+    <insertChild id="FF6FE5305B84AE49" />
+  </node>
+  <node name="Town &lt; 75%" type="LifeFraction" id="0C8A390AF648A65A">
+    <property name="LifeFraction" valueSource="literal" value="0.75" />
+    <property name="Target" valueSource="variable" value="Nearby Town Unit" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <insertChild id="8ABFE7C37BF6CB6D" />
+  </node>
+  <node name="1+ Enemy Heroes Near Town" type="UnitCount" id="8ABFE7C37BF6CB6D">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="variable" value="Nearby Town Unit" />
+  </node>
+  <node name="Town &lt; 40%" type="LifeFraction" id="96D406567C2E6F39">
+    <property name="LifeFraction" valueSource="literal" value="0.4" />
+    <property name="Target" valueSource="variable" value="Nearby Town Unit" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+  </node>
+  <node name="Town In Danger" type="IsInDanger" id="F32B291D613F3AA1">
+    <property name="TargetPoint" valueSource="variable" value="Nearby Town Unit" />
+    <property name="ForceIncludeUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="2+ Enemy Heroes Near Town" type="UnitCount" id="7CDF346D8BCBDC87">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="Nearby Town Unit" />
+  </node>
+  <node name="1+ Map Boss Near Town" type="UnitCount" id="E6996C75C080D2B6">
+    <property name="TargetTypes" valueSource="literal" value="MapBoss" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="SearchCenter" valueSource="variable" value="Nearby Town Unit" />
+  </node>
+  <node name="1+ Enemy Heroes Near Abathur" type="UnitCount" id="BB63872F242AA516">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+  </node>
+  <node name="1+ Enemy Units Really Close to Abathur" type="UnitCount" id="DD220DB65389926C">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+  </node>
+  <node name="Abathur In Danger" type="IsInDanger" id="77EFBA390902B0B4" />
+  <node name="" type="UnitPosition" id="930D85FE0893842A">
+    <property name="InputUnit" valueSource="intrinsic" value="Self" />
+    <property name="OutputPosition" value="Self Position" />
+    <variable name="Self Position" type="Point" />
+    <insertChild id="575DF88824FCB72B" />
+  </node>
+  <node name="Cloaked Target Near Abathur" type="IsAwareOfCloakedEnemy" id="575DF88824FCB72B">
+    <property name="CloakedTargetPosition" value="Self Position" />
+  </node>
+  <node name="Relocate Timer Expired" type="TimerFinished" id="FF6FE5305B84AE49" comment="This way he rotates every so often instead of always staying in the same lane.">
+    <property name="FinishTime" valueSource="variable" value="Relocate Timer" />
+  </node>
+  <node name="Find Another Town or Spawn" type="Or" id="5B57F714AB18A608">
+    <insertChild id="CFD8A2B2EA4105CE" />
+    <insertChild id="52137536464A1DA0" />
+    <insertChild id="40C52EC88BAFA450" />
+  </node>
+  <node name="Find Another Town to Burrow To" type="And" id="CFD8A2B2EA4105CE">
+    <insertChild id="69CA9C7F4B7C4367" />
+    <insertChild id="7B01B14F80A5EA5F" />
+    <insertChild id="01B917F30F24FF3F" />
+    <insertChild id="96ABE1CB6E8E9C2E" />
+    <insertChild id="3F8EEBEEC3AEC757" />
+  </node>
+  <node name="Find Best Town Hall" type="FindBestTownHall" id="69CA9C7F4B7C4367">
+    <property name="EnemyWaveDistanceScore" valueSource="literal" value="-2" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.65" />
+    <property name="OutputTarget" value="Desired Town Hall" />
+  </node>
+  <node name="Nearby Town != Desired Town" type="Distance" id="7B01B14F80A5EA5F">
+    <property name="SourceUnit" valueSource="variable" value="Nearby Town Unit" />
+    <property name="TargetUnit" valueSource="variable" value="Desired Town Hall" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="Distance" valueSource="literal" value="5" />
+  </node>
+  <node name="Point on Line towards Spawn" type="FindPointOnLine" id="01B917F30F24FF3F">
+    <property name="SourceUnit" valueSource="variable" value="Desired Town Hall" />
+    <property name="DistanceOffset" valueSource="literal" value="5" />
+    <property name="OutputTarget" value="Desired Movement Point" />
+    <property name="DestinationPoint" valueSource="intrinsic" value="SafePos" />
+  </node>
+  <node name="0 Enemy Heroes Near Desired Point" type="UnitCount" id="96ABE1CB6E8E9C2E">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="0" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="SearchCenter" valueSource="variable" value="Desired Movement Point" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="0 Enemy Units Close to Desired Point" type="UnitCount" id="3F8EEBEEC3AEC757">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="variable" value="Desired Movement Point" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Stall if current town is best" type="And" id="52137536464A1DA0">
+    <insertChild id="10C8CC94C7813C5B" />
+    <insertChild id="F6954C3D78542A84" />
+    <insertChild id="09C75B80C89D3801" />
+    <insertChild id="A77354F0FA8A87E9" />
+  </node>
+  <node name="Nearby Town == Desired Town" type="Distance" id="10C8CC94C7813C5B">
+    <property name="SourceUnit" valueSource="variable" value="Nearby Town Unit" />
+    <property name="TargetUnit" valueSource="variable" value="Desired Town Hall" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Distance" valueSource="literal" value="5" />
+  </node>
+  <node name="Relocate Timer Expired" type="TimerFinished" id="F6954C3D78542A84" comment="This way he rotates every so often instead of always staying in the same lane.">
+    <property name="FinishTime" valueSource="variable" value="Relocate Timer" />
+  </node>
+  <node name="Relocate Timer 30" type="TimerStart" id="09C75B80C89D3801">
+    <property name="OutputFinishTime" value="Relocate Timer" />
+    <property name="DurationSeconds" valueSource="literal" value="30" />
+  </node>
+  <node name="Dummy Move Command" type="HeroMoveToPoint" id="A77354F0FA8A87E9">
+    <property name="TargetPosition" valueSource="intrinsic" value="SelfPos" />
+  </node>
+  <node name="Spawn Point" type="FindPointOnLine" id="40C52EC88BAFA450">
+    <property name="OutputTarget" value="Desired Movement Point" />
+    <property name="SourcePoint" valueSource="intrinsic" value="SafePos" />
+    <property name="DestinationUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Relocate Timer 60" type="TimerStart" id="27F95B5816520CF1">
+    <property name="OutputFinishTime" value="Relocate Timer" />
+    <property name="DurationSeconds" valueSource="literal" value="60" />
+  </node>
+  <node name="Store Desired Point" type="FindPointOnLine" id="05006581E66F8C81">
+    <property name="OutputTarget" value="Hiding Spot" />
+    <property name="SourcePoint" valueSource="variable" value="Desired Movement Point" />
+    <property name="DestinationUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Determine new Pace Location" type="RandomPointInCircle" id="10F8E75565A32645">
+    <property name="CenterPoint" valueSource="variable" value="Hiding Spot" />
+    <property name="Radius" valueSource="literal" value="4" />
+    <property name="RequirePathable" valueSource="literal" value="true" />
+    <property name="OutputPoint" value="Pace Location" />
+  </node>
+  <node name="Deep Tunnel to Hiding Spot" type="Ability" id="4D8424B25B6AD58A">
+    <property name="Ability" valueSource="literal" value="AbathurDeepTunnel" />
+    <property name="TargetPoint" valueSource="variable" value="Desired Movement Point" />
+  </node>
+  <node name="Running Away" type="And" id="0B4D4F37919AE4C6">
+    <insertChild id="7ADD304AA4B31747" />
+    <insertChild id="493F4137AB1AA5A7" />
+  </node>
+  <node name="&gt; 5 Away from Hiding Spot" type="Distance" id="7ADD304AA4B31747">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="TargetPoint" valueSource="variable" value="Hiding Spot" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="Distance" valueSource="literal" value="5" />
+  </node>
+  <node name="Move to Hiding Spot" type="HeroMoveToPoint" id="493F4137AB1AA5A7">
+    <property name="TargetPosition" valueSource="variable" value="Hiding Spot" />
+  </node>
+  <node name="Walk" type="And" id="5A995C664A9F65D2">
+    <insertChild id="D10364903BE13B3F" />
+    <insertChild id="0DF467D25AC17076" />
+    <insertChild id="D9CFE0D232026247" />
+    <insertChild id="4018D1C75256AB9D" />
+    <insertChild id="EC418166743E3935" />
+    <insertChild id="EC4A7F8760B51787" />
+  </node>
+  <node name="" type="Not" id="D10364903BE13B3F">
+    <insertChild id="1EC1D98F6F78D406" />
+  </node>
+  <node name="Deep Tunnel" type="AbilityUsable" id="1EC1D98F6F78D406">
+    <property name="Ability" valueSource="literal" value="AbathurDeepTunnel" />
+  </node>
+  <node name="Danger Checks" type="Or" id="0DF467D25AC17076">
+    <insertChild id="DFDC2F3A6AB4F026" />
+    <insertChild id="335FCAD6419041C1" />
+    <insertChild id="169DD41AFA547A1F" />
+    <insertChild id="B6E6654A2439D595" />
+    <insertChild id="B58BE451187BD3E4" />
+    <insertChild id="BC8F1828791BABDE" />
+    <insertChild id="B60C117F7F554FA3" />
+    <insertChild id="3DE656FEAECDBED2" />
+  </node>
+  <node name="Town &lt; 95%" type="LifeFraction" id="DFDC2F3A6AB4F026">
+    <property name="LifeFraction" valueSource="literal" value="0.95" />
+    <property name="Target" valueSource="variable" value="Nearby Town Unit" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <insertChild id="521AC5FC6227048F" />
+  </node>
+  <node name="1+ Enemy Heroes Near Town" type="UnitCount" id="521AC5FC6227048F">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="variable" value="Nearby Town Unit" />
+  </node>
+  <node name="Town &lt; 60%" type="LifeFraction" id="335FCAD6419041C1">
+    <property name="LifeFraction" valueSource="literal" value="0.6" />
+    <property name="Target" valueSource="variable" value="Nearby Town Unit" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+  </node>
+  <node name="Town In Danger" type="IsInDanger" id="169DD41AFA547A1F">
+    <property name="TargetPoint" valueSource="variable" value="Nearby Town Unit" />
+    <property name="ForceIncludeUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="2+ Enemy Heroes Near Town" type="UnitCount" id="B6E6654A2439D595">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="SearchCenter" valueSource="variable" value="Nearby Town Unit" />
+  </node>
+  <node name="1+ Map Boss Near Town" type="UnitCount" id="B58BE451187BD3E4">
+    <property name="TargetTypes" valueSource="literal" value="MapBoss" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="SearchCenter" valueSource="variable" value="Nearby Town Unit" />
+  </node>
+  <node name="1+ Enemy Heroes Near Abathur" type="UnitCount" id="BC8F1828791BABDE">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+  </node>
+  <node name="1+ Enemy Units Really Close to Abathur" type="UnitCount" id="B60C117F7F554FA3">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+  </node>
+  <node name="Abathur In Danger" type="IsInDanger" id="3DE656FEAECDBED2" />
+  <node name="Find Keep in Same Lane or Spawn" type="Or" id="D9CFE0D232026247">
+    <insertChild id="FF2BB708AC7E63D8" />
+    <insertChild id="4B8E9639B3AF8800" />
+  </node>
+  <node name="" type="And" id="FF2BB708AC7E63D8">
+    <insertChild id="4ACF1266E75417E6" />
+    <insertChild id="45EB071EDCC0AF39" />
+    <insertChild id="E749C84CF7C4393C" />
+    <insertChild id="0A2BAA1BD5A9D0F4" />
+    <insertChild id="1FC620320B57194C" />
+  </node>
+  <node name="Find Keep in Lane" type="FindBestTownHall" id="4ACF1266E75417E6">
+    <property name="OutputTarget" value="Desired Town Hall" />
+    <property name="MinLifeFraction" valueSource="literal" value="1" />
+    <property name="ExcludeForts" valueSource="literal" value="true" />
+    <property name="RequireLane" valueSource="literal" value="true" />
+    <property name="PreferredLane" valueSource="variable" value="Current Lane" />
+  </node>
+  <node name="Nearby Town != Desired Keep" type="Distance" id="45EB071EDCC0AF39">
+    <property name="SourceUnit" valueSource="variable" value="Nearby Town Unit" />
+    <property name="TargetUnit" valueSource="variable" value="Desired Town Hall" />
+    <property name="Comparison" valueSource="literal" value="GE" />
+    <property name="Distance" valueSource="literal" value="5" />
+  </node>
+  <node name="Point on Line towards Spawn" type="FindPointOnLine" id="E749C84CF7C4393C">
+    <property name="SourceUnit" valueSource="variable" value="Desired Town Hall" />
+    <property name="DistanceOffset" valueSource="literal" value="5" />
+    <property name="OutputTarget" value="Desired Movement Point" />
+    <property name="DestinationPoint" valueSource="intrinsic" value="SafePos" />
+  </node>
+  <node name="0 Enemy Heroes Near Desired Point" type="UnitCount" id="0A2BAA1BD5A9D0F4">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetCount" valueSource="literal" value="0" />
+    <property name="MaxTargetDistance" valueSource="literal" value="15" />
+    <property name="SearchCenter" valueSource="variable" value="Desired Movement Point" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="0 Enemy Units Close to Desired Point" type="UnitCount" id="1FC620320B57194C">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="SearchCenter" valueSource="variable" value="Desired Movement Point" />
+    <property name="Comparison" valueSource="literal" value="Eq" />
+  </node>
+  <node name="Spawn Point" type="FindPointOnLine" id="4B8E9639B3AF8800">
+    <property name="OutputTarget" value="Desired Movement Point" />
+    <property name="SourcePoint" valueSource="intrinsic" value="SafePos" />
+    <property name="DestinationUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Store Desired Point" type="FindPointOnLine" id="4018D1C75256AB9D">
+    <property name="OutputTarget" value="Hiding Spot" />
+    <property name="SourcePoint" valueSource="variable" value="Desired Movement Point" />
+    <property name="DestinationUnit" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Determine new Pace Location" type="RandomPointInCircle" id="EC418166743E3935">
+    <property name="CenterPoint" valueSource="variable" value="Hiding Spot" />
+    <property name="Radius" valueSource="literal" value="4" />
+    <property name="RequirePathable" valueSource="literal" value="true" />
+    <property name="OutputPoint" value="Pace Location" />
+  </node>
+  <node name="Move to Hiding Spot" type="HeroMoveToPoint" id="EC4A7F8760B51787">
+    <property name="TargetPosition" valueSource="variable" value="Desired Movement Point" />
+  </node>
+</tree>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">L’arène des dominateurs</e>
+    <e id="2">Une large palette de héros Blizzard se croisent et s’affrontent de façon épique dans une arène galactique !</e>
+    <e id="3">Autre</e>
+    <e id="4">Type de jeu sans classification.</e>
+    <e id="5">Standard</e>
+    <e id="6">Les joueurs peuvent choisir leur héros.</e>
+    <e id="7">ShrinesSimple</e>
+    <e id="8">L’arène des dominateurs</e>
+    <e id="9">Une bataille acharnée entre héros et dominateurs où tous les coups sont permis. Éliminez vos ennemis pour mettre fin au combat.</e>
+    <e id="10">2 manches gagnantes dans l’arène des dominateurs</e>
+    <e id="11">La première équipe qui gagne 2 manches remporte la victoire.</e>
+    <e id="12">Le premier à 100 points gagne la manche</e>
+    <e id="13">Les dominateurs valent 10 points.</e>
+    <e id="14">Les héros valent 4 points.</e>
+    <e id="15">Sélection aléatoire</e>
+    <e id="16">Choisissez un héros parmi les trois proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="17">Informations supplémentaires</e>
+    <e id="18">Il y a une petite chance que tous les joueurs aient le même héros.</e>
+</Locale>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Industriebezirk</e>
+    <e id="2">Ein breites Spektrum von Blizzard-Helden trifft sich zur Schlacht in einer galaktischen Arena.</e>
+    <e id="3">Andere</e>
+    <e id="4">Unklassifizierter Spieltyp.</e>
+    <e id="5">Standard</e>
+    <e id="6">Alle Einstellungen können konfiguriert werden.</e>
+    <e id="7">Industriebezirk</e>
+    <e id="8">Zufallshelden liefern sich hitzige Gefechte auf nur einem Weg!</e>
+    <e id="9">Zerstöre die gegnerische Zitadelle</e>
+    <e id="10">Zerstöre die Zitadelle des Gegners, um zu gewinnen.</e>
+    <e id="11">Ein Weg</e>
+    <e id="12">Es gibt keine zusätzlichen Schlachtfeldziele. Mach dich auf konstante Action gefasst!</e>
+    <e id="13">Zufallswahl</e>
+    <e id="14">Wähle einen von drei zufälligen Helden.</e>
+    <e id="15">Zusatzinfos</e>
+    <e id="16">Ruhesteine (B) sind deaktiviert und im Startbereich wird dein Held nicht geheilt.</e>
+    <e id="17">Regenerationskugelquellen erschaffen auf dem Schlachtfeld Regenerationskugeln.</e>
+</Locale>

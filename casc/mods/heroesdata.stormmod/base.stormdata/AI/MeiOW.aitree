@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<tree>
+  <include file="AI/HeroMutator.aitree" />
+  <mod id="746F6F526F726548">
+    <variable name="IcingPoint" type="Point" />
+    <variable name="IcingCancelTimer" type="Time" />
+  </mod>
+  <mod id="87811D772E337EB7">
+    <insertChild id="3A6E9046CDAD89D4" />
+    <insertChild id="86B45AECC7BD887B" />
+    <insertChild id="93D297DFE6E173C5" />
+  </mod>
+  <mod id="93D883AF1FB031B1">
+    <insertChild id="F21BCB9B06948439" />
+  </mod>
+  <mod id="A4058AA255280C17">
+    <insertChild id="56376ACA0B40EBE7" />
+  </mod>
+  <mod id="F21BCB9B06948439">
+    <insertChild id="33A78FF13514AFAF" />
+    <insertChild id="C1680A6E40EC6466" />
+    <insertChild id="47D2C4BCCC0BB7B8" />
+    <insertChild id="5F37A896A4E4D8A5" />
+    <insertChild id="A7A63B375BC7D52E" />
+  </mod>
+  <node name="CryoFreeze" type="AbilityUsable" id="56376ACA0B40EBE7">
+    <property name="Ability" valueSource="literal" value="MeiOWCryoFreeze" />
+    <insertChild id="CAB70639A0820B2E" />
+  </node>
+  <node name="&lt; 55%" type="LifeFraction" id="2FB7E7A879CF373F">
+    <property name="LifeFraction" valueSource="literal" value="0.55" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Cryo-Freeze" type="And" id="CAB70639A0820B2E">
+    <insertChild id="2FB7E7A879CF373F" />
+    <insertChild id="AA223E10AFE16C92" />
+  </node>
+  <node name="Snow Blind" type="AbilityUsable" id="86B45AECC7BD887B">
+    <property name="Ability" valueSource="literal" value="MeiOWSnowBlind" />
+    <insertChild id="23EE82240647AA88" />
+  </node>
+  <node name="Snow Blind" type="And" id="23EE82240647AA88">
+    <variable name="Snow Blind Range" type="Number" valueSource="lookup" value="Abil,MeiOWSnowBlind,Range" />
+    <variable name="Snow Blind Radius" type="Number" valueSource="lookup" value="Effect,MeiOWSnowBlindImpactSearch,AreaArray[0].Radius" />
+    <variable name="Snow Blind Target Point" type="Point" />
+    <insertChild id="F6BD35E0EA73306F" />
+    <insertChild id="8A109FD12397A1D4" />
+  </node>
+  <node name="Icing" type="AbilityUsable" id="47D2C4BCCC0BB7B8">
+    <property name="Ability" valueSource="literal" value="MeiOWIcing" />
+    <insertChild id="FC3039C21317E0D0" />
+  </node>
+  <node name="Defensive Use" type="And" id="FC3039C21317E0D0">
+    <insertChild id="2F69F4F7C2E7E742" />
+    <insertChild id="27218B77BA5EE20D" />
+    <insertChild id="C99FA67830EB6304" />
+  </node>
+  <node name="Cast" type="Ability" id="C99FA67830EB6304">
+    <property name="Ability" valueSource="literal" value="MeiOWIcing" />
+    <property name="TargetPoint" valueSource="intrinsic" value="SafePos" />
+  </node>
+  <node name="Critical Health" type="LifeFraction" id="2F69F4F7C2E7E742">
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="LifeFraction" valueSource="variable" value="Health_ReturnToSpawn" />
+  </node>
+  <node name="Enemies Nearby or In Danger" type="Or" id="27218B77BA5EE20D">
+    <insertChild id="21661237A77FFE7E" />
+    <insertChild id="F19DDA549F6EF6FD" />
+  </node>
+  <node name="Enemy Hero Nearby" type="UnitCount" id="F19DDA549F6EF6FD">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Blizzard" type="AbilityUsable" id="5F37A896A4E4D8A5">
+    <property name="Ability" valueSource="literal" value="MeiOWBlizzard" />
+    <insertChild id="FC771416DB48E689" />
+  </node>
+  <node name="Defensive Use" type="And" id="FC771416DB48E689">
+    <insertChild id="4A74917F0396AD4B" />
+    <insertChild id="C8B97B1FCCC15224" />
+  </node>
+  <node name="Critical Health" type="LifeFraction" id="4A74917F0396AD4B">
+    <property name="LifeFraction" valueSource="variable" value="Health_ReturnToSpawn" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="69192AB4B108AC88" />
+  </node>
+  <node name="1+ Hero" type="UnitCount" id="69192AB4B108AC88">
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="literal" value="5" />
+  </node>
+  <node name="Cast" type="AbilityEnqueue" id="AA223E10AFE16C92">
+    <property name="Ability" valueSource="literal" value="MeiOWCryoFreeze" />
+  </node>
+  <node name="Cast" type="Ability" id="C8B97B1FCCC15224">
+    <property name="Ability" valueSource="literal" value="MeiOWBlizzard" />
+  </node>
+  <node name="Cast" type="Ability" id="8A109FD12397A1D4">
+    <property name="Ability" valueSource="literal" value="MeiOWSnowBlind" />
+    <property name="TargetPoint" valueSource="variable" value="Snow Blind Target Point" />
+  </node>
+  <node name="Is In Danger" type="IsInDanger" id="21661237A77FFE7E" />
+  <node name="Blizzard" type="AbilityUsable" id="958E358B467B905E">
+    <property name="Ability" valueSource="literal" value="MeiOWBlizzard" />
+    <insertChild id="FE027DCAAD801F82" />
+  </node>
+  <node name="Icing" type="AbilityUsable" id="FE027DCAAD801F82">
+    <property name="Ability" valueSource="literal" value="MeiOWIcing" />
+    <insertChild id="B3E26EFCA5D02247" />
+  </node>
+  <node name="W-E Combo" type="Select" id="93D297DFE6E173C5">
+    <variable name="BlizzardTarget" type="Unit" />
+    <variable name="Combo" type="Boolean" />
+    <variable name="BlizzardPoint" type="Point" />
+    <insertChild id="958E358B467B905E" />
+    <insertChild id="0D6895DA2C639D79" />
+    <insertChild id="63B6DCE4B8173E5B" />
+    <insertChild id="073FA1F8B4A2796B" />
+    <insertChild id="86F4E8A077F9CDB1" />
+    <insertChild id="6DAA2A6A061C3324" />
+  </node>
+  <node name="Find Best Blizzard Target" type="FindBestTarget" id="B3E26EFCA5D02247">
+    <property name="OutputTarget" value="BlizzardTarget" />
+    <property name="MaxTargetDistance" valueSource="lookup" value="Abil,MeiOWBlizzard,Range" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.75" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <insertChild id="3E42735D50DC8A5A" />
+  </node>
+  <node name="Find Icing Position" type="FindPointOnLine" id="79606C73B246033D">
+    <property name="DestinationUnit" valueSource="variable" value="BlizzardTarget" />
+    <property name="DistanceOffset" valueSource="literal" value="-2" />
+    <property name="OutputTarget" value="IcingPoint" />
+    <property name="SourcePoint" valueSource="variable" value="BlizzardPoint" />
+    <insertChild id="91AA8F28DFC2159B" />
+  </node>
+  <node name="" type="AbilityEnqueue" id="34B8956049D2CBB4">
+    <property name="Ability" valueSource="literal" value="MeiOWBlizzard" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+    <property name="TargetPoint" valueSource="variable" value="BlizzardPoint" />
+  </node>
+  <node name="" type="AbilityEnqueue" id="C3B8BE02D2C43EE8">
+    <property name="TargetPoint" valueSource="variable" value="IcingPoint" />
+    <property name="TargetUnit" valueSource="literal" value="" />
+    <property name="Ability" valueSource="literal" value="MeiOWIcing" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="" type="Sequence" id="133088C2D54601FB">
+    <insertChild id="34B8956049D2CBB4" />
+    <insertChild id="C3B8BE02D2C43EE8" />
+    <insertChild id="BF3846C7A25A79DF" />
+  </node>
+  <node name="" type="SetBoolean" id="BF3846C7A25A79DF">
+    <property name="Variable" value="Combo" />
+    <property name="Value" valueSource="literal" value="false" />
+  </node>
+  <node name="" type="CompareBoolean" id="0D6895DA2C639D79">
+    <property name="LeftHandSide" valueSource="variable" value="Combo" />
+    <property name="RightHandSide" valueSource="literal" value="true" />
+    <insertChild id="133088C2D54601FB" />
+  </node>
+  <node name="" type="SetBoolean" id="91AA8F28DFC2159B">
+    <property name="Variable" value="Combo" />
+    <property name="Value" valueSource="literal" value="true" />
+  </node>
+  <node name="" type="TimerStart" id="09894C32325A50D2">
+    <property name="OutputFinishTime" value="IcingCancelTimer" />
+    <property name="DurationSeconds" valueSource="literal" value="0.75" />
+  </node>
+  <node name="" type="Ability" id="A6793C5224F0388A">
+    <property name="Ability" valueSource="literal" value="MeiOWIcingCancel" />
+    <property name="DoNotThrottle" valueSource="literal" value="true" />
+  </node>
+  <node name="" type="Distance" id="86F4E8A077F9CDB1">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Distance" valueSource="literal" value="2" />
+    <property name="TargetPoint" valueSource="variable" value="BlizzardPoint" />
+    <insertChild id="09894C32325A50D2" />
+  </node>
+  <node name="" type="Distance" id="073FA1F8B4A2796B">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Distance" valueSource="literal" value="5.5" />
+    <property name="TargetPoint" valueSource="variable" value="BlizzardPoint" />
+    <insertChild id="2B8A315CD31EDF54" />
+  </node>
+  <node name="" type="TimerStart" id="2B8A315CD31EDF54">
+    <property name="OutputFinishTime" value="IcingCancelTimer" />
+    <property name="DurationSeconds" valueSource="literal" value="1" />
+  </node>
+  <node name="" type="Distance" id="63B6DCE4B8173E5B">
+    <property name="SourceUnit" valueSource="intrinsic" value="Self" />
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Distance" valueSource="literal" value="10" />
+    <property name="TargetPoint" valueSource="variable" value="BlizzardPoint" />
+    <insertChild id="62E5BB0B0EB20E6D" />
+  </node>
+  <node name="" type="TimerStart" id="62E5BB0B0EB20E6D">
+    <property name="OutputFinishTime" value="IcingCancelTimer" />
+    <property name="DurationSeconds" valueSource="literal" value="1.25" />
+  </node>
+  <node name="" type="TimerFinished" id="6DAA2A6A061C3324">
+    <property name="FinishTime" valueSource="variable" value="IcingCancelTimer" />
+    <insertChild id="A6793C5224F0388A" />
+  </node>
+  <node name="Blind AA" type="FilterPlaystyle" id="3A1328F71592B0B8">
+    <property name="Playstyles" valueSource="literal" value="RoleAutoAttacker" />
+    <insertChild id="2827CCE0CED3E108" />
+  </node>
+  <node name="" type="FindBestAOEPoint" id="2827CCE0CED3E108">
+    <property name="OutputTarget" value="Snow Blind Target Point" />
+    <property name="AOERadius" valueSource="variable" value="Snow Blind Radius" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.25" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Snow Blind Range" />
+  </node>
+  <node name="" type="Or" id="F6BD35E0EA73306F">
+    <insertChild id="3A1328F71592B0B8" />
+    <insertChild id="5E002F60D30E4CE5" />
+    <insertChild id="7133AAC790824FE1" />
+    <insertChild id="1F4050280A20ADDF" />
+  </node>
+  <node name="Kill Low Health" type="FindBestAOEPoint" id="5E002F60D30E4CE5">
+    <property name="OutputTarget" value="Snow Blind Target Point" />
+    <property name="AOERadius" valueSource="variable" value="Snow Blind Radius" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.25" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Snow Blind Range" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.05" />
+  </node>
+  <node name="2+ targets" type="FindBestAOEPoint" id="7133AAC790824FE1">
+    <property name="OutputTarget" value="Snow Blind Target Point" />
+    <property name="AOERadius" valueSource="variable" value="Snow Blind Radius" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.25" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Snow Blind Range" />
+  </node>
+  <node name="PvE" type="FindBestAOEPoint" id="F17566EBBFA6E9B3">
+    <property name="OutputTarget" value="Snow Blind Target Point" />
+    <property name="AOERadius" valueSource="variable" value="Snow Blind Radius" />
+    <property name="TargetTypes" valueSource="literal" value="" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.25" />
+    <property name="MinTargets" valueSource="literal" value="3" />
+    <property name="MaxTargetDistance" valueSource="variable" value="Snow Blind Range" />
+  </node>
+  <node name="75%+ mana" type="EnergyFraction" id="1F4050280A20ADDF">
+    <property name="EnergyFraction" valueSource="literal" value="0.75" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <insertChild id="F17566EBBFA6E9B3" />
+  </node>
+  <node name="Backup Bat" type="AbilityUsable" id="A7A63B375BC7D52E">
+    <property name="Ability" valueSource="literal" value="MeiOWBackupBattery" />
+    <insertChild id="D39C12DE2F610C94" />
+  </node>
+  <node name="" type="Ability" id="C62E63BC99825353">
+    <property name="Ability" valueSource="literal" value="MeiOWBackupBattery" />
+  </node>
+  <node name="" type="And" id="D39C12DE2F610C94">
+    <insertChild id="C5B304A0A95BD8BF" />
+    <insertChild id="C62E63BC99825353" />
+  </node>
+  <node name="Rooted" type="UnitHasBehaviorCategory" id="6F9AC117091A3C44">
+    <property name="Unit" valueSource="intrinsic" value="Self" />
+    <property name="Categories" valueSource="literal" value="DebuffRoot" />
+    <insertChild id="8E4C3FDBA5BB871B" />
+  </node>
+  <node name="&lt;=50% HP" type="LifeFraction" id="8E4C3FDBA5BB871B">
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="LifeFraction" valueSource="literal" value="0.5" />
+  </node>
+  <node name="Critical Health" type="LifeFraction" id="84558F4849E71E10">
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="LifeFraction" valueSource="variable" value="Health_ReturnToSpawn" />
+  </node>
+  <node name="" type="Or" id="C5B304A0A95BD8BF">
+    <insertChild id="6F9AC117091A3C44" />
+    <insertChild id="84558F4849E71E10" />
+  </node>
+  <node name="Avalanche" type="AbilityUsable" id="33A78FF13514AFAF">
+    <property name="Ability" valueSource="literal" value="MeiOWAvalanche" />
+    <insertChild id="F45682147010964F" />
+  </node>
+  <node name="" type="And" id="F45682147010964F">
+    <variable name="AvalancheTarget" type="Unit" />
+    <variable name="AvalanchePoint" type="Point" />
+    <insertChild id="6D75397BDC01D978" />
+    <insertChild id="2F2F4F069EA8D9AC" />
+  </node>
+  <node name="Target Selection" type="Or" id="6D75397BDC01D978">
+    <insertChild id="992CFBD3A6C13521" />
+    <insertChild id="9D10D9B4F032EF72" />
+  </node>
+  <node name="Personal Escape" type="And" id="992CFBD3A6C13521">
+    <insertChild id="F01AC64D345D461A" />
+    <insertChild id="62E6909D58DD7739" />
+    <insertChild id="3A8BA0BAD35C11CC" />
+    <insertChild id="BAD1D54CE0949A2C" />
+  </node>
+  <node name="Below Critical Health" type="LifeFraction" id="F01AC64D345D461A">
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="LifeFraction" valueSource="variable" value="Health_ReturnToSpawn" />
+  </node>
+  <node name="In Combat" type="Validator" id="62E6909D58DD7739">
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="Validator" valueSource="literal" value="CasterInCombat" />
+  </node>
+  <node name="Find Nearby Enemy Hero" type="FindBestTarget" id="3A8BA0BAD35C11CC">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-2" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.25" />
+    <property name="OutputTarget" value="AvalancheTarget" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.125" />
+  </node>
+  <node name="Bad Team Fight" type="And" id="9D10D9B4F032EF72">
+    <insertChild id="95F2A0C534683C7C" />
+    <insertChild id="0DB15DC2AF764DCB" />
+    <insertChild id="6DE837AA2A9B1A46" />
+  </node>
+  <node name="Healthy Enemies Nearby" type="UnitCount" id="95F2A0C534683C7C">
+    <property name="TargetTypes" valueSource="literal" value="Enemy" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="TargetCount" valueSource="literal" value="3" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MinLifeFraction" valueSource="literal" value="0.25" />
+  </node>
+  <node name="Low Allies Nearby" type="UnitCount" id="0DB15DC2AF764DCB">
+    <property name="TargetTypes" valueSource="literal" value="Self,Ally" />
+    <property name="RequiredTypes" valueSource="literal" value="Heroic" />
+    <property name="MaxTargetDistance" valueSource="literal" value="10" />
+    <property name="TargetCount" valueSource="literal" value="2" />
+    <property name="MaxLifeFraction" valueSource="literal" value="0.5" />
+  </node>
+  <node name="Find best Enemy hero cluster" type="FindBestVector" id="6DE837AA2A9B1A46">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="OutputEndPoint" value="AvalanchePoint" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="LifeFractionFactor" valueSource="literal" value="-2" />
+    <property name="MissileRadius" valueSource="literal" value="2.5" />
+    <property name="MaxVectorLength" valueSource="literal" value="8" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Cast" type="Ability" id="2F2F4F069EA8D9AC">
+    <property name="Ability" valueSource="literal" value="MeiOWAvalanche" />
+    <property name="TargetPoint" valueSource="variable" value="AvalanchePoint" />
+  </node>
+  <node name="" type="UnitPosition" id="BAD1D54CE0949A2C">
+    <property name="InputUnit" valueSource="variable" value="AvalancheTarget" />
+    <property name="OutputPosition" value="AvalanchePoint" />
+  </node>
+  <node name="Ice Wall" type="AbilityUsable" id="3A6E9046CDAD89D4">
+    <property name="Ability" valueSource="literal" value="MeiOWIceWall" />
+    <variable name="IceWallStart" type="Point" />
+    <variable name="IceWallEnd" type="Point" />
+    <insertChild id="B100011922C61F97" />
+  </node>
+  <node name="" type="And" id="B100011922C61F97">
+    <insertChild id="572D0BC55D5FFD43" />
+    <insertChild id="73C688D47520C2A8" />
+  </node>
+  <node name="" type="Ability" id="73C688D47520C2A8">
+    <property name="Ability" valueSource="literal" value="MeiOWIceWall" />
+    <property name="TargetPoint" valueSource="variable" value="IceWallStart" />
+    <property name="VectorEndPoint" valueSource="variable" value="IceWallEnd" />
+  </node>
+  <node name="Find Heroes" type="FindBestVector" id="572D0BC55D5FFD43">
+    <property name="OutputEndPoint" value="IceWallEnd" />
+    <property name="OutputStartPoint" value="IceWallStart" />
+    <property name="MaxVectorLength" valueSource="literal" value="12" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MissileRadius" valueSource="literal" value="3" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.75" />
+    <property name="MinTargets" valueSource="literal" value="2" />
+  </node>
+  <node name="Ice Wall" type="AbilityUsable" id="C1680A6E40EC6466">
+    <property name="Ability" valueSource="literal" value="MeiOWIceWall" />
+    <variable name="IceWallStart" type="Point" />
+    <variable name="IceWallEnd" type="Point" />
+    <insertChild id="B8F42C500BAD68F8" />
+  </node>
+  <node name="" type="And" id="B8F42C500BAD68F8">
+    <insertChild id="1E5C9B528A30C7F1" />
+    <insertChild id="301427BF2FE741F8" />
+    <insertChild id="7A18F04251279F14" />
+    <insertChild id="48E0BD801D5E32BD" />
+  </node>
+  <node name="Find Heroes" type="FindBestVector" id="7A18F04251279F14">
+    <property name="OutputEndPoint" value="IceWallEnd" />
+    <property name="OutputStartPoint" value="IceWallStart" />
+    <property name="MaxVectorLength" valueSource="literal" value="12" />
+    <property name="MaxTargetDistance" valueSource="literal" value="12" />
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="RequiredTypes" valueSource="literal" value="Enemy" />
+    <property name="MissileRadius" valueSource="literal" value="3" />
+    <property name="PredictionSeconds" valueSource="literal" value="0.75" />
+    <property name="MinTargets" valueSource="literal" value="1" />
+    <property name="DistanceFactor" valueSource="literal" value="2" />
+  </node>
+  <node name="" type="Ability" id="48E0BD801D5E32BD">
+    <property name="Ability" valueSource="literal" value="MeiOWIceWall" />
+    <property name="TargetPoint" valueSource="variable" value="IceWallStart" />
+    <property name="VectorEndPoint" valueSource="variable" value="IceWallEnd" />
+  </node>
+  <node name="Below Critical Health" type="LifeFraction" id="1E5C9B528A30C7F1">
+    <property name="Comparison" valueSource="literal" value="LE" />
+    <property name="Target" valueSource="intrinsic" value="Self" />
+    <property name="LifeFraction" valueSource="variable" value="Health_ReturnToSpawn" />
+  </node>
+  <node name="Enemies Nearby or In Danger" type="Or" id="301427BF2FE741F8">
+    <insertChild id="3806C3CAA90407AD" />
+    <insertChild id="500C39EE65C33DFE" />
+  </node>
+  <node name="Is In Danger" type="IsInDanger" id="3806C3CAA90407AD" />
+  <node name="Enemy Hero Nearby" type="UnitCount" id="500C39EE65C33DFE">
+    <property name="TargetTypes" valueSource="literal" value="Heroic" />
+    <property name="TargetCount" valueSource="literal" value="1" />
+    <property name="MaxTargetDistance" valueSource="literal" value="8" />
+    <property name="AddUnitRadiusToMaxTargetDistance" valueSource="intrinsic" value="Self" />
+  </node>
+  <node name="Predict Position" type="UnitPosition" id="3E42735D50DC8A5A">
+    <property name="PredictionSeconds" valueSource="literal" value="0.75" />
+    <property name="InputUnit" valueSource="variable" value="BlizzardTarget" />
+    <property name="OutputPosition" value="BlizzardPoint" />
+    <insertChild id="79606C73B246033D" />
+  </node>
+</tree>

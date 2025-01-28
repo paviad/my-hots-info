@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Eroi di StarCraft</e>
+    <e id="2">Completamente mancante di qualunque descrizione.</e>
+    <e id="3">Default</e>
+    <e id="4">Heroes of the Stars</e>
+    <e id="5">Gli eroi del settore Koprulu (e qualche ospite) si affrontano nel Distaccamento di Braxis!</e>
+    <e id="6">Assalto zerg</e>
+    <e id="7">Conquistate i segnalatori per riempire di zerg la vostra gabbia di contenimento. Quando una è piena, entrambe si aprono!</e>
+    <e id="8">Resistenza</e>
+    <e id="9">Sconfiggete le ondate di zerg nemiche o aiutate quelle alleate nell&apos;assalto al nucleo avversario.</e>
+    <e id="10">Scelta mista</e>
+    <e id="11">Scegli un eroe fra tre selezionati casualmente, di StarCraft o con modelli a tema StarCraft. Hai solo 30 secondi, per cui pensa in fretta!</e>
+    <e id="12">Info aggiuntive</e>
+    <e id="13">La durata massima della morte è pari a 40 secondi.</e>
+</Locale>

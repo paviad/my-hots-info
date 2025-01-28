@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Minas embrujadas</e>
+    <e id="2">¡Tus héroes favoritos de Blizzard se reúnen para batallar en una épica arena galáctica!</e>
+    <e id="3">(Storm) Cima del rey (Corte del Cuervo)</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de juego no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">Minas - Calaveras recogidas</e>
+    <e id="9">Cantidad de calaveras recolectadas en las minas</e>
+    <e id="10">HauntedMines</e>
+    <e id="11">HauntedMines_zhCN</e>
+    <e id="12">Gólems sepulcrales</e>
+    <e id="13">Ayuda a tu Gólem mientras avanza hacia el núcleo enemigo y destruye al Gólem enemigo antes de que llegue al tuyo.</e>
+    <e id="14">Recoge calaveras</e>
+    <e id="15">Cuando las minas se abran, pelea contra los mineros no-muertos de los túneles y recoge sus calaveras para fortalecer a tu Gólem.</e>
+</Locale>

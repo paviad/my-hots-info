@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Mutador Halloween</e>
+    <e id="2">¡Dulce o truco!  ¡Pies ardientes! ¡Apaga el fuego o la derrota siente!</e>
+    <e id="3">TowersOfDoom</e>
+    <e id="4">Halloween</e>
+    <e id="5">Prepárense ya o sufran el castigo… ¡Del jinete este reino será testigo!</e>
+    <e id="6">Núcleo protegido</e>
+    <e id="7">Los jugadores no pueden atacar los núcleos directamente.</e>
+    <e id="8">¡Aplastando!</e>
+    <e id="9">El jinete esparcirá periódicamente varias calabazas por todo el campo de batalla.</e>
+    <e id="10">Destruir calabazas o matar a un héroe enemigo inflige daño al núcleo enemigo.</e>
+    <e id="11">Preselección</e>
+    <e id="12">Elige uno de los tres héroes seleccionados aleatoriamente. Hay una pequeña probabilidad de que todos los jugadores tengan el mismo héroe.</e>
+    <e id="13">Trucos y dulces</e>
+    <e id="14">Aplastar calabazas también otorga a los jugadores un truco o un dulce al azar. ¡Buena suerte!</e>
+    <e id="15">Los tiempos de reaparición son de 5 segundos.</e>
+</Locale>

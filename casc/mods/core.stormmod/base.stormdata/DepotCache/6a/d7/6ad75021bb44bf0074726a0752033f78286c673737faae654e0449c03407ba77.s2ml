@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Powrót do Kopalni</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">Powrót do Kopalni</e>
+    <e id="4">Bohaterowie powracają do Nawiedzonych Kopalni! Przebudźcie Cmentarne Golemy i maszerujcie razem ku zwycięstwu!</e>
+    <e id="5">Losowy wybór</e>
+    <e id="6">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="7">Dodatkowe informacje</e>
+    <e id="8">Na całej mapie znajduje się kilka wejść do kopalni. Wykorzystaj ich rozmieszczenie, aby zyskać przewagę!</e>
+</Locale>

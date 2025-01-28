@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Arena Pogromców</e>
+    <e id="2">Bohaterowie z uniwersów Blizzarda stają naprzeciw siebie, by toczyć walki na wielkiej, galaktycznej arenie!</e>
+    <e id="3">Inne</e>
+    <e id="4">Niesklasyfikowany rodzaj gry.</e>
+    <e id="5">Standardowo</e>
+    <e id="6">Gracze mogą wybrać swoich bohaterów.</e>
+    <e id="7">ShrinesSimple</e>
+    <e id="8">Arena Pogromców</e>
+    <e id="9">Bitwa między bohaterami i pogromcami, w której wszystkie chwyty są dozwolone! Eliminuj przeciwników, aby zakończyć walkę.</e>
+    <e id="10">Mecz do dwóch wygranych rund na Arenie Pogromców</e>
+    <e id="11">Zwycięża pierwsza drużyna, która wygra dwie rundy.</e>
+    <e id="12">Wygrywa pierwsza drużyna, która zdobędzie 100 pkt.</e>
+    <e id="13">Drużyna otrzymuje 10 punktów za zabicie każdego pogromcy.</e>
+    <e id="14">Drużyna otrzymuje 4 punkty za zabicie każdego bohatera.</e>
+    <e id="15">Losowy wybór</e>
+    <e id="16">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="17">Dodatkowe informacje</e>
+    <e id="18">Istnieje niewielka szansa, że wszyscy będą grać tym samym bohaterem.</e>
+</Locale>

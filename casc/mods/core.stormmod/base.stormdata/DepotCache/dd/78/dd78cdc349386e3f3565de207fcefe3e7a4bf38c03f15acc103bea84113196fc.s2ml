@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Posterunek na Braxis</e>
+    <e id="2">Bohaterowie z uniwersów Blizzarda stają naprzeciw siebie, by toczyć walki na wielkiej, galaktycznej arenie!</e>
+    <e id="3">Braxis</e>
+    <e id="4">Inne</e>
+    <e id="5">Niesklasyfikowany rodzaj gry.</e>
+    <e id="6">Standardowo</e>
+    <e id="7">Wszystkie ustawienia można dostosować do własnych wymagań.</e>
+    <e id="8">Posterunek na Braxis</e>
+    <e id="9">Losowo wybrani bohaterowie ścierają się na jednej alei!</e>
+    <e id="10">Zniszcz bazę wroga</e>
+    <e id="11">Aby zwyciężyć, zrównaj z ziemią bazę wroga.</e>
+    <e id="12">Pojedyncza aleja</e>
+    <e id="13">Na obu krańcach alei pojawia się po jednym obozie mocarnych najemników ze StarCraft. Przygotuj się na niekończącą się akcję.</e>
+    <e id="14">Losowy wybór</e>
+    <e id="15">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="16">Dodatkowe informacje</e>
+    <e id="17">Kamienie Powrotu (B) zostały dezaktywowane. Nie odzyskujesz zdrowia na obszarze startowym.</e>
+    <e id="18">Generatory Kul Regeneracji tworzą na polu bitwy dodatkowe Kule.</e>
+    <e id="19">Istnieje niewielka szansa, że wszyscy będą grać tym samym bohaterem.</e>
+</Locale>

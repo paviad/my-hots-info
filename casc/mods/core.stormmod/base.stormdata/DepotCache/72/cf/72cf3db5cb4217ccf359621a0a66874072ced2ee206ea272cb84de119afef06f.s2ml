@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">¡Más minerales!</e>
+    <e id="2">Datos y Disparadores de ¡Más minerales!</e>
+    <e id="3">predeterminado</e>
+    <e id="4">Puesto de avanzada de Braxis</e>
+    <e id="5">¡Más minerales!</e>
+    <e id="6">¡Aquí solo hay lugar para una operación minera! Recoge minerales y usa su poder para derrotar a la competencia</e>
+    <e id="7">Destruye el núcleo</e>
+    <e id="8">Destruye el núcleo del enemigo para ganar</e>
+    <e id="9">Necesitas más minerales</e>
+    <e id="10">Mata a los VCE y recoge los minerales que dejen caer</e>
+    <e id="11">Los VCE quedarán desprotegidos si matas al esbirro vinculado</e>
+    <e id="12">Recoger suficientes minerales otorga una poderosa aura de Sobrecarga temporal</e>
+    <e id="13">Preselección</e>
+    <e id="14">Elige a uno de los tres héroes seleccionados aleatoriamente. Solo tienes 30 segundos. ¡Piensa rápido!</e>
+    <e id="15">Información adicional</e>
+    <e id="16">Al morir, perderás la mitad de los minerales que recogiste</e>
+    <e id="17">Sobrecarga inflige daño a los héroes enemigos, neutraliza sus estructuras y mata a sus esbirros</e>
+    <e id="18">Los héroes afectados por Sobrecarga dejan caer minerales periódicamente que pueden ser recogidos por el enemigo</e>
+    <e id="19">Como los minerales pueden caducar, ¡debes recogerlos rápidamente!</e>
+    <e id="20">Las Piedras de hogar (B) están deshabilitadas y tu área inicial no regenera salud</e>
+</Locale>

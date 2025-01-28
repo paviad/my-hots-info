@@ -32,7 +32,17 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
             return new ResultType(120m);
         }
 
+        if (context.GetText() == "Behavior,UtherEternalDevotionDivineProtectionArmor,Duration") {
+
+        }
+
         var cobj = base.Visit(context.objspec()).Node;
+
+        if (cobj is null) {
+            Console.Error.WriteLine($"Can't find value of {context.GetText()}, using 0");
+            return new ResultType(0);
+        }
+
         var vars = context.indexed_variable();
         var numVars = vars.Length;
         if (vars[numVars - 1].GetText() == "") {

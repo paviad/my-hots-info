@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Templo de Hanamura</e>
+    <e id="2">Vários Heróis da Blizzard se enfrentam numa arena galáctica!</e>
+    <e id="3">Outro</e>
+    <e id="4">Tipo de jogo não classificado.</e>
+    <e id="5">Padrão</e>
+    <e id="6">Os jogadores podem escolher os Heróis.</e>
+    <e id="7">Crânios da mina coletados</e>
+    <e id="8">Número de caveiras coletadas nas minas</e>
+</Locale>

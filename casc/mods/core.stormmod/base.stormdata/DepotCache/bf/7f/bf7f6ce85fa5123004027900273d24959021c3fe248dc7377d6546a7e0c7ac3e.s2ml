@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Bahía de Almanegra</e>
+    <e id="2">Mapa de 3 caminos&lt;br&gt;&lt;br&gt;El capitán pirata Almanegra espera en el centro de la bahía. El equipo que le entregue suficientes doblones obtendrá su favor y su barco pirata bombardeará los fuertes del enemigo. Los doblones pueden recolectarse matando a héroes, saqueando campamentos o abriendo cofres del tesoro.</e>
+    <e id="3">(Storm) Kings Crest (Docks)</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de partida no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">Doblones de Almanegra recogidos</e>
+    <e id="9">Doblones de Almanegra entregados</e>
+    <e id="10">Número de doblones entregados a Almanegra</e>
+    <e id="11">Bahía de Almanegra</e>
+    <e id="12">Mapa de 3 caminos</e>
+</Locale>

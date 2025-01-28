@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Verteidigung von Deadman&apos;s Port</e>
+    <e id="2">Vollkommen ohne Beschreibung.</e>
+    <e id="3">Zion</e>
+    <e id="4">Überleben</e>
+    <e id="5">Überleben Sie so lange wie möglich gegen Horden einfallender Gegner.</e>
+    <e id="6">Co-op</e>
+    <e id="7">Mit anderen Spielern verbünden.</e>
+    <e id="8">DMSN</e>
+    <e id="9">Verteidigung von Deadman&apos;s Port</e>
+    <e id="10">Der Omegaschwarm greift dieses Reich an. Haltet sie in Schach, bis der Psi-Disruptor einsatzbereit ist.</e>
+    <e id="11">Verteidigt die Basis</e>
+    <e id="12">Der Omegaschwarm greift dieses Reich an. Haltet sie in Schach, bis der Psi-Disruptor einsatzbereit ist.</e>
+    <e id="13">Omegaschwarm</e>
+    <e id="14">Zunehmend stärkere Zerg-Wellen greifen eure Basis an.</e>
+    <e id="15">Einige Wellen enthalten besonders mächtige gegnerische Helden mit verstärkten Fähigkeiten.</e>
+    <e id="16">Verseuchte Erzengel versuchen immer wieder, die Basis aus der Ferne zu bombardieren. Sie müssen vernichtet werden.</e>
+    <e id="17">Vorausgewählte Helden</e>
+    <e id="18">Wähle deinen Helden aus einer speziellen Vorauswahl von Helden.</e>
+    <e id="19">Zusatzinfos</e>
+    <e id="20">Helden starten auf Stufe 10 und steigen nach jedem vernichteten Erzengel Stufen auf. Einige Talente können nicht ausgewählt werden.</e>
+    <e id="21">Keine automatische Wiederbelebung. Gestorbene Helden müssen von Teammitgliedern wiederbelebt werden. Das Spiel endet, wenn alle Helden des Teams tot sind.</e>
+    <e id="22">Helden können Gegenstände aufsammeln, die zusätzliche Fähigkeiten gewähren. Jeder Held kann immer nur 1 Gegenstand tragen.</e>
+    <e id="23">Ruhesteine (B) sind deaktiviert.</e>
+</Locale>

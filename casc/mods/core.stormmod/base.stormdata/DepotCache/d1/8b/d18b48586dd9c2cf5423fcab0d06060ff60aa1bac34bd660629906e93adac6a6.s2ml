@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Mutador de Noturnália</e>
+    <e id="2">Travessuras ou Gostosuras?! Pés em chamas! Apague o fogo ou aceite a derrota!</e>
+    <e id="3">TowersOfDoom</e>
+    <e id="4">Noturnália</e>
+    <e id="5">Preparem-se para a batalha. Senão o Cavaleiro vai cobrir vocês com uma mortalha!</e>
+    <e id="6">Núcleo Protegido</e>
+    <e id="7">Os jogadores não podem atacar o Núcleo diretamente.</e>
+    <e id="8">Esmagar!</e>
+    <e id="9">O Cavaleiro Sem Cabeça espalhará periodicamente Abóboras por todo o campo de batalha.</e>
+    <e id="10">Destrua Abóboras e mate Heróis inimigos para causar dano ao Núcleo do adversário.</e>
+    <e id="11">Seleção Restrita</e>
+    <e id="12">Escolha um dos três Heróis selecionados aleatoriamente. Há uma pequena chance de todos os jogadores jogarem com o mesmo Herói.</e>
+    <e id="13">Gostosuras e Travessuras</e>
+    <e id="14">Esmague Abóboras para ganhar Gostosuras ou Travessuras. Boa sorte!</e>
+    <e id="15">O tempo de renascimento é de 5 segundos.</e>
+</Locale>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Przełęcz Alterak</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">Inne</e>
+    <e id="4">Niesklasyfikowany rodzaj gry.</e>
+    <e id="5">Standardowy</e>
+    <e id="6">Gracze mogą wybrać swoich bohaterów.</e>
+    <e id="7">Przełęcz Alterak</e>
+    <e id="8">Mapa z 3 alejami</e>
+</Locale>

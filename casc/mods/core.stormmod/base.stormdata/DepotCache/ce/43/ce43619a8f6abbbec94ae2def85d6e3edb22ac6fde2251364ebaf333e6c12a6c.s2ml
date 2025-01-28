@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Guerra di Tritacarne Mutator</e>
+    <e id="2">Trascinamento totale</e>
+    <e id="3">PullParty</e>
+    <e id="4">Agganci pericolosi</e>
+    <e id="5">È ora di giocare! Agganciate gli eroi nemici e trascinateli dal vostro lato della piscina per eliminarli.</e>
+    <e id="6">Agganciate gli eroi nemici</e>
+    <e id="7">La prima squadra che aggancia e uccide 20 nemici vince.</e>
+    <e id="8">Trascinamento forzato</e>
+    <e id="9">Il tempo di recupero e la velocità di Gancio sono notevolmente ridotti. Mano Caritatevole è sempre attiva, consentendo di usare Gancio sugli alleati.</e>
+    <e id="10">Tutti sono Tritacarne</e>
+    <e id="11">Quanti amici! Tritacarne pronto a giocare!</e>
+    <e id="12">Info aggiuntive</e>
+    <e id="13">La durata della della morte è ridotta. I giocatori resuscitano dopo 5 secondi.</e>
+    <e id="14">Gli eroi non hanno talenti e non avanzano di livello. </e>
+    <e id="15">Usare Gancio su un eroe già agganciato lo uccide all&apos;istante. </e>
+    <e id="16">Uccidere un alleato agganciato non fornisce un punto alla squadra nemica.</e>
+</Locale>

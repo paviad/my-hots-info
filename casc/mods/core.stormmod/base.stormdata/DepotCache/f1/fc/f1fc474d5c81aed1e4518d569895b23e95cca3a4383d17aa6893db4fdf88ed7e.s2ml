@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Valle Maledetta</e>
+    <e id="2">Mappa a 3 corsie&lt;br&gt;&lt;br&gt;Il Signore dei Corvi evoca dei tributi in determinati punti della Valle Maledetta. Combattete la squadra nemica e conquistate per primi i tributi. Quando avrete conquistato tre tributi, il Signore dei Corvi maledirà i nemici, disabilitandone le torri e riducendo la Salute dei loro servitori.</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Altro</e>
+    <e id="5">Tipo di gioco non classificato.</e>
+    <e id="6">Standard</e>
+    <e id="7">I giocatori possono scegliere i propri eroi.</e>
+    <e id="8">Tributi del Signore dei Corvi conquistati</e>
+    <e id="9">Tributi conquistati</e>
+    <e id="10">Valle Maledetta</e>
+    <e id="11">Mappa a 3 corsie</e>
+</Locale>

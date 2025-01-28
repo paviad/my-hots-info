@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Mutation Marteau-pilon</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">Default</e>
+    <e id="4">TowersOfDoom</e>
+    <e id="5">Marteau-pilon</e>
+    <e id="6">Les équipes de Sgt Marteau et de Sgt Marteau-du-Destin s’affrontent au milieu des tours du destin.</e>
+    <e id="7">Idole protégée</e>
+    <e id="8">L’idole ennemie est insensible aux attaques des héros. Capturez les autels pour endommager l’idole !</e>
+    <e id="9">Prenez le contrôle des beffrois</e>
+    <e id="10">Renversez les beffrois ennemis pour qu’ils changent de camp.</e>
+    <e id="11">Tout le monde joue Sgt Marteau</e>
+    <e id="12">Tant qu’il y aura des tanks.</e>
+    <e id="13">Informations supplémentaires</e>
+    <e id="14">Le mode monture de Sgt Marteau est activé de façon permanente.</e>
+</Locale>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Krieg der Magier (Mutator)</e>
+    <e id="2">Vollkommen ohne Beschreibung.</e>
+    <e id="3">TombSpiderQueen</e>
+    <e id="4">Krieg der Magier</e>
+    <e id="5">Bereite deine tödlichsten Zauber vor, denn diesen Wettstreit können nur die größten Magier gewinnen!</e>
+    <e id="6">Rufe Netzweber herbei</e>
+    <e id="7">Sichere dir die Gunst der Spinnenkönigin, dann werden ihre Netzweber die gegnerische Verteidigung attackieren.</e>
+    <e id="8">Sammle Juwelen</e>
+    <e id="9">Spinnendiener und Helden hinterlassen nach dem Tod Juwelen. Sammle sie ein und gib sie an einem der Altäre ab, um die Netzweber zu entfesseln.</e>
+    <e id="10">Nur Magier</e>
+    <e id="11">Nur Chromie, Gul&apos;dan, Jaina, Kael&apos;thas, Kel&apos;Thuzad, Li-Ming, Medivh und Nazeebo.</e>
+    <e id="12">Zusatzinfos</e>
+    <e id="13">Die Manaregeneration ist um 50% erhöht.</e>
+    <e id="14">Abklingzeiten werden passiv um 25% verringert.</e>
+    <e id="15">Zauber fügen Gebäuden doppelt so viel Schaden zu.</e>
+    <e id="16">Es besteht eine kleine Chance, dass alle Spieler den gleichen Magier spielen (Medivh ausgenommen).</e>
+</Locale>

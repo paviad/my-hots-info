@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Condado del Dragón</e>
+    <e id="2">Mapa de 3 caminos&lt;br&gt;&lt;br&gt;El legendario caballero dragón está encerrado en su prisión pétrea, en el centro del mapa. Para liberarlo, vuestro equipo deberá controlar los santuarios del sol y la luna al mismo tiempo. Solo entonces uno de los héroes podrá liberar al caballero dragón y utilizar su inmenso poder para destruir al equipo enemigo.</e>
+    <e id="3">StormDragonShire</e>
+    <e id="4">Otro</e>
+    <e id="5">Tipo de partida no clasificado.</e>
+    <e id="6">Estándar</e>
+    <e id="7">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="8">Dragón: número de capturas del dragón</e>
+    <e id="9">Número de transformaciones en caballero dragón</e>
+    <e id="10">Condado del Dragón</e>
+    <e id="11">Mapa de 3 caminos</e>
+</Locale>

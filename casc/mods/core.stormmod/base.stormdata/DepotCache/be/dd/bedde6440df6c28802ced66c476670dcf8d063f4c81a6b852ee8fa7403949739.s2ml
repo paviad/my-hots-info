@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Données Temple céleste (mod)</e>
+    <e id="2"></e>
+    <e id="3">Temps passé dans les temples</e>
+    <e id="4">Temps passé dans des temples actifs</e>
+    <e id="5">Plus long temps passé dans les temples</e>
+</Locale>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Ritorno alle Miniere</e>
+    <e id="2">Completamente mancante di qualunque descrizione.</e>
+    <e id="3">Ritorno alle Miniere</e>
+    <e id="4">Gli eroi tornano nelle Miniere Infestate! Risvegliate i Golem delle Fosse e marciate verso la vittoria!</e>
+    <e id="5">Scelta mista</e>
+    <e id="6">Scegli un eroe fra tre selezionati casualmente. Hai solo 30 secondi, per cui pensa in fretta!</e>
+    <e id="7">Info aggiuntive</e>
+    <e id="8">Esistono diversi punti d&apos;accesso alle miniere. Sfruttatene la posizione a vostro vantaggio!</e>
+</Locale>

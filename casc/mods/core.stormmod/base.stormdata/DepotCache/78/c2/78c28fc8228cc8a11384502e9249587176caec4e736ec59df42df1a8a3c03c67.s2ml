@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Dragon Shire</e>
+    <e id="2">3-Lane Map&lt;br&gt;&lt;br&gt;The legendary Dragon Knight is sealed within his stone prison at the center of the map. To free him, your team must control both the sun and the moon shrines at the same time. Only then can one of your heroes unleash the Dragon Knight and use his immense power to destroy your enemy.</e>
+    <e id="3">StormDragonShire</e>
+    <e id="4">Other</e>
+    <e id="5">Unclassified game type.</e>
+    <e id="6">Standard</e>
+    <e id="7">Players can choose their Heroes.</e>
+    <e id="8">Dragon Number Of Dragon Captures</e>
+    <e id="9">Number of times became Dragon Knight</e>
+    <e id="10">Dragon Shire</e>
+    <e id="11">3-Lane Map</e>
+</Locale>

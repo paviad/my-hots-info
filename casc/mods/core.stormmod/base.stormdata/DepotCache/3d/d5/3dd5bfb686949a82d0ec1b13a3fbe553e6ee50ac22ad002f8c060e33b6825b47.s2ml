@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Le caveau perdu (mod)</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">Gemmes rapportées</e>
+    <e id="4">Nombre de gemmes rapportées</e>
+    <e id="5">Sélection aléatoire</e>
+    <e id="6">Choisissez un héros parmi les trois proposés au hasard. Il y a une petite chance que tous les joueurs incarnent le même héros.</e>
+</Locale>

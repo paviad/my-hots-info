@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Snow Brawl Mutator</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">SnowBrawl</e>
+    <e id="4">Snow Brawl</e>
+    <e id="5">It’s winter in the Cursed Hollow! Throw some snowballs and gather the Raven Lord’s gifts!</e>
+    <e id="6">Gather Tributes</e>
+    <e id="7">Collect Snowy Tributes to launch Colossal Snowballs at your Enemy&apos;s fortifications! </e>
+    <e id="8">Snowballs</e>
+    <e id="9">Pick up Snowballs and throw them (F) for major damage.</e>
+    <e id="10">Incomplete Snowmen periodically form throughout the battleground. Use snowballs to complete them.</e>
+    <e id="11">Shuffle Pick</e>
+    <e id="12">Choose from one of three randomly selected Heroes. You only have 30 seconds, so think fast!</e>
+    <e id="13">Additional Info</e>
+    <e id="14">Snowy Tributes spawn in rapid succession.</e>
+    <e id="15">Snowballs spawn near Heroes, Buildings, Tributes, and Regen Globes</e>
+    <e id="16">Fluffy Snowballs knock enemy Heroes away. </e>
+    <e id="17">Heavy Snowballs slow enemies and deal double damage to minions and structures.</e>
+    <e id="18">Once completed, Snowmen follow you and fight alongside you.</e>
+</Locale>

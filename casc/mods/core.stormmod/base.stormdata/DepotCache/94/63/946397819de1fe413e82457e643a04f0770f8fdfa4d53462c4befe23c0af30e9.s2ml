@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Tempel von Hanamura</e>
+    <e id="2">Ein breites Spektrum von Blizzard-Helden trifft sich zur Schlacht in einer galaktischen Arena.</e>
+    <e id="3">Andere</e>
+    <e id="4">Unklassifizierter Spieltyp.</e>
+    <e id="5">Standard</e>
+    <e id="6">Spieler können ihre Helden auswählen.</e>
+    <e id="7">Schädel in den Minen gesammelt</e>
+    <e id="8">Anzahl der in den Minen gesammelten Schädel</e>
+</Locale>

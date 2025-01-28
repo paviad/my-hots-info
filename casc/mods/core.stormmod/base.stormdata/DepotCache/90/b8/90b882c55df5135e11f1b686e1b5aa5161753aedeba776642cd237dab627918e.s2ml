@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Rissa Brama di Sangue</e>
+    <e id="2">Completamente mancante di qualunque descrizione.</e>
+    <e id="3">Default</e>
+    <e id="4">Rissa Brama di Sangue</e>
+    <e id="5">Gli eroi si affrontano nella Contea del Drago mentre Brama di Sangue viene attivata casualmente su di essi. Abbracciate la vostra rabbia!</e>
+    <e id="6">Risvegliate il Drago Cavaliere</e>
+    <e id="7">Controllate entrambi gli altari, e il Drago Cavaliere combatterà per la vostra squadra.</e>
+    <e id="8">Brama di Sangue</e>
+    <e id="9">A intervalli regolari, due eroi casuali per ogni squadra ricevono un bonus temporaneo a velocità di attacco e movimento e i loro attacchi base rigenerano Salute.</e>
+    <e id="10">Scelta mista</e>
+    <e id="11">Scegli un eroe fra tre selezionati casualmente. Hai solo 30 secondi, per cui pensa in fretta!</e>
+    <e id="12">Info aggiuntive</e>
+    <e id="13">Il Drago Cavaliere, i mercenari e i servitori sono sempre sotto gli effetti di Brama di Sangue.</e>
+    <e id="14">C&apos;è una piccola probabilità che tutti gli eroi siano sotto gli effetti di Brama di Sangue.</e>
+    <e id="15">Dopo 17 minuti, Brama di Sangue è applicata permanentemente a tutti gli eroi. </e>
+</Locale>

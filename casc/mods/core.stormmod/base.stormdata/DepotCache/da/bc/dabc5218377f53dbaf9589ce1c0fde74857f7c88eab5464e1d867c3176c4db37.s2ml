@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">The Mines Reopen</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">The Mines Reopen</e>
+    <e id="4">Heroes return to the Haunted Mines! Awaken the Grave Golems and march toward victory!</e>
+    <e id="5">Shuffle Pick</e>
+    <e id="6">Choose from one of three randomly selected Heroes. You only have 30 seconds, so think fast!</e>
+    <e id="7">Additional Info</e>
+    <e id="8">There are several entrances to the mines across the map. Use their placement to your advantage!</e>
+</Locale>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">L’arène des temples</e>
+    <e id="2">Une large palette de héros Blizzard se croisent et s’affrontent de façon épique dans une arène galactique !</e>
+    <e id="3">(Storm) Luxoria</e>
+    <e id="4">Autre</e>
+    <e id="5">Type de jeu sans classification.</e>
+    <e id="6">Standard</e>
+    <e id="7">Les joueurs peuvent choisir leur héros.</e>
+    <e id="8">SkyTempleSimple</e>
+    <e id="9">L’arène des temples</e>
+    <e id="10">Une carte du genre point de contrôle où l’équipe qui reste le plus longtemps en possession des temples l’emporte.</e>
+    <e id="11">2 manches gagnantes dans l’arène des temples</e>
+    <e id="12">Détruisez l’idole adverse pour gagner la manche.</e>
+    <e id="13">Contrôlez les temples</e>
+    <e id="14">Prenez le contrôle des temples pour attaquer l’idole ennemie.</e>
+    <e id="15">Sélection aléatoire</e>
+    <e id="16">Choisissez un héros parmi les trois proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="17">Informations supplémentaires</e>
+    <e id="18">Les globes de régénération sont deux fois plus puissants.</e>
+    <e id="19">Il y a une petite chance que tous les joueurs aient le même héros.</e>
+</Locale>

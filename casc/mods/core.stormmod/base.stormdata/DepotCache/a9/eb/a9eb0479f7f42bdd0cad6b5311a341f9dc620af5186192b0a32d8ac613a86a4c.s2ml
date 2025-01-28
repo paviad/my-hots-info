@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Lost Cavern (Mod)</e>
+    <e id="2">Completely devoid of any description whatsoever.</e>
+    <e id="3">Spider Gems Turned In</e>
+    <e id="4">Number of Spider Gems turned in</e>
+    <e id="5">Shuffle Pick</e>
+    <e id="6">Choose from one of three randomly selected heroes, there&apos;s a small chance of all players being the same Hero.</e>
+</Locale>

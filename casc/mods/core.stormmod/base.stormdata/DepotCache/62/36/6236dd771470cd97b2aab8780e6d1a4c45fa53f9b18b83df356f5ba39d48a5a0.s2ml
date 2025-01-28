@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Stählerne Giganten</e>
+    <e id="2">Vollkommen ohne Beschreibung.</e>
+    <e id="3">IndustrialDistrict</e>
+    <e id="4">Stählerne Giganten</e>
+    <e id="5">Steuere Protektoren und versuche, die gegnerische Zitadelle zu zerstören.</e>
+    <e id="6">Zerstöre die gegnerische Zitadelle</e>
+    <e id="7">Zerstöre die Zitadelle des Gegners, um zu gewinnen.</e>
+    <e id="8">Protektoren</e>
+    <e id="9">Beide Teams starten mit einem Triglav-Protektor.</e>
+    <e id="10">Wenn beide Protektoren zerstört wurden, entstehen zwei neue.</e>
+    <e id="11">Zufallswahl</e>
+    <e id="12">Wähle einen von drei zufälligen Helden.</e>
+    <e id="13">Zusatzinfos</e>
+    <e id="14">Im Triglav-Protektor finden zwei Helden Platz, ein Pilot und ein Richtschütze.</e>
+    <e id="15">Pilot und Richtschütze erhalten beide einzigartige Fähigkeiten.</e>
+    <e id="16">Nur der Pilot kann die Bewegung des Protektors steuern.</e>
+</Locale>

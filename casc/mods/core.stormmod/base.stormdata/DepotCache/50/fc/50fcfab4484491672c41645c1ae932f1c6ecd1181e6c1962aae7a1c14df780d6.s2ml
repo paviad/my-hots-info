@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Arena do Jardim</e>
+    <e id="2">Vários Heróis da Blizzard se enfrentam numa arena galáctica!</e>
+    <e id="3">(Atacar) Crista Régia (Jardins)</e>
+    <e id="4">Outro</e>
+    <e id="5">Tipo de jogo não classificado.</e>
+    <e id="6">Padrão</e>
+    <e id="7">Os jogadores podem escolher os Heróis.</e>
+    <e id="8">Arena do Jardim</e>
+    <e id="9">Colete as sementes dos terrores ou assista a eles crescerem e se tornarem a sua ruína</e>
+    <e id="10">Melhor de 3 rodadas na Arena do Jardim</e>
+    <e id="11">A primeira equipe a vencer 2 rodadas é vitoriosa</e>
+    <e id="12">Colete as sementes</e>
+    <e id="13">A primeira equipe a coletar 100 sementes vence a rodada </e>
+    <e id="14">Seleção Restrita</e>
+    <e id="15">Escolha um dos três Heróis selecionados aleatoriamente. Você só tem 30 segundos. Depressa!</e>
+    <e id="16">Informações adicionais</e>
+    <e id="17">Globos de Regeneração ficam duas vezes mais potentes</e>
+    <e id="18">Há uma pequena chance de todos os jogadores jogarem com o mesmo Herói</e>
+</Locale>

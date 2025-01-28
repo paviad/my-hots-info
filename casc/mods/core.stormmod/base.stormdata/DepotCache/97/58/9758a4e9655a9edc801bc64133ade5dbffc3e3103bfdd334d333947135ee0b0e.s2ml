@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="zhCN">
+    <e id="1">Garden Arena (Mod)</e>
+    <e id="2">Support mod of Garden Arena</e>
+    <e id="3">收集的花园种子</e>
+    <e id="4">收集的花种子数量</e>
+    <e id="5">大量植物伤害</e>
+    <e id="6">随机挑选</e>
+    <e id="7">从三位随机选择的英雄中选择一位，有很小的几率所有玩家使用相同的英雄。</e>
+</Locale>

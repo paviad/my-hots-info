@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">AzmoDUNK Mutator</e>
+    <e id="2">Work with your allies to kill minions with your Globe of Annihilation.  Gaining stacks will also give your team stacks.</e>
+    <e id="3">TombSpiderQueen</e>
+    <e id="4">AzmoDUNK!</e>
+    <e id="5">Teams of Azmodan face off on Tomb of the Spider Queen in what will surely be the dunkfest of the season.</e>
+    <e id="6">Destroy Enemy&apos;s Core</e>
+    <e id="7">Collect gems to summon the Spider Queen&apos;s minions and destroy the core.</e>
+    <e id="8">Team Sport</e>
+    <e id="9">Everyone starts with Taste for Blood. Stacks are shared team wide.</e>
+    <e id="10">Turning in Gems awards 5 stacks of Taste for Blood per gem. </e>
+    <e id="11">Everyone is Azmodan</e>
+    <e id="12">Welcome to Azmo-jam.</e>
+    <e id="13">Additional Info</e>
+    <e id="14">Total damage cap for Globe of Annihilation is increased to 5000.</e>
+    <e id="15">Killing Minions with Globe of Annihilation grants 5 damage instead of 2.</e>
+    <e id="16">Killing Heroes with Globe of Annihilation grants 20 damage instead of 10.</e>
+    <e id="17">Hero Kills with Globe of Annihilation reset its cooldown and restore Mana</e>
+</Locale>

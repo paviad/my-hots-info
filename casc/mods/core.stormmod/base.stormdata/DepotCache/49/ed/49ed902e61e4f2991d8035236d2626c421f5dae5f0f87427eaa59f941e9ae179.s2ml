@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Arena de los castigadores</e>
+    <e id="2">¡Varios héroes de Blizzard se encuentran y se enfrentan en un épico campo de batalla galáctico!</e>
+    <e id="3">Otro</e>
+    <e id="4">Tipo de partida no clasificado.</e>
+    <e id="5">Estándar</e>
+    <e id="6">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="7">ShrinesSimple</e>
+    <e id="8">Arena de los castigadores</e>
+    <e id="9">Una batalla sin cuartel entre héroes y castigadores. Acabad con vuestros enemigos para poner fin a la pelea.</e>
+    <e id="10">Mejor de 3 rondas en la Arena de los castigadores</e>
+    <e id="11">El primer equipo que gane 2 rondas se alzará con la victoria.</e>
+    <e id="12">El primero en conseguir 100 puntos gana</e>
+    <e id="13">Los castigadores valen 10 puntos.</e>
+    <e id="14">Los héroes valen 4 puntos.</e>
+    <e id="15">Selección entre héroes aleatorios</e>
+    <e id="16">Elegid a uno de los tres héroes seleccionados al azar. Solo tenéis 30 s, ¡así que pensad rápido!</e>
+    <e id="17">Información adicional</e>
+    <e id="18">Existe una pequeña posibilidad de que todos los jugadores sean el mismo héroe.</e>
+</Locale>

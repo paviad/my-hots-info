@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Schwarzherzbucht</e>
+    <e id="2">Karte mit 3 Wegen&lt;br&gt;&lt;br&gt;Der Piratenkapitän Schwarzherz wartet in der Bucht. Das Team, das die meisten Dublonen abgibt, erlangt seine Gunst und sein geisterhaftes Piratenschiff bombardiert die gegnerischen Forts. Ihr könnt Dublonen sammeln, indem ihr Helden tötet, Lager bezwingt oder Schatztruhen plündert.</e>
+    <e id="3">(Storm) Kings Crest (Docks)</e>
+    <e id="4">Andere</e>
+    <e id="5">Unklassifizierter Spieltyp.</e>
+    <e id="6">Standard</e>
+    <e id="7">Spieler können ihre Helden auswählen.</e>
+    <e id="8">Schwarzherz-Dublonen eingesammelt</e>
+    <e id="9">Schwarzherz-Dublonen abgegeben</e>
+    <e id="10">Anzahl der an Schwarzherz übergebenen Dublonen</e>
+    <e id="11">Schwarzherzbucht</e>
+    <e id="12">Karte mit 3 Wegen</e>
+</Locale>

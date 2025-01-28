@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Księżycowe Wyścigi Rakietowe</e>
+    <e id="2">TBD</e>
+    <e id="3">(Storm) Kings Crest (Gardens)</e>
+    <e id="4">Bitwa bohaterów</e>
+    <e id="5">Drużyny bohaterów prowadzą nieprzerwany szturm na twierdzę przeciwnika.</e>
+    <e id="6">Niestandardowe</e>
+    <e id="7">Wszystkie ustawienia można dostosować do własnych wymagań.</e>
+    <e id="8">LunarFestival</e>
+    <e id="9">Księżycowe Wyścigi Rakietowe</e>
+    <e id="10">Odpalaj rakiety! Ścigaj się z innymi graczami i zajmij miejsce na podium!</e>
+    <e id="11">Miń linię mety</e>
+    <e id="12">Przed tobą wyścig! Ukończ wszystkie okrążenia i jak najszybciej miń linię mety.</e>
+    <e id="13">Rakietowa Rywalizacja</e>
+    <e id="14">Gracze ścigają się na Księżycowych Rakietach po niezwykłym torze wyścigowym.</e>
+    <e id="15">Zbieraj Koperty na trasie wyścigu, aby uzyskać dostęp do losowej zdolności specjalnej.</e>
+    <e id="16">Wjedź na taśmę transportową, aby zyskać krótkotrwały zastrzyk szybkości.</e>
+    <e id="17">Bohaterowie Księżycowego Święta</e>
+    <e id="18">Bohaterowie są przydzielani losowo spośród grona specjalnie wyselekcjonowanych postaci w skórkach z Księżycowego Święta.</e>
+    <e id="19">Dodatkowe informacje</e>
+    <e id="20">Kiedy pierwszy bohater minie linię mety, pozostali mają 30 sek., aby ukończyć wyścig i zwyciężyć w bójce.</e>
+    <e id="21">Nieprzekroczenie linii mety bądź ukończenie wyścigu na ostatnim miejscu oznacza porażkę.</e>
+    <e id="22">Rakiety pochodzące z Kopert można wystrzelić w wybranym kierunku. Ogłuszają one pierwszego trafionego przeciwnika.</e>
+    <e id="23">Bomby pochodzące z Kopert można upuścić za siebie, aby ogłuszyć przeciwników, którzy w nie wlecą.</e>
+    <e id="24">Księżycowe Błogosławieństwo pochodzące z Kopert zapewnia niewrażliwość i premię do szybkości ruchu.</e>
+</Locale>

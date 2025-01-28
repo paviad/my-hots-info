@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Mutación Entrega especial</e>
+    <e id="2">Sin ningún tipo de descripción.</e>
+    <e id="3">Default</e>
+    <e id="4">Entrega especial</e>
+    <e id="5">Dos equipos formados por Tracers se enfrentan mientras mueven las cargas. ¡El tiempo juega a favor de todos!</e>
+    <e id="6">Destruid el núcleo enemigo</e>
+    <e id="7">No se puede atacar directamente a los núcleos. Solo las cargas, los jefes y matar a otros jugadores pueden infligirles daño.</e>
+    <e id="8">Bombas van</e>
+    <e id="9">Matar a un héroe enemigo inflige 1 de daño a su núcleo, y matarlo con Bomba de pulsos inflige 2 de daño.</e>
+    <e id="10">Todos somos Tracer</e>
+    <e id="11">Todos los jugadores de los dos equipos juegan como Tracer.</e>
+    <e id="12">Información adicional</e>
+    <e id="13">La salud del núcleo, el daño a la carga y la potenciación aumentan un 400%.</e>
+    <e id="14">Los jugadores comienzan con nivel 20.</e>
+    <e id="15">Se comienza con Regresión total, el tiempo de reutilización de Traslación se reduce un 50% y el ritmo de carga de Bomba de pulsos mediante ataques básicos se duplica contra héroes.</e>
+    <e id="16">Capturar al jefe inflige mucho daño al núcleo enemigo.</e>
+    <e id="17">Las bombas de pulsos explotan al instante al tocar a un enemigo.</e>
+</Locale>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">La piste aux fusées</e>
+    <e id="2">TBD</e>
+    <e id="3">(Storm) Kings Crest (Gardens)</e>
+    <e id="4">Bataille de héros</e>
+    <e id="5">Des équipes de héros se joignent à des assauts constants contre le bastion ennemi.</e>
+    <e id="6">Personnalisé</e>
+    <e id="7">Tous les réglages peuvent être personnalisés.</e>
+    <e id="8">LunarFestival</e>
+    <e id="9">La piste aux fusées</e>
+    <e id="10">Allumez les fusées ! Lancez-vous dans une course effrénée contre d’autres joueurs et finissez parmi les vainqueurs !</e>
+    <e id="11">Franchissez la ligne d’arrivée</e>
+    <e id="12">Prêt, feu, partez ! Allez au bout de la course et franchissez la ligne d’arrivée aussi vite que possible.</e>
+    <e id="13">La piste aux fusées</e>
+    <e id="14">Les joueurs pilotent des fusées lunaires et se livrent à une course sur un circuit unique.</e>
+    <e id="15">Ramassez des enveloppes sur le circuit pour obtenir des capacités spéciales aléatoires.</e>
+    <e id="16">Passez sur les flèches au sol pour être propulsé vers l’avant et profiter d’une brève accélération.</e>
+    <e id="17">Héros de la fête lunaire</e>
+    <e id="18">Les héros sont attribués au hasard parmi une sélection spéciale de pilotes qui ont revêtu leur tenue de fête lunaire.</e>
+    <e id="19">Informations supplémentaires</e>
+    <e id="20">Une fois que le premier héros a franchi la ligne d’arrivée, il reste 30 secondes aux autres pilotes pour finir la course et réussir le choc.</e>
+    <e id="21">Ne pas réussir à franchir la ligne d’arrivée ou finir dernier se solde par un échec.</e>
+    <e id="22">Les fusées des enveloppes peuvent être tirées dans la direction à laquelle vous faites face et étourdissent le premier pilote touché.</e>
+    <e id="23">Les bombes des enveloppes peuvent être larguées derrière vous et étourdissent les pilotes qui les percutent.</e>
+    <e id="24">Les bénédictions lunaires des enveloppes vous rendent invulnérable et augmentent votre vitesse de déplacement.</e>
+</Locale>

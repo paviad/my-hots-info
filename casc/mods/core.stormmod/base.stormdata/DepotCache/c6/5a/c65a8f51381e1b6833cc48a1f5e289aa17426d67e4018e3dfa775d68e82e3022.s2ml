@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Mutación Balón piscinero</e>
+    <e id="2">Sin ningún tipo de descripción.</e>
+    <e id="3">DodgeBrawl</e>
+    <e id="4">Balón piscinero</e>
+    <e id="5">Arena, agua y sol: ¡qué mejor combinación! Dos equipos se turnan para lanzarse Explosiones de arena hasta que uno quede eliminado.</e>
+    <e id="6">Guerra de arena</e>
+    <e id="7">Golpead al enemigo con Explosión de arena y esquivad las que os lance. Hay que ganar dos rondas de tres para ganar la partida.</e>
+    <e id="8">La gnoma superviviente</e>
+    <e id="9">Un equipo ataca y el otro esquiva. Se intercambian los papeles cada pocos segundos, frecuencia que aumenta conforme avanza la ronda.</e>
+    <e id="10">Tras golpear a una Cromi cinco veces, queda eliminada en esa ronda, pero vuelve a aparecer como fantasma en el lado del equipo enemigo.</e>
+    <e id="11">Las Cromis fantasmas pueden usar Trampas temporales y Arenas ralentizadoras para molestar a las atacantes.</e>
+    <e id="12">Todos somos Cromi</e>
+    <e id="13">¡Parece que alguien ha estado jugando con el flujo del tiempo!</e>
+    <e id="14">Información adicional</e>
+    <e id="15">El equipo atacante siempre puede ver al equipo que esquiva, pero este no puede ver al equipo atacante.</e>
+    <e id="16">Las Cromis fantasmas otorgan visión a su equipo para poder ubicar a las atacantes.</e>
+    <e id="17">Si una ronda dura demasiado, aparecen tornados en el perímetro del mapa y van desplazándose lentamente hacia el centro y empujando a las Cromis a la piscina.</e>
+</Locale>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">AzmoDUNK! (Mutator)</e>
+    <e id="2">Koordiniere dich mit deinen Verbündeten, um mit der Kugel der Vernichtung Diener zu töten. Jeder Stapel, den du erhältst, gilt für dein ganzes Team.</e>
+    <e id="3">TombSpiderQueen</e>
+    <e id="4">AzmoDUNK!</e>
+    <e id="5">Zwei Teams mit nur Azmodan treten in der Grabkammer der Spinnenkönigin gegeneinander an. Wer hier nicht am Ball bleibt, kann abdunken.</e>
+    <e id="6">Zerstöre die gegnerische Zitadelle</e>
+    <e id="7">Sammle Juwelen, um die Diener der Spinnenkönigin zu beschwören und mit ihnen die gegnerische Zitadelle zu vernichten.</e>
+    <e id="8">Teamgeist</e>
+    <e id="9">Jeder hat das Talent Blut geleckt. Stapel werden zwischen allen Mitgliedern des Teams geteilt.</e>
+    <e id="10">Jedes abgegebene Juwel gewährt fünf Stapel von Blut geleckt.</e>
+    <e id="11">Nur Azmodan</e>
+    <e id="12">Auf dem Spielfeld ist die Hölle los.</e>
+    <e id="13">Zusatzinfos</e>
+    <e id="14">Erhöht den maximalen Schaden der Kugel der Vernichtung auf 5000.</e>
+    <e id="15">Mit der Kugel der Vernichtung getötete Diener erhöhen den Schaden um 5 statt um 2.</e>
+    <e id="16">Mit der Kugel der Vernichtung getötete Helden erhöhen den Schaden um 20 statt um 10.</e>
+    <e id="17">Mit der Kugel der Vernichtung getötete Helden schließen die Abklingzeit ab und stellen Mana wieder her.</e>
+</Locale>

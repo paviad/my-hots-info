@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Kampfrausch</e>
+    <e id="2">Vollkommen ohne Beschreibung.</e>
+    <e id="3">Default</e>
+    <e id="4">Kampfrausch</e>
+    <e id="5">Helden werden in den Drachengärten zufällig mit Kampfrausch belegt. Kein Wunder, dass es da hoch hergeht!</e>
+    <e id="6">Erwecke den Drachenritter</e>
+    <e id="7">Wenn dein Team beide Schreine kontrolliert, kämpft der Drachenritter für euch.</e>
+    <e id="8">Kampfrausch</e>
+    <e id="9">In regelmäßigen Abständen erhalten zwei zufällige Helden pro Team vorübergehend einen Bonus auf Angriffs- und Bewegungsgeschwindigkeit und werden durch automatische Angriffe geheilt.</e>
+    <e id="10">Zufallswahl</e>
+    <e id="11">Wähle einen von drei zufälligen Helden. Du hast nur 30 Sekunden Zeit, also entscheide dich schnell!</e>
+    <e id="12">Zusatzinfos</e>
+    <e id="13">Der Drachenritter, Söldner und alle Diener sind immer im Kampfrausch.</e>
+    <e id="14">Es besteht eine kleine Chance, dass alle Helden beider Teams mit Kampfrausch belegt werden.</e>
+    <e id="15">Nach 17 Minuten sind alle Helden dauerhaft im Kampfrausch!</e>
+</Locale>

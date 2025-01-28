@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Fundição Volskaya</e>
+    <e id="2">Mapa de 3 trilhas</e>
+    <e id="3">Outro</e>
+    <e id="4">Tipo de jogo não classificado.</e>
+    <e id="5">Padrão</e>
+    <e id="6">Os jogadores podem escolher os Heróis.</e>
+    <e id="7">Dragão - Número de dragões capturados</e>
+    <e id="8">Número de vezes que você se tornou um Cavaleiro Dragão</e>
+    <e id="9">Fundição Volskaya</e>
+    <e id="10">Mapa de 3 trilhas</e>
+</Locale>

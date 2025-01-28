@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Terrenos de prueba</e>
+    <e id="2">Las fuerzas del Nexo se han apoderado de la Fábrica de Volskaya. ¡Lucha hasta la muerte para conseguir sus recompensas!</e>
+    <e id="3">Otro</e>
+    <e id="4">Tipo de juego no clasificado.</e>
+    <e id="5">Estándar</e>
+    <e id="6">Los jugadores pueden elegir a sus héroes.</e>
+    <e id="7">TrialGrounds</e>
+    <e id="8">Terrenos de prueba</e>
+    <e id="9">Katya Volskaya está experimentando con los poderes del Nexo. ¡Obtén acceso a su poderoso armamento prototípico y derrota a tus oponentes!</e>
+    <e id="10">Eliminación</e>
+    <e id="11">Derrota a todos los oponentes para ganar una ronda. El primer equipo en ganar dos rondas ganará la partida.</e>
+    <e id="12">Artillería experimental</e>
+    <e id="13">Después de 30 segundos, un objetivo aleatorio aparece en el centro del campo de batalla. ¡Prepárate para lo que pueda pasar!</e>
+    <e id="14">Captura el objetivo para obtener una ventaja significativa sobre tus oponentes.</e>
+    <e id="15">Algunos objetivos son de otros campos de batalla, ¡y algunos son nuevos!</e>
+    <e id="16">Ahora todos somos el mismo héroe</e>
+    <e id="17">Todos los jugadores de los dos equipo juegan con el mismo héroe. Un héroe diferente se selecciona aleatoriamente cada ronda.</e>
+    <e id="18">Información adicional</e>
+    <e id="19">Sin reapariciones. Cada héroe tiene una vida por ronda.</e>
+    <e id="20">Si ningún héroe en tu equipo está vivo, se pierde la ronda.</e>
+</Locale>

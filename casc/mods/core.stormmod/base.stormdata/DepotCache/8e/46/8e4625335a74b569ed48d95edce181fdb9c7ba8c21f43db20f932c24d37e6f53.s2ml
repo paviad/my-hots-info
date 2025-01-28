@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Arcas de botín</e>
+    <e id="2">Completamente falto de descripción.</e>
+    <e id="3">BlackHeartsBay</e>
+    <e id="4">Arcas de botín</e>
+    <e id="5">¡Almanegra se está volviendo codicioso! Si tu equipo es el primero en entregarle 100 monedas, él bombardeará el núcleo enemigo hasta destruirlo. ¡Paga para ganar!</e>
+    <e id="6">Destruye el núcleo</e>
+    <e id="7">Puedes entregar las monedas en cualquier momento después de haber alcanzado un total de 100. Es posible atacar y destruir los núcleos sin pagarle a Almanegra.</e>
+    <e id="8">Mercenario</e>
+    <e id="9">Los cofres aparecen de a dos a la vez y son bombardeados cada pocos segundos.</e>
+    <e id="10">No hay campamento de doblones, pero los mercenarios y los jefes otorgan monedas adicionales. Las fortalezas y los fuertes también otorgan monedas al ser destruidos.</e>
+    <e id="11">Preselección</e>
+    <e id="12">Elige a uno de los tres héroes seleccionados aleatoriamente. Solo tienes 30 segundos. ¡Piensa rápido!</e>
+    <e id="13">Información adicional</e>
+    <e id="14">Los cofres aparecen con mayor frecuencia de lo habitual y en un patrón establecido de ubicaciones.</e>
+    <e id="15">Algunos cofres son más grandes y otorgan más monedas.</e>
+    <e id="16">Después de haber saqueado todos los cofres activos, se debe esperar 30 segundos antes de que aparezca otro par de cofres.</e>
+</Locale>

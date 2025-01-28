@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Przeklęta Kotlina</e>
+    <e id="2">Mapa z 3 alejami&lt;br&gt;&lt;br&gt;Władca Kruków przyzywa daninę w niektórych punktach Przeklętej Kotliny. Pokonajcie drużynę przeciwną i jako pierwsi zbierzcie daninę. Kiedy zbierzecie trzecią, Władca Kruków przeklnie waszych wrogów, uniemożliwiając ostrzał ich wieżom i redukując wytrzymałość ich stronników.</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Inne</e>
+    <e id="5">Niesklasyfikowany rodzaj gry.</e>
+    <e id="6">Standardowa</e>
+    <e id="7">Gracze mogą wybrać swoich bohaterów.</e>
+    <e id="8">Liczba zebranych danin dla Władcy Kruków</e>
+    <e id="9">Zebrane daniny</e>
+    <e id="10">Przeklęta Kotlina</e>
+    <e id="11">Mapa z 3 alejami</e>
+</Locale>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="itIT">
+    <e id="1">Baia di Cuornero</e>
+    <e id="2">Mappa a 3 corsie&lt;br&gt;&lt;br&gt;Il capitano dei pirati Cuornero vi attende al centro della baia. La squadra che consegna dobloni a sufficienza otterrà il suo favore, e la sua nave fantasma aprirà il fuoco sui forti nemici. È possibile raccogliere dobloni uccidendo eroi, conquistando campi o aprendo le casse del tesoro.</e>
+    <e id="3">(Storm) Kings Crest (Docks)</e>
+    <e id="4">Altro</e>
+    <e id="5">Tipo di gioco non classificato.</e>
+    <e id="6">Standard</e>
+    <e id="7">I giocatori possono scegliere i propri eroi.</e>
+    <e id="8">Dobloni di Cuornero raccolti</e>
+    <e id="9">Dobloni di Cuornero consegnati</e>
+    <e id="10">Dobloni consegnati a Cuornero</e>
+    <e id="11">Baia di Cuornero</e>
+    <e id="12">Mappa a 3 corsie</e>
+</Locale>

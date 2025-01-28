@@ -1,0 +1,106 @@
+include "TriggerLibs/NativeLib"
+include "TriggerLibs/HeroesLib"
+include "TriggerLibs/GameLib"
+
+include "LibHDEC_h"
+
+//--------------------------------------------------------------------------------------------------
+// Library: Deckard
+//--------------------------------------------------------------------------------------------------
+// External Library Initialization
+void libHDEC_InitLibraries () {
+    libNtve_InitVariables();
+    libCore_InitVariables();
+    libGame_InitVariables();
+}
+
+// Variable Initialization
+bool libHDEC_InitVariables_completed = false;
+
+void libHDEC_InitVariables () {
+    int init_i;
+
+    if (libHDEC_InitVariables_completed) {
+        return;
+    }
+
+    libHDEC_InitVariables_completed = true;
+
+    for (init_i = 0; init_i <= libCore_gv_bALMaxPlayers; init_i += 1) {
+        libHDEC_gv_heroDeckardScrollOfSealingUnitGroup[init_i] = UnitGroupEmpty();
+    }
+}
+
+// Functions
+void libHDEC_gf_HeroDeckardIncrementHeroCountFunction () {
+    // Automatic Variable Declarations
+    // Implementation
+    libHDEC_gv_heroDeckardTriggerRegistrationVariable += 1;
+    if ((libHDEC_gv_heroDeckardTriggerRegistrationVariable == 1)) {
+        TriggerEnable(libHDEC_gt_HeroDeckardAncientBlessingsAoEProcHandler, true);
+    }
+
+}
+
+void libHDEC_gf_HeroDeckardDecrementHeroCountFunction () {
+    // Automatic Variable Declarations
+    // Implementation
+    libHDEC_gv_heroDeckardTriggerRegistrationVariable -= 1;
+    if ((libHDEC_gv_heroDeckardTriggerRegistrationVariable < 0)) {
+        libHDEC_gv_heroDeckardTriggerRegistrationVariable = 0;
+    }
+
+    if ((libHDEC_gv_heroDeckardTriggerRegistrationVariable == 0)) {
+        TriggerEnable(libHDEC_gt_HeroDeckardAncientBlessingsAoEProcHandler, false);
+    }
+
+}
+
+// Triggers
+//--------------------------------------------------------------------------------------------------
+// Trigger: Hero - Deckard - Ancient Blessings - AoE Proc Handler
+//--------------------------------------------------------------------------------------------------
+bool libHDEC_gt_HeroDeckardAncientBlessingsAoEProcHandler_Func (bool testConds, bool runActions) {
+    // Variable Declarations
+    int lv_casterUnit;
+
+    // Automatic Variable Declarations
+    // Variable Initialization
+
+    // Actions
+    if (!runActions) {
+        return true;
+    }
+
+    UnitCreateEffectPoint(EventPlayerEffectUsedUnit(c_effectUnitSource), "DeckardAncientBlessingsAoESearch", EventPlayerEffectUsedPoint(c_effectLocationTargetPoint));
+    return true;
+}
+
+//--------------------------------------------------------------------------------------------------
+void libHDEC_gt_HeroDeckardAncientBlessingsAoEProcHandler_Init () {
+    libHDEC_gt_HeroDeckardAncientBlessingsAoEProcHandler = TriggerCreate("libHDEC_gt_HeroDeckardAncientBlessingsAoEProcHandler_Func");
+    TriggerEnable(libHDEC_gt_HeroDeckardAncientBlessingsAoEProcHandler, false);
+    TriggerAddEventPlayerEffectUsed(libHDEC_gt_HeroDeckardAncientBlessingsAoEProcHandler, c_playerAny, "DeckardAncientBlessingsAoEProcDummy");
+}
+
+void libHDEC_InitTriggers () {
+    libHDEC_gt_HeroDeckardAncientBlessingsAoEProcHandler_Init();
+}
+
+//--------------------------------------------------------------------------------------------------
+// Library Initialization
+//--------------------------------------------------------------------------------------------------
+bool libHDEC_InitLib_completed = false;
+
+void libHDEC_InitLib () {
+    if (libHDEC_InitLib_completed) {
+        return;
+    }
+
+    libHDEC_InitLib_completed = true;
+
+    libHDEC_InitLibraries();
+    libHDEC_InitVariables();
+    libHDEC_InitTriggers();
+}
+

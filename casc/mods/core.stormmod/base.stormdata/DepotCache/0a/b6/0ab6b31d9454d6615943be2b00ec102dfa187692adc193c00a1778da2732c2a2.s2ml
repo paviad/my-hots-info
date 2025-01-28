@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Lost Cavern</e>
+    <e id="2">A wide array of Blizzard Heroes meet and do battle in an epic, galactic arena!</e>
+    <e id="3">Luxoria Crypts</e>
+    <e id="4">Other</e>
+    <e id="5">Unclassified game type.</e>
+    <e id="6">Standard</e>
+    <e id="7">Players can choose their Heroes.</e>
+    <e id="8">LostCavern</e>
+    <e id="9">Lost Cavern</e>
+    <e id="10">Randomly selected Heroes battle down a single lane!</e>
+    <e id="11">Destroy Enemy&apos;s Core</e>
+    <e id="12">Destroy the enemy&apos;s Core to win</e>
+    <e id="13">Single Lane</e>
+    <e id="14">No additional battleground objectives are present. Prepare for constant action.</e>
+    <e id="15">Shuffle Pick</e>
+    <e id="16">Choose from one of three randomly selected Heroes. You only have 30 seconds, so think fast!</e>
+    <e id="17">Additional Info</e>
+    <e id="18">Hearthstones (B) are disabled and your starting area doesn&apos;t regenerate health</e>
+    <e id="19">Globe generators spawn regeneration globes on the battlefield</e>
+</Locale>

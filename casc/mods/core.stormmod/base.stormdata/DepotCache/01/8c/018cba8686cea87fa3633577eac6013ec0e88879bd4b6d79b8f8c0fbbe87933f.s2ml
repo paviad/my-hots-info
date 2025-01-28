@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Ponto de Controle: Hanamura</e>
+    <e id="2">TEMOS QUE EMPURRAR CARRINHO!</e>
+    <e id="3">(Tempestade) Overwatch (Hanamura1)</e>
+    <e id="4">Outro</e>
+    <e id="5">Tipo de jogo não classificado.</e>
+    <e id="6">Padrão</e>
+    <e id="7">Os jogadores podem escolher os Heróis.</e>
+    <e id="8">EmpurrarCargaEmHanamura</e>
+    <e id="9">Ponto de controle: Hanamura</e>
+    <e id="10">Uma equipe empurra a Carga para a frente enquanto a outra a empurra para trás. Que comece o empurra-empurra!</e>
+    <e id="11">Escolte a carga</e>
+    <e id="12">A equipe atacante vence se a Carga chegar ao destino. A equipe defensora vence se o tempo acabar.</e>
+    <e id="13">Em movimento</e>
+    <e id="14">A Carga anda mais depressa para cada jogador atacante perto dela, mas fica parada se houver algum jogador defensor por perto.</e>
+    <e id="15">Seleção Restrita</e>
+    <e id="16">Escolha um dos três Heróis selecionados aleatoriamente. Você só tem 30 segundos. Depressa!</e>
+    <e id="17">Informações adicionais</e>
+    <e id="18">O tempo de reaparecimento foi reduzido para 9 segundos. Durante a prorrogação, sobe para 12,5 segundos.</e>
+    <e id="19">Os Heróis não têm talentos nem passam de nível. As Habilidades Heroicas são selecionadas no começo da partida.</e>
+    <e id="20">Implementos de Vida no campo de batalha restauram instantaneamente 35% de Vida e Mana.</e>
+    <e id="21">O limite de tempo será prolongado se a Carga chegar a um ponto de controle. A prorrogação começa quando o tempo acabar.</e>
+    <e id="22">O tempo de prorrogação é pausado e renovado enquanto houver um atacante perto da Carga, mas a duração máxima é reduzida com o passar do tempo.</e>
+</Locale>

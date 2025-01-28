@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Pêche au butin</e>
+    <e id="2">Complètement vide de description.</e>
+    <e id="3">BlackHeartsBay</e>
+    <e id="4">Pêche au butin</e>
+    <e id="5">Cœur-Noir devient gourmand ! La première équipe à lui rapporter 100 pièces lui fera bombarder l’idole adverse jusqu’à sa destruction. Payez pour gagner !</e>
+    <e id="6">Détruisez l’idole</e>
+    <e id="7">Vous pouvez rapporter vos pièces à tout instant, jusqu’à ce que l’une des équipes en ait livré 100. Il est également possible d’attaquer et détruire les idoles sans l’intervention de Cœur-Noir.</e>
+    <e id="8">Gentilhommes de fortune</e>
+    <e id="9">Les coffres apparaissent deux par deux et se font bombarder à intervalles réguliers.</e>
+    <e id="10">Il n’y a pas de camps de doublons, mais les mercenaires et les boss rapportent davantage de pièces. Les forts et les bastions en rapportent aussi quand ils sont détruits.</e>
+    <e id="11">Sélection aléatoire</e>
+    <e id="12">Choisissez un héros parmi les trois proposés au hasard. Vous n’avez que 30 secondes, alors ne tergiversez pas !</e>
+    <e id="13">Informations supplémentaires</e>
+    <e id="14">Les coffres apparaissent plus souvent, suivant une succession d’emplacements déterminée.</e>
+    <e id="15">Certains coffres sont plus gros et contiennent davantage de pièces.</e>
+    <e id="16">Une fois tous les coffres actifs pillés, 30 secondes s’écouleront avant l’apparition de nouveaux coffres.</e>
+</Locale>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Hammerhart (Mutator)</e>
+    <e id="2">Vollkommen ohne Beschreibung.</e>
+    <e id="3">Default</e>
+    <e id="4">TowersOfDoom</e>
+    <e id="5">Hammerhart</e>
+    <e id="6">Teams aus Sergeant Hammer und Sergeant Schicksalshammer messen sich bei den Türmen des Unheils.</e>
+    <e id="7">Geschützte Zitadelle</e>
+    <e id="8">Die gegnerische Zitadelle kann von Helden nicht angegriffen werden. Um anzugreifen, muss dein Team die Altäre aktivieren.</e>
+    <e id="9">Erobert die Glockentürme</e>
+    <e id="10">Zerstöre gegnerische Glockentürme, um sie zu erobern.</e>
+    <e id="11">Nur Sergeant Hammer</e>
+    <e id="12">Harter Panzer, weicher Kern.</e>
+    <e id="13">Zusatzinfos</e>
+    <e id="14">Sergeant Hammers Reitfähigkeit ist immer aktiv.</e>
+</Locale>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Mondfest (Mod)</e>
+    <e id="2">Vollkommen ohne Beschreibung.</e>
+    <e id="3">Mondfest-Raketenrennen</e>
+    <e id="4">Zünde die Raketen! Liefere dir ein Wettrennen mit anderen Spielern und sichere dir deinen Platz auf der Bestenliste.</e>
+    <e id="5">Überquert die Ziellinie</e>
+    <e id="6">Das Wettrennen: Beende den Kurs mit einem Helden und überquere die Ziellinie, so schnell du kannst.</e>
+    <e id="7">Rocket &amp; Roll Racing</e>
+    <e id="8">Helden liefern sich auf einer einzigartigen Strecke ein Wettrennen mit Mondfestraketen.</e>
+    <e id="9">Sammle Umschläge auf, um zufällige Spezialfähigkeiten zu erhalten.</e>
+    <e id="10">Benutze die Förderbänder, um einen kurzen Geschwindigkeitsschub zu erhalten.</e>
+    <e id="11">Mondfest-Helden</e>
+    <e id="12">Du spielst als zufälliger Held aus einer speziellen Vorauswahl von Helden in ihren Mondfestgewändern.</e>
+    <e id="13">Zusatzinfos</e>
+    <e id="14">Sobald der erste Held die Ziellinie überquert, haben alle anderen noch 30 Sek., um das Rennen zu beenden und das Heldenchaos zu gewinnen.</e>
+    <e id="15">Wer die Ziellinie nicht überquert oder Letzter wird, erhält eine Niederlage.</e>
+    <e id="16">Raketen aus Umschlägen können abgefeuert werden und betäuben den ersten Gegner, den sie treffen.</e>
+    <e id="17">Knaller aus Umschlägen können hinter dich gelegt werden und betäuben Gegner, die darüber fliegen.</e>
+    <e id="18">Mondfestsegen aus Umschlägen gewähren dir Unverwundbarkeit und erhöhen die Geschwindigkeit.</e>
+</Locale>

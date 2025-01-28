@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Corrida de Foguetes Lunares</e>
+    <e id="2">TBD</e>
+    <e id="3">(Atacar) Crista Régia (Jardins)</e>
+    <e id="4">Batalha de Herói</e>
+    <e id="5">Equipes de heróis se unem em ataques constantes à fortaleza inimiga.</e>
+    <e id="6">Personalizado</e>
+    <e id="7">Todas as configurações podem ser personalizadas.</e>
+    <e id="8">LunarFestival</e>
+    <e id="9">Corrida de Foguetes Lunares</e>
+    <e id="10">Ligue seus foguetes! Corra contra outros jogadores e garanta seu lugar entre os vencedores!</e>
+    <e id="11">Cruze a linha de chegada</e>
+    <e id="12">Valendo! Termine a corrida e cruze a linha de chegada o mais rápido que puder.</e>
+    <e id="13">Corrida Maluca de Foguetes</e>
+    <e id="14">Os jogadores pilotam Foguetes Lunares em uma única pista</e>
+    <e id="15">Pegue Envelopes na pista para ganhar uma habilidade especial aleatória</e>
+    <e id="16">Passe nas esteiras para ser empurrado na direção indicada e ganhar um bônus de velocidade</e>
+    <e id="17">Heróis do Festival da Lua</e>
+    <e id="18">Heróis são atribuídos aleatoriamente de um rol seleto de Heróis com os visuais do Festival da Lua.</e>
+    <e id="19">Mais detalhes</e>
+    <e id="20">Quando o primeiro Herói cruzar a linha de chegada, os outros terão 30 segundos para terminar a corrida e concluir a Contenda</e>
+    <e id="21">Perde quem não atravessar a linha ou ficar em último lugar</e>
+    <e id="22">Foguetes encontrados em Envelopes podem ser disparados para atordoar o primeiro inimigo no caminho</e>
+    <e id="23">Bombas encontradas em Envelopes podem ser deixadas na pista para atordoar inimigos que passarem por cima delas</e>
+    <e id="24">Bênçãos Lunares encontradas em Envelopes concedem Invulnerabilidade e aumentam a Velocidade de Movimento</e>
+</Locale>

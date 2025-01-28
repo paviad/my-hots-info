@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Mutación Guerra de Puntos</e>
+    <e id="2">Echar el gancho</e>
+    <e id="3">PullParty</e>
+    <e id="4">Echar el gancho</e>
+    <e id="5">¡A jugar! Arrastrad a héroes enemigos hacia vuestro lado de la piscina para eliminarlos.</e>
+    <e id="6">Enganchad a héroes enemigos</e>
+    <e id="7">El primer equipo que enganche y mate a 20 enemigos gana.</e>
+    <e id="8">Esto engancha</e>
+    <e id="9">Se reducen considerablemente el tiempo de reutilización y la velocidad de desplazamiento de Gancho. Echar una mano siempre está activado, lo que os permite enganchar a aliados.</e>
+    <e id="10">Todos somos Puntos</e>
+    <e id="11">¡Todos buenos amigos! ¡Puntos querer jugar!</e>
+    <e id="12">Información adicional</e>
+    <e id="13">Tiempos de muerte reducidos. Todos los jugadores reaparecen tras 5 s.</e>
+    <e id="14">Los héroes no tienen talentos y no suben de nivel.</e>
+    <e id="15">Enganchar a un héroe que está siendo arrastrado lo mata al instante.</e>
+    <e id="16">Matar a un aliado enganchado no cuenta como asesinato para el enemigo.</e>
+</Locale>

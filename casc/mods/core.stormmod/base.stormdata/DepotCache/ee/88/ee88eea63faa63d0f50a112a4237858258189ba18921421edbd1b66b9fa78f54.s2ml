@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Mutator: Bójka na Śnieżki</e>
+    <e id="2">Całkowity brak jakiegokolwiek opisu.</e>
+    <e id="3">SnowBrawl</e>
+    <e id="4">Bójka na Śnieżki</e>
+    <e id="5">W Przeklętej Kotlinie zapanowała zima! Rzucaj śnieżkami i zbieraj podarunki od Władcy Kruków!</e>
+    <e id="6">Zbierz daniny</e>
+    <e id="7">Zbieraj śnieżne daniny, aby cisnąć w fortyfikacje wroga olbrzymimi śnieżkami!</e>
+    <e id="8">Zbieraj śnieżki i walcz!</e>
+    <e id="9">Podnieś śnieżki i rzucaj nimi (F), aby zadawać ogromne obrażenia.</e>
+    <e id="10">Co jakiś czas na całym polu bitwy pojawiają się niedokończone Bałwanki. Użyj śnieżek, aby je dokończyć.</e>
+    <e id="11">Losowy wybór</e>
+    <e id="12">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="13">Dodatkowe informacje</e>
+    <e id="14">Śnieżne daniny pojawiają się bardzo szybko jedna po drugiej.</e>
+    <e id="15">Śnieżki pojawiają się wokół bohaterów, budowli, danin i Kul Regeneracji.</e>
+    <e id="16">Puchate śnieżki – odrzucają wrogich bohaterów w tył.</e>
+    <e id="17">Ciężkie śnieżki – spowalniają przeciwników i zadają podwójne obrażenia stronnikom i budowlom.</e>
+    <e id="18">Dokończony Bałwanek będzie za tobą podążać i walczyć u twego boku.</e>
+</Locale>

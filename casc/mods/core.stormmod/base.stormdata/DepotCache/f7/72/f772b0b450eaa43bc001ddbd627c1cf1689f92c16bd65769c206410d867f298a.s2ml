@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Verfluchtes Tal</e>
+    <e id="2">Karte mit 3 Wegen&lt;br&gt;&lt;br&gt;Der Rabenfürst beschwört an bestimmten Orten im verfluchten Tal Tribute. Drängt das gegnerische Team zurück und sammelt die Tribute als Erste ein. Sobald der dritte Tribut eingesammelt wurde, verflucht der Rabenfürst eure Gegner: Ihre Türme können nicht mehr angreifen und ihre Diener verfügen über weniger Lebenspunkte.</e>
+    <e id="3">(Storm) Kings Crest (RavenCourt)</e>
+    <e id="4">Andere</e>
+    <e id="5">Unklassifizierter Spieltyp.</e>
+    <e id="6">Standard</e>
+    <e id="7">Spieler können ihre Helden auswählen.</e>
+    <e id="8">Tribute für den Rabenfürst gesammelt</e>
+    <e id="9">Anzahl der gesammelten Tribute</e>
+    <e id="10">Verfluchtes Tal</e>
+    <e id="11">Karte mit 3 Wegen</e>
+</Locale>

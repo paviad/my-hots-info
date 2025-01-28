@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Schlotternächte (Mutator)</e>
+    <e id="2">Süßes oder Saures! Ihr seid angeschmiert! Löscht der Feuer Flammen oder verliert!</e>
+    <e id="3">TowersOfDoom</e>
+    <e id="4">Schlotternächte</e>
+    <e id="5">Wappnet Euch oder unterliegt. Es gibt keine Zweifel: Der Reiter siegt. </e>
+    <e id="6">Geschützte Zitadelle</e>
+    <e id="7">Spieler können die Zitadelle nicht direkt angreifen.</e>
+    <e id="8">Kürbisbrei!</e>
+    <e id="9">Der kopflose Reiter verteilt in regelmäßigen Abständen Kürbisse auf dem Schlachtfeld.</e>
+    <e id="10">Zermatschte Kürbisse oder getötete Helden beschädigen die Zitadelle des Gegners.</e>
+    <e id="11">Zufallswahl</e>
+    <e id="12">Wähle einen von drei zufälligen Helden. Es besteht eine kleine Chance, dass alle Spieler den gleichen Helden spielen.</e>
+    <e id="13">Süßes oder Saures</e>
+    <e id="14">Zermatschte Kürbisse gewähren Helden zufällig etwas Süßes oder etwas Saures. Viel Glück!</e>
+    <e id="15">Die Wiederbelebungszeit beträgt für alle 5 Sek.</e>
+</Locale>

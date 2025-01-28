@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esMX">
+    <e id="1">Ataque y defensa (Mod)</e>
+    <e id="2">Completamente falto de descripción.</e>
+    <e id="3">Preselección</e>
+    <e id="4">Elige uno de los tres héroes seleccionados aleatoriamente. Hay una pequeña probabilidad de que todos los jugadores tengan el mismo héroe.</e>
+</Locale>

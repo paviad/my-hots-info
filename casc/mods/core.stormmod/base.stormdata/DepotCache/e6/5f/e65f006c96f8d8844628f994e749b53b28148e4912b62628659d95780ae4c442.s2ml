@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Władcy WSADÓW (Mutator)</e>
+    <e id="2">Współpracuj z sojusznikami, aby zabijać stronników Kulami Anihilacji. Zdobywanie kumulacji zapewni kumulacje również twojej drużynie.</e>
+    <e id="3">TombSpiderQueen</e>
+    <e id="4">Władcy WSADÓW!</e>
+    <e id="5">Drużyny złożone z Azmodanów ścierają się w Grobowcu Pajęczej Królowej. Przed nami prawdziwy festiwal wsadów!</e>
+    <e id="6">Zniszcz bazę wroga</e>
+    <e id="7">Zbieraj klejnoty, aby wezwać sługi Pajęczej Królowej i zniszczyć bazę wroga.</e>
+    <e id="8">Sport drużynowy</e>
+    <e id="9">Wszyscy zaczynają z Pragnieniem Krwi. Kumulacje dzielone są wewnątrz drużyny.</e>
+    <e id="10">Oddawanie klejnotów zapewnia 5 poziomów kumulacji Pragnienia Krwi za każdy klejnot.</e>
+    <e id="11">Wszyscy są Azmodanem</e>
+    <e id="12">Witaj w meczu z Azmodanem w roli głównej!</e>
+    <e id="13">Dodatkowe informacje</e>
+    <e id="14">Całkowity limit obrażeń dla Kuli Anihilacji zostaje zwiększony do 5000 pkt.</e>
+    <e id="15">Zabijanie stronników Kulą Anihilacji zapewnia 5 pkt. obrażeń zamiast 2 pkt.</e>
+    <e id="16">Zabijanie bohaterów Kulą Anihilacji zapewnia 20 pkt. obrażeń zamiast 10 pkt.</e>
+    <e id="17">Bohaterowie zabici Kulą Anihilacji zerują jej czas odnowienia i przywracają manę</e>
+</Locale>

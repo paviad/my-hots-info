@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="enUS">
+    <e id="1">Trial Grounds</e>
+    <e id="2">Nexus forces have taken over the Volskaya Factory, fight to the death for its rewards!</e>
+    <e id="3">Other</e>
+    <e id="4">Unclassified game type.</e>
+    <e id="5">Standard</e>
+    <e id="6">Players can choose their Heroes.</e>
+    <e id="7">TrialGrounds</e>
+    <e id="8">Trial Grounds</e>
+    <e id="9">Katya Volskaya is experimenting with the powers of the Nexus. Gain access to her powerful prototype weaponry and defeat your opponents!</e>
+    <e id="10">Elimination</e>
+    <e id="11">Defeat all opponents to win a round. The first team to win two rounds wins the match.</e>
+    <e id="12">Experimental Ordnance</e>
+    <e id="13">After 30 seconds, a random objective spawns in the center of the battleground. Be ready for anything!</e>
+    <e id="14">Capture the objective to gain a significant advantage over your opponents.</e>
+    <e id="15">Some objectives are from other battlegrounds, and some are brand new!</e>
+    <e id="16">We&apos;re All the Same Hero Now</e>
+    <e id="17">All players on both teams play as the same hero. A different hero is randomly selected every round.</e>
+    <e id="18">Additional Info</e>
+    <e id="19">No respawns. Every hero has one life per round.</e>
+    <e id="20">If no hero on your team is alive, the round is lost.</e>
+</Locale>

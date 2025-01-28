@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+
+    <Frame type="SelectionUnitStatusPanel" name="UnitStatusMuradinSecondWindCooldownOverrideFrame">
+        <Anchor relative="$parent"/>
+        <SpecificUnit val="HeroMuradin"/>
+
+        <Frame type="UnitStatusFrame" name="UnitStatusFrame0">
+            <Anchor relative="$parent"/>
+
+            <Frame type="UnitStatusBehaviorIcon" name="UnitStatusMuradinSecondWindCooldownIcon">
+                <Anchor relative="$parent"/>
+                <Behavior val="MuradinSecondWindCooldownTracker"/>
+                <AcceptsMouse val="False"/>
+
+                <Frame type="BehaviorIcon" name="BehaviorIcon">
+                    <Anchor relative="$parent"/>
+                    <Behavior val="MuradinSecondWindCooldownTracker"/>
+                    <AcceptsMouse val="False"/>
+
+                    <Frame type="ProgressBar" name="CooldownBar">
+                        <Anchor side="Top" relative="$parent" pos="Mid" offset="0"/>
+                        <Anchor side="Left" relative="$parent" pos="Mid" offset="0"/>
+                        <Anchor side="Bottom" relative="$parent" pos="Mid" offset="0"/>
+                        <Anchor side="Right" relative="$parent" pos="Mid" offset="0"/>
+                        <Height val="125"/>
+                        <Width val="120"/>
+                        <AcceptsMouse val="False"/>
+                        <InvertFill val="True"/>
+
+                        <MinValue val="0"/>
+                        <MaxValue val="4"/>
+                        <Value val="0"/>
+                        <Circular val="True"/>
+                        <CircularStart val="0"/>
+                        <CircularEndOffset val="360"/>
+                        <FillInset val="0.0"/>
+
+                        <Frame type="Frame" name="FillImageContainer">
+                            <Anchor relative="$parent"/>
+
+                            <Frame type="Image" name="FillImage">
+                                <Anchor relative="$parent"/>
+                                <SubpixelRendering val="True"/>
+                                <ColorAdjustMode val="Colorize"/>
+                                <AdjustmentColor val="8DF157"/>
+                                <RenderPriority val="510"/>
+
+                                <Texture val="@UI/Storm_UI_InGame_AbilityButton_Active_Add"/>
+                                <BlendMode val="Normal"/>
+                                <TextureType val="Circular"/>
+                            </Frame>
+                        </Frame>
+                    </Frame>
+                </Frame>
+            </Frame>
+        </Frame>
+    </Frame>
+	
+	<Frame type="SelectionUnitStatusPanel" name="MuradinFrame">
+		<Anchor side="Bottom" relative="$parent" pos="Max" offset="0"/>
+		<Anchor side="Left" relative="$parent" pos="Min" offset="0"/>
+		<Height val="137"/>
+		<Width val="300"/>
+		<SpecificUnit val="HeroMuradin"/>
+		
+		<Frame type="UnitStatusFrame" name="UnitStatusFrame0">
+			<Anchor relative="$parent"/>
+			
+			<Frame type="UnitStatusValidatorAnimElement" name="HealthIndicatorVisibility">
+				<Anchor relative="$parent"/>
+				<Validator val="HasMuradinCombatStyleThirdWind"/>
+			</Frame>
+			
+			<Frame type="UnitStatusValidatorAnimElement" name="HealthIndicatorTexture">
+				<Anchor relative="$parent"/>
+				<Validator val="IsDead"/>
+				<Validator val="MuradinSecondWindImprovedLifeValidator"/>
+				<Animation name="IsDead">
+					<Event event="Reset" action="Stop"/>
+					<Event event="NoState" action="Stop"/>
+					<Event event="IsDead" action="Restart, Play"/>
+				</Animation>
+				<Animation name="MuradinSecondWindImprovedLifeValidator">
+					<Event event="Reset" action="Stop"/>
+					<Event event="NoState" action="Stop"/>
+					<Event event="MuradinSecondWindImprovedLifeValidator" action="Restart, Play"/>
+				</Animation>
+			</Frame>
+		</Frame>
+		
+		<StateGroup name="FrameState">
+			<DefaultState val="GT60"/>
+			
+			<State name="GT60">
+				<When type="AnimationState" frame="UnitStatusFrame0/HealthIndicatorTexture" operator="NotEqual" UnitStatusValidatorState="MuradinSecondWindImprovedLifeValidator"/>
+				<Action type="SetProperty" frame="HealthIndicator" Texture="@UI/HeroConsole/Hero/HealthIndicatorDead"/>
+			</State>
+			
+			<State name="LE60">
+				<When type="AnimationState" frame="UnitStatusFrame0/HealthIndicatorTexture" UnitStatusValidatorState="MuradinSecondWindImprovedLifeValidator"/>
+				<Action type="SetProperty" frame="HealthIndicator" Texture="@UI/HeroConsole/Hero/HealthIndicator"/>
+			</State>
+		</StateGroup>
+		
+		<Frame type="Image" name="HealthIndicator">
+			<Anchor side="Bottom" relative="$parent/$parent/$parent/HeroConsolePanel/HeroStatsFrame/HeroUnitStatusFrame/HealthBar" pos="Mid" offset="9"/>
+			<Anchor side="Left" relative="$parent/$parent/$parent/HeroConsolePanel/HeroStatsFrame/HeroUnitStatusFrame/HealthBar" pos="60%" offset="-17"/>
+			<Texture val="@UI/HeroConsole/Hero/HealthIndicator"/>
+			<Unclipped val="True"/>
+			<Visible val="{$parent/UnitStatusFrame0/HealthIndicatorVisibility/@Visible}"/>
+		</Frame>
+	</Frame>	
+</Desc>

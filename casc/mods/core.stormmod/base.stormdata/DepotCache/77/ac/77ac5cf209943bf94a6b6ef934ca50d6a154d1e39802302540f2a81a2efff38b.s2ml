@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="deDE">
+    <e id="1">Tempelarena</e>
+    <e id="2">Ein breites Spektrum von Blizzard-Helden trifft sich zur Schlacht in einer galaktischen Arena.</e>
+    <e id="3">(Storm) Luxoria</e>
+    <e id="4">Andere</e>
+    <e id="5">Unklassifizierter Spieltyp.</e>
+    <e id="6">Standard</e>
+    <e id="7">Spieler können ihre Helden auswählen.</e>
+    <e id="8">SkyTempleSimple</e>
+    <e id="9">Tempelarena</e>
+    <e id="10">Hier dreht sich alles um Eroberung. Das Team, das die Tempel am längsten besetzt, gewinnt.</e>
+    <e id="11">Sieger nach maximal 3 Runden</e>
+    <e id="12">Zerstöre die Zitadelle des Gegners, um die Runde zu gewinnen.</e>
+    <e id="13">Erobere Tempel</e>
+    <e id="14">Erobere Tempel, um die gegnerische Zitadelle anzugreifen.</e>
+    <e id="15">Zufallswahl</e>
+    <e id="16">Wähle einen von drei zufälligen Helden. Du hast nur 30 Sekunden Zeit, also entscheide dich schnell!</e>
+    <e id="17">Zusatzinfos</e>
+    <e id="18">Regenerationskugeln sind doppelt so wirksam.</e>
+    <e id="19">Es besteht eine kleine Chance, dass alle Spieler den gleichen Helden spielen.</e>
+</Locale>

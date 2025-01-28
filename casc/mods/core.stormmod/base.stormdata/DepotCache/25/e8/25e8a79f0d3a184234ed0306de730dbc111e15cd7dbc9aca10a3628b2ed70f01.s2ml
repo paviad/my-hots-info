@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Arena Ogrodowa</e>
+    <e id="2">Bohaterowie z uniwersów Blizzarda stają naprzeciw siebie, by toczyć walki na wielkiej, galaktycznej arenie!</e>
+    <e id="3">(Storm) Kings Crest (Gardens)</e>
+    <e id="4">Inne</e>
+    <e id="5">Niesklasyfikowany rodzaj gry.</e>
+    <e id="6">Standardowo</e>
+    <e id="7">Gracze mogą wybrać swoich bohaterów.</e>
+    <e id="8">Arena Ogrodowa</e>
+    <e id="9">Zbieraj nasiona koszmarów lub patrz, jak kiełkują, by przynieść ci zagładę.</e>
+    <e id="10">Mecz do dwóch wygranych rund na Arenie Ogrodowej</e>
+    <e id="11">Zwycięża pierwsza drużyna, która wygra dwie rundy.</e>
+    <e id="12">Zbieraj nasiona</e>
+    <e id="13">Rundę wygra pierwsza drużyna, która zbierze 100 nasion.</e>
+    <e id="14">Losowy wybór</e>
+    <e id="15">Wybierz jednego z trzech losowych bohaterów. Masz tylko 30 sekund, więc decyduj się szybko!</e>
+    <e id="16">Dodatkowe informacje</e>
+    <e id="17">Kule Regeneracji są dwukrotnie potężniejsze.</e>
+    <e id="18">Istnieje niewielka szansa, że wszyscy będą grać tym samym bohaterem.</e>
+</Locale>

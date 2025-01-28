@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="plPL">
+    <e id="1">Pola Próby</e>
+    <e id="2">Siły Nexusa zajęły fabrykę Volskaya Industries. Walcz na śmierć i życie o nagrody, które skrywa!</e>
+    <e id="3">Inne</e>
+    <e id="4">Niesklasyfikowany rodzaj gry.</e>
+    <e id="5">Standardowy</e>
+    <e id="6">Gracze mogą wybrać swoich bohaterów.</e>
+    <e id="7">TrialGrounds</e>
+    <e id="8">Pola Próby</e>
+    <e id="9">Katia Wolskaja eksperymentuje z mocami Nexusa. Zdobądź stworzone przez nią prototypy i pokonaj przeciwników!</e>
+    <e id="10">Eliminacja</e>
+    <e id="11">Aby wygrać rundę, pokonaj wszystkich przeciwników. Zwycięża drużyna, która jako pierwsza wygra dwie rundy!</e>
+    <e id="12">Eksperymentalna broń</e>
+    <e id="13">Po upływie 30 sekund w centrum pola bitwy pojawi się losowy cel do zrealizowania. Wszystko się może zdarzyć!</e>
+    <e id="14">Zajmij cel, aby zdobyć znaczącą przewagę nad przeciwnikami.</e>
+    <e id="15">Niektóre cele do zrealizowania pochodzą z innych pól bitew – inne zaś są zupełnie nowe!</e>
+    <e id="16">Wszyscy jesteśmy tym samym bohaterem</e>
+    <e id="17">Wszyscy gracze w obu drużynach grają tą samą postacią. Co rundę następuje zmiana na innego losowego bohatera.</e>
+    <e id="18">Dodatkowe informacje</e>
+    <e id="19">Bohaterowie dysponują tylko jednym życiem na rundę. Żadnych wskrzeszeń!</e>
+    <e id="20">Jeśli w twojej drużynie nie pozostanie przy życiu żaden bohater, przegracie rundę.</e>
+</Locale>

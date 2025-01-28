@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="frFR">
+    <e id="1">Le laboratoire de Braxis</e>
+    <e id="2">Carte à 2 voies&lt;br&gt;</e>
+    <e id="3">Braxis</e>
+    <e id="4">Autre</e>
+    <e id="5">Type de jeu sans classification.</e>
+    <e id="6">Standard</e>
+    <e id="7">Les joueurs peuvent choisir leur héros.</e>
+    <e id="8">Le laboratoire de Braxis</e>
+    <e id="9">Carte à 2 voies</e>
+</Locale>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="esES">
+    <e id="1">Mutación ¡Azmodunk!</e>
+    <e id="2">Colabora con tus compañeros para matar a esbirros con Orbe de aniquilación. Si obtienes acumulaciones, tu equipo también.</e>
+    <e id="3">TombSpiderQueen</e>
+    <e id="4">¡Azmodunk!</e>
+    <e id="5">Equipos de Azmodan se enfrentan en la Tumba de la Reina Araña en lo que será la mayor fiesta de mates de la temporada.</e>
+    <e id="6">Destruid el núcleo enemigo</e>
+    <e id="7">Recoged gemas para invocar a los esbirros de la Reina Araña y destruir el núcleo.</e>
+    <e id="8">Deporte de equipo</e>
+    <e id="9">Todos comienzan con Gusto por la sangre. Las acumulaciones se comparten con todo el equipo.</e>
+    <e id="10">Entregar gemas otorga 5 acumulaciones de Gusto por la sangre por cada gema.</e>
+    <e id="11">Todos somos Azmodan</e>
+    <e id="12">Soy el Azmo.</e>
+    <e id="13">Información adicional</e>
+    <e id="14">El límite de daño total de Orbe de aniquilación aumenta a 5000.</e>
+    <e id="15">Matar a esbirros con Orbe de aniquilación otorga 5 de daño, en vez de 2.</e>
+    <e id="16">Matar a héroes con Orbe de aniquilación otorga 20 de daño, en vez de 10.</e>
+    <e id="17">Matar a héroes con Orbe de aniquilación reinicia su tiempo de reutilización y restaura maná.</e>
+</Locale>

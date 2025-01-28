@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Mutador da Hora da Martelada</e>
+    <e id="2">Sem descrição.</e>
+    <e id="3">Default</e>
+    <e id="4">TowersOfDoom</e>
+    <e id="5">Hora da Marretada</e>
+    <e id="6">Equipes formadas por várias Sgt. Marreta e Sgt. Marreta da Perdição se enfrentam nas Torres da Perdição</e>
+    <e id="7">Núcleo Protegido</e>
+    <e id="8">O Núcleo inimigo é imune a ataques de Heróis. Capture Altares para causar dano ao Núcleo!</e>
+    <e id="9">Tomar Torres de Sino</e>
+    <e id="10">Destrua as Torres de Sino do inimigo para convertê-las para a sua equipe</e>
+    <e id="11">Todo mundo é a Sgt. Marreta</e>
+    <e id="12">Um time só de tanques? Com prazer</e>
+    <e id="13">Informações adicionais</e>
+    <e id="14">A habilidade de montaria da Marreta está sempre ativa</e>
+</Locale>

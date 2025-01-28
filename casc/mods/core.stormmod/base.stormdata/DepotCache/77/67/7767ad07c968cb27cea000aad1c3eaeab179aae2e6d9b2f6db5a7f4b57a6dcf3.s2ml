@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Locale region="ptBR">
+    <e id="1">Cidade de Prata</e>
+    <e id="2">Vários Heróis da Blizzard se enfrentam numa arena galáctica!</e>
+    <e id="3">Outro</e>
+    <e id="4">Tipo de jogo não classificado.</e>
+    <e id="5">Padrão</e>
+    <e id="6">Os jogadores podem escolher os Heróis.</e>
+    <e id="7">SilverCity</e>
+    <e id="8">Cidade de Prata</e>
+    <e id="9">Heróis escolhidos aleatoriamente se enfrentam em uma única trilha!</e>
+    <e id="10">Destruir o Núcleo inimigo</e>
+    <e id="11">Destrua o Núcleo inimigo para vencer.</e>
+    <e id="12">Trilha única</e>
+    <e id="13">Nenhum objetivo adicional de campo de batalha presente. Prepare-se para ação ininterrupta.</e>
+    <e id="14">Seleção Restrita</e>
+    <e id="15">Escolha um dos três Heróis selecionados aleatoriamente. Há uma pequena chance de todos os jogadores jogarem com o mesmo Herói.</e>
+    <e id="16">Informações adicionais</e>
+    <e id="17">Pedras de Regresso (B) são desabilitadas e sua área inicial não regenera vida.</e>
+    <e id="18">Geradores de globo geram globos de regeneração no campo de batalha.</e>
+</Locale>
