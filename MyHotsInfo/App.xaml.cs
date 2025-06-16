@@ -1,12 +1,19 @@
 ﻿using MyHotsInfo.Utils;
 
-namespace MyHotsInfo
-{
+namespace MyHotsInfo {
     public partial class App : Application {
-        public App(IServiceProvider svcp, MyNavigator myNavigator) {
-            InitializeComponent();
+        private readonly MyNavigator _myNavigator;
+        private readonly IServiceProvider _svcp;
 
-            MainPage = new AppShell(svcp, myNavigator);
+        public App(IServiceProvider svcp, MyNavigator myNavigator) {
+            _svcp = svcp;
+            _myNavigator = myNavigator;
+            InitializeComponent();
+        }
+
+        protected override Window CreateWindow(IActivationState? activationState) {
+            var appShell = new AppShell(_svcp, _myNavigator);
+            return new Window(appShell);
         }
     }
 }
