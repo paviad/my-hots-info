@@ -5,6 +5,7 @@ namespace MyReplayLibrary;
 
 public partial class Ocr : IDisposable {
     private TesseractEngine? _engine;
+    private readonly Lock _ocrLock = new();
 
     public async Task<List<string>> OcrScreenshot(string ssName1, ScreenShotKind ssKind) {
         TaskCompletionSource<List<string>> tks = new();
@@ -49,8 +50,13 @@ public partial class Ocr : IDisposable {
             for (var index = 0; index < encoded.Count; index++) {
                 var enc = encoded[index];
                 using var image = Pix.LoadFromMemory(enc);
-                using var page = _engine.Process(image);
-                var text1 = MyRegex().Split(page.GetText().Trim());
+                string[] text1;
+                lock (_ocrLock) {
+                    using var page = _engine.Process(image);
+
+                    text1 = MyRegex().Split(page.GetText().Trim());
+                }
+
                 var chin2 = text1.Where(s => ChinCh().IsMatch(s)).ToArray();
                 var chin1 = string.Join("", chin2);
                 var text = ssKind switch {
