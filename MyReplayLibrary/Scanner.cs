@@ -763,7 +763,7 @@ public partial class Scanner(
             try {
                 var rc1 = await ocr.OcrScreenshot(fn, ScreenShotKind.Draft);
                 var rc2 = await ocr.OcrScreenshot(fn, ScreenShotKind.Loading);
-                var rc = ((List<string>[]) [rc1, rc2]).FirstOrDefault(z => z.Contains("Skywalker")) ?? [];
+                var rc = ((List<string>[]) [rc1, rc2]).FirstOrDefault(z => z.All(w => w != "")) ?? [];
                 await callBack(rc);
                 //var msg = string.Join("\n", rc.Select(z => $"   {z}"));
                 //logger.LogInformation("Players in this game:\n{msg}", msg);
