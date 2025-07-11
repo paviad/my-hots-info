@@ -3,6 +3,11 @@
 namespace MyHotsInfo.Pages;
 
 public partial class Prematch : ContentPage, IQueryAttributable {
+    private static readonly List<string> GenericNames = [
+        "Player",
+        "Aventurier",
+    ];
+
     private readonly IServiceProvider _svcp;
 
     public Prematch(IServiceProvider svcp) {
@@ -17,7 +22,8 @@ public partial class Prematch : ContentPage, IQueryAttributable {
             var names = (List<string>)query["names"];
             List<PrematchRecord> records = [];
             records.Clear();
-            foreach (var name in names) {
+
+            foreach (var name in names.Except(GenericNames)) {
                 var results = await playerQuery.QueryByName(name, true);
                 var r = Enumerate(results).ToList();
                 records.AddRange(r);
