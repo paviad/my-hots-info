@@ -11,3 +11,4 @@ BugRepro/
 publish/
 packages/
 .vscode/
+*.user

@@ -23,10 +23,10 @@ public partial class Scraper {
         { "DehakaBurrow", "DehakaBurrowSetCooldownEndModifyUnit" },
         { "GreymaneInnerBeast", "GreymaneInnerBeastModifyCooldown" },
         { "TinkerDethLazorCharged", "TinkerDethLazorModifyCooldown" },
-        { "VarianColossusSmash", "VarianColossusSmashApplyCooldown" },
+        //{ "VarianColossusSmash", "VarianColossusSmashApplyCooldown" },
         { "LucioSoundBarrier", "LucioSoundBarrierCastCompleteModifyUnit" },
         { "MalGanisCarrionSwarm", "MalGanisCarrionSwarmCastCompleteModifyUnit" },
-        { "UtherBenediction", "BenedictionStartCooldown" },
+        //{ "UtherBenediction", "BenedictionStartCooldown" },
         { "DeckardGemRuby", "DeckardGemRubyModifyCooldown" },
         { "DeckardGemEmerald", "DeckardGemEmeraldModifyCooldown" },
         { "DeckardGemSapphire", "DeckardGemSapphireModifyCooldown" },
@@ -905,6 +905,9 @@ public partial class Scraper {
             LoadDoc(entityType);
         }
 
+        // Load all from: mods\heromods\varian.stormmod\base.stormdata\GameData\*Data.xml
+        {
+        }
 
         _cfHeroes = (CASCFolder)cfGameData.GetEntry("Heroes")!;
         _cfButtonData = (CASCFile)cfGameData.GetEntry("ButtonData.xml")!;

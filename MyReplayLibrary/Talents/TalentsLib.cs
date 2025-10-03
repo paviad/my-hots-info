@@ -64,11 +64,18 @@ public static class TalentsLib {
         var talentInfoList = tup.TalentInfoList;
 
         var alarakCounterStrike20 =
-            talentInfoList.Single(x => x.HeroName == "Alarak" && x is { Tier: 7, TalentName: "Counter-Strike" });
-        alarakCounterStrike20.TalentName += " (Lvl 20)";
+            talentInfoList.SingleOrDefault(x => x.HeroName == "Alarak" && x is { Tier: 7, TalentName: "Counter-Strike" });
+        
+        if(alarakCounterStrike20 is not null) {
+            alarakCounterStrike20.TalentName += " (Lvl 20)";
+        }
+        
         var alarakDeadlyCharge20 =
-            talentInfoList.Single(x => x.HeroName == "Alarak" && x is { Tier: 7, TalentName: "Deadly Charge" });
-        alarakDeadlyCharge20.TalentName += " (Lvl 20)";
+            talentInfoList.SingleOrDefault(x => x.HeroName == "Alarak" && x is { Tier: 7, TalentName: "Deadly Charge" });
+
+        if (alarakDeadlyCharge20 is not null) {
+            alarakDeadlyCharge20.TalentName += " (Lvl 20)";
+        }
 
         var currentTalents = GetInternal(
             new GetOptions {
