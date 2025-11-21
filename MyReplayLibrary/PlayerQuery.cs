@@ -90,6 +90,21 @@ public class PlayerQuery(ReplayDbContext dc) {
         return replays;
     }
 
+    public async Task<List<ReplayEntry>> QueryByChat(string messageExpression) {
+        var replays = await dc.Replays.Where(r => r.Chats.Any(c => EF.Functions.Like(c.Text, messageExpression)))
+            .Include(r => r.Chats)
+            .Include(r => r.ReplayCharacters)
+            .ThenInclude(rc => rc.Player)
+            .Include(r => r.ReplayCharacters)
+            .ThenInclude(rc => rc.ReplayCharacterTalents)
+            .Include(r => r.ReplayCharacters)
+            .ThenInclude(rc => rc.ReplayCharacterMatchAwards)
+            .AsSplitQuery()
+            .ToListAsync();
+
+        return replays;
+    }
+
     public async Task<List<HeroRecord>> QueryByHero(string hero) {
         var heros = await dc.ReplayCharacters
             .Where(z => EF.Functions.Like(z.CharacterId, hero))
@@ -133,7 +148,9 @@ public class PlayerQuery(ReplayDbContext dc) {
                 return rc1;
             }
 
-            IEnumerable<ReplayCharacter> Them(ReplayEntry z) => z.ReplayCharacters.Where(y => y.CharacterId == h1);
+            IEnumerable<ReplayCharacter> Them(ReplayEntry z) {
+                return z.ReplayCharacters.Where(y => y.CharacterId == h1);
+            }
         }
     }
 
@@ -192,11 +209,41 @@ public class PlayerQuery(ReplayDbContext dc) {
                 return rc1;
             }
 
-            ReplayCharacter Them(ReplayEntry z) => z.ReplayCharacters.Single(y => y.PlayerId == pid);
+            ReplayCharacter Them(ReplayEntry z) {
+                return z.ReplayCharacters.Single(y => y.PlayerId == pid);
+            }
         }
     }
 
-    private ReplayCharacter Me(ReplayEntry z) => z.ReplayCharacters.Single(y => y.IsMe);
+    public async Task<List<TalentRecord>> QueryTalent(string keyword, int? buildNumber) {
+        var query = dc.HeroTalentInformations.AsQueryable();
+
+        if (buildNumber.HasValue) {
+            query = query.Where(t => t.ReplayBuildFirst <= buildNumber.Value && t.ReplayBuildLast >= buildNumber.Value);
+        }
+
+        var talents = await query.Where(t =>
+            EF.Functions.Like(t.TalentName, $"%{keyword}%") || EF.Functions.Like(t.Character, keyword)).ToListAsync();
+
+        var rc =
+            from talent in talents
+            select new TalentRecord(
+                BuildNumberFirst: talent.ReplayBuildFirst,
+                BuildNumberLast: talent.ReplayBuildLast,
+                HeroName: talent.Character,
+                TalentIdString: talent.TalentId.ToString(),
+                TalentId: talent.TalentId,
+                TalentName: talent.TalentName,
+                TalentDescription: talent.TalentDescription,
+                Tier: talent.TalentTier
+            );
+
+        return rc.ToList();
+    }
+
+    private ReplayCharacter Me(ReplayEntry z) {
+        return z.ReplayCharacters.Single(y => y.IsMe);
+    }
 
     private GameMode? ParseGameMode(string? value) {
         if (value is null) {
@@ -228,3 +275,14 @@ public class PlayerQuery(ReplayDbContext dc) {
 
     public record HeroRecord(string Hero, ResultRecord Totals, Dictionary<string, ResultRecord> ByHero);
 }
+
+public record TalentRecord(
+    int BuildNumberFirst,
+    int BuildNumberLast,
+    string HeroName,
+    string TalentIdString,
+    int TalentId,
+    string TalentName,
+    string TalentDescription,
+    int Tier
+);

@@ -7,9 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CascLibCore\CascLibCore.csproj" />
-    <ProjectReference Include="..\CascScraperCore\CascScraperCore.csproj" />
-    <ProjectReference Include="..\MyHotsInfo.Extensions\MyHotsInfo.Extensions.csproj" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.0" />
   </ItemGroup>
 
 </Project>
