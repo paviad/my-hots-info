@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using CASCExplorerCore;
+using CASCExplorerCore.Properties;
 using CascLibCore;
 
 namespace CASCExplorer;

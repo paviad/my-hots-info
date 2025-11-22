@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CASCExplorerCore;
+using CASCExplorerCore.Properties;
 using CascLibCore;
 
 namespace CASCExplorer

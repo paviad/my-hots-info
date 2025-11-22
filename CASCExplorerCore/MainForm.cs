@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CASCExplorerCore;
+using CASCExplorerCore.Properties;
 using CascLibCore;
 
 namespace CASCExplorer

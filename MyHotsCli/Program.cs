@@ -71,7 +71,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
         var svcp = host.Services;
         await MigrateDb(svcp);
 
-        var rootCommand = new RootCommand();
+        var rootCommand = new RootCommand("CLI to query HotS replays (version 1.0)");
 
         _gameModeOption = new Option<string?>("--gamemode");
         _gameModeOption.Aliases.Add("-gm");

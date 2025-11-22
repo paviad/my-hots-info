@@ -97,43 +97,45 @@ public static class Extensions {
         return true;
     }
 
-    public static unsafe T Read<T>(this BinaryReader reader) where T : struct {
-        var result = reader.ReadBytes(FastStruct<T>.Size);
+    extension(BinaryReader reader) {
+        public unsafe T Read<T>() where T : struct {
+            var result = reader.ReadBytes(FastStruct<T>.Size);
 
-        fixed (byte* ptr = result) {
-            return FastStruct<T>.PtrToStructure(ptr);
+            fixed (byte* ptr = result) {
+                return FastStruct<T>.PtrToStructure(ptr);
+            }
         }
-    }
 
-    public static unsafe T[] ReadArray<T>(this BinaryReader reader) where T : struct {
-        var numBytes = (int)reader.ReadInt64();
+        public unsafe T[] ReadArray<T>() where T : struct {
+            var numBytes = (int)reader.ReadInt64();
 
-        var result = reader.ReadBytes(numBytes);
+            var result = reader.ReadBytes(numBytes);
 
-        fixed (byte* ptr = result) {
-            var data = FastStruct<T>.ReadArray((IntPtr)ptr, numBytes);
-            reader.BaseStream.Position += (0 - numBytes) & 0x07;
-            return data;
+            fixed (byte* ptr = result) {
+                var data = FastStruct<T>.ReadArray((IntPtr)ptr, numBytes);
+                reader.BaseStream.Position += (0 - numBytes) & 0x07;
+                return data;
+            }
         }
-    }
 
-    public static short ReadInt16BE(this BinaryReader reader) {
-        var val = reader.ReadBytes(2);
-        return (short)(val[1] | (val[0] << 8));
-    }
+        public short ReadInt16BE() {
+            var val = reader.ReadBytes(2);
+            return (short)(val[1] | (val[0] << 8));
+        }
 
-    public static int ReadInt32BE(this BinaryReader reader) {
-        var val = reader.ReadBytes(4);
-        return val[3] | (val[2] << 8) | (val[1] << 16) | (val[0] << 24);
-    }
+        public int ReadInt32BE() {
+            var val = reader.ReadBytes(4);
+            return val[3] | (val[2] << 8) | (val[1] << 16) | (val[0] << 24);
+        }
 
-    public static uint ReadUInt32BE(this BinaryReader reader) {
-        var val = reader.ReadBytes(4);
-        return (uint)(val[3] | (val[2] << 8) | (val[1] << 16) | (val[0] << 24));
-    }
+        public uint ReadUInt32BE() {
+            var val = reader.ReadBytes(4);
+            return (uint)(val[3] | (val[2] << 8) | (val[1] << 16) | (val[0] << 24));
+        }
 
-    public static void Skip(this BinaryReader reader, int bytes) {
-        reader.BaseStream.Position += bytes;
+        public void Skip(int bytes) {
+            reader.BaseStream.Position += bytes;
+        }
     }
 
     public static string ToBinaryString(this BitArray bits) {
@@ -172,28 +174,30 @@ public static class Extensions {
 }
 
 public static class CStringExtensions {
-    /// <summary>
-    ///     Reads the NULL terminated string from
-    ///     the current stream and advances the current position of the stream by string length + 1.
-    ///     <seealso cref="BinaryReader.ReadString" />
-    /// </summary>
-    public static string ReadCString(this BinaryReader reader) {
-        return reader.ReadCString(Encoding.UTF8);
-    }
-
-    /// <summary>
-    ///     Reads the NULL terminated string from
-    ///     the current stream and advances the current position of the stream by string length + 1.
-    ///     <seealso cref="BinaryReader.ReadString" />
-    /// </summary>
-    public static string ReadCString(this BinaryReader reader, Encoding encoding) {
-        var bytes = new List<byte>();
-        byte b;
-        while ((b = reader.ReadByte()) != 0) {
-            bytes.Add(b);
+    extension(BinaryReader reader) {
+        /// <summary>
+        ///     Reads the NULL terminated string from
+        ///     the current stream and advances the current position of the stream by string length + 1.
+        ///     <seealso cref="BinaryReader.ReadString" />
+        /// </summary>
+        public string ReadCString() {
+            return reader.ReadCString(Encoding.UTF8);
         }
 
-        return encoding.GetString(bytes.ToArray());
+        /// <summary>
+        ///     Reads the NULL terminated string from
+        ///     the current stream and advances the current position of the stream by string length + 1.
+        ///     <seealso cref="BinaryReader.ReadString" />
+        /// </summary>
+        public string ReadCString(Encoding encoding) {
+            var bytes = new List<byte>();
+            byte b;
+            while ((b = reader.ReadByte()) != 0) {
+                bytes.Add(b);
+            }
+
+            return encoding.GetString(bytes.ToArray());
+        }
     }
 
     public static byte[] ToByteArray(this string str) {
