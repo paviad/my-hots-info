@@ -1,6 +1,4 @@
-﻿using System.CommandLine;
-using System.Text.RegularExpressions;
-using Heroes.ReplayParser;
+﻿using Heroes.ReplayParser;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -14,6 +12,9 @@ using MyReplayLibrary.Data.Models;
 using MyReplayLibrary.Talents;
 using MyReplayLibrary.Talents.Options;
 using SqlLikeToRegex;
+using System.CommandLine;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MyHotsCli;
 
@@ -28,6 +29,34 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
         var scope = host.Services.CreateScope();
         var dc = scope.ServiceProvider.GetRequiredService<ReplayDbContext>();
         return dc;
+    }
+
+    public static async Task<int> Main(string[] args) {
+        Console.OutputEncoding = Encoding.UTF8;
+
+        using var host = BuildHost();
+        var svcp = host.Services;
+        await MigrateDb(svcp);
+
+        var rootCommand = new RootCommand("CLI to query HotS replays (version 1.0)");
+
+        _gameModeOption = new Option<string?>("--gamemode");
+        _gameModeOption.Aliases.Add("-gm");
+        _gameModeOption.AcceptOnlyFromAmong("sl", "qm", "aram", "ud");
+        rootCommand.Options.Add(_gameModeOption);
+
+        SetupScanCommand(rootCommand, svcp);
+        SetupQplayerCommand(rootCommand, svcp);
+        SetupQheroCommand(rootCommand, svcp);
+        SetupQallCommand(rootCommand, svcp);
+        SetupScrapeCommand(rootCommand, svcp);
+        SetupQreplayCommand(rootCommand, svcp);
+        SetupQTalentCommand(rootCommand, svcp);
+        SetupQChatCommand(rootCommand, svcp);
+
+        var parseResult = rootCommand.Parse(args);
+
+        return await parseResult.InvokeAsync();
     }
 
     private static IHost BuildHost() {
@@ -64,32 +93,6 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
         }
 
         return Task.CompletedTask;
-    }
-
-    private static async Task<int> Main(string[] args) {
-        using var host = BuildHost();
-        var svcp = host.Services;
-        await MigrateDb(svcp);
-
-        var rootCommand = new RootCommand("CLI to query HotS replays (version 1.0)");
-
-        _gameModeOption = new Option<string?>("--gamemode");
-        _gameModeOption.Aliases.Add("-gm");
-        _gameModeOption.AcceptOnlyFromAmong("sl", "qm", "aram", "ud");
-        rootCommand.Options.Add(_gameModeOption);
-
-        SetupScanCommand(rootCommand, svcp);
-        SetupQplayerCommand(rootCommand, svcp);
-        SetupQheroCommand(rootCommand, svcp);
-        SetupQallCommand(rootCommand, svcp);
-        SetupScrapeCommand(rootCommand, svcp);
-        SetupQreplayCommand(rootCommand, svcp);
-        SetupQTalentCommand(rootCommand, svcp);
-        SetupQChatCommand(rootCommand, svcp);
-
-        var parseResult = rootCommand.Parse(args);
-
-        return await parseResult.InvokeAsync();
     }
 
     private static ReplayCharacter Me(ReplayEntry z) {
@@ -184,7 +187,6 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
             }
         });
     }
-
 
     private static void SetupQheroCommand(RootCommand rootCommand, IServiceProvider svcp) {
         var qheroCommand = new Command("qh", "Query by hero");
@@ -364,6 +366,16 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                     Console.WriteLine(new string('-', 40));
                 }
             }
+
+            var dc = scope.ServiceProvider.GetRequiredService<ReplayDbContext>();
+            DiffOptions diffOpts = new() {
+                //Hero = "Kael'thas",
+                Hero = "Anub'arak",
+                OutputType = OutputType.Extended,
+                //MinBuild = 95774,
+                //MaxBuild = 95774,
+            };
+            var diffList = TalentsLib.DiffInternal(diffOpts, dc);
         });
     }
 

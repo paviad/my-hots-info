@@ -17,6 +17,14 @@
     <ContentPage.Content>
         <Grid WidthRequest="1034" HeightRequest="601">
             <Image Source="score.png" />
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Version: " />
+                        <Span Text="{Binding Id}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
             <CollectionView
                 ItemsSource="{Binding OrderedReplayCharacters}"
                 Margin="50,61,20,105">

@@ -64,14 +64,16 @@ public static class TalentsLib {
         var talentInfoList = tup.TalentInfoList;
 
         var alarakCounterStrike20 =
-            talentInfoList.SingleOrDefault(x => x.HeroName == "Alarak" && x is { Tier: 7, TalentName: "Counter-Strike" });
-        
-        if(alarakCounterStrike20 is not null) {
+            talentInfoList.SingleOrDefault(x =>
+                x.HeroName == "Alarak" && x is { Tier: 7, TalentName: "Counter-Strike" });
+
+        if (alarakCounterStrike20 is not null) {
             alarakCounterStrike20.TalentName += " (Lvl 20)";
         }
-        
+
         var alarakDeadlyCharge20 =
-            talentInfoList.SingleOrDefault(x => x.HeroName == "Alarak" && x is { Tier: 7, TalentName: "Deadly Charge" });
+            talentInfoList.SingleOrDefault(x =>
+                x.HeroName == "Alarak" && x is { Tier: 7, TalentName: "Deadly Charge" });
 
         if (alarakDeadlyCharge20 is not null) {
             alarakDeadlyCharge20.TalentName += " (Lvl 20)";
@@ -144,5 +146,108 @@ public static class TalentsLib {
             var dbTalent = dicCurrentRef[v];
             dbTalent.ReplayBuildLast = lastBuild;
         }
+    }
+
+    public static Dictionary<int, List<DiffEntry>> DiffInternal(DiffOptions opts, ReplayDbContext dc) {
+        var q = dc.HeroTalentInformations.AsQueryable();
+        if (!string.IsNullOrEmpty(opts.Hero)) {
+            q = q.Where(x => x.Character == opts.Hero);
+        }
+
+        if (opts.MinBuild.HasValue) {
+            var minBuild = opts.MinBuild.Value;
+            q = q.Where(x => x.ReplayBuildLast >= minBuild);
+        }
+
+        if (opts.MaxBuild.HasValue) {
+            var maxBuild = opts.MaxBuild.Value;
+            q = q.Where(x => x.ReplayBuildFirst <= maxBuild);
+        }
+
+        if (opts.TalentId.HasValue) {
+            var talentId = opts.TalentId.Value;
+            q = q.Where(x => x.TalentId == talentId);
+        }
+
+        //q = q.Where(x => x.TalentName == "Convection");
+
+        var talents = q.ToList();
+        var byHeroByRange = talents
+            .ToLookup(x => (x.Character, x.TalentName))
+            .ToDictionary(x => x.Key, x => x.GroupBy(y => y.ReplayBuildFirst));
+
+        var diffList = new Dictionary<int, List<DiffEntry>>();
+
+        foreach (var kvp in byHeroByRange) {
+            foreach (var range in kvp.Value.Triplewise((a, b, c) => (a, b, c))) {
+                if (range.b is null) {
+                    continue;
+                }
+
+                foreach (var t in range.b) {
+                    var matchPrev = range.a?.SingleOrDefault(x => x.TalentName == t.TalentName);
+                    var matchNext1 = range.c?.Where(x => x.TalentName == t.TalentName).ToList();
+
+                    if (matchNext1?.Count > 1) {
+                        matchNext1 = matchNext1.Where(x => x.TalentTier == t.TalentTier).ToList();
+                    }
+
+                    var matchNext = matchNext1?.SingleOrDefault();
+
+                    if (matchNext == null) {
+                        var extendedToNext = range.c?.Any(x => x.ReplayBuildLast == t.ReplayBuildLast) ?? false;
+                        if (t.ReplayBuildLast == 1000000 || extendedToNext) {
+                            matchNext = t;
+                        }
+                    }
+
+                    DiffEntry? diffEntry = null;
+
+                    if (range.a != null && matchPrev == null) {
+                        SetDiffExists(x => x.IsNew = true);
+                    }
+
+                    if (matchNext != null) {
+                        if (matchNext.TalentTier != t.TalentTier) {
+                            SetDiffExists(x => x.IsTierChanged = true);
+                        }
+
+                        if (matchNext.TalentDescription != t.TalentDescription &&
+                            opts.OutputType == OutputType.Extended) {
+                            SetDiffExists(x => x.IsDescriptionChanged = true);
+                        }
+                    }
+                    else {
+                        SetDiffExists(x => x.IsRemovedInNext = true);
+                    }
+
+                    if (diffEntry != null) {
+                        if (!diffList.TryGetValue(t.ReplayBuildFirst, out var value)) {
+                            value = [];
+                            diffList[t.ReplayBuildFirst] = value;
+                        }
+
+                        value.Add(diffEntry);
+                    }
+
+                    continue;
+
+                    void SetDiffExists(Action<DiffEntry> act) {
+                        if (diffEntry == null) {
+                            var nextRange = matchNext?.ReplayBuildFirst ?? range.c?.FirstOrDefault()?.ReplayBuildFirst;
+                            diffEntry = new DiffEntry {
+                                Talent = t,
+                                NextTalent = matchNext,
+                                NextRange = nextRange,
+                            };
+                        }
+
+                        act(diffEntry);
+                    }
+                }
+            }
+        }
+
+        return diffList;
     }
 }

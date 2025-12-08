@@ -60,6 +60,12 @@ public partial class Scanner(
             sb.AppendLine($"   {btag,-20} - {rc.CharacterId}");
         }
 
+        sb.AppendLine();
+
+        foreach (var msg in replay.Chats.OrderBy(r => r.TimeSpan)) {
+            sb.AppendFormat($"[{msg.TimeSpan}] {msg.Player.Name}: {msg.Text}\n");
+        }
+
         var message = sb.ToString();
         return message;
     }
@@ -191,13 +197,11 @@ public partial class Scanner(
         await dc.Replays.AddAsync(replay);
 
         var playerRelation = replayParseData.Players
-            .Select(
-                replayPlayer => (replayPlayer, dbPlayer: dc.Players
-                    .SingleOrDefault(
-                        j =>
-                            j.BattleNetRegionId == replayPlayer.BattleNetRegionId &&
-                            j.BattleNetSubId == replayPlayer.BattleNetSubId &&
-                            j.BattleNetId == replayPlayer.BattleNetId)))
+            .Select(replayPlayer => (replayPlayer, dbPlayer: dc.Players
+                .SingleOrDefault(j =>
+                    j.BattleNetRegionId == replayPlayer.BattleNetRegionId &&
+                    j.BattleNetSubId == replayPlayer.BattleNetSubId &&
+                    j.BattleNetId == replayPlayer.BattleNetId)))
             .ToList();
 
         var players = playerRelation
@@ -309,19 +313,17 @@ public partial class Scanner(
         for (var i = 0; i < replayParseData.TeamObjectives.Length; i++) {
             // First, make sure team objectives are not on the same TimeSpan
             foreach (var nonUniqueKeyEvent in replayParseData.TeamObjectives[i]
-                         .GroupBy(
-                             j => new {
-                                 j.TeamObjectiveType,
-                                 j.TimeSpan,
-                             })
+                         .GroupBy(j => new {
+                             j.TeamObjectiveType,
+                             j.TimeSpan,
+                         })
                          .Where(j => j.Count() > 1)
                          .SelectMany(j => j)
                          .ToArray()) {
-                while (replayParseData.TeamObjectives[i].Any(
-                           j =>
-                               j != nonUniqueKeyEvent &&
-                               j.TeamObjectiveType == nonUniqueKeyEvent.TeamObjectiveType &&
-                               j.TimeSpan == nonUniqueKeyEvent.TimeSpan)) {
+                while (replayParseData.TeamObjectives[i].Any(j =>
+                           j != nonUniqueKeyEvent &&
+                           j.TeamObjectiveType == nonUniqueKeyEvent.TeamObjectiveType &&
+                           j.TimeSpan == nonUniqueKeyEvent.TimeSpan)) {
                     nonUniqueKeyEvent.TimeSpan = nonUniqueKeyEvent.TimeSpan.Add(TimeSpan.FromSeconds(1));
                 }
             }
@@ -338,10 +340,9 @@ public partial class Scanner(
                         ? null
                         : players
                             .Where(j => j != null)
-                            .Single(
-                                j =>
-                                    j!.BattleNetRegionId == teamObjective.Player.BattleNetRegionId &&
-                                    j.BattleNetId == teamObjective.Player.BattleNetId),
+                            .Single(j =>
+                                j!.BattleNetRegionId == teamObjective.Player.BattleNetRegionId &&
+                                j.BattleNetId == teamObjective.Player.BattleNetId),
                     Value = teamObjective.Value,
                 };
                 replay.ReplayTeamObjectives.Add(rto);
@@ -360,10 +361,9 @@ public partial class Scanner(
             // Add Talent Information
             var thePlayer = players
                 .Where(j => j != null)
-                .Single(
-                    j =>
-                        j!.BattleNetRegionId == replayParseData.Players[i].BattleNetRegionId &&
-                        j.BattleNetId == replayParseData.Players[i].BattleNetId)!;
+                .Single(j =>
+                    j!.BattleNetRegionId == replayParseData.Players[i].BattleNetRegionId &&
+                    j.BattleNetId == replayParseData.Players[i].BattleNetId)!;
             if (replayParseData.Players[i].Talents != null) {
                 foreach (var replayCharacterTalent in replayParseData.Players[i].Talents) {
                     // adding replay and player ids so can add to dc more easily later
@@ -551,13 +551,11 @@ public partial class Scanner(
 
     private async Task UpdateChats(ReplayDbContext dc, Replay replayParseData, ReplayEntry replay) {
         var playerRelation = replayParseData.Players
-            .Select(
-                replayPlayer => (replayPlayer, dbPlayer: dc.Players
-                    .SingleOrDefault(
-                        j =>
-                            j.BattleNetRegionId == replayPlayer.BattleNetRegionId &&
-                            j.BattleNetSubId == replayPlayer.BattleNetSubId &&
-                            j.BattleNetId == replayPlayer.BattleNetId)))
+            .Select(replayPlayer => (replayPlayer, dbPlayer: dc.Players
+                .SingleOrDefault(j =>
+                    j.BattleNetRegionId == replayPlayer.BattleNetRegionId &&
+                    j.BattleNetSubId == replayPlayer.BattleNetSubId &&
+                    j.BattleNetId == replayPlayer.BattleNetId)))
             .ToList();
 
         var players = playerRelation
@@ -604,13 +602,11 @@ public partial class Scanner(
         var seqId = 0;
 
         var playerRelation = replayParseData.Players
-            .Select(
-                replayPlayer => (replayPlayer, dbPlayer: dc.Players
-                    .SingleOrDefault(
-                        j =>
-                            j.BattleNetRegionId == replayPlayer.BattleNetRegionId &&
-                            j.BattleNetSubId == replayPlayer.BattleNetSubId &&
-                            j.BattleNetId == replayPlayer.BattleNetId)))
+            .Select(replayPlayer => (replayPlayer, dbPlayer: dc.Players
+                .SingleOrDefault(j =>
+                    j.BattleNetRegionId == replayPlayer.BattleNetRegionId &&
+                    j.BattleNetSubId == replayPlayer.BattleNetSubId &&
+                    j.BattleNetId == replayPlayer.BattleNetId)))
             .ToList();
 
         var players = playerRelation
@@ -763,7 +759,7 @@ public partial class Scanner(
             try {
                 var rc1 = await ocr.OcrScreenshot(fn, ScreenShotKind.Draft);
                 var rc2 = await ocr.OcrScreenshot(fn, ScreenShotKind.Loading);
-                var rc = ((List<string>[]) [rc1, rc2]).FirstOrDefault(z => z.All(w => w != "")) ?? [];
+                var rc = ((List<string>[])[rc1, rc2]).FirstOrDefault(z => z.All(w => w != "")) ?? [];
                 await callBack(rc);
                 //var msg = string.Join("\n", rc.Select(z => $"   {z}"));
                 //logger.LogInformation("Players in this game:\n{msg}", msg);

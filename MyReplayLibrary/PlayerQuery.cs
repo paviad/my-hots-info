@@ -42,6 +42,7 @@ public class PlayerQuery(ReplayDbContext dc) {
 
     public async Task<ReplayEntry> GetReplay(int id) {
         var replay = await dc.Replays
+            .Include(r => r.Chats)
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.Player)
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterTalents)
             .Include(r => r.ReplayCharacters).ThenInclude(r => r.ReplayCharacterMatchAwards)

@@ -1,54 +1,49 @@
-﻿namespace MyReplayLibrary.Talents;
+﻿using System.Diagnostics.CodeAnalysis;
 
-public static class EnumerableExtensions
-{
-    public static IEnumerable<TResult> Pairwise<TSource, TResult>(
-        this IEnumerable<TSource> source,
-        Func<TSource?, TSource, TResult> resultSelector)
-    {
-        TSource? previous = default;
+namespace MyReplayLibrary.Talents;
 
-        using var it = source.GetEnumerator();
+public static class EnumerableExtensions {
+    extension<TSource>(IEnumerable<TSource> source) {
+        public IEnumerable<TResult> Pairwise<TResult>(Func<TSource?, TSource, TResult> resultSelector) {
+            TSource? previous = default;
 
-        if (it.MoveNext())
-        {
-            previous = it.Current;
+            using var it = source.GetEnumerator();
+
+            if (it.MoveNext()) {
+                previous = it.Current;
+            }
+
+            while (it.MoveNext()) {
+                yield return resultSelector(previous, previous = it.Current);
+            }
         }
 
-        while (it.MoveNext())
-        {
-            yield return resultSelector(previous, previous = it.Current);
-        }
-    }
+        public IEnumerable<TResult> Triplewise<TResult>(Func<TSource?, TSource?, TSource?, TResult> resultSelector) {
+            TSource? a = default;
+            TSource? b = default;
 
-    public static IEnumerable<TResult> Triplewise<TSource, TResult>(
-        this IEnumerable<TSource> source,
-        Func<TSource?, TSource?, TSource?, TResult> resultSelector)
-    {
-        TSource? a = default;
-        TSource? b = default;
+            using var it = source.GetEnumerator();
 
-        using var it = source.GetEnumerator();
+            if (it.MoveNext()) {
+                a = it.Current;
+            }
 
-        if (it.MoveNext())
-        {
-            a = it.Current;
-        }
+            if (it.MoveNext()) {
+                b = it.Current;
+            }
+            else {
+                yield return resultSelector(default, a, default);
+            }
 
-        if (it.MoveNext())
-        {
-            b = it.Current;
-        }
-        else
-        {
-            yield return resultSelector(default, a, default);
-        }
-
-        while (it.MoveNext())
-        {
-            yield return resultSelector(a, b, it.Current);
-            a = b;
-            b = it.Current;
+            yield return resultSelector(default, a, b);
+            
+            while (it.MoveNext()) {
+                yield return resultSelector(a, b, it.Current);
+                a = b;
+                b = it.Current;
+            }
+         
+            yield return resultSelector(a, b, default);
         }
     }
 }

@@ -67,6 +67,14 @@
                         <Label>
                             <Label.FormattedText>
                                 <FormattedString>
+                                    <Span Text="Id: " />
+                                    <Span Text="{Binding SelectedReplay.Id}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
                                     <Span Text="Duration: " />
                                     <Span Text="{Binding SelectedReplay.ReplayLength}" />
                                 </FormattedString>

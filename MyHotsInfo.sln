@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11217.181 d18.0
+VisualStudioVersion = 18.0.11217.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heroes.ReplayParser", "Heroes.ReplayParser\Heroes.ReplayParser\Heroes.ReplayParser.csproj", "{DBC8EE33-736A-4F11-BB28-DF561F05C92E}"
 EndProject
@@ -34,6 +34,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CASCExplorerCore", "CASCExplorerCore\CASCExplorerCore.csproj", "{96519D62-70DB-4726-A09D-05F2781CA705}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SereniaBLPLibCore", "SereniaBLPLibCore\SereniaBLPLibCore.csproj", "{5B7A0C59-5A70-4527-B736-910057EDAD5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalentsCli", "..\hotslogs\HOTSlogs\XNetCore\TalentsCli\TalentsCli.csproj", "{2B85869B-605D-7BE5-0575-F53CA0336006}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -162,6 +164,14 @@ Global
 		{5B7A0C59-5A70-4527-B736-910057EDAD5D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5B7A0C59-5A70-4527-B736-910057EDAD5D}.Release|x64.ActiveCfg = Release|Any CPU
 		{5B7A0C59-5A70-4527-B736-910057EDAD5D}.Release|x64.Build.0 = Release|Any CPU
+		{2B85869B-605D-7BE5-0575-F53CA0336006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B85869B-605D-7BE5-0575-F53CA0336006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B85869B-605D-7BE5-0575-F53CA0336006}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2B85869B-605D-7BE5-0575-F53CA0336006}.Debug|x64.Build.0 = Debug|Any CPU
+		{2B85869B-605D-7BE5-0575-F53CA0336006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B85869B-605D-7BE5-0575-F53CA0336006}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B85869B-605D-7BE5-0575-F53CA0336006}.Release|x64.ActiveCfg = Release|Any CPU
+		{2B85869B-605D-7BE5-0575-F53CA0336006}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +182,7 @@ Global
 		{733D64D3-14CB-430E-9988-8B0037FF80FF} = {7F1C421E-FFE0-4C0F-A44A-00911EC384A6}
 		{96519D62-70DB-4726-A09D-05F2781CA705} = {7F1C421E-FFE0-4C0F-A44A-00911EC384A6}
 		{5B7A0C59-5A70-4527-B736-910057EDAD5D} = {7F1C421E-FFE0-4C0F-A44A-00911EC384A6}
+		{2B85869B-605D-7BE5-0575-F53CA0336006} = {7F1C421E-FFE0-4C0F-A44A-00911EC384A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F6251A0-5FFD-4D3B-9FC0-086370798BD4}
