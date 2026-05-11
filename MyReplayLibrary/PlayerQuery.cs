@@ -216,6 +216,16 @@ public class PlayerQuery(ReplayDbContext dc) {
         }
     }
 
+    public async Task<int> GetPreviousBuildNumber() {
+        var previousBuildNumber = await dc.BuildNumbers.OrderByDescending(r => r.Buildnumber1).Skip(1).FirstAsync();
+        return previousBuildNumber.Buildnumber1;
+    }
+
+    public async Task<int> GetLatestBuildNumber() {
+        var previousBuildNumber = await dc.BuildNumbers.OrderByDescending(r => r.Buildnumber1).FirstAsync();
+        return previousBuildNumber.Buildnumber1;
+    }
+
     public async Task<List<TalentRecord>> QueryTalent(string keyword, int? buildNumber) {
         var query = dc.HeroTalentInformations.AsQueryable();
 

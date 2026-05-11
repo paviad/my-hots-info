@@ -53,6 +53,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
         SetupQreplayCommand(rootCommand, svcp);
         SetupQTalentCommand(rootCommand, svcp);
         SetupQChatCommand(rootCommand, svcp);
+        SetupExportCommand(rootCommand, svcp);
 
         var parseResult = rootCommand.Parse(args);
 
@@ -135,6 +136,37 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                     var btag = $"{plr.Name}#{plr.BattleTag}";
                     Console.WriteLine($"{btag,-20}| {num}");
                 }
+            }
+        });
+    }
+
+    private static void SetupExportCommand(RootCommand rootCommand, IServiceProvider svcp) {
+        var exportCommand = new Command("export", "Export talent information for build");
+
+        var buildArgument = new Argument<string>("build number or 'latest' or 'previous'");
+        exportCommand.Arguments.Add(buildArgument);
+
+        rootCommand.Subcommands.Add(exportCommand);
+
+        exportCommand.SetAction(async parseResult => {
+            var buildNumber = parseResult.GetRequiredValue(buildArgument);
+            using var scope = svcp.CreateScope();
+            var playerQuery = scope.ServiceProvider.GetRequiredService<PlayerQuery>();
+            var latestBuildNumber = await playerQuery.GetLatestBuildNumber();
+            var previousBuildNumber = await playerQuery.GetPreviousBuildNumber();
+            var bn = buildNumber switch {
+                "latest" => latestBuildNumber,
+                "previous" => previousBuildNumber,
+                _ when int.TryParse(buildNumber, out var bnt) => bnt,
+                _ => throw new Exception("Bad build number"),
+            };
+            var talents = (
+                from t in await playerQuery.QueryTalent("", bn)
+                orderby t.HeroName, t.Tier, t.TalentId
+                select t);
+            foreach (var t in talents) {
+                // one line per talent
+                Console.WriteLine($"{t.HeroName} - {t.Tier} - {t.TalentName}: {t.TalentDescription}");
             }
         });
     }
