@@ -68,9 +68,11 @@ namespace CASCExplorer
                 }
             }
 
-            openRecentStorageToolStripMenuItem.Enabled = Settings.Default.RecentStorages.Count > 0;
+            var defaultRecentStorages = Settings.Default.RecentStorages ?? [];
 
-            foreach (string recentStorage in Settings.Default.RecentStorages)
+            openRecentStorageToolStripMenuItem.Enabled = defaultRecentStorages.Count > 0;
+
+            foreach (string recentStorage in defaultRecentStorages)
             {
                 openRecentStorageToolStripMenuItem.DropDownItems.Add(recentStorage);
             }
@@ -417,7 +419,7 @@ namespace CASCExplorer
             openRecentStorageToolStripMenuItem.Enabled = true;
             openRecentStorageToolStripMenuItem.DropDownItems.Add(path);
 
-            StringCollection recentStorages = Settings.Default.RecentStorages;
+            StringCollection recentStorages = Settings.Default.RecentStorages ?? [];
             if (!recentStorages.Contains(path))
                 recentStorages.Add(path);
             Settings.Default.RecentStorages = recentStorages;
