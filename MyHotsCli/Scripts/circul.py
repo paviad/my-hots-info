@@ -19,8 +19,8 @@ def circle_crop(filename, output_folder):
     output.save(output_filepath)
 
 # Specify your image folder path and output folder path
-input_folder = "C:/myprojects/myhotsinfo/bin/pub/Portraits"
-output_folder = "C:/myprojects/myhotsinfo/MyHotsInfo/Resources/Images/Portraits" 
+input_folder = "w:/myhotsinfo/bin/pub/Portraits"
+output_folder = "w:/myhotsinfo/MyHotsInfo/Resources/Images/Portraits" 
 
 # Create the output folder if it doesn't exist
 os.makedirs(output_folder, exist_ok=True)

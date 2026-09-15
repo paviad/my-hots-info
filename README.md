@@ -1,6 +1,6 @@
 # Install
 
-Clone the repo into `C:\MyProjects\MyHotsInfo` the path is hard coded in some places. You may clone to another location, but update the source code accordingly.
+Clone the repo into `w:\MyHotsInfo` the path is hard coded in some places. You may clone to another location, but update the source code accordingly.
 
 # MAUI Application
 

@@ -15,8 +15,8 @@ def resize_images(input_folder, output_folder):
             resized_img.save(os.path.join(output_folder, output_filename))
 
 # Example usage
-input_folder = "C:/myprojects/myhotsinfo/bin/pub/Maps"
-output_folder = "C:/myprojects/myhotsinfo/MyHotsInfo/Resources/Images/Maps" 
+input_folder = "w:/myhotsinfo/bin/pub/Maps"
+output_folder = "w:/myhotsinfo/MyHotsInfo/Resources/Images/Maps" 
 
 # Create the output folder if it doesn't exist
 os.makedirs(output_folder, exist_ok=True)

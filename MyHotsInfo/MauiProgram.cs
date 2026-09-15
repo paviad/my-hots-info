@@ -24,7 +24,7 @@ public static class MauiProgram {
 
         builder.Services.AddDbContextFactory<ReplayDbContext>((svcp, opts) => {
             var prefs = Preferences.Default;
-            const string defaultConnectionString = @"Data Source=c:\myprojects\myhotsinfo\my.db;foreign keys=true;";
+            const string defaultConnectionString = @"Data Source=w:\myhotsinfo\my.db;foreign keys=true;";
             var connectionString = prefs.Get("DefaultConnection", defaultConnectionString);
             opts.UseSqlite(connectionString);
         }, ServiceLifetime.Scoped);
