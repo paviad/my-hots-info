@@ -36,7 +36,7 @@ public partial class Scanner(
 
     public static string GetReplaySummary(ReplayEntry replay) {
         var mvp = replay.ReplayCharacters
-            .Single(r => r.ReplayCharacterMatchAwards.Any(z => z.MatchAwardType == MatchAwardType.MVP)).Player;
+            .SingleOrDefault(r => r.ReplayCharacterMatchAwards.Any(z => z.MatchAwardType == MatchAwardType.MVP))?.Player;
 
         var sb = new StringBuilder();
         sb.AppendLine($"""
@@ -44,7 +44,7 @@ public partial class Scanner(
                        Game Time: {replay.TimestampReplay}
                        Game Mode: {replay.GameMode}
                        Map: {replay.MapId}
-                       Mvp: {mvp.Name}#{mvp.BattleTag}
+                       Mvp: {mvp?.Name ?? "???"}#{mvp?.BattleTag ?? 0}
                        """);
         sb.AppendLine("Winning Team:");
         sb.AppendLine("-----------------");
