@@ -33,7 +33,7 @@ public partial class Prematch : ContentPage, IQueryAttributable {
             BindingContext = vm;
         }
         catch (Exception e) {
-            await DisplayAlert("Error", $"Can't show summary {e}", "Dismiss");
+            await DisplayAlertAsync("Error", $"Can't show summary {e}", "Dismiss");
         }
 
         return;

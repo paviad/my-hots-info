@@ -33,7 +33,7 @@ public partial class ReplayList : ContentPage {
                 await InitAsync();
             }
             catch (Exception x) {
-                await DisplayAlert("Error", $"Couldn't fetch replays {x}", "Dismiss");
+                await DisplayAlertAsync("Error", $"Couldn't fetch replays {x}", "Dismiss");
             }
         }
     }
@@ -85,7 +85,7 @@ public partial class ReplayList : ContentPage {
             await InitAsync();
         }
         catch (Exception exception) {
-            await DisplayAlert("Error", $"Unable to init replay list {exception}", "Dismiss");
+            await DisplayAlertAsync("Error", $"Unable to init replay list {exception}", "Dismiss");
         }
     }
 }

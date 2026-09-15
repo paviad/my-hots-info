@@ -33,7 +33,7 @@ public partial class AppShell : Shell, IDisposable {
                 /* ignored */
             }
             catch (Exception x) {
-                await DisplayAlert("Error", $"Failed to init app {x}", "Dismiss");
+                await DisplayAlertAsync("Error", $"Failed to init app {x}", "Dismiss");
             }
         }
     }
@@ -81,10 +81,10 @@ public partial class AppShell : Shell, IDisposable {
             await using var dc = _svcp.GetRequiredService<ReplayDbContext>();
             await dc.Database.MigrateAsync();
             Preferences.Default.Set("ConnectionStringSet", true);
-            await DisplayAlert("Database Set", "Database Set Successfully", "Dismiss");
+            await DisplayAlertAsync("Database Set", "Database Set Successfully", "Dismiss");
         }
         catch {
-            await DisplayAlert("Database Error", "Selected database doesn't belong to this application", "Dismiss");
+            await DisplayAlertAsync("Database Error", "Selected database doesn't belong to this application", "Dismiss");
         }
     }
 
