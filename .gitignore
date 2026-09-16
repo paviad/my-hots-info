@@ -14,3 +14,4 @@ packages/
 *.user
 tmp/
 sixlabors.lic
+casc/

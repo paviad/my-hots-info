@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="us-ascii"?>
-<Catalog>
-    <CHero id="Chromie">
-        <Flags index="GoodForModeA" value="1"/>
-    </CHero>
-    <CHero id="Varian">
-        <ExpandedRole value="Tank"/>
-    </CHero>
-</Catalog>
