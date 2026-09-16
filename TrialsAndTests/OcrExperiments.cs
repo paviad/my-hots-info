@@ -13,7 +13,7 @@ public class OcrExperiments {
     [InlineData("Screenshot2020-09-12 18_34_57.jpg")]
     [InlineData("Screenshot2024-03-31 19_03_10.jpg")]
     public async Task TryOcrDraft(string fn) {
-        var basePath = @"C:\Users\USER\Documents\Heroes of the Storm\Screenshots";
+        var basePath = AppPaths.ScreenshotsPath;
         var ocr = new Ocr();
         var rc = await ocr.OcrScreenshot(Path.Combine(basePath, fn), ScreenShotKind.Draft);
     }
@@ -27,7 +27,7 @@ public class OcrExperiments {
     [InlineData("Screenshot2022-07-08 13_41_21.jpg")]
     [InlineData("Screenshot2021-01-14 20_54_02.jpg")]
     public async Task TryOcrLoading(string fn) {
-        var basePath = @"C:\Users\USER\Documents\Heroes of the Storm\Screenshots";
+        var basePath = AppPaths.ScreenshotsPath;
         var ocr = new Ocr();
         var rc = await ocr.OcrScreenshot(Path.Combine(basePath, fn), ScreenShotKind.Loading);
     }

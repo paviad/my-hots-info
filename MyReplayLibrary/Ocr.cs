@@ -11,7 +11,7 @@ public partial class Ocr : IDisposable {
         TaskCompletionSource<List<string>> tks = new();
 
         var t = new Thread(() => {
-            _engine ??= new(@"w:\myhotsinfo\ocr\tessdata", "eng+ces+por+rus+hun+chi_sim+chi_tra");
+            _engine ??= new(AppPaths.TessDataPath, "eng+ces+por+rus+hun+chi_sim+chi_tra");
 
             var ssName = Path.GetFileName(ssName1);
             var path = Path.GetDirectoryName(ssName1);

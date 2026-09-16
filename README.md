@@ -1,6 +1,23 @@
 # Install
 
-Clone the repo into `w:\MyHotsInfo` the path is hard coded in some places. You may clone to another location, but update the source code accordingly.
+Clone the repo anywhere. Nothing in the source depends on the checkout location; the few
+machine-specific locations are resolved at runtime and can be overridden with environment variables.
+
+## Configuration
+
+| Variable | Used by | Default |
+|---|---|---|
+| `MYHOTSINFO_DB` | CLI, MAUI app (until a db file is picked) | `%LocalAppData%\MyHotsInfo\my.db` |
+| `MYHOTSINFO_TESSDATA` | OCR | `tessdata` next to the executable, else `Ocr\tessdata` in the nearest ancestor directory (the repo layout) |
+| `MYHOTSINFO_HOTS_DIR` | `scrape` command | `C:\Program Files (x86)\Heroes of the Storm` |
+
+`setvars.cmd` / `setvars.ps1` add `bin` and `bin\pub` to `PATH` and point `MYHOTSINFO_DB` at `my.db` in the repo root.
+The CLI also honours `ConnectionStrings:DefaultConnection` in `appsettings.json` if you prefer a full connection string.
+
+Tesseract language files (`*.traineddata`) are not in the repo; download the ones listed in `MyReplayLibrary\Ocr.cs`
+into `Ocr\tessdata`.
+
+The `casc` folder is a sample CASC extraction kept locally for reference; it is ignored by git.
 
 # MAUI Application
 

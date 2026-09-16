@@ -14,7 +14,10 @@ namespace CascScraperCore;
 public partial class Scraper {
     private const string PtrGameInstallationPath = @"C:\Program Files (x86)\Heroes of the Storm Public Test";
     private const string NormalGameInstallationPath = @"C:\Program Files (x86)\Heroes of the Storm";
-    private const string GameInstallationPath = NormalGameInstallationPath;
+    private const string HotsDirEnvVar = "MYHOTSINFO_HOTS_DIR";
+
+    private static readonly string GameInstallationPath =
+        Environment.GetEnvironmentVariable(HotsDirEnvVar) is { Length: > 0 } dir ? dir : NormalGameInstallationPath;
 
     private static readonly Dictionary<string, string> CooldownOnExpireAbilities = new() {
         { "AlarakDeadlyChargeActivate", "AlarakDeadlyChargeExecuteSetCooldown" },

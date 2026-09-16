@@ -68,7 +68,8 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                 .AddJsonFile("appsettings.json", optional: true))
             .ConfigureServices((context, services) => {
                 services.AddDbContext<ReplayDbContext>(opts => {
-                    var connectionString = context.Configuration.GetConnectionString("DefaultConnection");
+                    var connectionString = context.Configuration.GetConnectionString("DefaultConnection")
+                        ?? AppPaths.GetDefaultConnectionString();
                     opts.UseSqlite(connectionString);
                 });
 

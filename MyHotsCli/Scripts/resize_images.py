@@ -1,5 +1,6 @@
 
 import os
+from pathlib import Path
 from PIL import Image
 
 def resize_images(input_folder, output_folder):
@@ -15,8 +16,9 @@ def resize_images(input_folder, output_folder):
             resized_img.save(os.path.join(output_folder, output_filename))
 
 # Example usage
-input_folder = "w:/myhotsinfo/bin/pub/Maps"
-output_folder = "w:/myhotsinfo/MyHotsInfo/Resources/Images/Maps" 
+REPO_ROOT = Path(__file__).resolve().parents[2]
+input_folder = REPO_ROOT / "bin" / "pub" / "Maps"
+output_folder = REPO_ROOT / "MyHotsInfo" / "Resources" / "Images" / "Maps"
 
 # Create the output folder if it doesn't exist
 os.makedirs(output_folder, exist_ok=True)
