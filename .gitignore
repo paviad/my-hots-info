@@ -15,3 +15,4 @@ packages/
 tmp/
 sixlabors.lic
 casc/
+.antlr/
