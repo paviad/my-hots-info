@@ -212,7 +212,7 @@ public partial class Scraper {
             idx = gref.IndexOf("[d ref='", StringComparison.Ordinal);
         }
 
-        return gref;
+        return gref.TrimEnd().TrimEnd('.');
     }
 
     private static List<string> GetDirectories(CASCFolder cascFolder) {
@@ -853,17 +853,17 @@ public partial class Scraper {
                 var gref = dNode.Attributes["ref"]?.Value;
                 var gconst = dNode.Attributes["const"]?.Value;
                 var gscore = dNode.Attributes["score"];
+                var prec = int.Parse(dNode.Attributes["precision"]?.Value ?? "0");
+                var fmt = "0." + new string(Enumerable.Range(0, prec).Select(_ => '#').ToArray());
                 if (gref != null) {
                     gref = FixGref(gref);
-                    var prec = int.Parse(dNode.Attributes["precision"]?.Value ?? "0");
                     var parsedRef = ParseRef(gref, catalog);
-                    var fmt = "0." + new string(Enumerable.Range(0, prec).Select(_ => '#').ToArray());
                     var textNode = doc.CreateTextNode(parsedRef.ToString(fmt));
                     (dNode.ParentNode ?? doc.DocumentNode).ReplaceChild(textNode, dNode);
                 }
                 else if (gconst != null) {
-                    var val = catalog.SelectSingleNode($"//const[@id='{gconst}']")?.Attributes?["value"]?.Value;
-                    var textNode = doc.CreateTextNode(val);
+                    var val = new ConstResolver(catalog, _referenceCatalog).Resolve(gconst);
+                    var textNode = doc.CreateTextNode(val.ToString(fmt));
                     (dNode.ParentNode ?? doc.DocumentNode).ReplaceChild(textNode, dNode);
                 }
                 else if (gscore != null) {
@@ -973,6 +973,7 @@ public partial class Scraper {
             var lexer = new arithmeticLexer(ais);
             var tokenStream = new CommonTokenStream(lexer);
             var parser = new arithmeticParser(tokenStream);
+            SyntaxErrorListener.Logging.Attach(lexer, parser);
 
             var context = parser.file();
             var visitor = new ExprVisitor(catalog, _referenceCatalog);

@@ -1,15 +1,16 @@
 ﻿using System.Xml;
-using Antlr4.Runtime;
 
 namespace CascScraperCore.Schema;
 
 internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
     private readonly XmlDocument _heroCatalog;
     private readonly Dictionary<string, XmlDocument> _referenceCatalog;
+    private readonly ConstResolver _constResolver;
 
     public ExprVisitor(XmlDocument heroCatalog, Dictionary<string, XmlDocument> referenceCatalog) {
         _heroCatalog = heroCatalog;
         _referenceCatalog = referenceCatalog;
+        _constResolver = new ConstResolver(heroCatalog, referenceCatalog);
     }
 
     public override ResultType VisitAtomex(arithmeticParser.AtomexContext context) {
@@ -178,36 +179,7 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
         };
     }
 
-    private decimal GetConst(string value) {
-        var docs = new[] { _heroCatalog }.Concat(_referenceCatalog.Values);
-        foreach (var doc in docs) {
-            var constNodes = doc.SelectNodes($"//const[@id='{value}']");
-            if (constNodes.Count == 0) {
-                Console.WriteLine("wtf");
-                return 0;
-            }
-
-            if (constNodes.Count > 1) {
-                Console.WriteLine("wtf");
-                return 0;
-            }
-
-            var constNode = constNodes[0];
-            var evalAsExpression = constNode.Attributes["evaluateAsExpression"]?.Value == "1";
-            var val = constNode.Attributes["value"].Value;
-            return evalAsExpression
-                ? ParseConst(val)
-                : decimal.Parse(val);
-        }
-
-        return 0;
-    }
-
-    private decimal GetDecimal(string value) {
-        return decimal.TryParse(value, out var rc)
-            ? rc
-            : GetConst(value);
-    }
+    private decimal GetDecimal(string value) => _constResolver.Resolve(value);
 
     private XmlNode GetMember(arithmeticParser.Indexed_variableContext theVar, XmlNode cobj) {
         var rc = GetMember2(theVar, cobj);
@@ -320,27 +292,6 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
         }
 
         return GetDecimal(cobj.Attributes["value"].Value);
-    }
-
-    private decimal ParseConst(string gref) {
-        try {
-            var reader = new StringReader(gref);
-            var antlrInputStream = new AntlrInputStream(reader);
-
-            var lexer = new constLexer(antlrInputStream);
-            var tokenStream = new CommonTokenStream(lexer);
-            var parser = new constParser(tokenStream);
-
-            var context = parser.file();
-            var visitor = new ConstVisitor(_heroCatalog, _referenceCatalog);
-
-            var rc = visitor.Visit(context);
-            return rc;
-        }
-        catch (Exception e) {
-            Console.WriteLine(e);
-            return 0;
-        }
     }
 
     private static string ToCtype(string cobjName) {

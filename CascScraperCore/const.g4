@@ -36,6 +36,8 @@ file : expression EOF;
 
 expression
    :  NEGATE LPAREN expression RPAREN                            #negex
+   |  func LPAREN expression RPAREN                              #funcex
+   |  func2 LPAREN expression expression RPAREN                  #func2ex
    |  op LPAREN expression expression RPAREN                     #opex
    | scientific                                                  #numex
    | DOLLAR variable                                             #varex
@@ -43,6 +45,14 @@ expression
 
 op
    : (MINUS|PLUS|TIMES|DIV)
+   ;
+
+func
+   : (FLOOR|CEIL|ROUND)
+   ;
+
+func2
+   : (MIN|MAX)
    ;
 
 scientific
@@ -56,6 +66,26 @@ variable
 
 NEGATE
    : 'negate'
+   ;
+
+FLOOR
+   : 'floor'
+   ;
+
+CEIL
+   : 'ceil'
+   ;
+
+ROUND
+   : 'round'
+   ;
+
+MIN
+   : 'min'
+   ;
+
+MAX
+   : 'max'
    ;
 
 VARIABLE

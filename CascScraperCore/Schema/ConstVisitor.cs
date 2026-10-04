@@ -1,19 +1,8 @@
-﻿using System.Xml;
-using Antlr4.Runtime;
+using System.Globalization;
 
 namespace CascScraperCore.Schema;
 
-internal class ConstVisitor : constBaseVisitor<decimal> {
-    private readonly XmlDocument _heroCatalog;
-    private readonly Dictionary<string, XmlDocument> _referenceCatalog;
-
-    public ConstVisitor(
-        XmlDocument heroCatalog,
-        Dictionary<string, XmlDocument> referenceCatalog) {
-        _heroCatalog = heroCatalog;
-        _referenceCatalog = referenceCatalog;
-    }
-
+internal class ConstVisitor(ConstResolver resolver) : constBaseVisitor<decimal> {
     public override decimal VisitFile(constParser.FileContext context) {
         var rc = base.Visit(context.expression());
         return rc;
@@ -24,8 +13,35 @@ internal class ConstVisitor : constBaseVisitor<decimal> {
         return -ex1;
     }
 
+    public override decimal VisitFuncex(constParser.FuncexContext context) {
+        var ex1 = base.Visit(context.expression());
+        switch (context.func().GetText()) {
+            case "floor":
+                return Math.Floor(ex1);
+            case "ceil":
+                return Math.Ceiling(ex1);
+            case "round":
+                return Math.Round(ex1, MidpointRounding.AwayFromZero);
+            default:
+                throw new Exception("wtf");
+        }
+    }
+
+    public override decimal VisitFunc2ex(constParser.Func2exContext context) {
+        var ex1 = base.Visit(context.expression()[0]);
+        var ex2 = base.Visit(context.expression()[1]);
+        switch (context.func2().GetText()) {
+            case "min":
+                return Math.Min(ex1, ex2);
+            case "max":
+                return Math.Max(ex1, ex2);
+            default:
+                throw new Exception("wtf");
+        }
+    }
+
     public override decimal VisitNumex(constParser.NumexContext context) {
-        return decimal.Parse(context.GetText());
+        return decimal.Parse(context.GetText(), NumberStyles.Float, CultureInfo.InvariantCulture);
     }
 
     public override decimal VisitOpex(constParser.OpexContext context) {
@@ -47,53 +63,6 @@ internal class ConstVisitor : constBaseVisitor<decimal> {
     }
 
     public override decimal VisitVarex(constParser.VarexContext context) {
-        var constName = context.GetText();
-        var rc = GetConst(constName);
-        return rc;
-    }
-
-    private decimal GetConst(string value) {
-        var docs = new[] { _heroCatalog }.Concat(_referenceCatalog.Values);
-        foreach (var doc in docs) {
-            var constNodes = doc.SelectNodes($"//const[@id='{value}']");
-            if ((constNodes?.Count ?? 0) == 0) {
-                Console.WriteLine("wtf");
-                return 0;
-            }
-
-            if (constNodes?.Count > 1) {
-                Console.WriteLine("wtf");
-                return 0;
-            }
-
-            var constNode = constNodes![0];
-            var evalAsExpression = constNode!.Attributes!["evaluateAsExpression"]?.Value == "1";
-            var val = constNode.Attributes["value"]!;
-            return evalAsExpression
-                ? ParseConst(val.Value)
-                : decimal.Parse(val.Value);
-        }
-
-        return 0;
-    }
-
-    private decimal ParseConst(string gref) {
-        try {
-            var sr = new StringReader(gref);
-            var ais = new AntlrInputStream(sr);
-
-            var lexer = new constLexer(ais);
-            var tokenStream = new CommonTokenStream(lexer);
-            var parser = new constParser(tokenStream);
-
-            var context = parser.file();
-            var visitor = new ConstVisitor(_heroCatalog, _referenceCatalog);
-
-            return visitor.Visit(context);
-        }
-        catch (Exception e) {
-            Console.WriteLine(e);
-            return 0;
-        }
+        return resolver.Resolve(context.GetText());
     }
 }
