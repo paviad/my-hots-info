@@ -1,4 +1,5 @@
-﻿using Heroes.ReplayParser;
+﻿using CascScraperCore;
+using Heroes.ReplayParser;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -50,6 +51,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
         SetupQheroCommand(rootCommand, svcp);
         SetupQallCommand(rootCommand, svcp);
         SetupScrapeCommand(rootCommand, svcp);
+        SetupCascCommand(rootCommand);
         SetupQreplayCommand(rootCommand, svcp);
         SetupQTalentCommand(rootCommand, svcp);
         SetupQChatCommand(rootCommand, svcp);
@@ -555,6 +557,58 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                 scraper.Scrape(BasePath);
             }
         });
+    }
+
+    private static void SetupCascCommand(RootCommand rootCommand) {
+        var cascCommand = new Command("casc", "Extract and inspect files from the hots CASC storage");
+        var outOption = new Option<string>("--out", "-o") {
+            DefaultValueFactory = _ => "casc",
+            Description = "Directory to extract into (CASC paths are mirrored under it)",
+            Recursive = true,
+        };
+        cascCommand.Options.Add(outOption);
+        rootCommand.Subcommands.Add(cascCommand);
+
+        var heroCommand = new Command("hero", "Extract a hero mod and report what the scraper would fail to resolve");
+        var heroArgument = new Argument<string>("hero") { Description = "Hero mod name, e.g. xalatath" };
+        heroCommand.Arguments.Add(heroArgument);
+        heroCommand.SetAction(parseResult => {
+            var diag = new CascDiagnostics(parseResult.GetValue(outOption)!);
+            diag.DiagnoseHero(parseResult.GetValue(heroArgument)!, Console.Out);
+        });
+        cascCommand.Subcommands.Add(heroCommand);
+
+        var extractCommand = new Command("extract", "Extract files matching a CASC path glob (*, **, ?)");
+        var globArgument = new Argument<string>("glob") { Description = @"e.g. mods\heromods\xalatath.stormmod\**" };
+        var listOption = new Option<bool>("--list", "-l") { Description = "Only list matching paths" };
+        extractCommand.Arguments.Add(globArgument);
+        extractCommand.Options.Add(listOption);
+        extractCommand.SetAction(parseResult => {
+            var diag = new CascDiagnostics(parseResult.GetValue(outOption)!);
+            var glob = parseResult.GetValue(globArgument)!;
+            var paths = parseResult.GetValue(listOption) ? diag.List(glob) : diag.Extract(glob);
+            foreach (var path in paths) {
+                Console.WriteLine(path);
+            }
+        });
+        cascCommand.Subcommands.Add(extractCommand);
+
+        var findCommand = new Command("find", "Find XML elements with a given id attribute");
+        var idArgument = new Argument<string>("id");
+        var inOption = new Option<string>("--in") {
+            DefaultValueFactory = _ => @"mods\**\*.xml",
+            Description = "CASC path glob to search",
+        };
+        findCommand.Arguments.Add(idArgument);
+        findCommand.Options.Add(inOption);
+        findCommand.SetAction(parseResult => {
+            var diag = new CascDiagnostics(parseResult.GetValue(outOption)!);
+            var hits = diag.FindId(parseResult.GetValue(idArgument)!, parseResult.GetValue(inOption)!);
+            foreach (var (path, element) in hits) {
+                Console.WriteLine($"{element}\t{path}");
+            }
+        });
+        cascCommand.Subcommands.Add(findCommand);
     }
 
     private static void ShowNameQueryResults(List<PlayerQuery.PlayerRecord> results) {

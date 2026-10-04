@@ -16,7 +16,7 @@ public partial class Scraper {
     private const string NormalGameInstallationPath = @"C:\Program Files (x86)\Heroes of the Storm";
     private const string HotsDirEnvVar = "MYHOTSINFO_HOTS_DIR";
 
-    private static readonly string GameInstallationPath =
+    public static readonly string GameInstallationPath =
         Environment.GetEnvironmentVariable(HotsDirEnvVar) is { Length: > 0 } dir ? dir : NormalGameInstallationPath;
 
     private static readonly Dictionary<string, string> CooldownOnExpireAbilities = new() {
