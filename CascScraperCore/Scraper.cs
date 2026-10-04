@@ -777,14 +777,54 @@ public partial class Scraper {
             }
 
             using var fn = GetFileStream(cfHero);
-            DoHero(fn ?? throw new InvalidOperationException($"Can't open {cfHero.FullName}"), locStrings);
+            var heroDoc = new XmlDocument();
+            heroDoc.Load(fn ?? throw new InvalidOperationException($"Can't open {cfHero.FullName}"));
+            MergeHeroCatalogs(heroDoc, cfHeroGameData, catalog4.Catalog.Select(x => x.Path[9..]).ToList());
+
+            using var merged = new MemoryStream();
+            heroDoc.Save(merged);
+            merged.Position = 0;
+            DoHero(merged, locStrings);
+        }
+    }
+
+    /// <summary>
+    /// Merges the rest of a hero's data into its main catalog (<paramref name="includes"/>[0]): the other catalogs
+    /// listed in GameData.xml that sit directly in GameData/ (skin and sound data in subfolders are skipped), then
+    /// type-named files such as GameData/ButtonData.xml, which the engine loads by convention without listing them
+    /// (e.g. Xal'atath keeps all its buttons there). When an id exists in more than one file, the first one wins.
+    /// </summary>
+    private void MergeHeroCatalogs(XmlDocument heroDoc, CASCFolder cfHeroGameData, List<string> includes) {
+        var included = includes.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var extraFiles = includes.Skip(1)
+            .Where(x => !x.Contains('/'))
+            .Select(x => cfHeroGameData.GetEntry(x) as CASCFile)
+            .OfType<CASCFile>()
+            .Concat(cfHeroGameData.Entries.Values.OfType<CASCFile>()
+                .Where(x => x.Name.EndsWith("Data.xml", StringComparison.OrdinalIgnoreCase) &&
+                            !x.Name.Equals("GameData.xml", StringComparison.OrdinalIgnoreCase) &&
+                            !included.Contains(x.Name)));
+
+        var root = heroDoc.DocumentElement!;
+        foreach (var cf in extraFiles) {
+            using var f = GetFileStream(cf);
+            var doc = new XmlDocument();
+            doc.Load(f ?? throw new InvalidOperationException($"Can't open {cf.FullName}"));
+            foreach (var element in doc.DocumentElement?.ChildNodes.OfType<XmlElement>() ?? []) {
+                var id = element.GetAttribute("id");
+                if (id.Length == 0 || root.SelectSingleNode($"{element.Name}[@id='{id}']") != null) {
+                    continue;
+                }
+
+                root.AppendChild(heroDoc.ImportNode(element, true));
+            }
         }
     }
 
     private string InterpolateDescription(string talentDescription, XmlDocument catalog) {
         var doc = new HtmlDocument();
         doc.LoadHtml(talentDescription);
-        var removeTags = new[] { "c", "img", "n" };
+        var removeTags = new[] { "c", "img", "n", "s" };
         foreach (var tag in removeTags) {
             var nodesForRemoval = doc.DocumentNode.SelectNodes($"//{tag}");
             if (nodesForRemoval != null) {
