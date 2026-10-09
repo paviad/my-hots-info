@@ -15,7 +15,10 @@ public class ImagePipeline(string latestSs, int cornerX, int cornerY, bool redTe
     public Mat Image { get; set; } = null!;
 
     public void FromFile(int inWidth, int inHeight) {
-        var preImg1 = Cv2.ImRead(latestSs)[new Rect(cornerX, cornerY, inWidth, inHeight)];
+        // Game screenshots are never rotated; a stray EXIF orientation tag would otherwise turn
+        // the image to portrait and push the crop out of bounds.
+        var preImg1 = Cv2.ImRead(latestSs, ImreadModes.Color | ImreadModes.IgnoreOrientation)
+            [new Rect(cornerX, cornerY, inWidth, inHeight)];
         Image = preImg1;
         _init = true;
     }
