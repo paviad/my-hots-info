@@ -3,9 +3,23 @@ using Tesseract;
 
 namespace MyReplayLibrary;
 
-public partial class Ocr : IDisposable {
+public partial class Ocr(OcrOptions? options = null) : IDisposable {
     private TesseractEngine? _engine;
     private readonly Lock _ocrLock = new();
+    private readonly OcrOptions _options = options ?? new OcrOptions();
+
+    /// <summary>
+    /// The names to use from a screenshot's draft and loading readings: the reading with more
+    /// names, without slots that came out empty or as a single noise character. Across 289 real
+    /// screenshots, draft and loading screens gave 7-10 such names and every other screen 0-2,
+    /// so fewer than 5 means it was neither.
+    /// </summary>
+    public static List<string> PickNames(List<string> draft, List<string> loading) {
+        var rc = ((List<string>[])[draft, loading])
+            .Select(z => z.Where(w => w.Length >= 2).ToList())
+            .MaxBy(z => z.Count)!;
+        return rc.Count < 5 ? [] : rc;
+    }
 
     public async Task<List<string>> OcrScreenshot(string ssName1, ScreenShotKind ssKind) {
         TaskCompletionSource<List<string>> tks = new();
@@ -26,7 +40,7 @@ public partial class Ocr : IDisposable {
     }
 
     private List<string> OcrOnThread(string ssName1, ScreenShotKind ssKind) {
-        _engine ??= new(AppPaths.TessDataPath, "eng+ces+por+rus+hun+chi_sim+chi_tra");
+        _engine ??= new(AppPaths.TessDataPath, _options.Languages);
 
         var ssName = Path.GetFileName(ssName1);
         var path = Path.GetDirectoryName(ssName1);
@@ -67,7 +81,7 @@ public partial class Ocr : IDisposable {
             using var image = Pix.LoadFromMemory(enc);
             string[] text1;
             lock (_ocrLock) {
-                using var page = _engine.Process(image);
+                using var page = _engine.Process(image, _options.PageSegMode);
 
                 // Drop the empty pieces a stray leading/trailing symbol leaves behind, so they
                 // don't get picked as the name below.
@@ -90,28 +104,52 @@ public partial class Ocr : IDisposable {
         return names;
     }
 
-    private static byte[] GetBytes(string latestSs, int cornerX, int cornerY, bool redTeam = false) {
+    private byte[] GetBytes(string latestSs, int cornerX, int cornerY, bool redTeam = false) {
         var img = new ImagePipeline(latestSs, cornerX, cornerY, redTeam);
         img.FromFile(121, 95);
         var angle = redTeam ? 31.1 : -31.1;
-        img.Rotate(1, angle);
         var left = redTeam ? 0 : 13;
-        img.Trim(left, 4, 0, 0, 110, 18);
-        img.Scale(4);
-        img.Greyscale();
-        img.Threshold(redTeam ? 100 : 110);
-        var rc = img.GetSaveImage("f");
-        return rc;
+        var s = _options.Scale;
+        if (_options.ScaleBeforeRotate) {
+            img.Scale(s);
+            img.Rotate(1, angle);
+            img.Trim((int)(left * s), (int)(4 * s), 0, 0, (int)(110 * s), (int)(18 * s));
+        }
+        else {
+            img.Rotate(1, angle);
+            img.Trim(left, 4, 0, 0, 110, 18);
+            img.Scale(s);
+        }
+
+        return Finish(img, redTeam ? 100 : 110);
     }
 
-    private static byte[] GetBytes2(string latestSs, int cornerX, int cornerY, bool redTeam = false) {
+    private byte[] GetBytes2(string latestSs, int cornerX, int cornerY, bool redTeam = false) {
         var img = new ImagePipeline(latestSs, cornerX, cornerY, redTeam);
         img.FromFile(203, 28);
-        img.Scale(4);
+        img.Scale(_options.Scale);
+        return Finish(img, redTeam ? 90 : 110);
+    }
+
+    private byte[] Finish(ImagePipeline img, int fixedThreshold) {
         img.Greyscale();
-        img.Threshold(redTeam ? 90 : 110);
-        var rc = img.GetSaveImage("f");
-        return rc;
+        switch (_options.Threshold) {
+            case OcrThreshold.Fixed:
+                img.Threshold(fixedThreshold);
+                break;
+            case OcrThreshold.Otsu:
+                img.ThresholdOtsu();
+                break;
+            case OcrThreshold.None:
+                img.Invert();
+                break;
+        }
+
+        if (_options.Border > 0) {
+            img.Pad(_options.Border);
+        }
+
+        return img.GetSaveImage("f");
     }
 
     [GeneratedRegex(@"[^\w\u4E00-\u9FA5]")]

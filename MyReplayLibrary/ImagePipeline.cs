@@ -43,6 +43,30 @@ public class ImagePipeline(string latestSs, int cornerX, int cornerY, bool redTe
         Image = cv2Img;
     }
 
+    /// <summary>Black text on white, with the cutoff chosen per image (Otsu).</summary>
+    public void ThresholdOtsu() {
+        var cv2Img = Image.EmptyClone();
+        Cv2.Threshold(Image, cv2Img, 0, 255, ThresholdTypes.BinaryInv | ThresholdTypes.Otsu);
+        Image.Dispose();
+        Image = cv2Img;
+    }
+
+    /// <summary>Light text on dark becomes dark on light, keeping the grey levels.</summary>
+    public void Invert() {
+        var cv2Img = Image.EmptyClone();
+        Cv2.BitwiseNot(Image, cv2Img);
+        Image.Dispose();
+        Image = cv2Img;
+    }
+
+    /// <summary>Adds a white margin; Tesseract reads text touching the image edge poorly.</summary>
+    public void Pad(int pixels) {
+        var cv2Img = new Mat();
+        Cv2.CopyMakeBorder(Image, cv2Img, pixels, pixels, pixels, pixels, BorderTypes.Constant, Scalar.White);
+        Image.Dispose();
+        Image = cv2Img;
+    }
+
     public void Rotate(int factor, double angle) {
         var sz = Image.Size();
         var newSize = new Size(sz.Width * factor * 2, sz.Height * factor * 2);

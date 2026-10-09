@@ -56,6 +56,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
         SetupQTalentCommand(rootCommand, svcp);
         SetupQChatCommand(rootCommand, svcp);
         SetupExportCommand(rootCommand, svcp);
+        SetupOcrEvalCommand(rootCommand, svcp);
 
         var parseResult = rootCommand.Parse(args);
 
@@ -639,6 +640,57 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
             }
         });
         cascCommand.Subcommands.Add(findCommand);
+    }
+
+    private static void SetupOcrEvalCommand(RootCommand rootCommand, IServiceProvider svcp) {
+        var ocrEvalCommand = new Command("ocr-eval", "Measure screenshot OCR accuracy against replay rosters");
+        var screenshotsOption = new Option<string>("--screenshots") {
+            DefaultValueFactory = _ => AppPaths.ScreenshotsPath,
+            Description = "Screenshot folder",
+            Recursive = true,
+        };
+        var truthOption = new Option<string>("--truth") {
+            DefaultValueFactory = _ => Path.Combine(Path.GetDirectoryName(AppPaths.DefaultDbPath)!, "ocr-truth.json"),
+            Description = "Ground truth file written by 'truth' and read by 'run'",
+            Recursive = true,
+        };
+        var parallelOption = new Option<int>("--parallel", "-p") {
+            DefaultValueFactory = _ => Math.Max(1, Environment.ProcessorCount / 2),
+            Description = "Tesseract engines to run at once",
+            Recursive = true,
+        };
+        ocrEvalCommand.Options.Add(screenshotsOption);
+        ocrEvalCommand.Options.Add(truthOption);
+        ocrEvalCommand.Options.Add(parallelOption);
+        rootCommand.Subcommands.Add(ocrEvalCommand);
+
+        OcrEval Eval(ParseResult parseResult) => new(parseResult.GetValue(screenshotsOption)!,
+            parseResult.GetValue(truthOption)!, parseResult.GetValue(parallelOption));
+
+        var truthCommand = new Command("truth", "Match each screenshot to its replay and save the rosters");
+        truthCommand.SetAction(async parseResult => {
+            using var scope = svcp.CreateScope();
+            var dc = scope.ServiceProvider.GetRequiredService<ReplayDbContext>();
+            await Eval(parseResult).BuildTruth(dc);
+        });
+        ocrEvalCommand.Subcommands.Add(truthCommand);
+
+        var runCommand = new Command("run", "Score OCR variants against the saved truth");
+        var variantArgument = new Argument<string[]>("variants") {
+            DefaultValueFactory = _ => ["current"],
+            Description = $"Tweaks joined with '+', e.g. psm7+border10. Tweaks: {string.Join(", ", OcrEval.TweakNames)}",
+        };
+        var halfOption = new Option<string>("--half") {
+            DefaultValueFactory = _ => "tune",
+            Description = "tune (even screenshots), check (odd ones) or all",
+        };
+        halfOption.AcceptOnlyFromAmong("tune", "check", "all");
+        runCommand.Arguments.Add(variantArgument);
+        runCommand.Options.Add(halfOption);
+        runCommand.SetAction(async parseResult => {
+            await Eval(parseResult).Run(parseResult.GetValue(variantArgument)!, parseResult.GetValue(halfOption)!);
+        });
+        ocrEvalCommand.Subcommands.Add(runCommand);
     }
 
     private static void ShowNameQueryResults(List<PlayerQuery.PlayerRecord> results) {
