@@ -37,6 +37,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SereniaBLPLibCore", "Sereni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalentsCli", "..\hotslogs\HOTSlogs\XNetCore\TalentsCli\TalentsCli.csproj", "{2B85869B-605D-7BE5-0575-F53CA0336006}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyReplayQuery", "MyReplayQuery\MyReplayQuery.csproj", "{D665D86B-844A-47A0-9569-43FC6868D4B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyReplayQuery.Tests", "MyReplayQuery.Tests\MyReplayQuery.Tests.csproj", "{636B5DE6-13B2-45C5-A49D-F26139621D9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -172,6 +176,22 @@ Global
 		{2B85869B-605D-7BE5-0575-F53CA0336006}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B85869B-605D-7BE5-0575-F53CA0336006}.Release|x64.ActiveCfg = Release|Any CPU
 		{2B85869B-605D-7BE5-0575-F53CA0336006}.Release|x64.Build.0 = Release|Any CPU
+		{D665D86B-844A-47A0-9569-43FC6868D4B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D665D86B-844A-47A0-9569-43FC6868D4B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D665D86B-844A-47A0-9569-43FC6868D4B9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D665D86B-844A-47A0-9569-43FC6868D4B9}.Debug|x64.Build.0 = Debug|Any CPU
+		{D665D86B-844A-47A0-9569-43FC6868D4B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D665D86B-844A-47A0-9569-43FC6868D4B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D665D86B-844A-47A0-9569-43FC6868D4B9}.Release|x64.ActiveCfg = Release|Any CPU
+		{D665D86B-844A-47A0-9569-43FC6868D4B9}.Release|x64.Build.0 = Release|Any CPU
+		{636B5DE6-13B2-45C5-A49D-F26139621D9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{636B5DE6-13B2-45C5-A49D-F26139621D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{636B5DE6-13B2-45C5-A49D-F26139621D9F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{636B5DE6-13B2-45C5-A49D-F26139621D9F}.Debug|x64.Build.0 = Debug|Any CPU
+		{636B5DE6-13B2-45C5-A49D-F26139621D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{636B5DE6-13B2-45C5-A49D-F26139621D9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{636B5DE6-13B2-45C5-A49D-F26139621D9F}.Release|x64.ActiveCfg = Release|Any CPU
+		{636B5DE6-13B2-45C5-A49D-F26139621D9F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
