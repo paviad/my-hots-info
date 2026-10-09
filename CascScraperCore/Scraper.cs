@@ -177,12 +177,8 @@ public partial class Scraper {
         RegexOptions.IgnoreCase)]
     private static partial Regex UncapitalizeArticlesPrepositions();
 
-    private void DoHero(Stream f, Dictionary<string, string> locStrings) {
-        var ser = new XmlSerializer(typeof(Catalog));
-        var catalog = (Catalog)ser.Deserialize(f)!;
-        f.Seek(0, SeekOrigin.Begin);
-        var xdoc = new XmlDocument();
-        xdoc.Load(f);
+    private void DoHero(XmlDocument xdoc, Dictionary<string, string> locStrings) {
+        var catalog = (Catalog)new XmlSerializer(typeof(Catalog)).Deserialize(new XmlNodeReader(xdoc))!;
         PopulateActorUnits(xdoc);
         var talentDic = catalog.CTalent.ToDictionary(x => x.id);
         var buttonDic = catalog.CButton.ToDictionary(x => x.id);
@@ -461,8 +457,7 @@ public partial class Scraper {
                 continue;
             }
 
-            using var fn = _fs.OpenRead(heroFile);
-            DoHero(fn, locStrings);
+            DoHero(_fs.LoadXml(heroFile), locStrings);
         }
     }
 
@@ -618,16 +613,7 @@ public partial class Scraper {
 
     private void GetModHeroes() {
         foreach (var mod in _fs.EnumerateDirectories(Mods.HeroModsDir).Select(x => new StormMod(x))) {
-            if (!_fs.FileExists(mod.GameDataConfig)) {
-                // Not a hero
-                continue;
-            }
-
-            // Catalog paths in GameData.xml are relative to base.stormdata; the first is the hero's main catalog
-            var includes = _fs.Deserialize<Includes>(mod.GameDataConfig).Catalog
-                .Select(x => CascFileSystem.Combine(mod.BaseData, x.Path))
-                .ToList();
-            if (!_fs.FileExists(includes[0])) {
+            if (HeroCatalog.TryLoad(_fs, mod) is not { } hero) {
                 // Not a hero
                 continue;
             }
@@ -637,42 +623,7 @@ public partial class Scraper {
                 .ToLookup(r => r[0])
                 .ToDictionary(x => x.Key, x => string.Join("=", x.First().Skip(1)));
 
-            var heroDoc = _fs.LoadXml(includes[0]);
-            MergeHeroCatalogs(heroDoc, mod, includes);
-
-            using var merged = new MemoryStream();
-            heroDoc.Save(merged);
-            merged.Position = 0;
-            DoHero(merged, locStrings);
-        }
-    }
-
-    /// <summary>
-    /// Merges the rest of a hero's data into its main catalog (<paramref name="includes"/>[0]): the other catalogs
-    /// listed in GameData.xml that sit directly in GameData/ (skin and sound data in subfolders are skipped), then
-    /// type-named files such as GameData/ButtonData.xml, which the engine loads by convention without listing them
-    /// (e.g. Xal'atath keeps all its buttons there). When an id exists in more than one file, the first one wins.
-    /// </summary>
-    private void MergeHeroCatalogs(XmlDocument heroDoc, StormMod mod, List<string> includes) {
-        var included = includes.ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var extraFiles = includes.Skip(1)
-            .Where(x => CascFileSystem.GetDirectoryName(x).Equals(mod.GameData, StringComparison.OrdinalIgnoreCase))
-            .Where(_fs.FileExists)
-            .Concat(_fs.EnumerateFiles($"{mod.GameData}/*Data.xml")
-                .Where(x => !CascFileSystem.GetFileName(x).Equals("GameData.xml", StringComparison.OrdinalIgnoreCase) &&
-                            !included.Contains(x)));
-
-        var root = heroDoc.DocumentElement!;
-        foreach (var path in extraFiles) {
-            var doc = _fs.LoadXml(path);
-            foreach (var element in doc.DocumentElement?.ChildNodes.OfType<XmlElement>() ?? []) {
-                var id = element.GetAttribute("id");
-                if (id.Length == 0 || root.SelectSingleNode($"{element.Name}[@id='{id}']") != null) {
-                    continue;
-                }
-
-                root.AppendChild(heroDoc.ImportNode(element, true));
-            }
+            DoHero(hero.Doc, locStrings);
         }
     }
 

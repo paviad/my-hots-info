@@ -47,7 +47,8 @@ public class CascDiagnostics {
 
     /// <summary>
     /// Extracts the hero mod matching <paramref name="hero"/> and reports every talent, button and string
-    /// lookup that <see cref="Scraper"/>'s DoHero would make but that the first included catalog cannot satisfy.
+    /// lookup that <see cref="Scraper"/>'s DoHero would make but that the merged <see cref="HeroCatalog"/> cannot
+    /// satisfy, and where the missing entries are defined instead.
     /// </summary>
     public void DiagnoseHero(string hero, TextWriter output) {
         var key = Squash(hero);
@@ -74,43 +75,39 @@ public class CascDiagnostics {
 
         output.WriteLine($"Extracted base.stormdata and enus GameStrings.txt to {LocalPath(mod.Root)}");
 
-        if (!_fs.FileExists(mod.GameDataConfig)) {
+        if (HeroCatalog.ReadIncludes(_fs, mod) is not { } includes) {
             output.WriteLine("No base.stormdata/GameData.xml: the scraper skips this mod as not a hero.");
             return;
         }
 
-        var config = _fs.LoadXml(mod.GameDataConfig);
-        var catalogPaths = config.SelectNodes("//Catalog")!.Cast<XmlNode>()
-            .Select(x => x.Attributes?["path"]?.Value)
-            .OfType<string>()
+        var hero = HeroCatalog.TryLoad(_fs, mod);
+        var merged = hero?.Sources.ToHashSet(StringComparer.OrdinalIgnoreCase) ?? [];
+        string Relative(string path) => path[(mod.BaseData.Length + 1)..];
+
+        output.WriteLine($"GameData.xml includes {includes.Count} catalog(s):");
+        for (var i = 0; i < includes.Count; i++) {
+            var note = !_fs.FileExists(includes[i]) ? "MISSING in CASC"
+                : i == 0 ? "main catalog"
+                : merged.Contains(includes[i]) ? "merged"
+                : "not merged (in a subfolder)";
+            output.WriteLine($"  [{i}] {Relative(includes[i])}   <- {note}");
+        }
+
+        foreach (var source in hero?.Sources.Except(includes, StringComparer.OrdinalIgnoreCase) ?? []) {
+            output.WriteLine($"  [+] {Relative(source)}   <- merged by convention (not listed in GameData.xml)");
+        }
+
+        if (hero is null) {
+            output.WriteLine("The main catalog is missing: the scraper skips this mod as not a hero.");
+            return;
+        }
+
+        // Every XML file in GameData, to say where entries the scraper doesn't see are defined
+        var allDocs = _fs.EnumerateFiles($"{mod.GameData}/**/*.xml")
+            .Select(x => (Path: x, Doc: TryLoadXml(x)))
+            .Where(x => x.Doc != null)
+            .Select(x => (Name: Relative(x.Path) + (merged.Contains(x.Path) ? "" : " (not merged)"), Doc: x.Doc!))
             .ToList();
-        output.WriteLine($"GameData.xml includes {catalogPaths.Count} catalog(s):");
-        for (var i = 0; i < catalogPaths.Count; i++) {
-            output.WriteLine($"  [{i}] {catalogPaths[i]}{(i == 0 ? "   <- the only one the scraper reads" : "")}");
-        }
-
-        var catalogs = new List<(string Name, XmlDocument Doc)>();
-        foreach (var catalogPath in catalogPaths) {
-            var path = catalogPath.StartsWith("GameData/", StringComparison.OrdinalIgnoreCase)
-                ? CascFileSystem.Combine(mod.BaseData, catalogPath)
-                : CascFileSystem.Combine(mod.GameData, catalogPath);
-            if (!_fs.FileExists(path)) {
-                output.WriteLine($"  MISSING in CASC: {catalogPath}");
-                continue;
-            }
-
-            catalogs.Add((catalogPath, _fs.LoadXml(path)));
-        }
-
-        // Per-type files such as GameData/ButtonData.xml are loaded by convention, not via GameData.xml.
-        var included = catalogs.Select(c => c.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var allDocs = new List<(string Name, XmlDocument Doc)>(catalogs);
-        foreach (var path in _fs.EnumerateFiles($"{mod.GameData}/**/*.xml")) {
-            var name = path[(mod.BaseData.Length + 1)..];
-            if (!included.Contains(name) && TryLoadXml(path) is { } doc) {
-                allDocs.Add(($"{name} (not in GameData.xml includes)", doc));
-            }
-        }
 
         var genericTalents = LoadGenericIds("TalentData.xml", "CTalent");
         var genericButtons = LoadGenericIds("ButtonData.xml", "CButton");
@@ -131,15 +128,11 @@ public class CascDiagnostics {
             }
         }
 
-        if (catalogs.Count == 0) {
-            return;
-        }
-
-        var primary = catalogs[0].Doc;
-        var heroes = primary.SelectNodes("//CHero[TalentTreeArray]")!.Cast<XmlNode>().ToList();
+        var catalog = hero.Doc;
+        var heroes = catalog.SelectNodes("//CHero[TalentTreeArray]")!.Cast<XmlNode>().ToList();
         if (heroes.Count == 0) {
-            output.WriteLine("No CHero with TalentTreeArray in the first catalog.");
-            foreach (var (name, doc) in catalogs.Skip(1)) {
+            output.WriteLine("No CHero with TalentTreeArray in the merged hero catalog.");
+            foreach (var (name, doc) in allDocs) {
                 if (doc.SelectSingleNode("//CHero[TalentTreeArray]") != null) {
                     output.WriteLine($"  ...but {name} has one.");
                 }
@@ -161,7 +154,7 @@ public class CascDiagnostics {
                     continue;
                 }
 
-                var talentNode = primary.SelectSingleNode($"//CTalent[@id='{talentId}']");
+                var talentNode = catalog.SelectSingleNode($"//CTalent[@id='{talentId}']");
                 string? face;
                 if (talentNode != null) {
                     face = talentNode.SelectSingleNode("Face")?.Attributes?["value"]?.Value;
@@ -175,7 +168,7 @@ public class CascDiagnostics {
                     var elsewhere = Where("CTalent", talentId);
                     var generic = genericTalents.Contains(talentId);
                     output.WriteLine(
-                        $"  talent {talentId}: not in first catalog; " +
+                        $"  talent {talentId}: not in the hero catalog; " +
                         (elsewhere != null ? $"defined in {elsewhere}; " : "") +
                         (generic ? "found in generic TalentData.xml" : "NOT in generic TalentData.xml (scraper skips it silently)"));
                     problems++;
@@ -186,11 +179,11 @@ public class CascDiagnostics {
                     continue;
                 }
 
-                if (primary.SelectSingleNode($"//CButton[@id='{face}']") is not { } buttonNode) {
+                if (catalog.SelectSingleNode($"//CButton[@id='{face}']") is not { } buttonNode) {
                     var elsewhere = Where("CButton", face);
                     output.WriteLine(
-                        $"  talent {talentId}: button {face} not in first catalog -> KeyNotFoundException; " +
-                        (elsewhere != null ? $"defined in {elsewhere}" : "not in any included catalog") +
+                        $"  talent {talentId}: button {face} not in the hero catalog -> KeyNotFoundException; " +
+                        (elsewhere != null ? $"defined in {elsewhere}" : "not in any file in GameData") +
                         (genericButtons.Contains(face) ? "; present in generic ButtonData.xml" : ""));
                     problems++;
                     continue;
