@@ -674,8 +674,6 @@ public partial class Scraper {
                 }
                 else {
                     throw new InvalidDataException("Unknown placeholder string");
-                    var textNode = doc.CreateTextNode("???");
-                    (dNode.ParentNode ?? doc.DocumentNode).ReplaceChild(textNode, dNode);
                 }
             }
         }

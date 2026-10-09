@@ -122,13 +122,7 @@ public sealed class Salsa20 : SymmetricAlgorithm {
     }
 
     // Returns a new byte array containing the specified number of random bytes.
-    private static byte[] GetRandomBytes(int byteCount) {
-        var bytes = new byte[byteCount];
-        using RandomNumberGenerator rng = new RNGCryptoServiceProvider();
-        rng.GetBytes(bytes);
-
-        return bytes;
-    }
+    private static byte[] GetRandomBytes(int byteCount) => RandomNumberGenerator.GetBytes(byteCount);
 
     /// <summary>
     ///     Salsa20Impl is an implementation of <see cref="ICryptoTransform" /> that uses the Salsa20 algorithm.
