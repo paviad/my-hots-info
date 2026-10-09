@@ -58,16 +58,8 @@ public sealed class HeroCatalog {
             .ToList();
 
         var doc = fs.LoadXml(main);
-        var root = doc.DocumentElement!;
         foreach (var path in extras) {
-            foreach (var element in fs.LoadXml(path).DocumentElement?.ChildNodes.OfType<XmlElement>() ?? []) {
-                var id = element.GetAttribute("id");
-                if (id.Length == 0 || root.SelectSingleNode($"{element.Name}[@id='{id}']") != null) {
-                    continue;
-                }
-
-                root.AppendChild(doc.ImportNode(element, true));
-            }
+            doc.AppendNewEntries(fs.LoadXml(path));
         }
 
         return new HeroCatalog(mod, includes, doc, [main, .. extras]);

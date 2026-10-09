@@ -16,4 +16,25 @@ public static class XmlExtensions {
 
     /// <summary>The <c>value</c> attribute of the first node matching <paramref name="xpath"/>, or null.</summary>
     public static string? ValueOf(this XmlNode node, string xpath) => node.SelectSingleNode(xpath)?.Attr("value");
+
+    /// <summary>Appends every top-level entry of catalog <paramref name="source"/> to this catalog.</summary>
+    public static void AppendEntries(this XmlDocument catalog, XmlDocument source) =>
+        catalog.AppendEntries(source, _ => true);
+
+    /// <summary>
+    /// Appends the top-level entries of catalog <paramref name="source"/> whose id this catalog doesn't define yet,
+    /// so the first definition of an id wins. Entries without an id are skipped.
+    /// </summary>
+    public static void AppendNewEntries(this XmlDocument catalog, XmlDocument source) =>
+        catalog.AppendEntries(source, x => x.Attr("id") is { Length: > 0 } id &&
+                                           catalog.DocumentElement!.SelectSingleNode($"{x.Name}[@id='{id}']") == null);
+
+    private static void AppendEntries(this XmlDocument catalog, XmlDocument source, Func<XmlElement, bool> include) {
+        var root = catalog.DocumentElement!;
+        foreach (var element in source.DocumentElement?.ChildNodes.OfType<XmlElement>().ToList() ?? []) {
+            if (include(element)) {
+                root.AppendChild(catalog.ImportNode(element, true));
+            }
+        }
+    }
 }

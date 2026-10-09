@@ -686,11 +686,7 @@ public partial class Scraper {
         // The generic catalogs, with core.stormmod's entries appended
         foreach (var entityType in EntityTypes) {
             var catalog = _fs.LoadXml($"{Mods.HeroesData.GameData}/{entityType}Data.xml");
-            var core = _fs.LoadXml($"{Mods.Core.GameData}/{entityType}Data.xml");
-            foreach (var childNode in core.DocumentElement?.ChildNodes.OfType<XmlNode>() ?? []) {
-                catalog.DocumentElement?.AppendChild(catalog.ImportNode(childNode, true));
-            }
-
+            catalog.AppendEntries(_fs.LoadXml($"{Mods.Core.GameData}/{entityType}Data.xml"));
             _referenceCatalog[entityType] = catalog;
         }
     }
