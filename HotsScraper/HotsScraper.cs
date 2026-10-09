@@ -6,10 +6,11 @@ namespace HotsScraper;
 
 public partial class HotsScraper {
     private string _outputPath = null!;
-    private readonly Scraper _scraper = new();
+    private Scraper _scraper = null!;
 
     public void Scrape(string outputPath) {
         _outputPath = outputPath;
+        _scraper = new Scraper(CascFileSystem.Open(Scraper.GameInstallationPath));
         _scraper.FillTalentInfoList();
         SaveMapImages();
         SaveTalentImages();
