@@ -552,11 +552,40 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                 };
                 TalentsLib.NewBuildInternal(opts, dc);
                 await dc.SaveChangesAsync();
+                PrintMissingPortraitsHint();
             }
             else {
                 scraper.Scrape(BasePath);
             }
         });
+    }
+
+    // Scraped portraits land in bin\pub\Portraits; the MAUI app only shows the ones copied into its resources
+    private static void PrintMissingPortraitsHint() {
+        var scrapedDir = Path.Combine(BasePath, "Portraits");
+        var repoRoot = Path.GetFullPath(Path.Combine(BasePath, "..", ".."));
+        var appDir = Path.Combine(repoRoot, "MyHotsInfo", "Resources", "Images", "Portraits");
+        if (!Directory.Exists(scrapedDir) || !Directory.Exists(appDir)) {
+            return;
+        }
+
+        var missing = Directory.EnumerateFiles(scrapedDir, "*.png")
+            .Select(Path.GetFileName)
+            .Where(f => !File.Exists(Path.Combine(appDir, f!)))
+            .Order()
+            .ToList();
+        if (missing.Count == 0) {
+            return;
+        }
+
+        Console.WriteLine($"""
+
+            Hint: {missing.Count} scraped portrait(s) are not in the MAUI app yet:
+              {string.Join(", ", missing)}
+            To add them:
+              python {Path.Combine(repoRoot, "MyHotsCli", "Scripts", "circul.py")}
+              then rebuild/republish MyHotsInfo
+            """);
     }
 
     private static void SetupCascCommand(RootCommand rootCommand) {
