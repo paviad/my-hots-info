@@ -24,4 +24,10 @@ public static class Mods {
     public static readonly StormMod Core = new("mods/core.stormmod");
     public static readonly StormMod HeroesData = new("mods/heroesdata.stormmod");
     public static readonly StormMod Heroes = new("mods/heroes.stormmod");
+
+    /// <summary>
+    /// Mods that carry assets, most specific first. Hero mods have no base.stormassets of their own;
+    /// heroes.stormmod holds nearly everything and builds on core.stormmod.
+    /// </summary>
+    public static readonly StormMod[] AssetSearchOrder = [Heroes, Core];
 }

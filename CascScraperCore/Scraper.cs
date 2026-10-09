@@ -36,6 +36,12 @@ public partial class Scraper {
         { "KerriganChrysalis", "KerriganChrysalisCancel" },
     };
 
+    // HeroIcon refs in the game data that point at textures which exist in no mod
+    private static readonly Dictionary<string, string> MissingHeroIconSubstitutions = new() {
+        { @"Assets\Textures\ui_mission_laserdrill_icon.dds", @"Assets\Textures\storm_temp_ui_mission_laserdrill_icon.dds" },
+        { @"Assets\Textures\ui_targetportrait_hero_MankirksWife.dds", @"Assets\Textures\ui_targetportrait_hero_malganis.dds" },
+    };
+
     private static readonly string[] EntityTypes = [
         "Abil", "Behavior", "Effect", "Accumulator", "Validator", "Talent", "Unit", "Weapon", "Actor",
     ];
@@ -193,24 +199,11 @@ public partial class Scraper {
                         HeroImages[heroName] = GetImage(portraitPaired ?? throw new InvalidOperationException("Can't find Cho/Gall hero portrait"));
                         break;
                     }
-                case "Anduin":
-                    HeroImages[heroName] = GetImage(@"Assets\Textures\ui_targetportrait_hero_anduin.dds");
+                default:
+                    // Heroes whose actor has no HeroIcon (e.g. Anduin) use the conventionally named portrait
+                    HeroImages[heroName] = ActorUnits.GetValueOrDefault($"Hero{theHero.id}")?.HeroIcon ??
+                                           GetImage($@"Assets\Textures\ui_targetportrait_hero_{theHero.id.ToLower()}.dds");
                     break;
-                default: {
-                        var actorKey = $"Hero{theHero.id}";
-                        if (ActorUnits.TryGetValue(actorKey, out var unit)) {
-                            var heroImage = unit.HeroIcon ??
-                                            GetImage(
-                                                $@"Assets\Textures\ui_targetportrait_hero_{theHero.id.ToLower()}.dds");
-                            HeroImages[heroName] = heroImage;
-                        }
-                        else {
-                            HeroImages[heroName] = GetImage(
-                                $@"Assets\Textures\ui_targetportrait_hero_{theHero.id.ToLower()}.dds");
-                        }
-
-                        break;
-                    }
             }
 
             Console.WriteLine($"Doing hero {heroName}");
@@ -556,7 +549,12 @@ public partial class Scraper {
         return 0;
     }
 
-    private byte[] GetImage(string assetRef) => _fs.ReadAllBytes(Mods.Heroes.Asset(assetRef));
+    private byte[] GetImage(string assetRef) {
+        var candidates = Mods.AssetSearchOrder.Select(x => x.Asset(assetRef)).ToList();
+        return _fs.ReadAllBytes(
+            candidates.FirstOrDefault(_fs.FileExists) ??
+            throw new FileNotFoundException($"Asset '{assetRef}' not found in any of: {string.Join(", ", candidates)}"));
+    }
 
     private void GetMapData() {
         var locStrings = _allGameStrings;
@@ -812,17 +810,8 @@ public partial class Scraper {
 
             var xHeroIcon = actorUnit.SelectSingleNode("./HeroIcon");
             var heroIconPath = xHeroIcon?.Attributes?["value"]?.Value;
-            var substitutions = new Dictionary<string, string> {
-                {
-                    @"Assets\Textures\ui_mission_laserdrill_icon.dds",
-                    @"Assets\Textures\storm_temp_ui_mission_laserdrill_icon.dds"
-                }, {
-                    @"Assets\Textures\ui_targetportrait_hero_MankirksWife.dds",
-                    @"Assets\Textures\ui_targetportrait_hero_malganis.dds"
-                },
-            };
             if (heroIconPath != null) {
-                if (substitutions.TryGetValue(heroIconPath, out var substitution)) {
+                if (MissingHeroIconSubstitutions.TryGetValue(heroIconPath, out var substitution)) {
                     heroIconPath = substitution;
                 }
 
