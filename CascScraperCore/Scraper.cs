@@ -432,22 +432,8 @@ public partial class Scraper {
         TalentInfoDataTable = dt;
     }
 
-    private Dictionary<string, string> GetAllGameStrings() {
-        var locLines = _fs.EnumerateFiles("**/GameStrings.txt").SelectMany(_fs.ReadAllLines);
-
-        var locStrings = locLines.Select(x => x.Split('='))
-            .DistinctBy(z => z[0])
-            .ToDictionary(x => x[0], x => string.Join("=", x.Skip(1)));
-
-        return locStrings;
-    }
-
     private void GetBaseHeroes() {
-        var locLines = _fs.ReadAllLines(Mods.HeroesData.GameStrings);
-        var locStringsLup = locLines
-            .Select(x => x.Split('='))
-            .ToLookup(x => x[0], x => string.Join("=", x.Skip(1)));
-        var locStrings = locStringsLup.ToDictionary(x => x.Key, x => x.First());
+        var locStrings = _fs.ReadGameStrings(Mods.HeroesData.GameStrings);
 
         // Base heroes live in GameData/Heroes/<name>/<name>.xml
         foreach (var heroDir in _fs.EnumerateDirectories($"{Mods.HeroesData.GameData}/Heroes")) {
@@ -618,12 +604,7 @@ public partial class Scraper {
                 continue;
             }
 
-            var locStrings = _fs.ReadAllLines(mod.GameStrings)
-                .Select(x => x.Split('='))
-                .ToLookup(r => r[0])
-                .ToDictionary(x => x.Key, x => string.Join("=", x.First().Skip(1)));
-
-            DoHero(hero.Doc, locStrings);
+            DoHero(hero.Doc, _fs.ReadGameStrings(mod.GameStrings));
         }
     }
 
@@ -692,7 +673,7 @@ public partial class Scraper {
     private void OpenCasc() {
         _fs = CascFileSystem.Open(GameInstallationPath);
 
-        _allGameStrings = GetAllGameStrings();
+        _allGameStrings = _fs.ReadGameStrings(_fs.EnumerateFiles("**/GameStrings.txt"));
 
         BuildNumber = _fs.EnumerateDirectories("Versions")
             .Select(CascFileSystem.GetFileName)

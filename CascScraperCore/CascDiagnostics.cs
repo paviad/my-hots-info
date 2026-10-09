@@ -111,7 +111,7 @@ public class CascDiagnostics {
 
         var genericTalents = LoadGenericIds("TalentData.xml", "CTalent");
         var genericButtons = LoadGenericIds("ButtonData.xml", "CButton");
-        var locStrings = LoadLocStrings(mod);
+        var locStrings = _fs.FileExists(mod.GameStrings) ? _fs.ReadGameStrings(mod.GameStrings) : [];
 
         string? Where(string element, string id) =>
             allDocs.FirstOrDefault(c => c.Doc.SelectSingleNode($"//{element}[@id='{id}']") != null).Name;
@@ -222,22 +222,6 @@ public class CascDiagnostics {
         }
 
         return ids;
-    }
-
-    private Dictionary<string, string> LoadLocStrings(StormMod mod) {
-        var result = new Dictionary<string, string>();
-        if (!_fs.FileExists(mod.GameStrings)) {
-            return result;
-        }
-
-        foreach (var line in _fs.ReadAllLines(mod.GameStrings)) {
-            var idx = line.IndexOf('=');
-            if (idx > 0) {
-                result.TryAdd(line[..idx], line[(idx + 1)..]);
-            }
-        }
-
-        return result;
     }
 
     private string LocalPath(string cascPath) =>
