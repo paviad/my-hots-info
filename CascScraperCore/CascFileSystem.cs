@@ -61,6 +61,11 @@ public sealed class CascFileSystem {
         return path[(path.LastIndexOf('/') + 1)..];
     }
 
+    public static string GetDirectoryName(string path) {
+        path = Normalize(path);
+        return path[..Math.Max(path.LastIndexOf('/'), 0)];
+    }
+
     public bool FileExists(string path) => Resolve(path, out _) is CASCFile;
 
     public bool DirectoryExists(string path) => Resolve(path, out _) is CASCFolder;
@@ -148,9 +153,6 @@ public sealed class CascFileSystem {
             }
         }
     }
-
-    // Transitional: hands out the folder object for code not yet ported to paths.
-    internal CASCFolder GetFolder(string path) => ResolveFolder(path);
 
     private CASCFile ResolveFile(string path) =>
         Resolve(path, out var error) switch {
