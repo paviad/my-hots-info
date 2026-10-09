@@ -26,8 +26,8 @@ internal class ConstResolver(XmlDocument heroCatalog, Dictionary<string, XmlDocu
             return 0;
         }
 
-        var constValue = constNode.Attributes!["value"]!.Value;
-        return constNode.Attributes["evaluateAsExpression"]?.Value == "1"
+        var constValue = constNode.RequiredAttr("value");
+        return constNode.Attr("evaluateAsExpression") == "1"
             ? Evaluate(constValue)
             : Resolve(constValue);
     }

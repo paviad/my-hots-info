@@ -198,7 +198,7 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
 
     private XmlNode GetParent(XmlNode cobj) {
         var ctype = ToCtype(cobj.Name);
-        var cid = cobj.Attributes["parent"]?.Value;
+        var cid = cobj.Attr("parent");
         return cid == null
             ? null
             : FindObject(ctype, cid);
@@ -255,7 +255,7 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
             }
 
             try {
-                if (cobj.Attributes["value"] == null) {
+                if (cobj.Attr("value") == null) {
                     cobj = cobj.SelectSingleNode("./Value");
                 }
             }
@@ -265,7 +265,7 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
             }
 
             try {
-                return GetDecimal(cobj.Attributes["value"].Value);
+                return GetDecimal(cobj.RequiredAttr("value"));
             }
             catch (Exception e) {
                 Console.WriteLine(e);
@@ -273,8 +273,8 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
             }
         }
 
-        if (cobj.Attributes[name] != null) {
-            return GetDecimal(cobj.Attributes[name].Value);
+        if (cobj.Attr(name) is { } attr) {
+            return GetDecimal(attr);
         }
 
         try {
@@ -291,7 +291,7 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
             return null;
         }
 
-        return GetDecimal(cobj.Attributes["value"].Value);
+        return GetDecimal(cobj.RequiredAttr("value"));
     }
 
     private static string ToCtype(string cobjName) {

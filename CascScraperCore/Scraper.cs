@@ -190,8 +190,7 @@ public partial class Scraper {
             switch (heroName) {
                 case "Cho":
                 case "Gall": {
-                        var portraitPaired = xdoc.SelectSingleNode($"//CHero[@id='{theHero.id}']/PortraitPaired")?
-                            .Attributes?["value"]?.Value;
+                        var portraitPaired = xdoc.ValueOf($"//CHero[@id='{theHero.id}']/PortraitPaired");
                         HeroImages[heroName] = GetImage(portraitPaired ?? throw new InvalidOperationException("Can't find Cho/Gall hero portrait"));
                         break;
                     }
@@ -350,12 +349,12 @@ public partial class Scraper {
                     if (heroName is "Cho" or "Gall") {
                         // special cases for cho and gall
                         var parentUnit = xLayout.SelectSingleNode("./ancestor::CUnit");
-                        if (parentUnit?.Attributes?["id"]?.Value != $"Hero{heroName}") {
+                        if (parentUnit?.Attr("id") != $"Hero{heroName}") {
                             continue;
                         }
                     }
 
-                    var slot = xLayout.Attributes?["Slot"]?.Value;
+                    var slot = xLayout.Attr("Slot");
 
                     switch (slot) {
                         case "Ability1":
@@ -452,18 +451,18 @@ public partial class Scraper {
             var refDoc = _referenceCatalog["Effect"];
             const string key = "HeroGenericSpellShieldApplyPlayerCooldown";
             var xCooldown2 = refDoc.SelectSingleNode($"//CEffectModifyPlayer[@id='{key}']/Cost")!;
-            var xTimeUse = xCooldown2.SelectSingleNode("./Cooldown/TimeUse")!.Attributes!["value"]!.Value;
+            var xTimeUse = xCooldown2.SelectSingleNode("./Cooldown/TimeUse")!.RequiredAttr("value");
             return int.Parse(xTimeUse);
         }
 
         // special case for cooldown on activation/expiry only
         if (CooldownOnExpireAbilities.TryGetValue(abilKey, out var key1)) {
             var xCooldown = xdoc.SelectSingleNode($"//CEffectModifyUnit[@id='{key1}']/Cost");
-            var cdMaybe = xCooldown?.Attributes?["CooldownTimeUse"]?.Value;
+            var cdMaybe = xCooldown?.Attr("CooldownTimeUse");
             if (cdMaybe == null) {
                 var xCooldown2 = xdoc.SelectSingleNode($"//CEffectModifyPlayer[@id='{key1}']/Cost");
                 if (xCooldown2 != null) {
-                    var xTimeUse = xCooldown2.SelectSingleNode("./Cooldown/TimeUse")!.Attributes!["value"]!.Value;
+                    var xTimeUse = xCooldown2.SelectSingleNode("./Cooldown/TimeUse")!.RequiredAttr("value");
                     return int.Parse(xTimeUse);
                 }
             }
@@ -473,7 +472,7 @@ public partial class Scraper {
 
             var xAbilEffect = xdoc.SelectSingleNode($"//CAbilEffectInstant[@id='{key1}']/Cost/Cooldown");
             if (xAbilEffect != null) {
-                var xTimeUse = xAbilEffect.Attributes?["TimeUse"]?.Value;
+                var xTimeUse = xAbilEffect.Attr("TimeUse");
                 if (xTimeUse != null) {
                     return int.Parse(xTimeUse);
                 }
@@ -492,7 +491,7 @@ public partial class Scraper {
             int? GetValueOrConstant(string cdStringVal) {
                 int? rc = null;
                 if (cdStringVal.StartsWith('$')) {
-                    cdStringVal = xAbil.SelectSingleNode($"//const[@id='{cdStringVal}']")!.Attributes!["value"]!.Value;
+                    cdStringVal = xAbil.SelectSingleNode($"//const[@id='{cdStringVal}']")!.RequiredAttr("value");
                 }
 
                 if (int.TryParse(cdStringVal, out var chargeCd)) {
@@ -508,7 +507,7 @@ public partial class Scraper {
 
             var chargeNode = xAbil.SelectSingleNode("./Cost/Charge/TimeUse");
             if (chargeNode != null) {
-                var cdStringVal = chargeNode.Attributes!["value"]!.Value;
+                var cdStringVal = chargeNode.RequiredAttr("value");
                 return GetValueOrConstant(cdStringVal) ?? 0;
             }
 
@@ -518,7 +517,7 @@ public partial class Scraper {
 
             var cdNodes = new[] { cdExpireNode, cdOffNode, cdNormalNode };
             foreach (var cdNode in cdNodes) {
-                var cdStringVal = cdNode?.Attributes?["TimeUse"]?.Value;
+                var cdStringVal = cdNode?.Attr("TimeUse");
                 if (cdStringVal is null) {
                     continue;
                 }
@@ -542,15 +541,14 @@ public partial class Scraper {
 
         var xdoc = _fs.LoadXml($"{Mods.HeroesData.GameData}/MapData.xml");
         var mapsWithImage = xdoc.SelectNodes("//DraftIntroImage/parent::CMap")!.OfType<XmlNode>().ToList();
-        var cmapsDic = mapsWithImage.ToDictionary(r => r.Attributes!["id"]!.Value);
+        var cmapsDic = mapsWithImage.ToDictionary(r => r.RequiredAttr("id"));
         foreach (var map in mapsWithImage) {
-            var img = map.SelectSingleNode("./DraftIntroImage")!;
-            var mapId = map.Attributes!["id"]!.Value;
+            var mapId = map.RequiredAttr("id");
 
-            var nameNode = GetProp(map, "DraftIntroMapName")?.Attributes?["value"]?.Value ??
+            var nameNode = GetProp(map, "DraftIntroMapName")?.Attr("value") ??
                            $"UI/MapLoadingScreen/{mapId}";
 
-            var cascPath = img.Attributes!["value"]?.Value;
+            var cascPath = map.ValueOf("./DraftIntroImage");
 
             if (cascPath is null) {
                 continue;
@@ -588,7 +586,7 @@ public partial class Scraper {
                     return child;
                 }
 
-                var parent = d.Attributes?["parent"]?.Value;
+                var parent = d.Attr("parent");
                 return parent is null
                     ? null
                     : GetProp(cmapsDic.GetValueOrDefault(parent), prop);
@@ -721,13 +719,12 @@ public partial class Scraper {
     private void PopulateActorUnits(XmlDocument cata) {
         var globalActorUnits = cata.SelectNodes("//CActorUnit")!;
         foreach (XmlNode actorUnit in globalActorUnits) {
-            var unitName = actorUnit?.Attributes?["unitName"]?.Value;
+            var unitName = actorUnit.Attr("unitName");
             if (unitName is null) {
                 continue;
             }
 
-            var xMinimapIcon = actorUnit!.SelectSingleNode("./MinimapIcon");
-            var minimapIconPath = xMinimapIcon?.Attributes?["value"]?.Value;
+            var minimapIconPath = actorUnit.ValueOf("./MinimapIcon");
             if (minimapIconPath != null) {
                 GetOrAddActorUnit(unitName).MinimapIcon = GetImage(minimapIconPath);
             }
@@ -736,8 +733,7 @@ public partial class Scraper {
                 continue;
             }
 
-            var xHeroIcon = actorUnit.SelectSingleNode("./HeroIcon");
-            var heroIconPath = xHeroIcon?.Attributes?["value"]?.Value;
+            var heroIconPath = actorUnit.ValueOf("./HeroIcon");
             if (heroIconPath != null) {
                 if (MissingHeroIconSubstitutions.TryGetValue(heroIconPath, out var substitution)) {
                     heroIconPath = substitution;

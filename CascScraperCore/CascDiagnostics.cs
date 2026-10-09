@@ -140,7 +140,7 @@ public class CascDiagnostics {
         }
 
         foreach (var heroNode in heroes) {
-            var heroId = heroNode.Attributes!["id"]!.Value;
+            var heroId = heroNode.RequiredAttr("id");
             var problems = 0;
             output.WriteLine($"--- CHero {heroId}");
             if (!locStrings.ContainsKey($"Hero/Name/{heroId}")) {
@@ -149,7 +149,7 @@ public class CascDiagnostics {
             }
 
             foreach (XmlNode tt in heroNode.SelectNodes("TalentTreeArray")!) {
-                var talentId = tt.Attributes?["Talent"]?.Value;
+                var talentId = tt.Attr("Talent");
                 if (talentId == null) {
                     continue;
                 }
@@ -157,7 +157,7 @@ public class CascDiagnostics {
                 var talentNode = catalog.SelectSingleNode($"//CTalent[@id='{talentId}']");
                 string? face;
                 if (talentNode != null) {
-                    face = talentNode.SelectSingleNode("Face")?.Attributes?["value"]?.Value;
+                    face = talentNode.ValueOf("Face");
                     if (face == null && !genericTalents.Contains(talentId)) {
                         output.WriteLine($"  talent {talentId}: no Face and not in generic TalentData.xml");
                         problems++;
@@ -189,8 +189,8 @@ public class CascDiagnostics {
                     continue;
                 }
 
-                var nameKey = buttonNode.SelectSingleNode("Name")?.Attributes?["value"]?.Value ?? $"Button/Name/{face}";
-                var tooltipKey = buttonNode.SelectSingleNode("Tooltip")?.Attributes?["value"]?.Value ?? $"Button/Tooltip/{face}";
+                var nameKey = buttonNode.ValueOf("Name") ?? $"Button/Name/{face}";
+                var tooltipKey = buttonNode.ValueOf("Tooltip") ?? $"Button/Tooltip/{face}";
                 foreach (var stringKey in new[] { nameKey, tooltipKey }) {
                     if (!locStrings.ContainsKey(stringKey)) {
                         output.WriteLine($"  talent {talentId}: string {stringKey} missing from hero GameStrings.txt");
@@ -217,7 +217,7 @@ public class CascDiagnostics {
             }
 
             foreach (XmlNode node in _fs.LoadXml(path).SelectNodes($"//{element}[@id]")!) {
-                ids.Add(node.Attributes!["id"]!.Value);
+                ids.Add(node.RequiredAttr("id"));
             }
         }
 
