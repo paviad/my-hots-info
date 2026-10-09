@@ -53,7 +53,12 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
 
         for (var i = 0; i < numVars - 1; i++) {
             var theVar = vars[i];
-            cobj = GetMember(theVar, cobj);
+            if (GetMember(theVar, cobj) is not { } member) {
+                Console.Error.WriteLine($"Can't find {theVar.GetText()} in {context.GetText()}, using 0");
+                return new ResultType(0);
+            }
+
+            cobj = member;
         }
 
         var finalVar = vars[numVars - 1];
@@ -122,29 +127,23 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
             }
 
             if (cobj2 != null) {
-                cobj = cobj2;
+                return cobj2;
             }
-            else if (int.TryParse(index, out var indexNum)) {
-                try {
-                    var nodeArray = cobj.SelectNodes($"./{array}");
-                    if (indexNum >= nodeArray.Count) {
-                        indexNum = nodeArray.Count - 1;
-                    }
 
-                    cobj = nodeArray[indexNum];
-                }
-                catch (Exception e) {
-                    Console.WriteLine(e);
-                    return null;
-                }
-            }
-            else {
+            if (!int.TryParse(index, out var indexNum)) {
                 return null;
             }
-        }
-        else {
+
             try {
-                cobj = cobj.SelectSingleNode($"./{name}");
+                if (cobj.SelectNodes($"./{array}") is not { } nodeArray) {
+                    return null;
+                }
+
+                if (indexNum >= nodeArray.Count) {
+                    indexNum = nodeArray.Count - 1;
+                }
+
+                return nodeArray[indexNum];
             }
             catch (Exception e) {
                 Console.WriteLine(e);
@@ -152,12 +151,18 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
             }
         }
 
-        return cobj;
+        try {
+            return cobj.SelectSingleNode($"./{name}");
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            return null;
+        }
     }
 
-    private XmlNode FindObject(string ctype, string cid) {
+    private XmlNode? FindObject(string ctype, string cid) {
         var f1 = FindObjectCatalog(_heroCatalog, ctype, cid);
-        XmlNode f2 = null;
+        XmlNode? f2 = null;
         if (!_referenceCatalog.ContainsKey(ctype)) {
             Console.WriteLine($"New ctype {ctype}");
         }
@@ -181,22 +186,22 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
 
     private decimal GetDecimal(string value) => _constResolver.Resolve(value);
 
-    private XmlNode GetMember(arithmeticParser.Indexed_variableContext theVar, XmlNode cobj) {
+    private XmlNode? GetMember(arithmeticParser.Indexed_variableContext theVar, XmlNode cobj) {
         var rc = GetMember2(theVar, cobj);
         while (rc == null) {
-            cobj = GetParent(cobj);
-            if (cobj == null) {
+            if (GetParent(cobj) is not { } parent) {
                 Console.WriteLine("Can't find object");
                 return null;
             }
 
+            cobj = parent;
             rc = GetMember2(theVar, cobj);
         }
 
         return rc;
     }
 
-    private XmlNode GetParent(XmlNode cobj) {
+    private XmlNode? GetParent(XmlNode cobj) {
         var ctype = ToCtype(cobj.Name);
         var cid = cobj.Attr("parent");
         return cid == null
@@ -207,12 +212,12 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
     private decimal GetValue(arithmeticParser.Indexed_variableContext theVar, XmlNode cobj) {
         var rc = GetValue2(theVar, cobj);
         while (rc == null) {
-            cobj = GetParent(cobj);
-            if (cobj == null) {
+            if (GetParent(cobj) is not { } parent) {
                 Console.WriteLine("Can't find object, returning 1");
                 return 1;
             }
 
+            cobj = parent;
             rc = GetValue2(theVar, cobj);
         }
 
@@ -222,41 +227,15 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
     private decimal? GetValue2(arithmeticParser.Indexed_variableContext theVar, XmlNode cobj) {
         var name = theVar.GetText();
         if (theVar.index() != null) {
-            // indexed
-            var index = theVar.index().GetText();
-            var array = theVar.variable().GetText();
-            XmlNode cobj2 = null;
-            try {
-                cobj2 = cobj.SelectSingleNode($"./{array}[@index='{index}']");
-            }
-            catch {
-                // ignored
-            }
-
-            if (cobj2 != null) {
-                cobj = cobj2;
-            }
-            else if (int.TryParse(index, out var indexNum)) {
-                try {
-                    var nodeArray = cobj.SelectNodes($"./{array}");
-                    if (indexNum >= nodeArray.Count) {
-                        indexNum = nodeArray.Count - 1;
-                    }
-
-                    cobj = nodeArray[indexNum];
-                }
-                catch (Exception exception) {
-                    Console.WriteLine(exception);
-                    return null;
-                }
-            }
-            else {
+            // indexed: the array element, then its value attribute or <Value> child
+            if (GetMember2(theVar, cobj) is not { } element) {
                 return null;
             }
 
+            XmlNode? valueNode = element;
             try {
-                if (cobj.Attr("value") == null) {
-                    cobj = cobj.SelectSingleNode("./Value");
+                if (element.Attr("value") == null) {
+                    valueNode = element.SelectSingleNode("./Value");
                 }
             }
             catch (Exception e) {
@@ -264,8 +243,12 @@ internal class ExprVisitor : arithmeticBaseVisitor<ResultType> {
                 return null;
             }
 
+            if (valueNode == null) {
+                return null;
+            }
+
             try {
-                return GetDecimal(cobj.RequiredAttr("value"));
+                return GetDecimal(valueNode.RequiredAttr("value"));
             }
             catch (Exception e) {
                 Console.WriteLine(e);

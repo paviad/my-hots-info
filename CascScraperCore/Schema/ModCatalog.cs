@@ -4,5 +4,5 @@ namespace CascScraperCore.Schema;
 
 public class ModCatalog {
     [XmlAttribute("path")]
-    public string Path { get; set; }
+    public string Path { get; set; } = null!;
 }

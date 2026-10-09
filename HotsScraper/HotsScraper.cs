@@ -26,11 +26,16 @@ public partial class HotsScraper {
         }
 
         foreach (var actorUnit in _scraper.ActorUnits) {
+            // Actors registered only for their HeroIcon have no minimap icon to save.
+            if (actorUnit.Value.MinimapIcon is not { } minimapIcon) {
+                continue;
+            }
+
             var unitName = actorUnit.Key;
             var pngPath0 = Path.Combine(actorDir, "0" + unitName + ".png");
             var pngPath1 = Path.Combine(actorDir, "1" + unitName + ".png");
             try {
-                var ddsImage = new DDSImage(actorUnit.Value.MinimapIcon, true);
+                var ddsImage = new DDSImage(minimapIcon, true);
                 ddsImage.Save(pngPath0);
                 ddsImage.Save(pngPath1);
             }

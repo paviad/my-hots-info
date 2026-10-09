@@ -1,9 +1,9 @@
 ﻿namespace CascScraperCore;
 
 public class SkillInfo {
-    public string HeroName { get; set; }
-    public string SkillName { get; set; }
+    public string HeroName { get; set; } = null!;
+    public string SkillName { get; set; } = null!;
     public int Cooldown { get; set; }
-    public string Key { get; set; }
-    public byte[] Image { get; set; }
+    public string Key { get; set; } = null!;
+    public byte[] Image { get; set; } = null!;
 }

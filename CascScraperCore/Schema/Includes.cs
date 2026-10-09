@@ -4,5 +4,5 @@ namespace CascScraperCore.Schema;
 
 public class Includes {
     [XmlElement("Catalog")]
-    public List<ModCatalog> Catalog { get; set; }
+    public List<ModCatalog> Catalog { get; set; } = [];
 }

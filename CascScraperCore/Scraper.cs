@@ -59,7 +59,7 @@ public partial class Scraper {
     public List<TalentInfo> TalentInfoList { get; private set; } = [];
     public List<MapInfo> MapInfoList { get; } = [];
     public List<SkillInfo> SkillInfoList { get; } = [];
-    public DataTable TalentInfoDataTable { get; set; }
+    public DataTable TalentInfoDataTable { get; set; } = null!;
     public int BuildNumber { get; }
     public string BuildVersion { get; }
     public Dictionary<string, ActorUnit> ActorUnits { get; } = [];
@@ -633,7 +633,7 @@ public partial class Scraper {
                 foreach (var nodeToRemove in nodesForRemoval) {
                     if (nodeToRemove.HasChildNodes) {
                         var firstNewChild =
-                            nodeToRemove.ParentNode.ReplaceChild(nodeToRemove.ChildNodes[0], nodeToRemove);
+                            (nodeToRemove.ParentNode ?? doc.DocumentNode).ReplaceChild(nodeToRemove.ChildNodes[0], nodeToRemove);
                         var cursor = firstNewChild;
                         for (var i = 1; i < nodeToRemove.ChildNodes.Count; i++) {
                             cursor = (nodeToRemove.ParentNode ?? doc.DocumentNode).InsertAfter(
@@ -643,7 +643,7 @@ public partial class Scraper {
                     }
                     else {
                         var spaceNode = doc.CreateTextNode(" ");
-                        nodeToRemove.ParentNode.ReplaceChild(spaceNode, nodeToRemove);
+                        (nodeToRemove.ParentNode ?? doc.DocumentNode).ReplaceChild(spaceNode, nodeToRemove);
                     }
                 }
             }
