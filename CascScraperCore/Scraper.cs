@@ -798,10 +798,7 @@ public partial class Scraper {
             var xMinimapIcon = actorUnit!.SelectSingleNode("./MinimapIcon");
             var minimapIconPath = xMinimapIcon?.Attributes?["value"]?.Value;
             if (minimapIconPath != null) {
-                var minimapIcon = GetImage(minimapIconPath);
-                ActorUnits[unitName] = new ActorUnit {
-                    MinimapIcon = minimapIcon,
-                };
+                GetOrAddActorUnit(unitName).MinimapIcon = GetImage(minimapIconPath);
             }
 
             if (!unitName.StartsWith("Hero")) {
@@ -815,11 +812,16 @@ public partial class Scraper {
                     heroIconPath = substitution;
                 }
 
-                var heroIcon = GetImage(heroIconPath);
-                ActorUnits[unitName] = new ActorUnit {
-                    HeroIcon = heroIcon,
-                };
+                GetOrAddActorUnit(unitName).HeroIcon = GetImage(heroIconPath);
             }
         }
+    }
+
+    private ActorUnit GetOrAddActorUnit(string unitName) {
+        if (!ActorUnits.TryGetValue(unitName, out var unit)) {
+            ActorUnits[unitName] = unit = new ActorUnit();
+        }
+
+        return unit;
     }
 }
