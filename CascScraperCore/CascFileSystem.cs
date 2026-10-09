@@ -27,20 +27,9 @@ public sealed class CascFileSystem {
 
         var casc = CASCHandler.OpenStorage(config);
 
-        (casc.Root as WowRootHandler)?.LoadFileDataComplete(casc);
-
-        using (var _ = new PerfCounter("LoadListFile()")) {
-            var bgWorker = new BackgroundWorkerEx {
-                WorkerReportsProgress = true,
-            };
-            var ev = new AutoResetEvent(false);
-            bgWorker.ProgressChanged += (_, e) => Console.WriteLine($"{e.ProgressPercentage} {e.UserState}");
-            bgWorker.RunWorkerCompleted += (_, _) => ev.Set();
-            bgWorker.DoWork += (_, _) => {
-                casc.Root.LoadListFile("listfile.txt", bgWorker);
-            };
-            bgWorker.RunWorkerAsync();
-            ev.WaitOne();
+        // HotS's root handler reads the file names from the storage itself; there is no list file to pass
+        using (new PerfCounter("LoadListFile()")) {
+            casc.Root.LoadListFile("");
         }
 
         var root = casc.Root.SetFlags(LocaleFlags.enUS, ContentFlags.None);
@@ -67,8 +56,6 @@ public sealed class CascFileSystem {
     }
 
     public bool FileExists(string path) => Resolve(path, out _) is CASCFile;
-
-    public bool DirectoryExists(string path) => Resolve(path, out _) is CASCFolder;
 
     public Stream OpenRead(string path) {
         var file = ResolveFile(path);
@@ -171,7 +158,7 @@ public sealed class CascFileSystem {
     private ICASCEntry? Resolve(string path, out string error) {
         error = "";
         ICASCEntry entry = _root;
-        var walked = "";
+        var walked = "<root>";
         foreach (var part in Normalize(path).Split('/', StringSplitOptions.RemoveEmptyEntries)) {
             if ((entry as CASCFolder)?.GetEntry(part) is not { } next) {
                 error = entry is CASCFolder
@@ -180,8 +167,8 @@ public sealed class CascFileSystem {
                 return null;
             }
 
+            walked = entry == _root ? part : $"{walked}/{part}";
             entry = next;
-            walked = walked.Length == 0 ? part : $"{walked}/{part}";
         }
 
         return entry;

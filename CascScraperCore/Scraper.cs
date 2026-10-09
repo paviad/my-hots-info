@@ -571,9 +571,8 @@ public partial class Scraper {
                     Name = mapName,
                 });
             }
-            catch {
+            catch (FileNotFoundException) {
                 Console.WriteLine($"Can't find image for map {mapName} ({cascPath})");
-                /*ignored*/
             }
 
             continue;
