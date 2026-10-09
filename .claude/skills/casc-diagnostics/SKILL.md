@@ -22,12 +22,12 @@ dotnet build MyHotsCli
 
 Every invocation spends ~70s in `LoadListFile()` before doing anything — batch questions into as few
 runs as possible, use a long timeout (≥ 600000 ms), and don't re-run just to re-read output: the
-extracted files stay on disk under `casc\`. When filtering output, don't use `grep -v "^[0-9]* "`
-(it also drops indented report lines); use `sed -n '/^===/,$p'` for `hero` output.
+extracted files stay on disk under `casc\`. Each run starts with CASC timing lines; use
+`sed -n '/^===/,$p'` to keep only the `hero` report. Printed CASC paths use `/`.
 
 | Command | What it does |
 |---|---|
-| `casc hero <name>` | Extracts `mods\heromods\<name>.stormmod\base.stormdata\**` + `enus.stormdata\LocalizedData\GameStrings.txt`, lists the `GameData.xml` includes (marks `[0]`, the only one the scraper reads), counts CHero/CTalent/CButton per file, then checks every talent → Face button → Name/Tooltip string → Icon lookup that `DoHero` makes and says where anything missing really lives. Name match is fuzzy (`xalatath` matches `xalatath.stormmod`). |
+| `casc hero <name>` | Extracts `mods\heromods\<name>.stormmod\base.stormdata\**` + `enus.stormdata\LocalizedData\GameStrings.txt`, lists the `GameData.xml` includes marked as main catalog / merged / not merged (subfolder) / MISSING, plus the `[+]` type-named files merged by convention, counts CHero/CTalent/CButton per file, then checks every talent → Face button → Name/Tooltip string → Icon lookup that `DoHero` makes against the same merged `HeroCatalog` the scraper uses, and says where anything missing really lives. Name match is fuzzy (`xalatath` matches `xalatath.stormmod`). |
 | `casc extract "<glob>" [--list]` | Extracts (or just lists) CASC paths matching a glob. `*`, `**`, `?`; backslash or slash separators; case-insensitive. E.g. `"mods\heromods\xalatath.stormmod\**"`. |
 | `casc find <id> [--in "<glob>"]` | Prints element name + CASC path of every XML element with `id="<id>"`. Default scope `mods\**\*.xml` (slow; narrow `--in` when possible). |
 
@@ -47,12 +47,13 @@ the scratchpad instead of `casc\`.
 
 - Most heroes: everything (CHero, CTalent, CButton) is in `GameData/<Hero>Data.xml`, the first include.
 - Xal'atath (Oct 2026): CButtons live in `GameData/ButtonData.xml`, a type-named file the engine loads
-  by convention and which is **not** in `GameData.xml`'s include list. The scraper only reads
-  `Catalog[0]`, so `buttonDic[iconKey]` throws. Expect future heroes to use this split layout too.
+  by convention and which is **not** in `GameData.xml`'s include list. `HeroCatalog` merges these files
+  (and the listed catalogs directly in `GameData/`) into the main catalog. Expect future heroes to use
+  this split layout too; a new layout that still fails shows up as "not merged" in `casc hero`.
 - Generic/shared data: `mods\heroesdata.stormmod\base.stormdata\GameData\{Talent,Button}Data.xml`
   and `mods\core.stormmod\base.stormdata\GameData\`.
 
 ## Extending
 
-Add checks to `CascDiagnostics.DiagnoseHeroMod` when the scraper gains new lookups, so the harness keeps
-mirroring `Scraper.DoHero`. New subcommands go in `SetupCascCommand` in `MyHotsCli/Program.cs`.
+Which files make up a hero is decided in one place, `HeroCatalog.TryLoad`, shared by the scraper and
+the harness. Add checks to `CascDiagnostics.DiagnoseHeroMod` when `Scraper.DoHero` gains new lookups. New subcommands go in `SetupCascCommand` in `MyHotsCli/Program.cs`.
