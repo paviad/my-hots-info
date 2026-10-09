@@ -155,6 +155,16 @@ public class PlayerQuery(ReplayDbContext dc) {
         }
     }
 
+    /// <summary>A <see cref="NameMatcher"/> over every player met, for resolving names read by OCR.</summary>
+    public async Task<NameMatcher> GetNameMatcher() {
+        var counts = await dc.ReplayCharacters
+            .Where(r => !r.IsMe)
+            .GroupBy(r => r.Player.Name)
+            .Select(g => new { Name = g.Key, Games = g.Count() })
+            .ToListAsync();
+        return new NameMatcher(counts.Select(c => (c.Name, c.Games)));
+    }
+
     public async Task<List<PlayerRecord>> QueryByName(string name, bool caseSensitive = false) {
         List<PlayerEntry> players;
         if (name.Contains('#')) {

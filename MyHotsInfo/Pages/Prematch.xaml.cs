@@ -32,8 +32,9 @@ public partial class Prematch : ContentPage, IQueryAttributable {
             List<PrematchRecord> records = [];
             records.Clear();
 
+            var matcher = await playerQuery.GetNameMatcher();
             foreach (var name in names.Except(GenericNames)) {
-                var results = await playerQuery.QueryByName(name, true);
+                var results = await playerQuery.QueryByName(matcher.Resolve(name) ?? name, true);
                 var r = Enumerate(results).ToList();
                 records.AddRange(r);
             }

@@ -485,8 +485,9 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
             async Task ScreenshotCallback(List<string> names) {
                 using var scp2 = svcp.CreateScope();
                 var playerQuery = scp2.ServiceProvider.GetRequiredService<PlayerQuery>();
+                var matcher = await playerQuery.GetNameMatcher();
                 foreach (var name in names) {
-                    var results = await playerQuery.QueryByName(name);
+                    var results = await playerQuery.QueryByName(matcher.Resolve(name) ?? name);
                     ShowNameQueryResultsOneLinePerHero(results);
                 }
             }
