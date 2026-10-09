@@ -57,6 +57,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
         SetupQChatCommand(rootCommand, svcp);
         SetupExportCommand(rootCommand, svcp);
         SetupOcrEvalCommand(rootCommand, svcp);
+        ReplayQueryCommand.Setup(rootCommand);
 
         var parseResult = rootCommand.Parse(args);
 

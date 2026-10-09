@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rq Query Language</title>
+<style>
+:root {
+  --bg: #fbfaf8; --surface: #ffffff; --surface-2: #f3f1ed; --text: #1d1c1a; --muted: #5f5b55;
+  --border: #e2ded7; --accent: #2f5fa7; --accent-soft: #e6eef9; --code-bg: #f3f1ed;
+  --kw: #8a3ea8; --str: #2d7a3a; --num: #a35a00; --cmt: #7b766e; --var: #b0306a;
+  --warn-bg: #fff6e0; --warn-border: #e8c46a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161514; --surface: #1e1d1b; --surface-2: #262522; --text: #ebe8e3; --muted: #a9a49c;
+    --border: #34322e; --accent: #7fa8e8; --accent-soft: #22303f; --code-bg: #24231f;
+    --kw: #d39ae8; --str: #8fd19a; --num: #f0b467; --cmt: #8b867d; --var: #f08cb8;
+    --warn-bg: #2e2716; --warn-border: #7a6224;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161514; --surface: #1e1d1b; --surface-2: #262522; --text: #ebe8e3; --muted: #a9a49c;
+  --border: #34322e; --accent: #7fa8e8; --accent-soft: #22303f; --code-bg: #24231f;
+  --kw: #d39ae8; --str: #8fd19a; --num: #f0b467; --cmt: #8b867d; --var: #f08cb8;
+  --warn-bg: #2e2716; --warn-border: #7a6224;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 16px; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); max-width: 1180px; margin: 0 auto; }
+nav {
+  position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto;
+  padding: 28px 16px 28px 20px; border-right: 1px solid var(--border); font-size: 14px;
+}
+nav .brand { font-weight: 650; font-size: 16px; margin-bottom: 4px; }
+nav .sub { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+nav ol { list-style: none; padding: 0; margin: 0; }
+nav li { margin: 1px 0; }
+nav a { color: var(--muted); text-decoration: none; display: block; padding: 3px 8px; border-radius: 6px; }
+nav a:hover { color: var(--text); background: var(--surface-2); }
+nav ol ol { padding-left: 12px; font-size: 13px; }
+main { padding: 28px 40px 80px; min-width: 0; }
+h1 { font-size: 30px; line-height: 1.2; margin: 0 0 8px; letter-spacing: -0.01em; }
+h2 { font-size: 22px; margin: 48px 0 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+h3 { font-size: 17px; margin: 28px 0 8px; }
+h4 { font-size: 15px; margin: 20px 0 6px; }
+p, li { max-width: 78ch; }
+a { color: var(--accent); }
+.lede { color: var(--muted); font-size: 16px; max-width: 72ch; }
+code, pre, kbd { font-family: ui-monospace, "Cascadia Code", Consolas, "SF Mono", monospace; font-size: 13.5px; }
+:not(pre) > code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+pre {
+  background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+  padding: 12px 14px; overflow-x: auto; line-height: 1.5; margin: 10px 0 16px;
+}
+pre.out { background: var(--surface); }
+.kw { color: var(--kw); font-weight: 600; }
+.ev { color: var(--accent); }
+.str { color: var(--str); }
+.num { color: var(--num); }
+.cmt { color: var(--cmt); font-style: italic; }
+.var { color: var(--var); }
+table { border-collapse: collapse; width: 100%; margin: 10px 0 18px; font-size: 14px; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; vertical-align: top; padding: 7px 10px; border-bottom: 1px solid var(--border); }
+th { background: var(--surface-2); font-weight: 600; white-space: nowrap; }
+td code { white-space: nowrap; }
+.note, .warn {
+  border-radius: 8px; padding: 10px 14px; margin: 12px 0 18px; max-width: 80ch;
+  border: 1px solid var(--border); background: var(--accent-soft);
+}
+.warn { background: var(--warn-bg); border-color: var(--warn-border); }
+.note p, .warn p { margin: 4px 0; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin: 12px 0 20px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.card h4 { margin: 0 0 6px; }
+.card p { margin: 0; color: var(--muted); font-size: 14px; }
+.ev-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
+.ev-head p { margin: 0; color: var(--muted); }
+.type { color: var(--muted); font-size: 13px; }
+.theme-toggle {
+  margin-top: 18px; font: inherit; font-size: 13px; color: var(--muted); background: transparent;
+  border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; cursor: pointer;
+}
+@media (max-width: 860px) {
+  .layout { display: block; }
+  nav { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--border); padding: 16px; }
+  nav ol ol { display: none; }
+  main { padding: 16px 16px 60px; }
+  h1 { font-size: 25px; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav aria-label="Contents">
+  <div class="brand">rq query language</div>
+  <div class="sub">Reference for <code>MyHotsCli rq</code></div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#quickstart">Quick start</a></li>
+    <li><a href="#cli">Command line</a>
+      <ol>
+        <li><a href="#cli-common">Common options</a></li>
+        <li><a href="#cli-find">rq find</a></li>
+        <li><a href="#cli-events">rq events</a></li>
+        <li><a href="#cli-abil">rq abil-table</a></li>
+      </ol>
+    </li>
+    <li><a href="#lexical">Lexical structure</a></li>
+    <li><a href="#statements">Statements</a></li>
+    <li><a href="#events">Events and fields</a>
+      <ol>
+        <li><a href="#ev-death">death</a></li>
+        <li><a href="#ev-cast">cast</a></li>
+        <li><a href="#ev-key">key</a></li>
+        <li><a href="#ev-chat">chat</a></li>
+        <li><a href="#ev-ping">ping</a></li>
+        <li><a href="#ev-talent">talent</a></li>
+        <li><a href="#ev-spawn">spawn</a></li>
+        <li><a href="#ev-unitdied">unitdied</a></li>
+        <li><a href="#ev-levelup">levelup</a></li>
+      </ol>
+    </li>
+    <li><a href="#values">Values and matching</a></li>
+    <li><a href="#variables">Variables</a></li>
+    <li><a href="#temporal">Temporal operators</a>
+      <ol>
+        <li><a href="#op-then">then</a></li>
+        <li><a href="#op-notfollowed">not followed by</a></li>
+        <li><a href="#op-preceded">preceded by</a></li>
+        <li><a href="#op-notpreceded">not preceded by</a></li>
+        <li><a href="#op-count">count</a></li>
+        <li><a href="#precedence">Precedence</a></li>
+      </ol>
+    </li>
+    <li><a href="#near">Proximity: near</a></li>
+    <li><a href="#abilities">Ability labels</a></li>
+    <li><a href="#output">Output</a></li>
+    <li><a href="#errors">Errors</a></li>
+    <li><a href="#grammar">Grammar</a></li>
+    <li><a href="#recipes">Recipes</a></li>
+    <li><a href="#limits">Limits of replay data</a></li>
+  </ol>
+  <button class="theme-toggle" type="button" id="theme">Toggle theme</button>
+</nav>
+
+<main>
+<h1>rq query language</h1>
+<p class="lede">
+  <code>rq</code> turns a Heroes of the Storm replay into a time-ordered list of typed events
+  (deaths, ability casts, chat, pings, talents and more) and searches it with a small query language.
+  Queries can filter on event fields, carry values from one event to the next, and relate events in time:
+  “A then B within 45 seconds”, “A not followed by B”, “three of A within 12 seconds”, “A happened near me”.
+</p>
+
+<!-- ============================================================ -->
+<h2 id="overview">Overview</h2>
+<p>A query is a list of statements. <code>let</code> names a pattern; <code>find</code> runs one and prints every
+span of the replay that matches it.</p>
+<pre><span class="cmt"># Deathwing lands next to me, and within 45 s he dies with me among the credited players</span>
+<span class="kw">let</span> land = <span class="ev">cast</span>(hero: Deathwing, slot: D) <span class="kw">near</span>(me, <span class="num">6</span>)
+<span class="kw">let</span> kill = <span class="ev">death</span>(victim: Deathwing, credit: me)
+<span class="kw">find</span> land <span class="kw">then</span> kill <span class="kw">within</span> <span class="num">45s</span></pre>
+
+<div class="cards">
+  <div class="card"><h4>Events</h4><p>Nine kinds: <code>death</code>, <code>cast</code>, <code>key</code>, <code>chat</code>,
+    <code>ping</code>, <code>talent</code>, <code>spawn</code>, <code>unitdied</code>, <code>levelup</code>.</p></div>
+  <div class="card"><h4>Filters</h4><p><code>field: value</code> pairs, ANDed. Values can be names, numbers,
+    <code>me</code>/<code>ally</code>/<code>enemy</code>, wildcards, alternatives and negation.</p></div>
+  <div class="card"><h4>Variables</h4><p><code>$x</code> binds on first use and must match the same value
+    everywhere after, across a whole sequence.</p></div>
+  <div class="card"><h4>Time</h4><p><code>then</code>, <code>not followed by</code>, <code>preceded by</code>,
+    <code>not preceded by</code>, <code>count &gt;= n</code>, all with a <code>within</code> window.</p></div>
+</div>
+
+<p>All times are <strong>replay time</strong>: game loops ÷ 16, shown as <code>m:ss.f</code>. The in-game clock agrees to
+within a second or two.</p>
+
+<!-- ============================================================ -->
+<h2 id="quickstart">Quick start</h2>
+<pre><span class="cmt"># See what's in your latest game, 23:38 to 24:20, only events involving you or Epicure</span>
+MyHotsCli rq events --replay latest --from 23:38 --to 24:20 --player me,Epicure
+
+<span class="cmt"># Run a one-line query on the latest replay</span>
+MyHotsCli rq find "find death(victim: enemy, credit: me) count >= 2 within 10s"
+
+<span class="cmt"># Run a query file over your 50 most recent replays</span>
+MyHotsCli rq find -f chase.rq --last 50</pre>
+<p>When exploring, start with <code>rq events</code> to see the event lines a query would match, then write the query.</p>
+
+<!-- ============================================================ -->
+<h2 id="cli">Command line</h2>
+
+<h3 id="cli-common">Common options</h3>
+<p>These work on <code>rq</code> and every subcommand.</p>
+<div class="tablewrap"><table>
+<tr><th>Option</th><th>Meaning</th></tr>
+<tr><td><code>--replay</code>, <code>-r</code></td><td>Replay to read: a file path, <code>latest</code>, or <code>N</code> for the N-th newest
+  (1 = latest). Repeatable. Default <code>latest</code>. Replays are found under
+  <code>Documents\Heroes of the Storm\Accounts\*\*-Hero-*\Replays\Multiplayer</code>, newest by file time, across all accounts.</td></tr>
+<tr><td><code>--last K</code></td><td>Use the K newest replays instead of <code>--replay</code>. They are parsed in parallel and printed in order, newest first.</td></tr>
+<tr><td><code>--me NAME</code></td><td>Who <code>me</code> is: a player or hero name. By default it's the player whose Battle.net id matches the
+  <code>…-Hero-1-&lt;id&gt;</code> folder the replay sits in. Needed for replay files copied elsewhere.</td></tr>
+<tr><td><code>--from m:ss</code>, <code>--to m:ss</code></td><td>Limit <code>events</code> output, or <code>find</code> matches by their start time.
+  Plain seconds also work (<code>--from 90</code>).</td></tr>
+<tr><td><code>--no-abil-table</code></td><td>Don't build or load the <a href="#abilities">ability slot table</a>; casts show as <code>Hero.#id</code>
+  and have no <code>slot</code>. Faster on a build you haven't queried before.</td></tr>
+</table></div>
+<p>Replays are read with shared access, so the replay of a game the client still has open can be queried.</p>
+
+<h3 id="cli-find">rq find</h3>
+<pre>MyHotsCli rq find "&lt;query&gt;"   [common options] [--json]
+MyHotsCli rq find -f file.rq   [common options] [--json]</pre>
+<div class="tablewrap"><table>
+<tr><th>Argument / option</th><th>Meaning</th></tr>
+<tr><td><code>query</code></td><td>Query text. Give this or <code>--file</code>, not both.</td></tr>
+<tr><td><code>--file</code>, <code>-f</code></td><td>Read the query from a file (conventionally <code>.rq</code>).</td></tr>
+<tr><td><code>--json</code></td><td>Print results as JSON (<a href="#output-json">format</a>).</td></tr>
+</table></div>
+<p>Exit code is 2 when the query doesn't parse, otherwise 0. A replay that fails to parse, or a query that can't run on a
+particular replay (for example it uses <code>me</code> but the replay has no known “me”), is reported on stderr and skipped.</p>
+
+<h3 id="cli-events">rq events</h3>
+<pre>MyHotsCli rq events [common options] [--kind k1,k2] [--player p1,p2]</pre>
+<p>Prints the replay header, the ten players with team and hero, then every event in time order.</p>
+<div class="tablewrap"><table>
+<tr><th>Option</th><th>Meaning</th></tr>
+<tr><td><code>--kind</code>, <code>-k</code></td><td>Event kinds to show, comma-separated or repeated. Default: all except <code>key</code> and
+  <code>unitdied</code>, which are numerous.</td></tr>
+<tr><td><code>--player</code>, <code>-p</code></td><td>Only events involving these players. Names or heroes (punctuation-insensitive, wildcards allowed), or
+  <code>me</code>. A death involves its victim and everyone credited; other events involve their actor.</td></tr>
+</table></div>
+
+<h3 id="cli-abil">rq abil-table</h3>
+<pre>MyHotsCli rq abil-table [--build N] [--rebuild] [--hero NAME]</pre>
+<p>Shows the ability slot table for a build: ability id, voted slot, share of votes, vote count, the heroes that voted and
+any alias name. Without <code>--build</code> it uses the build of <code>--replay</code>. <code>--rebuild</code> re-reads
+the replays even if the table is cached. <code>--hero</code> shows only ids that hero voted for.</p>
+
+<!-- ============================================================ -->
+<h2 id="lexical">Lexical structure</h2>
+<div class="tablewrap"><table>
+<tr><th>Element</th><th>Form</th><th>Examples</th></tr>
+<tr><td>Comment</td><td><code>#</code> at the start of a token, to end of line</td><td><code># my query</code></td></tr>
+<tr><td>Whitespace</td><td>Spaces, tabs, newlines and <code>;</code> are all separators. Statements need no terminator.</td><td></td></tr>
+<tr><td>Name</td><td>Starts with a letter, <code>_</code>, <code>*</code> or <code>?</code>; continues with letters, digits and
+  <code>_ * ? . ' - #</code></td><td><code>Deathwing</code> <code>Kel'Thuzad</code> <code>E.T.C.</code> <code>gg*</code> <code>Deathwing.D</code></td></tr>
+<tr><td>String</td><td>Double-quoted; <code>\</code> escapes the next character</td><td><code>"Lt. Morales"</code> <code>"gg wp"</code></td></tr>
+<tr><td>Number</td><td>Digits with an optional decimal point</td><td><code>20</code> <code>1315</code> <code>6</code> <code>2.5</code></td></tr>
+<tr><td>Duration</td><td>Number immediately followed by <code>ms</code>, <code>s</code> or <code>m</code></td><td><code>500ms</code> <code>45s</code> <code>1.5m</code></td></tr>
+<tr><td>Variable</td><td><code>$</code> followed by letters, digits, <code>_</code></td><td><code>$p</code> <code>$killer</code></td></tr>
+<tr><td>Punctuation</td><td><code>( ) , : | ! = &lt; &gt; &lt;= &gt;=</code></td><td></td></tr>
+</table></div>
+<p><strong>Keywords</strong> (case-insensitive): <code>let find then all not followed preceded by within near count</code>.
+<code>me</code>, <code>ally</code> and <code>enemy</code> are keywords in value position. Event kinds and keywords can't be
+used as <code>let</code> names. Everything else is case-insensitive too: kinds, field names, <code>let</code> names, and name matching.</p>
+<div class="note"><p>Names with spaces need quotes: <code>"Lt. Morales"</code>. Names with dots, apostrophes and hyphens don't:
+<code>E.T.C.</code>, <code>Kel'Thuzad</code>. Since matching ignores punctuation, <code>ETC</code> and <code>KelThuzad</code> work too.</p></div>
+
+<!-- ============================================================ -->
+<h2 id="statements">Statements</h2>
+<h3><code>let NAME = PATTERN</code></h3>
+<p>Names a pattern so later statements can use it. The name must be defined before it is used; defining it again replaces
+it for the statements that follow. A <code>let</code> by itself produces no output.</p>
+<h3><code>find PATTERN</code></h3>
+<p>Runs the pattern against each replay and prints its matches. A query must contain at least one <code>find</code>, and can
+contain several. Each <code>find</code> has its own variable scope.</p>
+<pre><span class="kw">let</span> myKill = <span class="ev">death</span>(victim: enemy, credit: me)
+<span class="kw">find</span> myKill
+<span class="kw">find</span> myKill <span class="kw">count</span> &gt;= <span class="num">3</span> <span class="kw">within</span> <span class="num">12s</span></pre>
+
+<!-- ============================================================ -->
+<h2 id="events">Events and fields</h2>
+<p>An event pattern is a kind with an optional filter list: <code>death</code>, <code>death()</code> and
+<code>death(victim: me, credit: Tos)</code> are all valid. Filters are ANDed and checked left to right (which matters
+only for <a href="#variables">variables</a>). Using a field the kind doesn't have is a parse error that lists the valid fields.</p>
+<p>Field types used below:</p>
+<div class="tablewrap"><table>
+<tr><th>Type</th><th>What it holds</th></tr>
+<tr><td>player</td><td>One of the ten players. Matched by player name or hero name, or by <code>me</code>/<code>ally</code>/<code>enemy</code>.</td></tr>
+<tr><td>player list</td><td>Several players. A value matches the list if it matches <em>any</em> member.</td></tr>
+<tr><td>team</td><td>Team 0 or 1. Matched by <code>me</code>/<code>ally</code> (my team), <code>enemy</code>, <code>0</code>/<code>1</code> or <code>team0</code>/<code>team1</code>.</td></tr>
+<tr><td>text</td><td>A string, matched by name rules (case- and punctuation-insensitive, wildcards).</td></tr>
+<tr><td>number</td><td>Matched by equality or <code>&gt;= &lt;= &gt; &lt;</code>.</td></tr>
+<tr><td>bool</td><td>Matched by <code>true</code> / <code>false</code>.</td></tr>
+</table></div>
+<p>A field can be empty (no killing blow, no target point, unknown talent name). An empty field never matches, except
+under <code>!</code>.</p>
+
+<h3 id="ev-death"><code>death</code></h3>
+<div class="ev-head"><p>A hero died. Time is exact (from the game loop).</p></div>
+<div class="tablewrap"><table>
+<tr><th>Field</th><th>Type</th><th>Meaning</th></tr>
+<tr><td><code>victim</code></td><td>player</td><td>Who died.</td></tr>
+<tr><td><code>hero</code></td><td>text</td><td>The victim's hero.</td></tr>
+<tr><td><code>credit</code></td><td>player list</td><td>Everyone credited with the takedown (the game's own list). Empty for deaths to minions, structures or mercenaries only.</td></tr>
+<tr><td><code>killer</code></td><td>player</td><td>The killing blow, when the replay records one. Shown with <code>*</code> in output. Can be empty even when <code>credit</code> isn't.</td></tr>
+<tr><td><code>x</code>, <code>y</code></td><td>number</td><td>Where the victim died.</td></tr>
+</table></div>
+
+<h3 id="ev-cast"><code>cast</code></h3>
+<div class="ev-head"><p>A player issued an ability command: abilities, basic attacks, mount, hearthstone, talent actives, map-mechanic abilities. Plain move/right-click commands are not casts.</p></div>
+<div class="tablewrap"><table>
+<tr><th>Field</th><th>Type</th><th>Meaning</th></tr>
+<tr><td><code>player</code></td><td>player</td><td>Who cast it.</td></tr>
+<tr><td><code>hero</code></td><td>text</td><td>The caster's hero.</td></tr>
+<tr><td><code>abil</code></td><td>number</td><td>The ability's link id. Stable within one game build, may change between builds.</td></tr>
+<tr><td><code>cmd</code></td><td>number</td><td>The command index within the ability (usually 0).</td></tr>
+<tr><td><code>slot</code></td><td>text</td><td>Voted hotkey slot from the <a href="#abilities">ability table</a>: <code>Q W E R D Z B Attack Active1</code>…<code>Active5</code>.
+  Empty if the id has no votes or <code>--no-abil-table</code> is used. Low-confidence slots still match here; only the label shows the <code>?</code>.</td></tr>
+<tr><td><code>label</code></td><td>text</td><td><code>Hero.Slot</code>, e.g. <code>Chromie.Q</code>; <code>Deathwing.D?</code> when under 60% of votes agree; <code>Deathwing.#1291</code> with no votes.</td></tr>
+<tr><td><code>name</code></td><td>text</td><td>Your alias for the id, from <a href="#aliases">abil-names.json</a>. Usually empty.</td></tr>
+<tr><td><code>x</code>, <code>y</code></td><td>number</td><td>The target point, or the targeted unit's position when it targets a unit. Empty for no-target casts.</td></tr>
+</table></div>
+<div class="note"><p>A cast is the <em>command</em>, logged when the player confirms it. It doesn't mean the ability hit, or even fired:
+a cast that was interrupted or cancelled still appears.</p></div>
+
+<h3 id="ev-key"><code>key</code></h3>
+<div class="ev-head"><p>A physical key went down or up. Only keys the game listens for are recorded (ability keys, digits, modifiers); each press appears twice, down then up.</p></div>
+<div class="tablewrap"><table>
+<tr><th>Field</th><th>Type</th><th>Meaning</th></tr>
+<tr><td><code>player</code>, <code>hero</code></td><td>player, text</td><td>Who pressed it.</td></tr>
+<tr><td><code>key</code></td><td>text</td><td><code>A</code>–<code>Z</code>, <code>0</code>–<code>9</code>, <code>Shift</code>, <code>Ctrl</code>, <code>Alt</code>, or <code>KeyNN</code> for other codes.</td></tr>
+<tr><td><code>code</code></td><td>number</td><td>Raw code: Shift 0, Ctrl 1, Alt 2, digits 0–9 = 3–12, A–Z = 13–38.</td></tr>
+<tr><td><code>down</code></td><td>bool</td><td><code>true</code> on press, <code>false</code> on release.</td></tr>
+</table></div>
+<div class="warn"><p>Keys are physical keys, not ability slots: a player who rebinds keys presses different keys for the same
+abilities. To ask about abilities, use <code>cast</code> with <code>slot</code> or <code>abil</code>.</p></div>
+
+<h3 id="ev-chat"><code>chat</code></h3>
+<div class="tablewrap"><table>
+<tr><th>Field</th><th>Type</th><th>Meaning</th></tr>
+<tr><td><code>player</code>, <code>hero</code></td><td>player, text</td><td>Who wrote it.</td></tr>
+<tr><td><code>text</code></td><td>text</td><td>The message. Use wildcards for partial matches: <code>text: "*gg*"</code>.</td></tr>
+</table></div>
+<p>Chat times are rounded to whole seconds by the parser.</p>
+
+<h3 id="ev-ping"><code>ping</code></h3>
+<div class="tablewrap"><table>
+<tr><th>Field</th><th>Type</th><th>Meaning</th></tr>
+<tr><td><code>player</code>, <code>hero</code></td><td>player, text</td><td>Who pinged. Ping type and location aren't decoded.</td></tr>
+</table></div>
+
+<h3 id="ev-talent"><code>talent</code></h3>
+<div class="tablewrap"><table>
+<tr><th>Field</th><th>Type</th><th>Meaning</th></tr>
+<tr><td><code>player</code>, <code>hero</code></td><td>player, text</td><td>Who picked it.</td></tr>
+<tr><td><code>tier</code></td><td>number</td><td>Hero level of the tier: 1, 4, 7, 10, 13, 16, 20.</td></tr>
+<tr><td><code>name</code></td><td>text</td><td>The game's internal talent id, e.g. <code>ChromieHeroicAbilitySlowingSands</code>, or <code>#id</code> if unknown. Match with wildcards: <code>name: *SlowingSands</code>.</td></tr>
+</table></div>
+<p>Talent times are whole seconds.</p>
+
+<h3 id="ev-spawn"><code>spawn</code></h3>
+<div class="ev-head"><p>A hero unit appeared: the first spawn at the start of the game and every respawn. Heroes with several units (D.Va mech and pilot) spawn each one.</p></div>
+<div class="tablewrap"><table>
+<tr><th>Field</th><th>Type</th><th>Meaning</th></tr>
+<tr><td><code>player</code>, <code>hero</code></td><td>player, text</td><td>Whose hero.</td></tr>
+<tr><td><code>unit</code></td><td>text</td><td>Unit name, e.g. <code>HeroDeathwing</code>, <code>HeroDVaPilot</code>.</td></tr>
+</table></div>
+<p>Spawn times are whole seconds.</p>
+
+<h3 id="ev-unitdied"><code>unitdied</code></h3>
+<div class="ev-head"><p>A non-hero unit died: minions, structures, mercenaries, summons, objective units. Use <code>rq events --kind unitdied</code> to find unit names.</p></div>
+<div class="tablewrap"><table>
+<tr><th>Field</th><th>Type</th><th>Meaning</th></tr>
+<tr><td><code>unit</code></td><td>text</td><td>Unit name, e.g. <code>ChromieTimeTrap</code>, <code>TownCannonTowerL2</code>.</td></tr>
+<tr><td><code>group</code></td><td>text</td><td>Parser category: <code>Minions</code>, <code>Structures</code>, <code>MercenaryCamp</code>, <code>MapObjective</code>,
+  <code>HeroAbilityUse</code>, <code>Miscellaneous</code> or <code>Unknown</code> (common; many summons and props).</td></tr>
+<tr><td><code>team</code></td><td>team</td><td>The unit's team, when known.</td></tr>
+<tr><td><code>killer</code></td><td>player</td><td>The player credited with killing it, when known.</td></tr>
+<tr><td><code>killerunit</code></td><td>text</td><td>The unit that killed it, when known.</td></tr>
+<tr><td><code>x</code>, <code>y</code></td><td>number</td><td>Where it died.</td></tr>
+</table></div>
+<p>Unit death times are whole seconds.</p>
+
+<h3 id="ev-levelup"><code>levelup</code></h3>
+<div class="tablewrap"><table>
+<tr><th>Field</th><th>Type</th><th>Meaning</th></tr>
+<tr><td><code>team</code></td><td>team</td><td>The team that levelled.</td></tr>
+<tr><td><code>level</code></td><td>number</td><td>The new team level.</td></tr>
+</table></div>
+<p>Level times are whole seconds.</p>
+
+<!-- ============================================================ -->
+<h2 id="values">Values and matching</h2>
+<div class="tablewrap"><table>
+<tr><th>Value</th><th>Example</th><th>Matches</th></tr>
+<tr><td>Name</td><td><code>Deathwing</code> <code>"Lt. Morales"</code></td>
+  <td>A player whose name <em>or</em> hero matches; a text field that matches. Case-insensitive, and also matches when equal
+  after removing everything but letters and digits: <code>ETC</code> = <code>E.T.C.</code>, <code>dva</code> = <code>D.Va</code>.</td></tr>
+<tr><td>Wildcard</td><td><code>gg*</code> <code>"*wp*"</code> <code>Hero?</code></td>
+  <td><code>*</code> = any run of characters, <code>?</code> = one character; the whole value must match, case-insensitive.
+  Wildcards match the raw text: punctuation is <em>not</em> ignored.</td></tr>
+<tr><td>Number</td><td><code>20</code> <code>1315</code></td><td>Equal numbers. Against a team: the team index. Against text: the same digits.</td></tr>
+<tr><td>Comparison</td><td><code>&gt;=16</code> <code>&lt;10</code></td><td>Numbers only: <code>&gt;= &lt;= &gt; &lt;</code>.</td></tr>
+<tr><td><code>me</code></td><td><code>victim: me</code></td><td>Me. Against a team: my team. Against text: my hero's name.</td></tr>
+<tr><td><code>ally</code></td><td><code>credit: ally</code></td><td>My teammates, <strong>not including me</strong> (use <code>me|ally</code> for my whole team). Against a team: my team.</td></tr>
+<tr><td><code>enemy</code></td><td><code>victim: enemy</code></td><td>Players on the other team; the other team.</td></tr>
+<tr><td>Boolean</td><td><code>down: true</code></td><td>Bool fields.</td></tr>
+<tr><td>Alternatives</td><td><code>Tos|Fibak</code> <code>me|ally</code></td><td>Any of the options.</td></tr>
+<tr><td>Negation</td><td><code>!enemy</code> <code>!me</code></td><td>Matches when the inner value doesn't, including when the field is empty. Never binds variables.</td></tr>
+<tr><td>Variable</td><td><code>$p</code></td><td>See <a href="#variables">Variables</a>.</td></tr>
+</table></div>
+
+<h4>Player lists</h4>
+<p>A value matches a player list (<code>credit</code>) when it matches any member. Negation applies to the whole list:
+<code>credit: !me</code> means “I'm not among the credited”, not “someone other than me is credited”.</p>
+<h4>Using <code>me</code></h4>
+<p><code>me</code>, <code>ally</code> and <code>enemy</code> need to know who “me” is. See <code>--me</code> under
+<a href="#cli-common">common options</a>. If it's unknown, a query that uses them fails on that replay with an error.</p>
+
+<!-- ============================================================ -->
+<h2 id="variables">Variables</h2>
+<p>A variable <code>$name</code> <strong>binds</strong> the field's value the first time it's used, and every later use must
+<strong>match that value</strong>. Bindings flow left to right through a pattern's filters and from each part of a sequence
+to the next.</p>
+<pre><span class="cmt"># Someone killed me, and within a minute I took part in killing that same player</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: me, killer: <span class="var">$k</span>) <span class="kw">then</span> <span class="ev">death</span>(victim: <span class="var">$k</span>, credit: me) <span class="kw">within</span> <span class="num">60s</span>
+
+<span class="cmt"># A hero died and respawned within 25 s (same player both times)</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: <span class="var">$p</span>) <span class="kw">then</span> <span class="ev">spawn</span>(player: <span class="var">$p</span>) <span class="kw">within</span> <span class="num">25s</span></pre>
+<ul>
+  <li><strong>Lists:</strong> an unbound variable on a player list produces one candidate per member, so
+    <code>death(credit: $k) then chat(player: $k) within 5s</code> finds whichever credited player chatted.</li>
+  <li><strong>Equality:</strong> players compare as the same player; text compares case-insensitively; a player and a text
+    value compare by name rules (player name or hero).</li>
+  <li><strong>Scope:</strong> one <code>find</code>. A <code>let</code> pattern that uses a variable binds it wherever it's used.</li>
+  <li><strong>Negative operators:</strong> the right side of <code>not followed by</code> and <code>not preceded by</code> can use
+    bindings from the left side, but its own new bindings are dropped.</li>
+  <li><strong>Order in <code>preceded by</code>:</strong> the left side (the later event) binds first, even though the right side happened earlier.</li>
+  <li><strong>In <code>near</code>:</strong> the variable must already be bound, to a player or name.</li>
+  <li>Bindings are printed with each match: <code>$k=Epicure (Deathwing)</code>.</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="temporal">Temporal operators</h2>
+<p>Every pattern produces <strong>matches</strong>. A match has a start time, an end time, the events that make it up, and its
+variable bindings. A single event's match starts and ends at the event's time. All windows below are inclusive, and
+<code>within</code> is required.</p>
+
+<h3 id="op-then"><code>A then B within d</code></h3>
+<p>B starts no earlier than A ends and no later than A's end + d. B must be strictly after A, or at the same time but a different event.
+The result spans A's start to B's end.</p>
+<ul>
+  <li><strong>Plain <code>then</code>:</strong> each A pairs with the earliest B in its window, and each B is used by at most one
+    A, the earliest one that reaches it. Repeated A's leading to the same B therefore give one span, starting at the first A.
+    (Deathwing re-aiming his flight three times, then dying, is one chase.)</li>
+  <li><strong><code>then all</code>:</strong> every (A, B) pair in the window.</li>
+</ul>
+<pre><span class="kw">find</span> <span class="ev">cast</span>(player: me, slot: R) <span class="kw">then</span> <span class="ev">death</span>(victim: enemy, credit: me) <span class="kw">within</span> <span class="num">4s</span>
+<span class="kw">find</span> <span class="ev">cast</span>(player: me, slot: R) <span class="kw">then all</span> <span class="ev">death</span>(victim: enemy, credit: me) <span class="kw">within</span> <span class="num">4s</span></pre>
+
+<h3 id="op-notfollowed"><code>A not followed by B within d</code></h3>
+<p>Each A with <em>no</em> B in the window it would have under <code>then</code>. The match is A alone.</p>
+<div class="note"><p><strong>Game end:</strong> if A's end + d is past the end of the game, the replay can't tell whether B would
+have followed. These A's are left out and counted as <em>undecided</em> in the result line.</p></div>
+<pre><span class="cmt"># I died and didn't ping within 10 s</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: me) <span class="kw">not followed by</span> <span class="ev">ping</span>(player: me) <span class="kw">within</span> <span class="num">10s</span></pre>
+
+<h3 id="op-preceded"><code>A preceded by B within d</code></h3>
+<p>B starts between A's start − d and A's start, and ends no later than A's start (if at the same time, it's a different
+event). The <strong>closest</strong> such B is used; <code>preceded by</code> has no <code>all</code> form. The result spans
+B's start to A's end, with B's events first.</p>
+<pre><span class="cmt"># A kill I took part in, with a ping from me in the 5 s before it</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: enemy, credit: me) <span class="kw">preceded by</span> <span class="ev">ping</span>(player: me) <span class="kw">within</span> <span class="num">5s</span></pre>
+
+<h3 id="op-notpreceded"><code>A not preceded by B within d</code></h3>
+<p>Each A with no B in the window it would have under <code>preceded by</code>. The match is A alone. The start of the game
+doesn't make anything undecided; nothing happens before 0:00.</p>
+<pre><span class="cmt"># My deaths with no enemy hero death in the 10 s before (not a trade)</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: me) <span class="kw">not preceded by</span> <span class="ev">death</span>(victim: enemy) <span class="kw">within</span> <span class="num">10s</span></pre>
+
+<h3 id="op-count"><code>A count &gt;= n within d</code></h3>
+<p>Groups A's matches by their variable bindings, then finds clusters of at least <em>n</em> matches whose start times all
+fit inside a span of <em>d</em>. Clusters are taken greedily from the earliest match: take every match starting within d of it;
+if there are at least n, that's a cluster, and the search continues after it. Otherwise it moves on one match. Clusters never overlap.
+The result spans the first match's start to the latest end, holds all the events, and is noted <code>xN</code>.</p>
+<pre><span class="cmt"># 3+ enemy deaths credited to me within 12 s</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: enemy, credit: me) <span class="kw">count</span> &gt;= <span class="num">3</span> <span class="kw">within</span> <span class="num">12s</span>
+
+<span class="cmt"># Any one enemy dying twice within 2 minutes, counted per victim</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: <span class="var">$v</span>, credit: me) <span class="kw">count</span> &gt;= <span class="num">2</span> <span class="kw">within</span> <span class="num">2m</span></pre>
+<p><code>n</code> must be a whole number of at least 1. <code>count</code> works on any pattern, including sequences in parentheses.</p>
+
+<h3 id="precedence">Precedence and grouping</h3>
+<ul>
+  <li><code>near</code> and <code>count</code> bind tightest and apply to the pattern just before them. They can repeat:
+    <code>cast(...) near(me, 6) near(Tos, 6)</code>.</li>
+  <li>The four sequence operators have equal precedence and group left to right:
+    <code>A then B within 5s then C within 3s</code> is <code>(A then B within 5s) then C within 3s</code>. C is timed from B's end.</li>
+  <li>Use parentheses for anything else: <code>(A then B within 5s) count &gt;= 2 within 1m</code>,
+    <code>A then (B preceded by C within 2s) within 20s</code>.</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="near">Proximity: <code>near(subject, distance)</code></h2>
+<p>Applies to a single event pattern only. The event passes when it happened within <em>distance</em> map units of
+<em>subject</em> at that moment. Distances are in the same coordinates <code>rq events</code> prints.</p>
+<p><strong>Where the event happened:</strong> the event's own location if it has one (death position, cast target point or
+targeted unit, spawn point, unit death position). Otherwise, the acting player's hero position at that time.</p>
+<p><strong>Where the subject was:</strong> the subject's hero position at the event's time. If there are samples within 2 s
+on both sides, it's interpolated between them; otherwise the nearest sample within 2 s is used. With no sample within 2 s, the
+subject has no position and the event fails.</p>
+<p><strong>Subject</strong> is a value: <code>me</code>, <code>ally</code>, <code>enemy</code>, a player or hero name,
+<code>a|b</code>, or a bound variable. With several subject players, the event passes if any one is in range. With several
+<code>near</code> clauses, all must pass. Each passing clause adds a note:
+<code>[2.5 from Player (estimated position)]</code>.</p>
+<div class="warn">
+  <p><strong>Positions are approximate.</strong> Replays only record a hero's position occasionally. Most samples are estimated
+  from that player's move commands, so a hero who is stunned, channelling, standing still or being displaced can drift from the
+  estimate or have gaps. Matches that rely on estimates are marked. Use generous distances (5–8) and check the result in the
+  replay.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="abilities">Ability labels</h2>
+<p>Replays identify an ability only by a numeric link id (<code>abil</code>), and record keys as physical keys, not slots.
+To label casts as <code>Chromie.Q</code>, <code>rq</code> builds a <strong>slot table per game build</strong>:</p>
+<ol>
+  <li>It finds every replay on this machine from the same build.</li>
+  <li>For each player in each replay, it pairs every cast with the key that player pressed just before it (within 3 s, with no
+    other cast in between), and reads that key under <em>default</em> hotkeys: Q W E R D Z B, A = Attack, 1–5 = Active1–5.</li>
+  <li>Each player casts one vote per ability id, for the slot they most often used. The slot with the most votes wins.</li>
+</ol>
+<p>Because the label belongs to the ability id, not to anyone's keys, a player who rebinds keys is outvoted and their casts
+still get the right label.</p>
+<div class="tablewrap"><table>
+<tr><th>Label</th><th>Meaning</th></tr>
+<tr><td><code>Chromie.Q</code></td><td>At least 60% of votes agree on the slot.</td></tr>
+<tr><td><code>Deathwing.D?</code></td><td>The top slot has under 60% of votes. Few votes, or the ability is reached in more than one way.</td></tr>
+<tr><td><code>Deathwing.#1291</code></td><td>No votes for this id (or <code>--no-abil-table</code>).</td></tr>
+</table></div>
+<ul>
+  <li><strong>Shared abilities:</strong> mount, hearthstone, basic attack and map abilities (e.g. Dragon Knight) are one id for
+    every hero, labelled with the caster's hero: <code>Valla.Z</code>, <code>Valla.B</code>.</li>
+  <li><strong>Thin builds:</strong> a hero who appears in only a few replays of a build gets few votes. Check with
+    <code>rq abil-table --hero NAME</code>, and fall back to <code>abil:</code> ids when slots look doubtful.</li>
+  <li><strong>You are in every replay:</strong> your own bindings carry heavy weight for heroes you play.</li>
+  <li><strong>Cache:</strong> the table is built the first time you query a build (progress on stderr), then cached in
+    <code>%LocalAppData%\MyHotsInfo\abil-slots\&lt;build&gt;.json</code>. Rebuild after adding replays with <code>rq abil-table --rebuild</code>.</li>
+</ul>
+<h3 id="aliases">Ability names (abil-names.json)</h3>
+<p>To give ids real names, create <code>%LocalAppData%\MyHotsInfo\abil-slots\abil-names.json</code>, keyed by build and then id:</p>
+<pre>{
+  "98348": {
+    "1315": "Dragonflight",
+    "1291": "Incinerate"
+  }
+}</pre>
+<p>Names appear in output as <code>"Dragonflight"</code> and can be matched with <code>cast(name: Dragonflight)</code>. Ids can
+change between builds, so each build needs its own entries.</p>
+
+<!-- ============================================================ -->
+<h2 id="output">Output</h2>
+<h3>Text</h3>
+<pre class="out">2026-10-09 21.33.03 Dragon Shire.StormReplay — Dragon Shire, build 98348, 26:28.0, me = Player (Chromie)
+find land then kill within 45s  →  2 matches
+  21:59.5 – 22:25.6  [5.6 from Player (estimated position)]
+      21:59.5  cast   Epicure (Deathwing) Deathwing.D? [#1315/0] @124.8,107.3
+      22:25.6  death  Epicure (Deathwing) by TGChillaa, *Fibak, Player @93,84
+  23:40.3 – 24:16.6  [2.5 from Player (estimated position)]
+      23:40.3  cast   Epicure (Deathwing) Deathwing.D? [#1315/0] @125.6,105.3
+      24:16.6  death  Epicure (Deathwing) by *Tos, Roilad, Player @86,67</pre>
+<ul>
+  <li><strong>Header:</strong> replay file, map, build, length, and who “me” is.</li>
+  <li><strong>Result line:</strong> the <code>find</code> text, the match count, and any undecided count.</li>
+  <li><strong>Match line:</strong> the span (one time if it's a single instant), bindings (<code>$p=…</code>), and notes
+    (<code>near</code> distances, <code>xN</code> for counts).</li>
+  <li><strong>Event lines:</strong> <code>*</code> marks the killing blow, <code>[#id/cmd]</code> the raw ability, and
+    <code>@x,y</code> or <code>@unit</code> the target.</li>
+</ul>
+
+<h3 id="output-json">JSON (<code>--json</code>)</h3>
+<pre>[
+  {
+    "replay": "C:\\...\\2026-10-09 21.33.03 Dragon Shire.StormReplay",
+    "map": "Dragon Shire",
+    "build": 98348,
+    "results": [
+      {
+        "find": "land then kill within 45s",
+        "undecided": 0,
+        "matches": [
+          {
+            "start": 1319.5, "end": 1345.63,
+            "bindings": {},
+            "notes": ["5.6 from Player (estimated position)"],
+            "events": [
+              { "t": 1319.5, "kind": "cast", "text": "cast   Epicure (Deathwing) Deathwing.D? [#1315/0] @124.8,107.3" },
+              { "t": 1345.63, "kind": "death", "text": "death  Epicure (Deathwing) by TGChillaa, *Fibak, Player @93,84" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]</pre>
+<p>Times are seconds. The output is one array entry per replay. Binding values are their display text.</p>
+
+<!-- ============================================================ -->
+<h2 id="errors">Errors</h2>
+<p>Parse errors give a line:column, the line, and a caret, and exit with code 2:</p>
+<pre class="out">2:12: death has no field 'victm' (fields: victim, hero, credit, killer, x, y)
+  find death(victm: me)
+             ^</pre>
+<div class="tablewrap"><table>
+<tr><th>Message</th><th>Cause</th></tr>
+<tr><td>Unknown event or name 'X'</td><td>Not an event kind, and no <code>let</code> by that name earlier in the query.</td></tr>
+<tr><td>K has no field 'F'</td><td>Misspelt or wrong field for that kind; the valid fields are listed.</td></tr>
+<tr><td>Expected 'within'</td><td>Every sequence operator and <code>count</code> needs a window.</td></tr>
+<tr><td>Expected a duration like 10s</td><td>The window needs a unit: <code>10s</code>, not <code>10</code>.</td></tr>
+<tr><td>'near' applies to a single event pattern</td><td><code>near</code> used after a sequence or a <code>let</code> name; put it on the event inside.</td></tr>
+<tr><td>'X' is reserved</td><td>A <code>let</code> name that's a keyword or event kind.</td></tr>
+<tr><td>The query has no 'find' statement</td><td>Only <code>let</code>s.</td></tr>
+<tr><td>…has no known 'me' (use --me)</td><td>Runtime, per replay: <code>me</code>/<code>ally</code>/<code>enemy</code> with no identifiable “me”.</td></tr>
+<tr><td>$x must be bound before it is used in near()</td><td>Runtime: bind it in an earlier filter or event first.</td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h2 id="grammar">Grammar</h2>
+<pre>program   := statement+                                  <span class="cmt"># at least one find</span>
+statement := 'let' NAME '=' pattern
+           | 'find' pattern
+
+pattern   := postfix ( seqop postfix 'within' DURATION )*  <span class="cmt"># left-associative</span>
+seqop     := 'then' [ 'all' ]
+           | 'not' 'followed' 'by'
+           | 'preceded' 'by'
+           | 'not' 'preceded' 'by'
+
+postfix   := primary ( 'near' '(' value ',' NUMBER ')'      <span class="cmt"># event patterns only</span>
+                     | 'count' '&gt;=' NUMBER 'within' DURATION )*
+primary   := KIND [ '(' [ filter ( ',' filter )* ] ')' ]
+           | NAME                                         <span class="cmt"># a let</span>
+           | '(' pattern ')'
+filter    := FIELD ':' value
+
+value     := unary ( '|' unary )*
+unary     := '!' unary
+           | ( '&gt;=' | '&lt;=' | '&gt;' | '&lt;' ) NUMBER
+           | NUMBER | STRING | VARIABLE | 'me' | 'ally' | 'enemy' | NAME
+
+KIND      := death | cast | key | chat | ping | talent | spawn | unitdied | levelup</pre>
+
+<!-- ============================================================ -->
+<h2 id="recipes">Recipes</h2>
+
+<h4>Fights and kills</h4>
+<pre><span class="cmt"># Enemy deaths I took part in</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: enemy, credit: me)
+
+<span class="cmt"># Kills where I landed the killing blow</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: enemy, killer: me)
+
+<span class="cmt"># Kills I got credit for without any ally credited (solo kills)</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: enemy, credit: me, credit: !ally)
+
+<span class="cmt"># Team wipes: five enemy deaths inside 20 s</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: enemy) <span class="kw">count</span> &gt;= <span class="num">5</span> <span class="kw">within</span> <span class="num">20s</span>
+
+<span class="cmt"># Revenge: killed by someone, then helped kill them within a minute</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: me, credit: <span class="var">$k</span>) <span class="kw">then</span> <span class="ev">death</span>(victim: <span class="var">$k</span>, credit: me) <span class="kw">within</span> <span class="num">60s</span></pre>
+
+<h4>My deaths</h4>
+<pre><span class="cmt"># Deaths to a specific hero</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: me, credit: Valeera)
+
+<span class="cmt"># Dying within 5 s of using my heroic</span>
+<span class="kw">find</span> <span class="ev">cast</span>(player: me, slot: R) <span class="kw">then</span> <span class="ev">death</span>(victim: me) <span class="kw">within</span> <span class="num">5s</span>
+
+<span class="cmt"># Deaths not traded: no enemy died in the 10 s before or after</span>
+<span class="kw">find</span> (<span class="ev">death</span>(victim: me) <span class="kw">not preceded by</span> <span class="ev">death</span>(victim: enemy) <span class="kw">within</span> <span class="num">10s</span>)
+     <span class="kw">not followed by</span> <span class="ev">death</span>(victim: enemy) <span class="kw">within</span> <span class="num">10s</span>
+
+<span class="cmt"># Dying soon after the enemy hit level 10</span>
+<span class="kw">find</span> <span class="ev">levelup</span>(team: enemy, level: <span class="num">10</span>) <span class="kw">then</span> <span class="ev">death</span>(victim: me) <span class="kw">within</span> <span class="num">45s</span></pre>
+
+<h4>Chases and positioning</h4>
+<pre><span class="cmt"># An enemy ability targeted right next to me, then that enemy died with my credit</span>
+<span class="kw">find</span> <span class="ev">cast</span>(player: enemy, player: <span class="var">$e</span>) <span class="kw">near</span>(me, <span class="num">5</span>) <span class="kw">then</span> <span class="ev">death</span>(victim: <span class="var">$e</span>, credit: me) <span class="kw">within</span> <span class="num">30s</span>
+
+<span class="cmt"># My heroic aimed within 4 of any enemy hero</span>
+<span class="kw">find</span> <span class="ev">cast</span>(player: me, slot: R) <span class="kw">near</span>(enemy, <span class="num">4</span>)</pre>
+
+<h4>Communication</h4>
+<pre><span class="cmt"># "gg" from anyone</span>
+<span class="kw">find</span> <span class="ev">chat</span>(text: <span class="str">"gg*"</span>)
+
+<span class="cmt"># Chat from me right after a kill I was part of</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: enemy, credit: me) <span class="kw">then</span> <span class="ev">chat</span>(player: me) <span class="kw">within</span> <span class="num">15s</span>
+
+<span class="cmt"># Ping spam: 5 pings from the same player inside 3 s</span>
+<span class="kw">find</span> <span class="ev">ping</span>(player: <span class="var">$p</span>) <span class="kw">count</span> &gt;= <span class="num">5</span> <span class="kw">within</span> <span class="num">3s</span></pre>
+
+<h4>Builds and items</h4>
+<pre><span class="cmt"># My level-20 talent and when I took it</span>
+<span class="kw">find</span> <span class="ev">talent</span>(player: me, tier: <span class="num">20</span>)
+
+<span class="cmt"># Any player picking a given talent (wildcards against the internal id)</span>
+<span class="kw">find</span> <span class="ev">talent</span>(name: <span class="str">"*SlowingSands"</span>)
+
+<span class="cmt"># Hearthing right after a kill</span>
+<span class="kw">find</span> <span class="ev">death</span>(victim: enemy, credit: me) <span class="kw">then</span> <span class="ev">cast</span>(player: me, slot: B) <span class="kw">within</span> <span class="num">8s</span></pre>
+
+<!-- ============================================================ -->
+<h2 id="limits">Limits of replay data</h2>
+<ul>
+  <li><strong>No damage, healing or health.</strong> Replays don't record hits, so “almost died” or “dealt the most damage
+    in this fight” can't be asked.</li>
+  <li><strong>Taunts, dances and other emotes</strong> don't appear in the replay data.</li>
+  <li><strong>Casts are commands, not effects:</strong> a cast doesn't mean the ability hit, or even went off.</li>
+  <li><strong>Positions are sparse and mostly estimated</strong> (see <a href="#near">near</a>).</li>
+  <li><strong>Some times are whole seconds:</strong> chat, talent, spawn, unitdied and levelup. Deaths, casts, keys and pings are
+    exact to 1/16 s.</li>
+  <li><strong>Ability ids are per build;</strong> labels depend on how many replays of that build you have.</li>
+</ul>
+</main>
+</div>
+<script>
+(function () {
+  var root = document.documentElement, key = "rqdocs-theme";
+  try { var saved = localStorage.getItem(key); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
+  document.getElementById("theme").addEventListener("click", function () {
+    var dark = root.getAttribute("data-theme")
+      ? root.getAttribute("data-theme") === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var next = dark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem(key, next); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>

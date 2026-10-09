@@ -35,6 +35,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HotsScraper\HotsScraper.csproj" />
     <ProjectReference Include="..\MyReplayLibrary\MyReplayLibrary.csproj" />
+    <ProjectReference Include="..\MyReplayQuery\MyReplayQuery.csproj" />
     <ProjectReference Include="W:\sql-like-to-regex\SqlLikeToRegex\SqlLikeToRegex.csproj" />
   </ItemGroup>
 
