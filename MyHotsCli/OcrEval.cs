@@ -25,7 +25,7 @@ public class OcrEval(string screenshotsDir, string truthPath, int parallel) {
         ["psm13"] = o => o with { PageSegMode = PageSegMode.RawLine },
         ["border10"] = o => o with { Border = 10 },
         ["border20"] = o => o with { Border = 20 },
-        ["scalefirst"] = o => o with { ScaleBeforeRotate = true },
+        ["rotatefirst"] = o => o with { ScaleBeforeRotate = false },
         ["otsu"] = o => o with { Threshold = OcrThreshold.Otsu },
         ["grey"] = o => o with { Threshold = OcrThreshold.None },
         ["scale2"] = o => o with { Scale = 2 },

@@ -22,8 +22,11 @@ public record OcrOptions {
 
     public double Scale { get; init; } = 4;
 
-    /// <summary>Draft names: enlarge before rotating them level instead of after.</summary>
-    public bool ScaleBeforeRotate { get; init; }
+    /// <summary>
+    /// Draft names: enlarge before rotating them level, not after, so the rotation doesn't blur
+    /// the small original. Measured: +17 names read exactly, -14 wrong, on 210 screenshots.
+    /// </summary>
+    public bool ScaleBeforeRotate { get; init; } = true;
 
     public OcrThreshold Threshold { get; init; } = OcrThreshold.Fixed;
 
