@@ -5,6 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>annotations</Nullable>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <!-- SYSLIB0014: WebRequest is obsolete. Only CASCExplorer's online-CDN download path uses it, and the scraper
+         reads the local install, so it isn't worth rewriting the synchronous downloaders for HttpClient. -->
+    <NoWarn>$(NoWarn);SYSLIB0014</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
