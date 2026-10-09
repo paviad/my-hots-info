@@ -15,7 +15,11 @@ public enum OcrThreshold {
 
 /// <summary>How screenshot crops are prepared and read. The defaults are what the app uses.</summary>
 public record OcrOptions {
-    public string Languages { get; init; } = "eng+ces+por+rus+hun+chi_sim+chi_tra";
+    /// <summary>
+    /// Tesseract models to load. Measured on 210 screenshots: adding spa read more names right,
+    /// while chi_sim/chi_tra read none of the 12 Chinese names correctly and made OCR 2.4x slower.
+    /// </summary>
+    public string Languages { get; init; } = "eng+ces+por+rus+hun+spa";
 
     /// <summary>Tesseract layout analysis; null leaves the engine default.</summary>
     public PageSegMode? PageSegMode { get; init; }

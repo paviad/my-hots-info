@@ -36,9 +36,15 @@ public class OcrEval(string screenshotsDir, string truthPath, int parallel) {
 
     public static IEnumerable<string> TweakNames => Tweaks.Keys;
 
+    /// <summary>
+    /// Applies each tweak in turn. Besides the named ones, <c>lang:eng,rus</c> sets the Tesseract
+    /// languages (commas, since '+' separates tweaks).
+    /// </summary>
     public static OcrOptions ParseVariant(string variant) =>
         variant.Split('+').Aggregate(new OcrOptions(), (o, t) =>
-            Tweaks.TryGetValue(t, out var f) ? f(o) : throw new ArgumentException($"Unknown OCR tweak '{t}'"));
+            t.StartsWith("lang:") ? o with { Languages = t["lang:".Length..].Replace(',', '+') }
+            : Tweaks.TryGetValue(t, out var f) ? f(o)
+            : throw new ArgumentException($"Unknown OCR tweak '{t}'"));
 
     /// <summary>
     /// OCRs every screenshot with the app's settings and matches it to the replay, within 6 hours,
