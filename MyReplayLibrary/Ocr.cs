@@ -69,7 +69,9 @@ public partial class Ocr : IDisposable {
             lock (_ocrLock) {
                 using var page = _engine.Process(image);
 
-                text1 = MyRegex().Split(page.GetText().Trim());
+                // Drop the empty pieces a stray leading/trailing symbol leaves behind, so they
+                // don't get picked as the name below.
+                text1 = MyRegex().Split(page.GetText().Trim()).Where(s => s != "").DefaultIfEmpty("").ToArray();
             }
 
             var chin2 = text1.Where(s => ChinCh().IsMatch(s)).ToArray();

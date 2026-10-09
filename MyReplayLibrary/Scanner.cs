@@ -759,7 +759,16 @@ public partial class Scanner(
             try {
                 var rc1 = await ocr.OcrScreenshot(fn, ScreenShotKind.Draft);
                 var rc2 = await ocr.OcrScreenshot(fn, ScreenShotKind.Loading);
-                var rc = ((List<string>[])[rc1, rc2]).FirstOrDefault(z => z.All(w => w != "")) ?? [];
+                // Keep the reading with more names, minus the slots that came out empty or as a
+                // single noise character. Across 289 real screenshots, draft and loading screens
+                // gave 7-10 such names and every other screen 0-2, hence the cutoff.
+                var rc = ((List<string>[])[rc1, rc2])
+                    .Select(z => z.Where(w => w.Length >= 2).ToList())
+                    .MaxBy(z => z.Count)!;
+                if (rc.Count < 5) {
+                    rc = [];
+                }
+
                 await callBack(rc);
                 //var msg = string.Join("\n", rc.Select(z => $"   {z}"));
                 //logger.LogInformation("Players in this game:\n{msg}", msg);
