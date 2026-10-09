@@ -165,6 +165,12 @@ public class PlayerQuery(ReplayDbContext dc) {
         return new NameMatcher(counts.Select(c => (c.Name, c.Games)));
     }
 
+    /// <summary>The names the app's owner has played under.</summary>
+    public async Task<HashSet<string>> GetMyNames() {
+        var names = await dc.ReplayCharacters.Where(r => r.IsMe).Select(r => r.Player.Name).Distinct().ToListAsync();
+        return names.ToHashSet(StringComparer.OrdinalIgnoreCase);
+    }
+
     public async Task<List<PlayerRecord>> QueryByName(string name, bool caseSensitive = false) {
         List<PlayerEntry> players;
         if (name.Contains('#')) {
@@ -196,18 +202,18 @@ public class PlayerQuery(ReplayDbContext dc) {
             from p in players
             let tag = $"{p.Name}#{p.BattleTag}"
             let anal = AnalyzePid(p.Id)
-            select new PlayerRecord(tag, anal.total, anal.byHero);
+            select new PlayerRecord(tag, anal.total, anal.byHero) { LastMet = anal.lastMet };
 
         return [.. rc];
 
-        (ResultRecord total, Dictionary<string, ResultRecord> byHero) AnalyzePid(int pid) {
+        (ResultRecord total, Dictionary<string, ResultRecord> byHero, DateTime? lastMet) AnalyzePid(int pid) {
             var rpls = replays!.Where(r => r.ReplayCharacters.Any(z => z.PlayerId == pid)).ToList();
             var heroes = rpls.GroupBy(r => Them(r).CharacterId);
             var byHero = heroes.ToDictionary(r => r.Key, r => AnalyzeReplays([.. r]));
 
             var total = AnalyzeReplays(rpls);
 
-            return (total, byHero);
+            return (total, byHero, rpls.Count == 0 ? null : rpls.Max(r => r.TimestampReplay));
 
             ResultRecord AnalyzeReplays(List<ReplayEntry> rpls1) {
                 var numGames = rpls1.Count;
@@ -292,7 +298,10 @@ public class PlayerQuery(ReplayDbContext dc) {
 
     public record ResultRecord(int NumGames, int Wins, int WeWon, int WeLost, int WeBeatThem, int TheyBeatUs);
 
-    public record PlayerRecord(string? BattleTag, ResultRecord Totals, Dictionary<string, ResultRecord> ByHero);
+    public record PlayerRecord(string? BattleTag, ResultRecord Totals, Dictionary<string, ResultRecord> ByHero) {
+        /// <summary>UTC time of the latest game with this player, or null when there is none.</summary>
+        public DateTime? LastMet { get; init; }
+    }
 
     public record HeroRecord(string Hero, ResultRecord Totals, Dictionary<string, ResultRecord> ByHero);
 }

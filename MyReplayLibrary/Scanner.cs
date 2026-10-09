@@ -759,7 +759,7 @@ public partial class Scanner(
             try {
                 var rc1 = await ocr.OcrScreenshot(fn, ScreenShotKind.Draft);
                 var rc2 = await ocr.OcrScreenshot(fn, ScreenShotKind.Loading);
-                var rc = Ocr.PickNames(rc1, rc2);
+                var rc = Ocr.PickSlots(rc1, rc2);
 
                 await callBack(rc);
                 //var msg = string.Join("\n", rc.Select(z => $"   {z}"));

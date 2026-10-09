@@ -94,8 +94,12 @@ public partial class AppShell : Shell, IDisposable {
         return Task.CompletedTask;
     }
 
-    private Task ScreenshotCallback(List<string> names) {
-        _myNavigator.GoToPrematch(names);
+    private Task ScreenshotCallback(List<string> slots) {
+        // Empty when the screenshot wasn't of a draft or loading screen.
+        if (slots.Count > 0) {
+            _myNavigator.GoToPrematch(slots);
+        }
+
         return Task.CompletedTask;
     }
 }

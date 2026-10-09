@@ -9,17 +9,22 @@ public partial class Ocr(OcrOptions? options = null) : IDisposable {
     private readonly OcrOptions _options = options ?? new OcrOptions();
 
     /// <summary>
-    /// The names to use from a screenshot's draft and loading readings: the reading with more
-    /// names, without slots that came out empty or as a single noise character. Across 289 real
-    /// screenshots, draft and loading screens gave 7-10 such names and every other screen 0-2,
-    /// so fewer than 5 means it was neither.
+    /// The ten slots to use from a screenshot's draft and loading readings: the reading with more
+    /// names, with slots that came out empty or as a single noise character set to "". Slots 0-4
+    /// are the left side of the screen, 5-9 the right. Across 289 real screenshots, draft and
+    /// loading screens gave 7-10 such names and every other screen 0-2, so fewer than 5 means it
+    /// was neither, and the result is empty.
     /// </summary>
-    public static List<string> PickNames(List<string> draft, List<string> loading) {
+    public static List<string> PickSlots(List<string> draft, List<string> loading) {
         var rc = ((List<string>[])[draft, loading])
-            .Select(z => z.Where(w => w.Length >= 2).ToList())
-            .MaxBy(z => z.Count)!;
-        return rc.Count < 5 ? [] : rc;
+            .Select(z => z.Select(w => w.Length >= 2 ? w : "").ToList())
+            .MaxBy(z => z.Count(w => w != ""))!;
+        return rc.Count(w => w != "") < 5 ? [] : rc;
     }
+
+    /// <summary>The names in <see cref="PickSlots"/>, without the unread slots.</summary>
+    public static List<string> PickNames(List<string> draft, List<string> loading) =>
+        PickSlots(draft, loading).Where(w => w != "").ToList();
 
     public async Task<List<string>> OcrScreenshot(string ssName1, ScreenShotKind ssKind) {
         TaskCompletionSource<List<string>> tks = new();

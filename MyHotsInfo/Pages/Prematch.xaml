@@ -2,69 +2,116 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:utils="clr-namespace:MyHotsInfo.Utils"
+             xmlns:controls="clr-namespace:MyHotsInfo.Controls"
              xmlns:pages="clr-namespace:MyHotsInfo.Pages"
              x:DataType="pages:PrematchViewModel"
              Title="Prematch"
              x:Class="MyHotsInfo.Pages.Prematch">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <utils:HeroToImageConverter x:Key="HeroToImageConverter" />
+            <Style x:Key="Small" TargetType="Label">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="Dim" TargetType="Label" BasedOn="{StaticResource Small}">
+                <Setter Property="TextColor" Value="{StaticResource Gray400}" />
+            </Style>
+
+            <DataTemplate x:Key="SlotTemplate" x:DataType="pages:PrematchSlot">
+                <Border Padding="10,6" Margin="0,0,0,6" StrokeThickness="1" Stroke="{StaticResource Gray600}"
+                        StrokeShape="RoundRectangle 4">
+                    <VerticalStackLayout Spacing="2">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                            <Label Text="{Binding Name}" FontSize="14" FontAttributes="Bold"
+                                   LineBreakMode="TailTruncation" />
+                            <Label Grid.Column="1" Text="{Binding Status}" IsVisible="{Binding HasStatus}"
+                                   Style="{StaticResource Dim}" />
+                        </Grid>
+                        <!-- Every player the name may belong to, one aligned row each -->
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Candidates}"
+                                             IsVisible="{Binding HasCandidates}" Spacing="2">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="pages:PrematchCandidate">
+                                    <Grid ColumnDefinitions="68,72,72,84,*" ColumnSpacing="8"
+                                          MinimumHeightRequest="22">
+                                        <Label Text="{Binding Tag}" Style="{StaticResource Small}" TextDecorations="Underline"
+                                               ToolTipProperties.Text="{Binding BattleTag}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="CandidateTapped" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label Grid.Column="1" Text="{Binding WithYou}" Style="{StaticResource Small}" />
+                                        <Label Grid.Column="2" Text="{Binding Against}" Style="{StaticResource Small}" />
+                                        <Label Grid.Column="3" Text="{Binding LastMet}" Style="{StaticResource Small}" />
+                                        <HorizontalStackLayout Grid.Column="4" BindableLayout.ItemsSource="{Binding Heroes}">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate x:DataType="pages:PrematchHeroRecord">
+                                                    <controls:HeroRing Hero="{Binding Hero}" Games="{Binding NumGames}"
+                                                                       Wins="{Binding Wins}" Margin="0,0,6,0"
+                                                                       ToolTipProperties.Text="{Binding ToolTip}" />
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </HorizontalStackLayout>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                        <Label Text="{Binding FoldedText}" IsVisible="{Binding HasFolded}" Style="{StaticResource Dim}"
+                               TextDecorations="Underline" ToolTipProperties.Text="Show them">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="FoldedTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </VerticalStackLayout>
+                </Border>
+            </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <CollectionView ItemsSource="{Binding Records}" Margin="30">
-            <CollectionView.Header>
-                <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,5*" ColumnSpacing="20" Margin="0,0,0,20">
-                    <Label Text="Player" />
-                    <Label Text="Overall" Grid.Column="1" />
-                    <Label Text="Heroes" Grid.Column="2" />
+        <Grid>
+            <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Text="{Binding Error}" IsVisible="{Binding HasError}" Margin="12" />
+            <ScrollView IsVisible="{Binding HasTeams}">
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="16" Margin="12">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding MyTeam.Title}" TextColor="{Binding MyTeam.Accent}"
+                               FontSize="16" FontAttributes="Bold" />
+                        <BoxView HeightRequest="2" Color="{Binding MyTeam.Accent}" Margin="0,4,0,8" />
+                        <!-- Same columns as the candidate rows; the margin is the card's padding plus border -->
+                        <Grid ColumnDefinitions="68,72,72,84,*" ColumnSpacing="8" Margin="11,0,11,4">
+                            <Label Grid.Column="1" Text="With you" Style="{StaticResource Dim}"
+                                   ToolTipProperties.Text="Games on your team · share you won" />
+                            <Label Grid.Column="2" Text="Against" Style="{StaticResource Dim}"
+                                   ToolTipProperties.Text="Games on the other team · share you won" />
+                            <Label Grid.Column="3" Text="Last met" Style="{StaticResource Dim}" />
+                            <Label Grid.Column="4" Text="Top heroes" Style="{StaticResource Dim}"
+                                   ToolTipProperties.Text="Their most played heroes in your games; one ring segment per game, green when they won" />
+                        </Grid>
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding MyTeam.Slots}"
+                                             BindableLayout.ItemTemplate="{StaticResource SlotTemplate}" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="{Binding OtherTeam.Title}" TextColor="{Binding OtherTeam.Accent}"
+                               FontSize="16" FontAttributes="Bold" />
+                        <BoxView HeightRequest="2" Color="{Binding OtherTeam.Accent}" Margin="0,4,0,8" />
+                        <!-- Same columns as the candidate rows; the margin is the card's padding plus border -->
+                        <Grid ColumnDefinitions="68,72,72,84,*" ColumnSpacing="8" Margin="11,0,11,4">
+                            <Label Grid.Column="1" Text="With you" Style="{StaticResource Dim}"
+                                   ToolTipProperties.Text="Games on your team · share you won" />
+                            <Label Grid.Column="2" Text="Against" Style="{StaticResource Dim}"
+                                   ToolTipProperties.Text="Games on the other team · share you won" />
+                            <Label Grid.Column="3" Text="Last met" Style="{StaticResource Dim}" />
+                            <Label Grid.Column="4" Text="Top heroes" Style="{StaticResource Dim}"
+                                   ToolTipProperties.Text="Their most played heroes in your games; one ring segment per game, green when they won" />
+                        </Grid>
+                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding OtherTeam.Slots}"
+                                             BindableLayout.ItemTemplate="{StaticResource SlotTemplate}" />
+                    </VerticalStackLayout>
                 </Grid>
-            </CollectionView.Header>
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical"></LinearItemsLayout>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="pages:PrematchHeroRecord">
-                    <Grid RowDefinitions="30" ColumnDefinitions="*,*,5*" x:DataType="pages:PrematchRecord" ColumnSpacing="20">
-                        <Label Text="{Binding Name}" VerticalOptions="Center" TextDecorations="Underline">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="PlayerTapped" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <Label Grid.Column="1" VerticalOptions="Center">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="{Binding NumGames}"></Span>
-                                    <Span Text="/"></Span>
-                                    <Span Text="{Binding WinRate, StringFormat='{0:P0}'}"></Span>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <!--<Label Text="{Binding WinRate, StringFormat='{0:P1}'}" Grid.Column="1" VerticalOptions="Center"/>-->
-                        <StackLayout BindableLayout.ItemsSource="{Binding Heroes}" Orientation="Horizontal" Grid.Column="2" Spacing="20">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate x:DataType="pages:PrematchHeroRecord">
-                                    <HorizontalStackLayout Spacing="20">
-                                        <Image Source="{Binding Hero, Converter={StaticResource HeroToImageConverter}, ConverterParameter='circle'}"/>
-                                        <Label Grid.Column="1" WidthRequest="65">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{Binding NumGames}"></Span>
-                                                    <Span Text="/"></Span>
-                                                    <Span Text="{Binding WinRate, StringFormat='{0:P0}'}"></Span>
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <!--<Label Text="{Binding WinRate, StringFormat='{0:P1}'}" Grid.Column="1" WidthRequest="50"/>-->
-                                    </HorizontalStackLayout>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </StackLayout>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
