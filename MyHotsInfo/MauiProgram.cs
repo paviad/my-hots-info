@@ -4,6 +4,7 @@ using MyHotsInfo.Pages;
 using MyHotsInfo.Utils;
 using MyReplayLibrary;
 using MyReplayLibrary.Data;
+using MyReplayLibrary.Obs;
 
 namespace MyHotsInfo;
 
@@ -38,6 +39,8 @@ public static class MauiProgram {
         builder.Services.AddSingleton<ScannedFileList>();
         builder.Services.AddSingleton(_ => TimeProvider.System);
         builder.Services.AddSingleton<MyNavigator>();
+        builder.Services.AddSingleton(new GameRecorderOptions());
+        builder.Services.AddSingleton<GameRecorder>();
 
         var mauiApp = builder.Build();
 

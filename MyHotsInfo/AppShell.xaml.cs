@@ -3,10 +3,12 @@ using MyHotsInfo.Pages;
 using MyHotsInfo.Utils;
 using MyReplayLibrary;
 using MyReplayLibrary.Data;
+using MyReplayLibrary.Obs;
 
 namespace MyHotsInfo;
 
 public partial class AppShell : Shell, IDisposable {
+    private readonly GameRecorder _gameRecorder;
     private readonly MyNavigator _myNavigator;
     private readonly IServiceProvider _svcp;
     private readonly CancellationTokenSource _tks = new();
@@ -16,6 +18,7 @@ public partial class AppShell : Shell, IDisposable {
     public AppShell(IServiceProvider svcp, MyNavigator myNavigator) {
         _svcp = svcp;
         _myNavigator = myNavigator;
+        _gameRecorder = svcp.GetRequiredService<GameRecorder>();
         InitializeComponent();
 
         Routing.RegisterRoute("Replay", typeof(ReplayPage));
@@ -66,7 +69,8 @@ public partial class AppShell : Shell, IDisposable {
         _watchScope = _svcp.CreateScope();
         _scanner = _watchScope.ServiceProvider.GetRequiredService<Scanner>();
         var acct = _scanner.GetAllFolders().MaxBy(r => r.NumReplays);
-        await _scanner.Scan(acct.Account, acct.Region, true, ReplayCallback, ScreenshotCallback, _tks.Token);
+        await _scanner.Scan(acct.Account, acct.Region, true, ReplayCallback, GameScreenshotCallback,
+            _gameRecorder.OnReplayFileAsync, _tks.Token);
     }
 
     private async Task InitDbPath() {
@@ -144,15 +148,18 @@ public partial class AppShell : Shell, IDisposable {
             return;
         }
 
-        await ScreenshotCallback(slots);
+        _myNavigator.GoToPrematch(slots);
     }
 
-    private Task ScreenshotCallback(List<string> slots) {
+    /// <summary>
+    /// A screenshot the game saved. Unlike a dropped one, it means a game is starting, so it also
+    /// starts recording.
+    /// </summary>
+    private async Task GameScreenshotCallback(List<string> slots) {
         // Empty when the screenshot wasn't of a draft or loading screen.
         if (slots.Count > 0) {
             _myNavigator.GoToPrematch(slots);
+            await _gameRecorder.OnGameScreenshotAsync();
         }
-
-        return Task.CompletedTask;
     }
 }

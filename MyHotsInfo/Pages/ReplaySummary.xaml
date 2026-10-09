@@ -75,6 +75,12 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <Button x:Name="KeepRecordingButton"
+                    Text="Keep recording"
+                    IsVisible="False"
+                    Clicked="KeepRecordingClicked"
+                    HorizontalOptions="End" VerticalOptions="End"
+                    Margin="0,0,20,30" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

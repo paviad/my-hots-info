@@ -88,8 +88,12 @@ public partial class Scanner(
         return pairs.ToList();
     }
 
+    /// <param name="replayFileCallback">
+    /// Called with each new or changed replay file while watching, before it's imported.
+    /// </param>
     public async Task Scan(string accountId, int region, bool watch, Func<int, Task>? replayCallback = null,
-        Func<List<string>, Task>? screenShotCallback = null, CancellationToken cancellationToken = default) {
+        Func<List<string>, Task>? screenShotCallback = null, Func<string, Task>? replayFileCallback = null,
+        CancellationToken cancellationToken = default) {
         var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         string[] hots = ["Heroes of the Storm", "Accounts", accountId];
         var intPath = Path.Combine([basePath, .. hots]);
@@ -129,7 +133,7 @@ public partial class Scanner(
             logger.LogInformation("Watching for new replays...");
 
             var t2 = WatchScreenshots(screenShotCallback ?? NoOp, cancellationToken);
-            var t1 = Watch(finalPath, replayCallback ?? NoOp, cancellationToken);
+            var t1 = Watch(finalPath, replayCallback ?? NoOp, replayFileCallback ?? NoOp, cancellationToken);
 
             await Task.WhenAll(t1, t2);
         }
@@ -655,7 +659,8 @@ public partial class Scanner(
         await dc.SaveChangesAsync();
     }
 
-    private async Task Watch(string s, Func<int, Task> callBack, CancellationToken cancellationToken) {
+    private async Task Watch(string s, Func<int, Task> callBack, Func<string, Task> fileCallBack,
+        CancellationToken cancellationToken) {
         var subj = new Subject<string>();
         var inp = subj.GroupBy(z => z)
             .SelectMany(z => z.Throttle(TimeSpan.FromSeconds(1)));
@@ -666,6 +671,7 @@ public partial class Scanner(
             scannedFileList.Add(fn);
             logger.LogInformation("Scanning {replay} {fsw}", fn, _fswReplays.EnableRaisingEvents);
             try {
+                await fileCallBack(fn);
                 var replayId = await ScanOneReplay(fn, cancellationToken);
                 if (replayId is not null) {
                     await callBack(replayId.Value);
