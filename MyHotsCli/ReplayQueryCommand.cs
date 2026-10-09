@@ -39,7 +39,7 @@ public static class ReplayQueryCommand {
         var replayOption = new Option<string[]>("--replay", "-r") {
             Description = "Replay file, 'latest', or N for the N-th newest (repeatable)",
             DefaultValueFactory = _ => ["latest"],
-            AllowMultipleArgumentsPerToken = true,
+            // One value per -r, so a positional query after it isn't taken for a replay.
             Recursive = true,
         };
         var lastOption = new Option<int?>("--last") {
