@@ -16,8 +16,11 @@ public record GameRecorderOptions {
     public string RecordingsFolder { get; init; } =
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos), "MyHotsInfo Recordings");
 
-    /// <summary>Where <see cref="GameRecorder.KeepAsync"/> moves a recording so it's never pruned.</summary>
-    public string KeptFolder { get; init; } = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+    /// <summary>
+    /// Where <see cref="GameRecorder.KeepAsync"/> moves a recording so it's never pruned. Pruning
+    /// only looks at files directly in <see cref="RecordingsFolder"/>, so this can be under it.
+    /// </summary>
+    public string KeptFolder => Path.Combine(RecordingsFolder, "Saved");
 
     public int RecordingsToKeep { get; init; } = 3;
 

@@ -29,7 +29,7 @@ public partial class ReplayPage : ContentPage, IQueryAttributable {
             var name = $"{replay.TimestampReplay.ToLocalTime():yyyy-MM-dd HH.mm} {replay.MapId}";
             await _gameRecorder.KeepAsync(replay.ReplayHash, name);
             if (_replay == replay) {
-                KeepRecordingButton.Text = "Saved to Videos";
+                KeepRecordingButton.Text = "Saved";
             }
         }
         catch (Exception x) {
