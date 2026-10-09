@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw
 import os
+import shutil
 from pathlib import Path
 
 def circle_crop(filename, output_folder):
@@ -27,7 +28,13 @@ output_folder = REPO_ROOT / "MyHotsInfo" / "Resources" / "Images" / "Portraits"
 # Create the output folder if it doesn't exist
 os.makedirs(output_folder, exist_ok=True)
 
+# Only add heroes the app doesn't have yet, so hand-fixed portraits (e.g. fenix) aren't overwritten
 for filename in os.listdir(input_folder):
-    if filename.endswith('.jpg') or filename.endswith('.png'):  
+    if filename.endswith('.jpg') or filename.endswith('.png'):
+        target = os.path.join(output_folder, filename)
+        if os.path.exists(target):
+            continue
+        print(target)
+        shutil.copyfile(os.path.join(input_folder, filename), target)
         circle_crop(filename, output_folder)
 
