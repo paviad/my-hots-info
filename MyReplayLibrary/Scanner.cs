@@ -744,6 +744,17 @@ public partial class Scanner(
     }
 
 
+    /// <summary>
+    /// The player slots on a draft or loading screen screenshot, as <see cref="Ocr.PickSlots"/>
+    /// returns them; empty when it is neither.
+    /// </summary>
+    public async Task<List<string>> ReadScreenshot(string fn) {
+        logger.LogInformation("Scanning screenshot {fileName}", fn);
+        var rc1 = await ocr.OcrScreenshot(fn, ScreenShotKind.Draft);
+        var rc2 = await ocr.OcrScreenshot(fn, ScreenShotKind.Loading);
+        return Ocr.PickSlots(rc1, rc2);
+    }
+
     private async Task WatchScreenshots(Func<List<string>, Task> callBack, CancellationToken cancellationToken) {
         var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         string[] hots = ["Heroes of the Storm", "Screenshots"];
@@ -755,12 +766,8 @@ public partial class Scanner(
         _fswScreenshots = new FileSystemWatcher(s, "*.jpg");
 
         var subs = inp.SelectMany(async fn => {
-            logger.LogInformation("Scanning screenshot {fileName}", fn);
             try {
-                var rc1 = await ocr.OcrScreenshot(fn, ScreenShotKind.Draft);
-                var rc2 = await ocr.OcrScreenshot(fn, ScreenShotKind.Loading);
-                var rc = Ocr.PickSlots(rc1, rc2);
-
+                var rc = await ReadScreenshot(fn);
                 await callBack(rc);
                 //var msg = string.Join("\n", rc.Select(z => $"   {z}"));
                 //logger.LogInformation("Players in this game:\n{msg}", msg);

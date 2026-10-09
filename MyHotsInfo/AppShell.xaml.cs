@@ -21,6 +21,9 @@ public partial class AppShell : Shell, IDisposable {
         Routing.RegisterRoute("Replay", typeof(ReplayPage));
         Routing.RegisterRoute("Prematch", typeof(Prematch));
         Routing.RegisterRoute("Player", typeof(PlayerStats));
+#if WINDOWS
+        HandlerChanged += (_, _) => EnableScreenshotDrop();
+#endif
 
         _ = InternalInit();
 
@@ -92,6 +95,56 @@ public partial class AppShell : Shell, IDisposable {
     private Task ReplayCallback(int replayId) {
         _myNavigator.GoToReplay(replayId);
         return Task.CompletedTask;
+    }
+
+#if WINDOWS
+    /// <summary>
+    /// Lets a screenshot file be dropped on the window to be handled as if the game had just
+    /// saved it, for trying out the prematch page without being in a game.
+    /// </summary>
+    private void EnableScreenshotDrop() {
+        if (Handler?.PlatformView is not Microsoft.UI.Xaml.UIElement view) {
+            return;
+        }
+
+        view.AllowDrop = true;
+        view.DragOver += (_, e) => {
+            if (e.DataView.Contains(Windows.ApplicationModel.DataTransfer.StandardDataFormats.StorageItems)) {
+                e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+                e.DragUIOverride.Caption = "Read screenshot";
+            }
+        };
+        view.Drop += async (_, e) => {
+            try {
+                if (!e.DataView.Contains(Windows.ApplicationModel.DataTransfer.StandardDataFormats.StorageItems)) {
+                    return;
+                }
+
+                var items = await e.DataView.GetStorageItemsAsync();
+                if (items.OfType<Windows.Storage.StorageFile>().FirstOrDefault() is { } file) {
+                    await HandleDroppedScreenshot(file.Path);
+                }
+            }
+            catch (Exception x) {
+                await DisplayAlertAsync("Screenshot", $"Couldn't read the screenshot: {x.Message}", "Dismiss");
+            }
+        };
+    }
+#endif
+
+    private async Task HandleDroppedScreenshot(string path) {
+        if (_scanner is null) {
+            await DisplayAlertAsync("Screenshot", "Still starting up, try again in a moment", "Dismiss");
+            return;
+        }
+
+        var slots = await _scanner.ReadScreenshot(path);
+        if (slots.Count == 0) {
+            await DisplayAlertAsync("Screenshot", "That isn't a draft or loading screen screenshot", "Dismiss");
+            return;
+        }
+
+        await ScreenshotCallback(slots);
     }
 
     private Task ScreenshotCallback(List<string> slots) {
