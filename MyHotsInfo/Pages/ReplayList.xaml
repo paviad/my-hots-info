@@ -96,7 +96,12 @@
                                             <Grid RowDefinitions="Auto" ColumnDefinitions="*,Auto,*">
                                                 <Label
                                                     Text="{Binding Player.Name}" HorizontalTextAlignment="End"
-                                                    VerticalTextAlignment="Center" Margin="0,0,10,0" />
+                                                    VerticalTextAlignment="Center" Margin="0,0,10,0"
+                                                    TextDecorations="Underline">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="PlayerTapped" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
                                                 <Image
                                                     Source="{Binding CharacterId, Converter={StaticResource HeroToImageConverter}, ConverterParameter='circle'}"
                                                     HeightRequest="28" Grid.Column="1" />

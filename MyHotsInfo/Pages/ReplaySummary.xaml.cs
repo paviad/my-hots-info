@@ -1,13 +1,23 @@
-﻿using MyReplayLibrary;
+﻿using MyHotsInfo.Utils;
+using MyReplayLibrary;
+using MyReplayLibrary.Data.Models;
 
 namespace MyHotsInfo.Pages;
 
 public partial class ReplayPage : ContentPage, IQueryAttributable {
     private readonly IServiceProvider _svcp;
+    private readonly MyNavigator _myNavigator;
 
-    public ReplayPage(IServiceProvider svcp) {
+    public ReplayPage(IServiceProvider svcp, MyNavigator myNavigator) {
         _svcp = svcp;
+        _myNavigator = myNavigator;
         InitializeComponent();
+    }
+
+    private void PlayerTapped(object? sender, TappedEventArgs e) {
+        if ((sender as BindableObject)?.BindingContext is ReplayCharacter { Player: { } player }) {
+            _myNavigator.GoToPlayer($"{player.Name}#{player.BattleTag}");
+        }
     }
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query) {

@@ -80,6 +80,12 @@ public partial class ReplayList : ContentPage {
         _myNavigator.GoToReplay(_vm!.SelectedReplay!.Id);
     }
 
+    private void PlayerTapped(object? sender, TappedEventArgs e) {
+        if ((sender as BindableObject)?.BindingContext is ReplayCharacter { Player: { } player }) {
+            _myNavigator.GoToPlayer($"{player.Name}#{player.BattleTag}");
+        }
+    }
+
     private async void Refresh_Click(object? sender, EventArgs e) {
         try {
             await InitAsync();

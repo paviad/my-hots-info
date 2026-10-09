@@ -20,6 +20,7 @@ public partial class AppShell : Shell, IDisposable {
 
         Routing.RegisterRoute("Replay", typeof(ReplayPage));
         Routing.RegisterRoute("Prematch", typeof(Prematch));
+        Routing.RegisterRoute("Player", typeof(PlayerStats));
 
         _ = InternalInit();
 

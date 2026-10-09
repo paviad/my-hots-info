@@ -22,6 +22,17 @@ public class MyNavigator {
         });
     }
 
+    // Pushed onto the current stack so Back returns to the page the name was clicked on.
+    // The battle tag goes in the parameters, not the query string, because of its '#'.
+    public void GoToPlayer(string battleTag) {
+        Do(async () => {
+            ShellNavigationQueryParameters navParams = new() {
+                { "battleTag", battleTag },
+            };
+            await Shell.Current.GoToAsync("Player", navParams);
+        });
+    }
+
     private void Do(Func<Task> action) {
         _sync?.Post(Nav, null);
 

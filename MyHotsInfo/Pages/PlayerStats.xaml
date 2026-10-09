@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:utils="clr-namespace:MyHotsInfo.Utils"
+             xmlns:pages="clr-namespace:MyHotsInfo.Pages"
+             x:DataType="pages:PlayerStatsViewModel"
+             x:Class="MyHotsInfo.Pages.PlayerStats">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <utils:HeroToImageConverter x:Key="HeroToImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" Margin="30">
+            <Label Text="No games with this player" IsVisible="{Binding IsEmpty, FallbackValue=False}" />
+            <CollectionView ItemsSource="{Binding Players}" Grid.Row="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="pages:PlayerStatsRecord">
+                        <VerticalStackLayout Margin="0,0,0,30">
+                            <Label Text="{Binding BattleTag}" FontSize="20" Margin="0,0,0,10" />
+                            <Grid ColumnDefinitions="2*,*,*,*,*,*,*,*" ColumnSpacing="10" Margin="0,0,0,5">
+                                <Label Text="They Played" />
+                                <Label Text="Games" Grid.Column="1" />
+                                <Label Text="They Won" Grid.Column="2" />
+                                <Label Text="Win Rate" Grid.Column="3" />
+                                <Label Text="We Won Together" Grid.Column="4" />
+                                <Label Text="We Lost Together" Grid.Column="5" />
+                                <Label Text="We Beat Them" Grid.Column="6" />
+                                <Label Text="They Beat Us" Grid.Column="7" />
+                            </Grid>
+                            <BoxView HeightRequest="1" Color="Gray" />
+                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Rows}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="pages:PlayerStatsRow">
+                                        <Grid RowDefinitions="32" ColumnDefinitions="2*,*,*,*,*,*,*,*" ColumnSpacing="10">
+                                            <Grid.Resources>
+                                                <ResourceDictionary>
+                                                    <Style TargetType="Label">
+                                                        <Setter Property="VerticalTextAlignment" Value="Center" />
+                                                    </Style>
+                                                </ResourceDictionary>
+                                            </Grid.Resources>
+                                            <HorizontalStackLayout Spacing="10">
+                                                <Image
+                                                    Source="{Binding Hero, Converter={StaticResource HeroToImageConverter}, ConverterParameter='circle'}"
+                                                    HeightRequest="28" />
+                                                <Label Text="{Binding Label}" />
+                                            </HorizontalStackLayout>
+                                            <Label Text="{Binding Result.NumGames}" Grid.Column="1" />
+                                            <Label Text="{Binding Result.Wins}" Grid.Column="2" />
+                                            <Label Text="{Binding WinRate, StringFormat='{0:P0}'}" Grid.Column="3" />
+                                            <Label Text="{Binding Result.WeWon}" Grid.Column="4" />
+                                            <Label Text="{Binding Result.WeLost}" Grid.Column="5" />
+                                            <Label Text="{Binding Result.WeBeatThem}" Grid.Column="6" />
+                                            <Label Text="{Binding Result.TheyBeatUs}" Grid.Column="7" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

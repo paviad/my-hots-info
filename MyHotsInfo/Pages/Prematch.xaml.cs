@@ -1,4 +1,5 @@
-﻿using MyReplayLibrary;
+﻿using MyHotsInfo.Utils;
+using MyReplayLibrary;
 
 namespace MyHotsInfo.Pages;
 
@@ -9,10 +10,18 @@ public partial class Prematch : ContentPage, IQueryAttributable {
     ];
 
     private readonly IServiceProvider _svcp;
+    private readonly MyNavigator _myNavigator;
 
-    public Prematch(IServiceProvider svcp) {
+    public Prematch(IServiceProvider svcp, MyNavigator myNavigator) {
         _svcp = svcp;
+        _myNavigator = myNavigator;
         InitializeComponent();
+    }
+
+    private void PlayerTapped(object? sender, TappedEventArgs e) {
+        if ((sender as BindableObject)?.BindingContext is PrematchRecord record) {
+            _myNavigator.GoToPlayer(record.Name);
+        }
     }
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query) {

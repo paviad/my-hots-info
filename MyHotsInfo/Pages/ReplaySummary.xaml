@@ -52,11 +52,14 @@
                                         <FormattedString>
                                             <Span Text="{Binding CharacterId}"/>
                                             <Span Text="{x:Static system:Environment.NewLine}"/>
-                                            <Span Text="{Binding Player.Name}"/>
+                                            <Span Text="{Binding Player.Name}" TextDecorations="Underline"/>
                                             <Span Text="#"/>
                                             <Span Text="{Binding Player.BattleTag}"/>
                                         </FormattedString>
                                     </Label.FormattedText>
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="PlayerTapped" />
+                                    </Label.GestureRecognizers>
                                 </Label>
                             </Grid>
                             <Label Text="{Binding ReplayCharacterScoreResult.SoloKills}" Grid.Column="2" />
