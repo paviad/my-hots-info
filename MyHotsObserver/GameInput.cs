@@ -8,6 +8,7 @@ namespace MyHotsObserver;
 public enum Key : ushort {
     D1 = 0x02, D2, D3, D4, D5, D6, D7, D8, D9, D0,
     Minus = 0x0C,
+    Backspace = 0x0E,
     Equals = 0x0D,
     Tab = 0x0F,
     Q = 0x10,
@@ -83,16 +84,49 @@ public sealed partial class GameInput(GameWindow gameWindow, ILogger<GameInput> 
             GetCursorPos(out var cursor);
             var point = new Point { X = x, Y = y };
             ClientToScreen(game, ref point);
+            // Slow enough to span game frames, which a recording makes longer: the cursor rests on
+            // the target a moment, and the button is held across a few frames.
             SetCursorPos(point.X, point.Y);
-            Thread.Sleep(60);
+            Thread.Sleep(100);
             SendMouse(MouseLeftDown);
-            Thread.Sleep(40);
+            Thread.Sleep(100);
             SendMouse(MouseLeftUp);
-            Thread.Sleep(60);
+            Thread.Sleep(80);
             SetCursorPos(cursor.X, cursor.Y);
         }
 
+        /// <summary>
+        /// Moves the cursor to a point of the game's client area and holds the left button down
+        /// there until <see cref="Release"/>. Held on the minimap, the camera stays on that spot
+        /// whatever the game would do, e.g. jump to a dead hero's core.
+        /// </summary>
+        public void Hold(int x, int y) {
+            GetCursorPos(out _cursor);
+            var point = new Point { X = x, Y = y };
+            ClientToScreen(game, ref point);
+            SetCursorPos(point.X, point.Y);
+            Thread.Sleep(100);
+            SendMouse(MouseLeftDown);
+            _holding = true;
+        }
+
+        /// <summary>Lets go of a <see cref="Hold"/> and puts the cursor back.</summary>
+        public void Release() {
+            if (!_holding) {
+                return;
+            }
+
+            SendMouse(MouseLeftUp);
+            _holding = false;
+            Thread.Sleep(60);
+            SetCursorPos(_cursor.X, _cursor.Y);
+        }
+
+        private bool _holding;
+        private Point _cursor;
+
         public void Dispose() {
+            Release();
             owner.ReturnFocus();
         }
     }

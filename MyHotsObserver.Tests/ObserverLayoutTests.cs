@@ -38,6 +38,16 @@ public class ObserverLayoutTests {
         Assert.Equal(1887, layout.TimelineX(9999, 2513));
     }
 
+    /// <summary>Measured on a 1080p Dragon Shire frame: team 0 mirrored on the left, team 1 in order on the right.</summary>
+    [Theory]
+    [InlineData(0, 0, 650)] // Murky, next to the score
+    [InlineData(0, 4, 185)] // Chromie, far left
+    [InlineData(1, 0, 1240)] // Valeera, next to the score
+    [InlineData(1, 4, 1715)] // Deathwing, far right
+    public void FindsTopBarPortraits(int team, int slot, int x) {
+        Assert.Equal((x, 28), new ObserverLayout(1920, 1080).Portrait(team, slot));
+    }
+
     [Fact]
     public void RefusesOtherAspectRatios() {
         Assert.Throws<NotSupportedException>(() => new ObserverLayout(1920, 1200));

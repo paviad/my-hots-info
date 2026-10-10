@@ -58,20 +58,31 @@ public sealed class ControlTools(ReplayController controller) {
 
     [McpServerTool(Name = "focus_player")]
     [Description("""
-        Makes the camera follow a player of the open replay, by index (0-9), player name, hero, or 'me';
-        or 'all' to stop following and show both teams.
+        Makes the camera follow a player of the open replay, by index (0-9), player name, hero, or
+        'me'; or 'all' to stop following. The observer sees both teams' vision in every view.
+        view 'hero' follows with the hero's own panel (abilities, health) at the bottom; 'everyone'
+        follows in the everyone view (E, then a click on the hero's top-bar portrait), without it.
+        The game's following is flaky: in the everyone view it doesn't follow D.Va in her mech, and
+        no view can follow Deathwing while he flies (the camera waits and picks him up on landing).
         """)]
     public async Task<object> FocusPlayer(
         [Description("Index 0-9, player name, hero, 'me' or 'all', e.g. \"5\", \"Player\" or \"Chromie\"")] string player,
-        CancellationToken cancellationToken) {
+        [Description("'hero' or 'everyone'")] string view = "hero",
+        CancellationToken cancellationToken = default) {
         if (player.Equals("all", StringComparison.OrdinalIgnoreCase)) {
             await controller.PressAsync(Key.E, [], cancellationToken);
             return new { following = "all" };
         }
 
-        var p = await controller.FocusPlayerAsync(player, cancellationToken);
-        return new { following = new { p.Index, p.FocusKey, p.Hero, p.Name, p.Team } };
+        var p = await controller.FocusPlayerAsync(player, Everyone(view), cancellationToken);
+        return new { following = new { p.Index, p.FocusKey, p.Hero, p.Name, p.Team }, view };
     }
+
+    internal static bool Everyone(string view) => view.ToLowerInvariant() switch {
+        "hero" => false,
+        "everyone" => true,
+        _ => throw new McpException("view must be 'hero' or 'everyone'"),
+    };
 
     [McpServerTool(Name = "playback")]
     [Description("Pauses, resumes, or changes the replay's speed by one step. Returns the resulting state.")]

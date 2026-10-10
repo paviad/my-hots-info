@@ -115,11 +115,75 @@ public sealed class ReplayController(
     }
 
     /// <summary>Follows a player: by index (0-9), or by player or hero name in the open replay.</summary>
-    public async Task<PlayerSummary> FocusPlayerAsync(string player, CancellationToken cancellationToken) {
+    /// <param name="everyone">
+    /// Follow in the everyone view (E, then a click on the hero's top-bar portrait): no hero
+    /// panel. Otherwise the hero view (the player's number key), with the hero's panel.
+    /// </param>
+    public async Task<PlayerSummary> FocusPlayerAsync(string player, bool everyone, CancellationToken cancellationToken) {
         var summary = await CurrentReplayAsync(cancellationToken);
         var target = ResolvePlayer(summary, player);
-        await PressAsync(Key.D1 + (ushort)target.Index, [], cancellationToken);
+        if (!everyone) {
+            await PressAsync(Key.D1 + (ushort)target.Index, [], cancellationToken);
+            return target;
+        }
+
+        var slot = summary.Players.Where(p => p.Team == target.Team).ToList().IndexOf(target);
+        var (x, y) = gameWindow.Layout().Portrait(target.Team, slot);
+        await _lock.WaitAsync(cancellationToken);
+        try {
+            // Clicking the portrait of the hero already selected does nothing, so clear the
+            // selection first: the click then always starts a fresh follow.
+            using var session = input.Begin();
+            session.Press(Key.E);
+            Thread.Sleep(150);
+            session.Press(Key.Backspace);
+            Thread.Sleep(150);
+            session.Click(x, y);
+        }
+        finally {
+            _lock.Release();
+        }
+
         return target;
+    }
+
+    /// <summary>
+    /// Points the camera at a map position: clears the selection (Backspace), then clicks the
+    /// minimap; with the hero still selected the game can pull the camera back to him.
+    /// </summary>
+    public async Task LookAtAsync(Minimap minimap, MapPoint point, CancellationToken cancellationToken) {
+        var (x, y) = minimap.Pixel(point, gameWindow.Layout());
+        await _lock.WaitAsync(cancellationToken);
+        try {
+            using var session = input.Begin();
+            session.Press(Key.Backspace);
+            session.Click(x, y);
+        }
+        finally {
+            _lock.Release();
+        }
+    }
+
+    /// <summary>
+    /// Holds the minimap down at a map position (see <see cref="GameInput.Session.Hold"/>), keeping
+    /// the game in front until the returned session is disposed, which lets go.
+    /// </summary>
+    /// <param name="clearSelection">Backspace first, dropping the follow of the selected hero.</param>
+    public async Task<GameInput.Session> HoldAtAsync(Minimap minimap, MapPoint point, bool clearSelection, CancellationToken cancellationToken) {
+        var (x, y) = minimap.Pixel(point, gameWindow.Layout());
+        await _lock.WaitAsync(cancellationToken);
+        try {
+            var session = input.Begin();
+            if (clearSelection) {
+                session.Press(Key.Backspace);
+            }
+
+            session.Hold(x, y);
+            return session;
+        }
+        finally {
+            _lock.Release();
+        }
     }
 
     /// <summary>Sends one key (with modifiers) to the game.</summary>
@@ -148,11 +212,12 @@ public sealed class ReplayController(
             var (now, _) = await PanelAsync(cancellationToken);
             var last = now;
             var lastMoved = Stopwatch.StartNew();
-            var resumed = false;
+            var resumes = 0;
             while (now < seconds - 1.5) {
                 if (lastMoved.Elapsed > TimeSpan.FromSeconds(2)) {
-                    // Paused (a seek too short to click leaves it as it was): resume it once.
-                    if (resumed) {
+                    // Paused (a seek too short to click leaves it as it was): resume it. The game
+                    // misses a press now and then, so allow a few.
+                    if (++resumes > 3) {
                         throw new McpException($"The replay isn't playing (stuck at {ReplayTime(now)}).");
                     }
 
@@ -160,7 +225,6 @@ public sealed class ReplayController(
                         session.Press(Key.P);
                     }
 
-                    resumed = true;
                     lastMoved.Restart();
                 }
 
@@ -199,6 +263,15 @@ public sealed class ReplayController(
         finally {
             _lock.Release();
         }
+    }
+
+    /// <summary>
+    /// The replay panel's clock without waiting for other actions: it only reads the screen, so it
+    /// can run while an action sends input. Null while the panel can't be read.
+    /// </summary>
+    public async Task<(double Now, double Length)?> PeekPanelTimeAsync(CancellationToken cancellationToken) {
+        var reading = await ReadAsync(cancellationToken);
+        return reading is { Replay: { } t, Length: { } l } ? (t.TotalSeconds, l.TotalSeconds) : null;
     }
 
     /// <summary>The replay panel's elapsed time and the replay's length, in seconds.</summary>

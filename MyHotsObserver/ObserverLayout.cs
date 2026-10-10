@@ -40,6 +40,15 @@ public sealed class ObserverLayout {
     /// <summary>The in-game timer under the score, top center.</summary>
     public Rect GameClock => Scale(new Rect(928, 126, 56, 20));
 
+    /// <summary>
+    /// A hero's portrait in the top bar, by team and place within the team (the order of the
+    /// replay's players). Team 0 is on the left, mirrored: its first player sits next to the score.
+    /// </summary>
+    public (int X, int Y) Portrait(int team, int slot) {
+        int[] xs = team == 0 ? [650, 535, 415, 300, 185] : [1240, 1360, 1475, 1595, 1715];
+        return (X(xs[Math.Clamp(slot, 0, xs.Length - 1)]), Y(28));
+    }
+
     /// <summary>The replay panel's playback speed ("Normal", ...), right of the clock.</summary>
     public Rect SpeedLabel => Scale(new Rect(1790, 128, 105, 26));
 
