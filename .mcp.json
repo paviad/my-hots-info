@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "myhots-observer": {
+      "type": "stdio",
+      "command": "MyHotsObserver/bin/Debug/net10.0/MyHotsObserver.exe",
+      "args": []
+    }
+  }
+}
