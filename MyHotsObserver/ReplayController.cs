@@ -389,9 +389,9 @@ public sealed class ReplayController(
         logger.LogInformation("Quit the replay on screen");
     }
 
-    /// <summary>Whether a replay is on screen: its in-game timer shows.</summary>
+    /// <summary>Whether a replay is on screen, including one that has played to its end.</summary>
     private async Task<bool> InReplayAsync(CancellationToken cancellationToken) =>
-        (await ReadAsync(cancellationToken)).Game is not null;
+        (await ReadAsync(cancellationToken)).InReplay;
 
     private async Task<bool> IsPausedAsync(CancellationToken cancellationToken) {
         var (first, _) = await PanelAsync(cancellationToken);

@@ -11,7 +11,13 @@ namespace MyHotsObserver;
 /// <param name="Game">
 /// The in-game timer: it counts down to the gates opening, then runs about 38s behind <paramref name="Replay"/>.
 /// </param>
-public sealed record ClockReading(TimeSpan? Replay, TimeSpan? Length, TimeSpan? Game);
+public sealed record ClockReading(TimeSpan? Replay, TimeSpan? Length, TimeSpan? Game) {
+    /// <summary>
+    /// Whether a replay is open: either clock shows. At the end the in-game timer is gone (the MVP
+    /// screen) but the panel still reads "Replay Complete" with the length.
+    /// </summary>
+    public bool InReplay => Game is not null || Length is not null;
+}
 
 /// <summary>Reads the replay panel's clock and the in-game timer off a frame.</summary>
 public sealed partial class ReplayClock : IDisposable {

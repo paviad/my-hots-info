@@ -74,6 +74,25 @@ public class ReplayClockTests {
         Assert.Equal(TimeSpan.FromSeconds(1588), reading.Length);
     }
 
+    [Theory]
+    [InlineData("clocks-1m33.png", true)]
+    [InlineData("collapsed-5m10.png", true)]
+    [InlineData("complete-26m28.png", true)] // the MVP screen: no in-game timer
+    public void TellsAReplayIsOpen(string fixture, bool open) {
+        using var frame = Frame(fixture);
+        using var clock = new ReplayClock();
+
+        Assert.Equal(open, clock.Read(frame, Layout).InReplay);
+    }
+
+    [Fact]
+    public void TellsNoReplayIsOpen() {
+        using var frame = new Mat(1080, 1920, MatType.CV_8UC3, Scalar.Black);
+        using var clock = new ReplayClock();
+
+        Assert.False(clock.Read(frame, Layout).InReplay);
+    }
+
     private static readonly ObserverLayout Layout = new(1920, 1080);
 
     /// <summary>A 1920×1080 frame with a fixture strip (the top rows of a real frame) at its top.</summary>

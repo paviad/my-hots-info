@@ -72,7 +72,8 @@ public sealed class ReplayTools(ReplayCatalog catalog) {
             throw new McpException(e.Render(query));
         }
 
-        var timeline = catalog.Timeline(ReplayCatalog.Resolve(replay));
+        // Only casts use ability names, and getting them can mean minutes building a table.
+        var timeline = catalog.Timeline(ReplayCatalog.Resolve(replay), abilityNames: UsesCasts(program));
         IReadOnlyList<FindResult> results;
         try {
             results = new Evaluator(timeline).Run(program);
@@ -108,6 +109,10 @@ public sealed class ReplayTools(ReplayCatalog catalog) {
     }
 
     internal static string Time(double seconds) => ResultFormatter.Time(seconds).Trim();
+
+    /// <summary>Whether the query matches casts, the only events that use ability names.</summary>
+    public static bool UsesCasts(QueryProgram program) =>
+        System.Text.RegularExpressions.Regex.IsMatch(program.Source, @"\bcast\s*\(");
 
     private static double ParseTime(string text) {
         try {

@@ -22,8 +22,9 @@ public sealed class ReplayCatalog(ILogger<ReplayCatalog> logger) {
     private const int TimelinesToKeep = 3;
 
     private readonly ConcurrentDictionary<(string, DateTime), ReplaySummary?> _summaries = new();
-    private readonly ConcurrentDictionary<int, IAbilityLabels> _labels = new();
-    private readonly List<(string Path, DateTime Written, ReplayTimeline Timeline)> _timelines = [];
+    private readonly ConcurrentDictionary<int, Lazy<IAbilityLabels>> _labels = new();
+    private readonly Lock _buildLock = new();
+    private readonly List<(string Path, DateTime Written, bool Named, ReplayTimeline Timeline)> _timelines = [];
     private readonly Lock _timelinesLock = new();
 
     /// <summary>Resolves a path, <c>latest</c>, or <c>N</c> for the N-th newest replay.</summary>
@@ -80,11 +81,16 @@ public sealed class ReplayCatalog(ILogger<ReplayCatalog> logger) {
         });
     }
 
-    /// <summary>The replay's full event timeline, with ability names when an ability table exists.</summary>
-    public ReplayTimeline Timeline(string path) {
+    /// <summary>The replay's full event timeline.</summary>
+    /// <param name="abilityNames">
+    /// Label casts with ability slots and names. That needs the build's ability table, which takes
+    /// minutes to build from all replays of the build when it isn't cached; without it, casts show
+    /// as Hero.#id.
+    /// </param>
+    public ReplayTimeline Timeline(string path, bool abilityNames = false) {
         var written = File.GetLastWriteTimeUtc(path);
         lock (_timelinesLock) {
-            var cached = _timelines.FirstOrDefault(t => t.Path == path && t.Written == written);
+            var cached = _timelines.FirstOrDefault(t => t.Path == path && t.Written == written && (t.Named || !abilityNames));
             if (cached.Timeline is not null) {
                 return cached.Timeline;
             }
@@ -92,14 +98,15 @@ public sealed class ReplayCatalog(ILogger<ReplayCatalog> logger) {
 
         ReplayTimeline timeline;
         try {
-            timeline = TimelineBuilder.Load(path, Labels(path));
+            timeline = TimelineBuilder.Load(path, abilityNames ? Labels(path) : NoAbilityLabels.Instance);
         }
         catch (InvalidDataException e) {
             throw new McpException(e.Message);
         }
 
         lock (_timelinesLock) {
-            _timelines.Insert(0, (path, written, timeline));
+            _timelines.RemoveAll(t => t.Path == path);
+            _timelines.Insert(0, (path, written, abilityNames, timeline));
             if (_timelines.Count > TimelinesToKeep) {
                 _timelines.RemoveAt(_timelines.Count - 1);
             }
@@ -111,12 +118,21 @@ public sealed class ReplayCatalog(ILogger<ReplayCatalog> logger) {
     /// <summary>The key that follows player <paramref name="index"/> in the observer UI: 1…9, then 0.</summary>
     public static string FocusKey(int index) => index is >= 0 and <= 9 ? ((index + 1) % 10).ToString() : "";
 
+    /// <summary>
+    /// The ability names of the replay's build, from its cached table or built from every replay of
+    /// that build. One build at a time: each parses many replays, and several at once ran the
+    /// server out of memory.
+    /// </summary>
     private IAbilityLabels Labels(string path) {
         var build = ReplayFiles.ReadBuild(path);
-        return _labels.GetOrAdd(build, b => AbilitySlotTable.GetOrBuild(
-            b,
-            ReplayFiles.AllReplays().Select(f => f.FullName).ToList(),
-            progress: line => logger.LogInformation("Ability table {build}: {line}", b, line)));
+        return _labels.GetOrAdd(build, b => new Lazy<IAbilityLabels>(() => {
+            lock (_buildLock) {
+                return AbilitySlotTable.GetOrBuild(
+                    b,
+                    ReplayFiles.AllReplays().Select(f => f.FullName).ToList(),
+                    progress: line => logger.LogInformation("Ability table {build}: {line}", b, line));
+            }
+        })).Value;
     }
 
     private static bool Matches(ReplaySummary s, string word) {
