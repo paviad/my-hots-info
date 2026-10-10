@@ -19,6 +19,17 @@ into `Ocr\tessdata`.
 
 The `casc` folder is a sample CASC extraction kept locally for reference; it is ignored by git.
 
+## Files outside the repo
+
+Some tools keep data in `%LocalAppData%\MyHotsInfo`, outside the checkout and outside git:
+
+| Path | Written by | Contents |
+|---|---|---|
+| `my.db` | CLI, MAUI app | The replay database, unless `MYHOTSINFO_DB` points elsewhere (`setvars` points it at the repo root's `my.db`). |
+| `abil-slots\<build>.json` | `rq` (CLI and the observer MCP server) | Each build's ability slot table: per-replay votes for which hotkey slot each ability id was cast with, and the tallied slots. Rebuilt from the replays if deleted, but that parses every replay of the build; new replays of the build are added on load. |
+| `abil-slots\abil-names.json` | You | Optional real names for ability ids, by build: `{ "98348": { "1315": "Dragonflight" } }`. Not generated; this is the only file here that can't be recreated. |
+| `observer-runs\` | `MyHotsObserver\run.cmd` | Copies of the observer MCP server's build that it runs from, so rebuilding isn't blocked by locked files. Stale copies are removed on the next start; safe to delete when no server is running. |
+
 # MAUI Application
 
 When starting the MAUI application it will first prompt you to pick the database file location.
