@@ -2,8 +2,8 @@
   "mcpServers": {
     "myhots-observer": {
       "type": "stdio",
-      "command": "MyHotsObserver/bin/Debug/net10.0/MyHotsObserver.exe",
-      "args": []
+      "command": "cmd",
+      "args": ["/c", "set NoDefaultCurrentDirectoryInExePath=&& cd MyHotsObserver && run.cmd"]
     }
   }
 }
