@@ -57,11 +57,26 @@ public sealed class AbilitySlotTable : IAbilityLabels {
     public IReadOnlyCollection<string> Heroes(int abil) =>
         Entries.TryGetValue(abil, out var e) ? e.HeroVotes.Keys : [];
 
-    public static string CacheDirectory => Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MyHotsInfo", "abil-slots");
+    /// <summary>
+    /// <c>cache</c> in the repo the program runs from (found by walking up to <c>MyHotsInfo.sln</c>), or
+    /// <c>%LocalAppData%\MyHotsInfo</c> outside a checkout.
+    /// </summary>
+    public static string DataDirectory { get; } = FindDataDirectory();
 
-    /// <summary>User-maintained names: <c>{ "98348": { "1315": "Dragonflight" } }</c>.</summary>
-    public static string AliasFile => Path.Combine(CacheDirectory, "abil-names.json");
+    public static string CacheDirectory => Path.Combine(DataDirectory, "abil-slots");
+
+    /// <summary>User-maintained names: <c>{ "98348": { "1315": "Dragonflight" } }</c>. Tracked in git.</summary>
+    public static string AliasFile => Path.Combine(DataDirectory, "abil-names.json");
+
+    private static string FindDataDirectory() {
+        for (var dir = new DirectoryInfo(AppContext.BaseDirectory); dir is not null; dir = dir.Parent) {
+            if (File.Exists(Path.Combine(dir.FullName, "MyHotsInfo.sln"))) {
+                return Path.Combine(dir.FullName, "cache");
+            }
+        }
+
+        return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MyHotsInfo");
+    }
 
     private static string CacheFile(int build) => Path.Combine(CacheDirectory, $"{build}.json");
 

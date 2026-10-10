@@ -7,7 +7,7 @@ rem a backslash path there gets its \r read as a carriage return, and with that 
 rem cmd skips the current folder and runs another run.cmd from PATH (nvm has one).
 setlocal
 set "SRC=%~dp0bin\Debug\net10.0"
-set "ROOT=%LOCALAPPDATA%\MyHotsInfo\observer-runs"
+set "ROOT=%~dp0runs"
 if not defined MYHOTSINFO_TESSDATA set "MYHOTSINFO_TESSDATA=%~dp0..\Ocr\tessdata"
 
 rem Remove copies whose server has exited; a running one's folder can't be renamed.

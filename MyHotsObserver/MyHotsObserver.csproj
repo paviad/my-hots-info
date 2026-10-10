@@ -7,6 +7,8 @@
     <Nullable>enable</Nullable>
     <!-- LibraryImport (Win32 window and input calls) generates unsafe marshalling code. -->
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- run.cmd's copies of the build. -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);runs/**</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>

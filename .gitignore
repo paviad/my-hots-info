@@ -17,3 +17,7 @@ sixlabors.lic
 casc/
 .antlr/
 ocr-truth.json
+MyHotsObserver/runs/
+# Rebuildable caches; abil-names.json is written by hand and kept.
+cache/*
+!cache/abil-names.json

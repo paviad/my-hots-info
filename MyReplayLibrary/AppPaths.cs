@@ -1,4 +1,4 @@
-namespace MyReplayLibrary;
+﻿namespace MyReplayLibrary;
 
 /// <summary>
 /// Single place that resolves machine-specific locations. Every value can be overridden
@@ -17,7 +17,14 @@ public static class AppPaths {
     public static string ScreenshotsPath => Path.Combine(HotsDocumentsPath, "Screenshots");
 
     /// <summary>
-    /// <see cref="DbEnvVar"/> if set, otherwise <c>%LocalAppData%\MyHotsInfo\my.db</c>.
+    /// The repo the program runs from: the nearest ancestor of the executable holding
+    /// <c>MyHotsInfo.sln</c>. Null outside a checkout.
+    /// </summary>
+    public static string? RepoRoot { get; } = FindRepoRoot();
+
+    /// <summary>
+    /// <see cref="DbEnvVar"/> if set, otherwise <c>my.db</c> in <see cref="RepoRoot"/>, or
+    /// <c>%LocalAppData%\MyHotsInfo\my.db</c> outside a checkout.
     /// </summary>
     public static string DefaultDbPath {
         get {
@@ -26,9 +33,20 @@ public static class AppPaths {
                 return Path.GetFullPath(fromEnv);
             }
 
-            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            return Path.Combine(localAppData, "MyHotsInfo", "my.db");
+            return RepoRoot is { } root
+                ? Path.Combine(root, "my.db")
+                : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MyHotsInfo", "my.db");
         }
+    }
+
+    private static string? FindRepoRoot() {
+        for (var dir = new DirectoryInfo(AppContext.BaseDirectory); dir is not null; dir = dir.Parent) {
+            if (File.Exists(Path.Combine(dir.FullName, "MyHotsInfo.sln"))) {
+                return dir.FullName;
+            }
+        }
+
+        return null;
     }
 
     /// <summary>
