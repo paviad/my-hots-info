@@ -4,7 +4,10 @@ using MyReplayQuery.Events;
 namespace MyReplayQuery.Query;
 
 public static class ResultFormatter {
-    /// <summary>Game time as m:ss.f (replay time; the in-game clock agrees to within a second or two).</summary>
+    /// <summary>
+    /// Replay time as m:ss.f. It matches the replay panel's clock to within a second; the in-game
+    /// timer runs about 38s behind it (checked against two deaths in a 2026-10-10 replay).
+    /// </summary>
     public static string Time(double seconds) {
         var whole = (int)Math.Floor(seconds);
         var tenths = (int)Math.Floor((seconds - whole) * 10);
