@@ -106,7 +106,11 @@ public sealed class AbilitySlotTable : IAbilityLabels {
             ShouldParseDetailedBattleLobby = false,
         };
 
-        Parallel.ForEach(candidates, file => {
+        // Two at a time. A parsed replay is ~180 MB live and parsing makes far more garbage, so memory
+        // grows with each parse running alongside: measured on 350 replays, one at a time peaked at
+        // 0.6 GB in 203s and sixteen at 21 GB in 143s. Unbounded, it ran a server out of memory.
+        var parallel = new ParallelOptions { MaxDegreeOfParallelism = Math.Min(2, Environment.ProcessorCount) };
+        Parallel.ForEach(candidates, parallel, file => {
             try {
                 var replay = ReplayFiles.Parse(file, options);
                 foreach (var vote in Votes(replay)) {
