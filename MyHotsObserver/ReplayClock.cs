@@ -8,13 +8,16 @@ namespace MyHotsObserver;
 
 /// <param name="Replay">Replay panel's elapsed time; null when the panel is hidden or a seek is running.</param>
 /// <param name="Length">Replay panel's total length.</param>
-/// <param name="Game">The in-game timer, which runs about 38s behind <paramref name="Replay"/>.</param>
+/// <param name="Game">
+/// The in-game timer: it counts down to the gates opening, then runs about 38s behind <paramref name="Replay"/>.
+/// </param>
 public sealed record ClockReading(TimeSpan? Replay, TimeSpan? Length, TimeSpan? Game);
 
 /// <summary>Reads the replay panel's clock and the in-game timer off a frame.</summary>
 public sealed partial class ReplayClock : IDisposable {
     private readonly Lock _lock = new();
-    private TesseractEngine? _engine;
+    private TesseractEngine? _digits;
+    private TesseractEngine? _letters;
 
     public ClockReading Read(Mat frame, ObserverLayout layout) {
         var panel = ParsePanel(Ocr(frame, layout.PanelClock));
@@ -39,8 +42,22 @@ public sealed partial class ReplayClock : IDisposable {
         return m.Success ? Time(m.Groups["m"].Value, m.Groups["s"].Value) : null;
     }
 
+    /// <summary>
+    /// Whether Ctrl+T has collapsed the replay panel to just the elapsed time, without the total
+    /// and the timeline.
+    /// </summary>
+    public bool IsPanelCollapsed(Mat frame, ObserverLayout layout) =>
+        ParsePanel(Ocr(frame, layout.PanelClock)) is null && ParseGame(Ocr(frame, layout.CollapsedPanelClock)) is not null;
+
+    /// <summary>The replay panel's playback speed label, e.g. "Normal"; null when unreadable.</summary>
+    public string? ReadSpeed(Mat frame, ObserverLayout layout) {
+        var text = Ocr(frame, layout.SpeedLabel, letters: true);
+        return text.Length >= 3 ? text : null;
+    }
+
     public void Dispose() {
-        _engine?.Dispose();
+        _digits?.Dispose();
+        _letters?.Dispose();
     }
 
     private static TimeSpan Time(string minutes, string seconds) =>
@@ -50,7 +67,7 @@ public sealed partial class ReplayClock : IDisposable {
     /// Light digits on a dark panel: enlarge, then Otsu to black on white, which is what Tesseract
     /// reads best.
     /// </summary>
-    private string Ocr(Mat frame, Rect region) {
+    private string Ocr(Mat frame, Rect region, bool letters = false) {
         using var crop = new Mat(frame, region);
         using var gray = new Mat();
         Cv2.CvtColor(crop, gray, ColorConversionCodes.BGR2GRAY);
@@ -62,15 +79,17 @@ public sealed partial class ReplayClock : IDisposable {
 
         using var pix = Pix.LoadFromMemory(bw.ToBytes(".png"));
         lock (_lock) {
-            _engine ??= CreateEngine();
-            using var page = _engine.Process(pix, PageSegMode.SingleLine);
+            var engine = letters
+                ? _letters ??= CreateEngine("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
+                : _digits ??= CreateEngine("0123456789:/");
+            using var page = engine.Process(pix, PageSegMode.SingleLine);
             return page.GetText().Trim();
         }
     }
 
-    private static TesseractEngine CreateEngine() {
+    private static TesseractEngine CreateEngine(string whitelist) {
         var engine = new TesseractEngine(AppPaths.TessDataPath, "eng");
-        engine.SetVariable("tessedit_char_whitelist", "0123456789:/");
+        engine.SetVariable("tessedit_char_whitelist", whitelist);
         return engine;
     }
 

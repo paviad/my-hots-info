@@ -13,6 +13,8 @@ builder.Services.AddSingleton<GameWindow>();
 builder.Services.AddSingleton<ObserverCapture>();
 builder.Services.AddSingleton<ReplayClock>();
 builder.Services.AddSingleton<ReplayCatalog>();
+builder.Services.AddSingleton<GameInput>();
+builder.Services.AddSingleton<ReplayController>();
 
 builder.Services.AddMcpServer()
     .WithStdioServerTransport()

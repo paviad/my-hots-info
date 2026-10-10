@@ -28,11 +28,13 @@ public sealed class ObserverCapture(GameWindow gameWindow, ILogger<ObserverCaptu
         var (_, width, height) = gameWindow.Find();
         await _lock.WaitAsync(cancellationToken);
         try {
+            // A blank frame right after switching scenes means the capture hasn't hooked the game
+            // yet; otherwise it's what the game shows, e.g. a black loading screen.
             var switched = await EnsureSceneAsync(cancellationToken);
-            var deadline = DateTime.UtcNow + (switched ? HookTimeout : TimeSpan.Zero);
+            var deadline = DateTime.UtcNow + HookTimeout;
             while (true) {
                 var frame = await ScreenshotAsync(width, height, cancellationToken);
-                if (!IsBlank(frame)) {
+                if (!switched || !IsBlank(frame)) {
                     return frame;
                 }
 

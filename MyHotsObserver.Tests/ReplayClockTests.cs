@@ -36,13 +36,40 @@ public class ReplayClockTests {
     [InlineData("clocks-4m06.png", 246, 2513, 207)]
     [InlineData("clocks-16m01.png", 961, 2513, 923)]
     public void ReadsBothClocksOffAFrame(string fixture, int replay, int length, int game) {
-        using var strip = Cv2.ImRead(Path.Combine(AppContext.BaseDirectory, "Fixtures", fixture));
-        using var frame = new Mat(1080, 1920, MatType.CV_8UC3, Scalar.Black);
-        strip.CopyTo(new Mat(frame, new Rect(0, 0, strip.Width, strip.Height)));
+        using var frame = Frame(fixture);
         using var clock = new ReplayClock();
 
-        var reading = clock.Read(frame, new ObserverLayout(1920, 1080));
+        var reading = clock.Read(frame, Layout);
 
         Assert.Equal(new ClockReading(TimeSpan.FromSeconds(replay), TimeSpan.FromSeconds(length), TimeSpan.FromSeconds(game)), reading);
+    }
+
+    [Theory]
+    [InlineData("collapsed-5m10.png", true)]
+    [InlineData("clocks-1m33.png", false)]
+    [InlineData("clocks-16m01.png", false)]
+    public void TellsACollapsedPanel(string fixture, bool collapsed) {
+        using var frame = Frame(fixture);
+        using var clock = new ReplayClock();
+
+        Assert.Equal(collapsed, clock.IsPanelCollapsed(frame, Layout));
+    }
+
+    [Fact]
+    public void ReadsOnlyTheGameClockWhileThePanelIsCollapsed() {
+        using var frame = Frame("collapsed-5m10.png");
+        using var clock = new ReplayClock();
+
+        Assert.Equal(new ClockReading(null, null, TimeSpan.FromSeconds(272)), clock.Read(frame, Layout));
+    }
+
+    private static readonly ObserverLayout Layout = new(1920, 1080);
+
+    /// <summary>A 1920×1080 frame with a fixture strip (the top rows of a real frame) at its top.</summary>
+    private static Mat Frame(string fixture) {
+        using var strip = Cv2.ImRead(Path.Combine(AppContext.BaseDirectory, "Fixtures", fixture));
+        var frame = new Mat(1080, 1920, MatType.CV_8UC3, Scalar.Black);
+        strip.CopyTo(new Mat(frame, new Rect(0, 0, strip.Width, strip.Height)));
+        return frame;
     }
 }

@@ -31,11 +31,37 @@ public sealed class ObserverLayout {
     /// <summary>The replay panel's "elapsed / total" text, top right.</summary>
     public Rect PanelClock => Scale(new Rect(1552, 124, 200, 28));
 
+    /// <summary>
+    /// The elapsed time when Ctrl+T has collapsed the replay panel: lower than
+    /// <see cref="PanelClock"/>, and without the total.
+    /// </summary>
+    public Rect CollapsedPanelClock => Scale(new Rect(1552, 160, 120, 28));
+
     /// <summary>The in-game timer under the score, top center.</summary>
     public Rect GameClock => Scale(new Rect(928, 126, 56, 20));
 
+    /// <summary>The replay panel's playback speed ("Normal", ...), right of the clock.</summary>
+    public Rect SpeedLabel => Scale(new Rect(1790, 128, 105, 26));
+
     /// <summary>Left end, right end and height of the replay panel's timeline bar.</summary>
     public (int Left, int Right, int Y) TimelineBar => (X(1555), X(1887), Y(175));
+
+    /// <summary>
+    /// The timeline pixel to click to land at or just before <paramref name="seconds"/>. A pixel
+    /// spans several seconds of a long replay, and landing early is better than late.
+    /// </summary>
+    public int TimelineX(double seconds, double length) {
+        var fraction = Math.Clamp(seconds / length, 0, 1);
+        return (int)Math.Floor((TimelineOrigin + TimelineSpan * fraction) * _sx);
+    }
+
+    /// <summary>
+    /// Where 0:00 is on the bar at 1920 wide, fitted to eight clicks: a click at x lands at
+    /// (x - 1555.8) / 332 of the replay's length, each to within a second.
+    /// </summary>
+    private const double TimelineOrigin = 1555.8;
+
+    private const double TimelineSpan = 332;
 
     private int X(int x) => (int)Math.Round(x * _sx);
     private int Y(int y) => (int)Math.Round(y * _sy);
