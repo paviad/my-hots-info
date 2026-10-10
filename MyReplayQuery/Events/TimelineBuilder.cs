@@ -36,6 +36,7 @@ public static class TimelineBuilder {
         AddUnits(replay, Info, events);
         AddForms(replay, Info, events);
         AddLevels(replay, events);
+        InferHeroics(events, labels);
 
         var positions = new Dictionary<int, PositionTrack>();
         foreach (var (player, info) in byPlayer) {
@@ -133,6 +134,68 @@ public static class TimelineBuilder {
                     break;
             }
         }
+    }
+
+    /// <summary>
+    /// Labels as heroics the ability ids the slot table doesn't know that look like one: a single hero
+    /// casts the id, only after their level 10 talent, at heroic cooldowns, and an id next to it is a
+    /// heroic of that hero. A build's table only knows heroics someone reached with the default key, and
+    /// each game shows just the heroic picked, so one of a hero's two is often missing; its id sits next
+    /// to the other one's. The slot reads <c>R?</c>, and the name is taken from the level 10 talent unless
+    /// the table has one.
+    /// </summary>
+    public static void InferHeroics(List<ReplayEvent> events, IAbilityLabels labels) {
+        var heroics = events.OfType<TalentEvent>().Where(t => t.Tier == 10).ToDictionary(t => t.Player.Index);
+        var unknown = events.Select((e, i) => (Event: e as CastEvent, Index: i))
+            .Where(x => x.Event is { Slot: null })
+            .GroupBy(x => x.Event!.Abil)
+            // Ids several heroes cast are shared commands, not one hero's ability.
+            .Where(g => g.Select(x => x.Event!.Player.Hero).Distinct().Count() == 1)
+            .SelectMany(g => g.GroupBy(x => x.Event!.Player.Index));
+
+        foreach (var casts in unknown) {
+            var first = casts.First().Event!;
+            var hero = first.Player.Hero;
+            if (!heroics.TryGetValue(first.Player.Index, out var talent) || casts.Any(c => c.Event!.T < talent.T)
+                || !AtHeroicCooldowns(casts.Select(c => c.Event!.T))
+                || !new[] { -2, -1, 1, 2 }.Any(d => labels.Label(first.Abil + d, hero).Slot == "R" && labels.Heroes(first.Abil + d).Contains(hero))) {
+                continue;
+            }
+
+            var name = HeroicName(talent.Name);
+            foreach (var (cast, index) in casts) {
+                events[index] = cast! with { Slot = "R", Label = $"{hero}.R?", Name = cast.Name ?? name };
+            }
+        }
+    }
+
+    /// <summary>
+    /// Whether casts come in bursts (a re-click lands within a few seconds) at least as far apart as the
+    /// shortest heroic cooldowns. Abilities a heroic grants, like Odin's, are cast much more often.
+    /// </summary>
+    private static bool AtHeroicCooldowns(IEnumerable<double> times) {
+        const double Burst = 3;
+        const double MinCooldown = 15;
+        double? burstStart = null;
+        foreach (var t in times.Order()) {
+            if (burstStart is { } b && t - b <= Burst) {
+                continue;
+            }
+
+            if (burstStart is { } previous && t - previous < MinCooldown) {
+                return false;
+            }
+
+            burstStart = t;
+        }
+
+        return true;
+    }
+
+    /// <summary>The heroic in a level 10 talent's id, e.g. HinterlandBlast from FalstadHeroicAbilityHinterlandBlast.</summary>
+    private static string? HeroicName(string talent) {
+        var at = talent.IndexOf("HeroicAbility", StringComparison.Ordinal);
+        return at >= 0 ? talent[(at + "HeroicAbility".Length)..] : null;
     }
 
     private static (MapPoint? Point, bool UnitTarget) CmdTarget(TrackerEventStructure? data) {
