@@ -143,7 +143,7 @@ public class OcrEval(string screenshotsDir, string truthPath, int parallel) {
             var isDraft = draft.Count(w => w.Length >= 2) >= loading.Count(w => w.Length >= 2);
             var folded = t.Roster.Select(NameMatcher.Fold).ToHashSet();
             foreach (var n in names) {
-                var exact = t.Roster.Any(r => r.Equals(n, StringComparison.OrdinalIgnoreCase));
+                var exact = t.Roster.Contains(n);
                 if (exact) {
                     right++;
                 }
