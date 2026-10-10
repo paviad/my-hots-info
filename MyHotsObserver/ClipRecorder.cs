@@ -93,27 +93,39 @@ public sealed class ClipRecorder(
             }
 
             var summary = await controller.CurrentReplayAsync(cancellationToken);
-            var hero = player is null ? null : ReplayController.ResolvePlayer(summary, player).Hero;
+            var all = string.Equals(player, "all", StringComparison.OrdinalIgnoreCase);
+            var hero = player is null || all ? null : ReplayController.ResolvePlayer(summary, player).Hero;
 
-            // Paused first, so the replay waits where the seek lands instead of playing on while
-            // the camera and the recording are set up.
-            await controller.SetPausedAsync(true, cancellationToken);
-            await controller.SeekAsync(start - Math.Max(0, leadIn), cancellationToken);
-            if (player is not null) {
+            // A timeline click lands up to a pixel (several seconds) early and leaves the replay
+            // playing; let it play to the lead-in point and pause there, so the camera and the
+            // recording are set up on the first frame of the clip.
+            var from = Math.Max(0, start - Math.Max(0, leadIn));
+            await controller.SeekAsync(from - 1.5, cancellationToken);
+            from = await controller.PauseAtAsync(from, cancellationToken);
+            if (all) {
+                await controller.PressAsync(Key.E, [], cancellationToken);
+            }
+            else if (player is not null) {
                 await controller.FocusPlayerAsync(player, cancellationToken);
             }
 
-            var (from, _) = await controller.PanelTimeAsync(cancellationToken);
+            // Recording starts paused: starting it stalls the game for a moment, which shouldn't
+            // be in the clip, and a key pressed during the stall is lost, so wait it out.
             await capture.StartRecordAsync(cancellationToken);
             _recording = true;
 
             double to;
             try {
-                // Starting a recording stalls the game for a moment, and a key pressed during the
-                // stall is lost; so wait it out, and resume with a press that checks it took.
+                await capture.SetRecordPausedAsync(true, cancellationToken);
                 await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-                if (!await controller.ResumeAsync(cancellationToken)) {
-                    throw new McpException("The replay didn't resume.");
+                await controller.PressAsync(Key.P, [], cancellationToken);
+                await capture.SetRecordPausedAsync(false, cancellationToken);
+                if (await controller.IsPausedNowAsync(cancellationToken)) {
+                    // The game missed the press; the clip gets a second of still frame.
+                    await controller.PressAsync(Key.P, [], cancellationToken);
+                    if (await controller.IsPausedNowAsync(cancellationToken)) {
+                        throw new McpException("The replay didn't resume.");
+                    }
                 }
 
                 to = await PlayUntilAsync(end + Math.Max(0, tail), cancellationToken);

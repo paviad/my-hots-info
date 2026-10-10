@@ -30,15 +30,15 @@ public sealed class RecordTools(ClipRecorder recorder) {
 
     [McpServerTool(Name = "record_clip")]
     [Description("""
-        Records a stretch of a replay in one call: opens the replay when given, seeks to leadIn
-        seconds before start, pauses, follows the player when given, records until tail seconds
-        after end, and saves the file. Times are on the replay panel's clock, as find_moments
+        Records a stretch of a replay in one call: opens the replay when given, plays it to leadIn
+        seconds before start and pauses there, sets the camera, records until tail seconds after
+        end, and saves the file. Times are on the replay panel's clock, as find_moments
         reports them. Plays at the replay's current speed; at most 10 minutes.
         """)]
     public async Task<object> RecordClip(
         [Description("Start of the moment, m:ss or seconds")] string start,
         [Description("End of the moment, m:ss or seconds")] string end,
-        [Description("Player to follow: index 0-9, player name, hero, or 'me'; omit to keep the camera as it is")]
+        [Description("Camera: follow a player by index 0-9, player name, hero or 'me'; 'all' for the free camera; omit to keep it as it is. The observer sees both teams' vision either way.")]
         string? player = null,
         [Description("Replay file path, 'latest', or N for the N-th newest; omit for the one on screen")]
         string? replay = null,

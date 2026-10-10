@@ -20,8 +20,14 @@ public sealed partial class ReplayClock : IDisposable {
     private TesseractEngine? _letters;
 
     public ClockReading Read(Mat frame, ObserverLayout layout) {
-        var panel = ParsePanel(Ocr(frame, layout.PanelClock));
-        return new(panel?.Elapsed, panel?.Length, ParseGame(Ocr(frame, layout.GameClock)));
+        var text = Ocr(frame, layout.PanelClock);
+        var game = ParseGame(Ocr(frame, layout.GameClock));
+        if (ParsePanel(text) is { } panel) {
+            return new(panel.Elapsed, panel.Length, game);
+        }
+
+        // At the end the panel says "Replay Complete" and shows the length alone, in the same spot.
+        return ParseGame(text) is { } end ? new(end, end, game) : new(null, null, game);
     }
 
     /// <summary>Parses the replay panel's "elapsed / total" text, e.g. <c>1:33 / 41:53</c>.</summary>

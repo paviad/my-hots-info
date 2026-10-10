@@ -89,6 +89,17 @@ public sealed class ObserverCapture(GameWindow gameWindow, ILogger<ObserverCaptu
         }
     }
 
+    /// <summary>Pauses or resumes the running recording; while paused, OBS records nothing.</summary>
+    public async Task SetRecordPausedAsync(bool paused, CancellationToken cancellationToken) {
+        await _lock.WaitAsync(cancellationToken);
+        try {
+            await RequestAsync(paused ? "PauseRecord" : "ResumeRecord", null, cancellationToken);
+        }
+        finally {
+            _lock.Release();
+        }
+    }
+
     /// <summary>Stops recording and returns the finished file's path.</summary>
     public async Task<string> StopRecordAsync(CancellationToken cancellationToken) {
         await _lock.WaitAsync(cancellationToken);

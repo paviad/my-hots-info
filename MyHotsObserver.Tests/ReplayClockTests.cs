@@ -63,6 +63,17 @@ public class ReplayClockTests {
         Assert.Equal(new ClockReading(null, null, TimeSpan.FromSeconds(272)), clock.Read(frame, Layout));
     }
 
+    [Fact]
+    public void ReadsTheLengthAsTheTimeWhenTheReplayIsComplete() {
+        using var frame = Frame("complete-26m28.png");
+        using var clock = new ReplayClock();
+
+        var reading = clock.Read(frame, Layout);
+
+        Assert.Equal(TimeSpan.FromSeconds(1588), reading.Replay);
+        Assert.Equal(TimeSpan.FromSeconds(1588), reading.Length);
+    }
+
     private static readonly ObserverLayout Layout = new(1920, 1080);
 
     /// <summary>A 1920×1080 frame with a fixture strip (the top rows of a real frame) at its top.</summary>

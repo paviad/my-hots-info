@@ -134,6 +134,73 @@ public sealed class ReplayController(
         }
     }
 
+    /// <summary>
+    /// Lets the playing replay run until <paramref name="seconds"/> and pauses it there, to within
+    /// about a second (the clock shows whole seconds). Returns the time it paused at.
+    /// </summary>
+    /// <remarks>
+    /// The pause takes effect about 1.5s after the clock is read past the threshold (the read's own
+    /// delay, then bringing the game to the front), so it presses that much early.
+    /// </remarks>
+    public async Task<double> PauseAtAsync(double seconds, CancellationToken cancellationToken) {
+        await _lock.WaitAsync(cancellationToken);
+        try {
+            var (now, _) = await PanelAsync(cancellationToken);
+            var last = now;
+            var lastMoved = Stopwatch.StartNew();
+            var resumed = false;
+            while (now < seconds - 1.5) {
+                if (lastMoved.Elapsed > TimeSpan.FromSeconds(2)) {
+                    // Paused (a seek too short to click leaves it as it was): resume it once.
+                    if (resumed) {
+                        throw new McpException($"The replay isn't playing (stuck at {ReplayTime(now)}).");
+                    }
+
+                    using (var session = input.Begin()) {
+                        session.Press(Key.P);
+                    }
+
+                    resumed = true;
+                    lastMoved.Restart();
+                }
+
+                await Task.Delay(100, cancellationToken);
+                (now, _) = await PanelAsync(cancellationToken);
+                if (now > last) {
+                    last = now;
+                    lastMoved.Restart();
+                }
+            }
+
+            // A press the game misses gets one more try.
+            for (var attempt = 0; attempt < 2; attempt++) {
+                using (var session = input.Begin()) {
+                    session.Press(Key.P);
+                }
+
+                if (await IsPausedAsync(cancellationToken)) {
+                    return (await PanelAsync(cancellationToken)).Now;
+                }
+            }
+
+            throw new McpException("Couldn't pause the replay.");
+        }
+        finally {
+            _lock.Release();
+        }
+    }
+
+    /// <summary>Whether the replay is paused: its clock stands still for over a second.</summary>
+    public async Task<bool> IsPausedNowAsync(CancellationToken cancellationToken) {
+        await _lock.WaitAsync(cancellationToken);
+        try {
+            return await IsPausedAsync(cancellationToken);
+        }
+        finally {
+            _lock.Release();
+        }
+    }
+
     /// <summary>The replay panel's elapsed time and the replay's length, in seconds.</summary>
     public async Task<(double Now, double Length)> PanelTimeAsync(CancellationToken cancellationToken) {
         await _lock.WaitAsync(cancellationToken);
@@ -156,30 +223,6 @@ public sealed class ReplayController(
             }
 
             return await IsPausedAsync(cancellationToken);
-        }
-        finally {
-            _lock.Release();
-        }
-    }
-
-    /// <summary>
-    /// Resumes a replay known to be paused: presses P and checks the clock moves, pressing again if
-    /// the game missed it. Cheaper than <see cref="SetPausedAsync"/>, which first checks the state.
-    /// </summary>
-    public async Task<bool> ResumeAsync(CancellationToken cancellationToken) {
-        await _lock.WaitAsync(cancellationToken);
-        try {
-            for (var attempt = 0; attempt < 2; attempt++) {
-                using (var session = input.Begin()) {
-                    session.Press(Key.P);
-                }
-
-                if (!await IsPausedAsync(cancellationToken)) {
-                    return true;
-                }
-            }
-
-            return false;
         }
         finally {
             _lock.Release();

@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using Microsoft.Extensions.Logging;
 using ModelContextProtocol;
 
 namespace MyHotsObserver;
@@ -21,23 +22,45 @@ public enum Key : ushort {
 
 /// <summary>
 /// Sends keys and clicks to the game. Input only reaches the foreground window, so each
-/// <see cref="Begin"/> brings the game to the front and its dispose gives the front back to
-/// whatever window had it.
+/// <see cref="Begin"/> brings the game to the front, and its dispose gives the front back to the
+/// user's window: the last window other than the game that was in front.
 /// </summary>
-public sealed partial class GameInput(GameWindow gameWindow) {
+public sealed partial class GameInput(GameWindow gameWindow, ILogger<GameInput> logger) {
+    /// <summary>
+    /// Remembered across sessions: when one session couldn't give the front back, the next one
+    /// finds the game in front and must still know where to return.
+    /// </summary>
+    private IntPtr _userWindow;
+
     public Session Begin() {
         var (game, _, _) = gameWindow.Find();
-        var previous = GetForegroundWindow();
-        if (previous != game && !BringToFront(game)) {
+        var foreground = GetForegroundWindow();
+        if (foreground != game && foreground != IntPtr.Zero) {
+            _userWindow = foreground;
+        }
+
+        if (foreground != game && !BringToFront(game)) {
             throw new McpException("Couldn't bring the game window to the front to send it input.");
         }
 
         // A just-activated window can drop the first keys it gets.
-        Thread.Sleep(previous == game ? 0 : 300);
-        return new Session(game, previous);
+        Thread.Sleep(foreground == game ? 0 : 300);
+        return new Session(this, game);
     }
 
-    public sealed class Session(IntPtr game, IntPtr previous) : IDisposable {
+    /// <summary>Gives the front back to the user's window if the game still has it.</summary>
+    public void ReturnFocus() {
+        if (_userWindow == IntPtr.Zero || !IsWindow(_userWindow)) {
+            return;
+        }
+
+        var (game, _, _) = gameWindow.Find();
+        if (GetForegroundWindow() == game && !BringToFront(_userWindow)) {
+            logger.LogWarning("Couldn't give the front back from the game to window {window}", _userWindow);
+        }
+    }
+
+    public sealed class Session(GameInput owner, IntPtr game) : IDisposable {
         /// <summary>Presses and releases <paramref name="key"/> while holding <paramref name="modifiers"/>.</summary>
         public void Press(Key key, params Key[] modifiers) {
             foreach (var m in modifiers) {
@@ -70,9 +93,7 @@ public sealed partial class GameInput(GameWindow gameWindow) {
         }
 
         public void Dispose() {
-            if (previous != IntPtr.Zero && previous != game && GetForegroundWindow() == game) {
-                BringToFront(previous);
-            }
+            owner.ReturnFocus();
         }
     }
 
@@ -81,7 +102,7 @@ public sealed partial class GameInput(GameWindow gameWindow) {
     /// tap Alt first.
     /// </summary>
     private static bool BringToFront(IntPtr window) {
-        for (var attempt = 0; attempt < 3; attempt++) {
+        for (var attempt = 0; attempt < 5; attempt++) {
             SendKey(Key.Alt, up: false);
             SendKey(Key.Alt, up: true);
             SetForegroundWindow(window);
@@ -150,6 +171,10 @@ public sealed partial class GameInput(GameWindow gameWindow) {
 
     [LibraryImport("user32.dll")]
     private static partial IntPtr GetForegroundWindow();
+
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool IsWindow(IntPtr hWnd);
 
     [LibraryImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
