@@ -44,8 +44,9 @@ public sealed partial class GameInput(GameWindow gameWindow) {
                 SendKey(m, up: false);
             }
 
+            // Held across a few frames: the game reads the keyboard once a frame.
             SendKey(key, up: false);
-            Thread.Sleep(40);
+            Thread.Sleep(80);
             SendKey(key, up: true);
             foreach (var m in modifiers.Reverse()) {
                 SendKey(m, up: true);

@@ -134,16 +134,52 @@ public sealed class ReplayController(
         }
     }
 
+    /// <summary>The replay panel's elapsed time and the replay's length, in seconds.</summary>
+    public async Task<(double Now, double Length)> PanelTimeAsync(CancellationToken cancellationToken) {
+        await _lock.WaitAsync(cancellationToken);
+        try {
+            return await PanelAsync(cancellationToken);
+        }
+        finally {
+            _lock.Release();
+        }
+    }
+
     /// <summary>Pauses or resumes; the panel's clock standing still is how it tells which it is.</summary>
     public async Task<bool> SetPausedAsync(bool paused, CancellationToken cancellationToken) {
         await _lock.WaitAsync(cancellationToken);
         try {
-            if (await IsPausedAsync(cancellationToken) != paused) {
+            // A press the game misses (it reads keys once a frame) gets one more try.
+            for (var attempt = 0; attempt < 2 && await IsPausedAsync(cancellationToken) != paused; attempt++) {
                 using var session = input.Begin();
                 session.Press(Key.P);
             }
 
             return await IsPausedAsync(cancellationToken);
+        }
+        finally {
+            _lock.Release();
+        }
+    }
+
+    /// <summary>
+    /// Resumes a replay known to be paused: presses P and checks the clock moves, pressing again if
+    /// the game missed it. Cheaper than <see cref="SetPausedAsync"/>, which first checks the state.
+    /// </summary>
+    public async Task<bool> ResumeAsync(CancellationToken cancellationToken) {
+        await _lock.WaitAsync(cancellationToken);
+        try {
+            for (var attempt = 0; attempt < 2; attempt++) {
+                using (var session = input.Begin()) {
+                    session.Press(Key.P);
+                }
+
+                if (!await IsPausedAsync(cancellationToken)) {
+                    return true;
+                }
+            }
+
+            return false;
         }
         finally {
             _lock.Release();

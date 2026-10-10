@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol;
@@ -20,8 +21,14 @@ public sealed class ObserverCapture(GameWindow gameWindow, ILogger<ObserverCaptu
     /// <summary>A freshly hooked capture shows nothing for a moment.</summary>
     private static readonly TimeSpan HookTimeout = TimeSpan.FromSeconds(8);
 
+    /// <summary>How long OBS may take to finish writing a recording after StopRecord.</summary>
+    private static readonly TimeSpan StopTimeout = TimeSpan.FromSeconds(30);
+
     private readonly SemaphoreSlim _lock = new(1, 1);
     private ObsClient? _client;
+
+    /// <summary>Completes with the file's path when OBS reports a recording stopped.</summary>
+    private TaskCompletionSource<string?>? _recordStopped;
 
     /// <summary>The game's current frame, at the size of its window, as a BGR image.</summary>
     public async Task<Mat> FrameAsync(CancellationToken cancellationToken) {
@@ -48,6 +55,66 @@ public sealed class ObserverCapture(GameWindow gameWindow, ILogger<ObserverCaptu
             }
         }
         finally {
+            _lock.Release();
+        }
+    }
+
+    /// <summary>
+    /// Starts recording <see cref="SceneName"/>. Refuses while OBS records anything else, such as a
+    /// game the app is recording.
+    /// </summary>
+    public async Task StartRecordAsync(CancellationToken cancellationToken) {
+        await _lock.WaitAsync(cancellationToken);
+        try {
+            // Right after a recording stops, OBS reports it active for a moment longer.
+            for (var attempt = 0;; attempt++) {
+                var status = await RequestAsync("GetRecordStatus", null, cancellationToken);
+                if (!status.GetProperty("outputActive").GetBoolean()) {
+                    break;
+                }
+
+                if (attempt == 10) {
+                    throw new McpException("OBS is already recording; stop that recording first.");
+                }
+
+                await Task.Delay(300, cancellationToken);
+            }
+
+            await EnsureSceneAsync(cancellationToken);
+            await RequestAsync("StartRecord", null, cancellationToken);
+            logger.LogInformation("Recording started");
+        }
+        finally {
+            _lock.Release();
+        }
+    }
+
+    /// <summary>Stops recording and returns the finished file's path.</summary>
+    public async Task<string> StopRecordAsync(CancellationToken cancellationToken) {
+        await _lock.WaitAsync(cancellationToken);
+        try {
+            var stopped = _recordStopped = new(TaskCreationOptions.RunContinuationsAsynchronously);
+            var response = await RequestAsync("StopRecord", null, cancellationToken);
+            var responsePath = response.ValueKind == JsonValueKind.Object && response.TryGetProperty("outputPath", out var p)
+                ? p.GetString()
+                : null;
+
+            // The file is only complete once OBS reports the output stopped.
+            string? path;
+            try {
+                path = await stopped.Task.WaitAsync(StopTimeout, cancellationToken) ?? responsePath;
+            }
+            catch (TimeoutException) {
+                path = responsePath;
+            }
+
+            logger.LogInformation("Recording stopped: {path}", path);
+            return path is not null && File.Exists(path)
+                ? path
+                : throw new McpException($"OBS stopped recording but didn't say where the file is ({path}).");
+        }
+        finally {
+            _recordStopped = null;
             _lock.Release();
         }
     }
@@ -114,7 +181,7 @@ public sealed class ObserverCapture(GameWindow gameWindow, ILogger<ObserverCaptu
     }
 
     /// <summary>Sends a request, reconnecting once when the connection to OBS was lost.</summary>
-    private async Task<System.Text.Json.JsonElement> RequestAsync(string requestType, JsonObject? data,
+    private async Task<JsonElement> RequestAsync(string requestType, JsonObject? data,
         CancellationToken cancellationToken) {
         for (var attempt = 0;; attempt++) {
             var client = await ClientAsync(cancellationToken);
@@ -146,13 +213,21 @@ public sealed class ObserverCapture(GameWindow gameWindow, ILogger<ObserverCaptu
         var connection = ObsConnection.FromObsConfig()
                          ?? throw new McpException("OBS's WebSocket server isn't enabled (OBS: Tools → WebSocket Server Settings).");
         try {
-            _client = await ObsClient.ConnectAsync(connection, 0, cancellationToken);
+            _client = await ObsClient.ConnectAsync(connection, ObsClient.OutputEvents, cancellationToken);
+            _client.EventReceived += OnEvent;
         }
         catch (Exception e) when (!cancellationToken.IsCancellationRequested) {
             throw new McpException($"Can't connect to OBS at {connection.Uri}; is it running? ({e.Message})");
         }
 
         return _client;
+    }
+
+    private void OnEvent(string eventType, JsonElement data) {
+        if (eventType == "RecordStateChanged"
+            && data.GetProperty("outputState").GetString() == "OBS_WEBSOCKET_OUTPUT_STOPPED") {
+            _recordStopped?.TrySetResult(data.TryGetProperty("outputPath", out var p) ? p.GetString() : null);
+        }
     }
 
     private async Task DropClientAsync() {
