@@ -160,6 +160,23 @@ public sealed record SpawnEvent(double T, PlayerInfo Player, string Unit, MapPoi
     public override string Describe() => $"spawn  {Player} {Unit}{(Position is { } p ? $" @{p}" : "")}";
 }
 
+/// <summary>
+/// A hero's unit changing form, e.g. Deathwing taking off (<c>DeathwingDragonflightUnit</c>) and
+/// landing (<c>HeroDeathwing</c>). <see cref="Unit"/> is the form it changed to.
+/// </summary>
+public sealed record FormEvent(double T, PlayerInfo Player, string Unit) : ReplayEvent(T) {
+    public override string Kind => "form";
+    public override PlayerInfo Actor => Player;
+
+    protected override IReadOnlyDictionary<string, object?> BuildFields() => new Dictionary<string, object?> {
+        ["player"] = Player,
+        ["hero"] = Player.Hero,
+        ["unit"] = Unit,
+    };
+
+    public override string Describe() => $"form   {Player} -> {Unit}";
+}
+
 /// <summary>A non-hero unit dying: camps, structures, minions, summons, objectives.</summary>
 public sealed record UnitDiedEvent(double T, string Unit, string Group, int? Team, PlayerInfo? Killer, string? KillerUnit, MapPoint? Position)
     : ReplayEvent(T) {
@@ -202,6 +219,7 @@ public static class EventSchema {
         ["ping"] = ["player", "hero"],
         ["talent"] = ["player", "hero", "tier", "name"],
         ["spawn"] = ["player", "hero", "unit"],
+        ["form"] = ["player", "hero", "unit"],
         ["unitdied"] = ["unit", "group", "team", "killer", "killerunit", "x", "y"],
         ["levelup"] = ["team", "level"],
     };

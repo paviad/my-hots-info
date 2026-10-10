@@ -34,6 +34,7 @@ public static class TimelineBuilder {
         AddChats(replay, Info, events);
         AddTalents(replay, players, events);
         AddUnits(replay, Info, events);
+        AddForms(replay, Info, events);
         AddLevels(replay, events);
 
         var positions = new Dictionary<int, PositionTrack>();
@@ -176,6 +177,21 @@ public static class TimelineBuilder {
             if (u.TimeSpanDied is { } died) {
                 events.Add(new UnitDiedEvent(died.TotalSeconds, u.Name, u.Group.ToString(), u.Team, info(u.PlayerKilledBy),
                     u.UnitKilledBy?.Name, u.PointDied is { } d ? new MapPoint(d.X, d.Y) : null));
+            }
+        }
+    }
+
+    /// <summary>Hero units changing unit type, which the parser reads but doesn't keep.</summary>
+    private static void AddForms(Replay replay, Func<Player?, PlayerInfo?> info, List<ReplayEvent> events) {
+        var heroUnits = replay.Players.SelectMany(p => HeroUnits(replay, p).Select(u => (u, p)))
+            .GroupBy(x => x.u.UnitID)
+            .ToDictionary(g => g.Key, g => g.First().p);
+
+        foreach (var e in replay.TrackerEvents.Where(t => t.TrackerEventType == ReplayTrackerEvents.TrackerEventType.UnitTypeChangeEvent)) {
+            var d = e.Data.dictionary;
+            var id = Unit.GetUnitID((int)d[0].vInt!.Value, (int)d[1].vInt!.Value);
+            if (heroUnits.TryGetValue(id, out var owner) && info(owner) is { } p) {
+                events.Add(new FormEvent(e.GameLoop / 16.0, p, d[2].blobText));
             }
         }
     }

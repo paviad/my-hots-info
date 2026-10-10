@@ -21,6 +21,7 @@ public static class ReplayQueryCommand {
           key(player, hero, key, code, down)   chat(player, hero, text)   ping(player, hero)
           talent(player, hero, tier, name)     spawn(player, hero, unit)  levelup(team, level)
           unitdied(unit, group, team, killer, killerunit, x, y)
+          form(player, hero, unit)             a hero changing form, e.g. Deathwing to DeathwingDragonflightUnit (flying)
 
         Values: Deathwing, "E.T.C.", gg*, 20, >=16, me, ally, enemy, $var, a|b, !value
         Patterns:

@@ -46,6 +46,23 @@ public class DragonShireReplayTests(ITestOutputHelper output) {
     }
 
     [Fact]
+    public void DeathwingFlightsAreFormChanges() {
+        if (Missing()) {
+            return;
+        }
+
+        var forms = Timeline.Value.Events.OfType<FormEvent>().Where(f => f.Player.Hero == "Deathwing").ToList();
+
+        // Every flight is a take-off and a landing, in that order.
+        Assert.Equal(19, forms.Count(f => f.Unit == "DeathwingDragonflightUnit"));
+        Assert.All(forms.Chunk(2), pair => Assert.Equal(["DeathwingDragonflightUnit", "HeroDeathwing"], pair.Select(f => f.Unit)));
+
+        // The second chase: he takes off 3s after the Z cast at 23:36.6 and lands 23:47.9.
+        var chase = forms.SkipWhile(f => f.T < 23 * 60 + 30).Take(2).Select(f => ResultFormatter.Time(f.T)).ToList();
+        Assert.Equal(["23:39.6", "23:47.9"], chase);
+    }
+
+    [Fact]
     public void ChaseQueryFindsBothChases() {
         if (Missing()) {
             return;
