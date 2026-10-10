@@ -27,9 +27,18 @@ public sealed class AbilitySlotTable : IAbilityLabels {
         public double Share => TotalVotes == 0 ? 0 : (double)Votes / TotalVotes;
     }
 
+    /// <summary>A replay's vote: a player reached ability <c>Abil</c> on <c>Hero</c> most often with <c>Slot</c>.</summary>
+    public sealed record Vote(int Abil, string Slot, string Hero);
+
     public int Build { get; init; }
-    public int ReplaysUsed { get; init; }
-    public Dictionary<int, Entry> Entries { get; init; } = [];
+    public int ReplaysUsed { get; set; }
+    public Dictionary<int, Entry> Entries { get; set; } = [];
+
+    /// <summary>
+    /// Each replay's votes by file name, so replays added after the table was built can be counted in
+    /// without parsing the others again. Replays that couldn't be parsed have no votes.
+    /// </summary>
+    public Dictionary<string, List<Vote>> ReplayVotes { get; init; } = [];
 
     /// <summary>Optional real names, keyed by ability id, from the user's alias file.</summary>
     [JsonIgnore]
@@ -45,6 +54,9 @@ public sealed class AbilitySlotTable : IAbilityLabels {
         return new AbilityLabel(e.Slot, $"{hero}.{slot}", name);
     }
 
+    public IReadOnlyCollection<string> Heroes(int abil) =>
+        Entries.TryGetValue(abil, out var e) ? e.HeroVotes.Keys : [];
+
     public static string CacheDirectory => Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MyHotsInfo", "abil-slots");
 
@@ -56,16 +68,19 @@ public sealed class AbilitySlotTable : IAbilityLabels {
     private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
 
     /// <summary>
-    /// The cached table for <paramref name="build"/>, building it from <paramref name="replayFiles"/> if needed.
+    /// The table for <paramref name="build"/>: the cached one, with any replays of the build it hasn't seen
+    /// yet added in, or built from <paramref name="replayFiles"/> when there is none.
     /// </summary>
     public static AbilitySlotTable GetOrBuild(int build, IEnumerable<string> replayFiles, bool rebuild = false, Action<string>? progress = null) {
-        AbilitySlotTable table;
+        AbilitySlotTable? cached = null;
         if (!rebuild && File.Exists(CacheFile(build))) {
-            table = JsonSerializer.Deserialize<AbilitySlotTable>(File.ReadAllText(CacheFile(build)))
+            cached = JsonSerializer.Deserialize<AbilitySlotTable>(File.ReadAllText(CacheFile(build)))
                 ?? throw new InvalidDataException($"Bad cache file {CacheFile(build)}");
         }
-        else {
-            table = BuildFromReplays(build, replayFiles, progress);
+
+        // Tables cached before they kept per-replay votes can't be added to, so they're rebuilt.
+        var table = cached is { ReplayVotes.Count: > 0 } ? cached : new AbilitySlotTable { Build = build };
+        if (table.AddReplays(replayFiles, progress) || table != cached) {
             Directory.CreateDirectory(CacheDirectory);
             File.WriteAllText(CacheFile(build), JsonSerializer.Serialize(table, JsonOptions));
         }
@@ -86,19 +101,31 @@ public sealed class AbilitySlotTable : IAbilityLabels {
     }
 
     public static AbilitySlotTable BuildFromReplays(int build, IEnumerable<string> replayFiles, Action<string>? progress = null) {
-        var candidates = replayFiles.Where(f => {
+        var table = new AbilitySlotTable { Build = build };
+        table.AddReplays(replayFiles, progress);
+        return table;
+    }
+
+    /// <summary>Counts the votes of the build's replays this table hasn't seen; false if there were none.</summary>
+    public bool AddReplays(IEnumerable<string> replayFiles, Action<string>? progress = null) {
+        var candidates = replayFiles.Where(f => !ReplayVotes.ContainsKey(Path.GetFileName(f))).Where(f => {
             try {
-                return ReplayFiles.ReadBuild(f) == build;
+                return ReplayFiles.ReadBuild(f) == Build;
             }
             catch (Exception) {
                 return false;
             }
         }).ToList();
-        progress?.Invoke($"Building ability slot table for build {build} from {candidates.Count} replays...");
+        if (candidates.Count == 0) {
+            return false;
+        }
 
-        var votes = new ConcurrentBag<(int Abil, string Slot, string Hero)>();
+        progress?.Invoke(ReplayVotes.Count == 0
+            ? $"Building ability slot table for build {Build} from {candidates.Count} replays..."
+            : $"Adding {candidates.Count} new replays to the ability slot table for build {Build}...");
+
+        var added = new ConcurrentDictionary<string, List<Vote>>();
         var done = 0;
-        var used = 0;
         var options = new ParseOptions {
             ShouldParseUnits = false,
             ShouldParseStatistics = false,
@@ -111,32 +138,39 @@ public sealed class AbilitySlotTable : IAbilityLabels {
         // 0.6 GB in 203s and sixteen at 21 GB in 143s. Unbounded, it ran a server out of memory.
         var parallel = new ParallelOptions { MaxDegreeOfParallelism = Math.Min(2, Environment.ProcessorCount) };
         Parallel.ForEach(candidates, parallel, file => {
+            List<Vote> votes;
             try {
-                var replay = ReplayFiles.Parse(file, options);
-                foreach (var vote in Votes(replay)) {
-                    votes.Add(vote);
-                }
-
-                Interlocked.Increment(ref used);
+                votes = Votes(ReplayFiles.Parse(file, options)).Select(v => new Vote(v.Abil, v.Slot, v.Hero)).ToList();
             }
             catch (Exception) {
                 // Unparseable replays just don't vote.
+                votes = [];
             }
 
+            added[Path.GetFileName(file)] = votes;
             var n = Interlocked.Increment(ref done);
             if (n % 25 == 0) {
                 progress?.Invoke($"  {n}/{candidates.Count}");
             }
         });
 
-        var entries = votes.GroupBy(v => v.Abil).ToDictionary(g => g.Key, g => {
+        foreach (var (file, votes) in added) {
+            ReplayVotes[file] = votes;
+        }
+
+        Tally();
+        return true;
+    }
+
+    /// <summary>Recounts <see cref="Entries"/> from every replay's votes.</summary>
+    private void Tally() {
+        ReplaysUsed = ReplayVotes.Values.Count(v => v.Count > 0);
+        Entries = ReplayVotes.Values.SelectMany(v => v).GroupBy(v => v.Abil).ToDictionary(g => g.Key, g => {
             var slotVotes = g.GroupBy(v => v.Slot).ToDictionary(s => s.Key, s => s.Count());
             var heroVotes = g.GroupBy(v => v.Hero).ToDictionary(h => h.Key, h => h.Count());
             var top = slotVotes.MaxBy(kv => kv.Value);
             return new Entry(g.Key, top.Key, top.Value, g.Count(), slotVotes, heroVotes);
         });
-
-        return new AbilitySlotTable { Build = build, ReplaysUsed = used, Entries = entries };
     }
 
     /// <summary>One vote per (player, ability id): the slot that player most often reached it with.</summary>
