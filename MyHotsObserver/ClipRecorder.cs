@@ -50,6 +50,12 @@ public sealed class ClipRecorder(
     private string? _map;
 
     /// <summary>
+    /// The zoom the clip being recorded set (null: left as it was). A hero-view move resets the
+    /// zoom, so the move zooms again.
+    /// </summary>
+    private Zoom? _zoom;
+
+    /// <summary>
     /// A minimap hold the camera plan started. Let go only after the recording stops: the camera
     /// may move once it's released.
     /// </summary>
@@ -101,11 +107,12 @@ public sealed class ClipRecorder(
     /// there, starts recording, resumes, and stops once the replay passes the end.
     /// </summary>
     public async Task<Clip> RecordClipAsync(
-        double start, double end, string? player, bool everyone, string? replay, double leadIn, double tail, string? name,
+        double start, double end, string? player, bool everyone, Zoom? zoom, string? replay, double leadIn, double tail, string? name,
         CancellationToken cancellationToken) {
         if (end <= start || end - start > MaxClipSeconds) {
             throw new McpException($"end must be after start and at most {MaxClipSeconds / 60:0} minutes later.");
         }
+
 
         await _lock.WaitAsync(cancellationToken);
         try {
@@ -141,6 +148,7 @@ public sealed class ClipRecorder(
             var camera = new List<string>();
             _last = null;
             _map = summary.Map;
+            _zoom = zoom;
             if (all) {
                 await controller.PressAsync(Key.E, [], cancellationToken);
             }
@@ -149,6 +157,10 @@ public sealed class ClipRecorder(
             }
             else if (target is not null) {
                 await MoveAsync(plan.Dequeue(), target, camera, cancellationToken);
+            }
+
+            if (zoom is { } z) {
+                await controller.SetZoomAsync(z, cancellationToken);
             }
 
             // Recording starts paused: starting it stalls the game for a moment, which shouldn't
@@ -318,6 +330,7 @@ public sealed class ClipRecorder(
         switch (step.Move) {
             case CameraMove.HeroView:
                 await controller.FocusPlayerAsync(target.Index.ToString(), false, cancellationToken);
+                await controller.ZoomFromDefaultAsync(_zoom ?? Zoom.Default, cancellationToken);
                 break;
             case CameraMove.EveryoneFollow:
                 await controller.FocusPlayerAsync(target.Index.ToString(), true, cancellationToken);

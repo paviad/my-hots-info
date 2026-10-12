@@ -42,6 +42,8 @@ public sealed class RecordTools(ClipRecorder recorder) {
         string? player = null,
         [Description("How to follow player: 'hero' (with the hero's panel) or 'everyone' (the everyone view). In 'everyone', on calibrated maps (Dragon Shire, Tomb of the Spider Queen), the camera holds on Deathwing's landing spot while he flies, and holds where the hero falls from before his death so it doesn't snap to his core; this holds the left mouse button on the minimap, so don't use the mouse meanwhile.")]
         string view = "hero",
+        [Description("Camera zoom: 'default', 'out' (Z) or 'far' (Shift+Z, farther out), e.g. for a long-range hero. Omit to leave it as it is.")]
+        string? zoom = null,
         [Description("Replay file path, 'latest', or N for the N-th newest; omit for the one on screen")]
         string? replay = null,
         [Description("Seconds to start before start")] double leadIn = 5,
@@ -49,7 +51,7 @@ public sealed class RecordTools(ClipRecorder recorder) {
         [Description("File name, without extension")] string? name = null,
         CancellationToken cancellationToken = default) {
         var clip = await recorder.RecordClipAsync(
-            Time(start), Time(end), player, ControlTools.Everyone(view), replay, leadIn, tail, name, cancellationToken);
+            Time(start), Time(end), player, ControlTools.Everyone(view), zoom is null ? null : ControlTools.ParseZoom(zoom), replay, leadIn, tail, name, cancellationToken);
         return new {
             file = clip.Path,
             from = ReplayController.ReplayTime(clip.From),

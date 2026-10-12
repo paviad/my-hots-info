@@ -62,6 +62,7 @@ sets the camera, records to `end + tail` and saves the file.
 | `leadIn` / `tail` | Default 5 / 3. Use about 2–3 s of lead-in, and 3–6 s of tail to show the aftermath (kill banner, taunt). |
 | `player` | Whose camera to follow. Default `me` for the user's own plays. For "from the victim's point of view", pass the victim's hero or player name. `all` gives the free camera; omit it to keep the current camera. |
 | `view` | `hero` (default): number-key follow, with that hero's ability panel. It's reliable, and the camera stays where the hero falls when they die. `everyone`: E plus a portrait click, with no hero panel. See the caveats below. |
+| `zoom` | `out` (Z) or `far` (Shift+Z) for a wider view, e.g. for long-range heroes like Chromie; `default` to reset. Omit to leave it as it is. The keys only toggle, so the tool resets first with Shift+Z, Z, Z, which always lands on the default. A hero-view follow also resets it. |
 | `name` | `<Map> - <what happens> (<m-ss of the key moment>)`, plus ` - <Hero>'s view` or ` - everyone view` for alternative cameras, e.g. `Battlefield of Eternity - Chromie triple kill (1-20) - Valla's view`. An existing name gets a unique suffix; it's never overwritten. |
 
 **Caveats of the everyone view:**

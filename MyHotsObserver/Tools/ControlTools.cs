@@ -84,6 +84,25 @@ public sealed class ControlTools(ReplayController controller) {
         _ => throw new McpException("view must be 'hero' or 'everyone'"),
     };
 
+    internal static Zoom ParseZoom(string zoom) => zoom.ToLowerInvariant() switch {
+        "default" => Zoom.Default,
+        "out" => Zoom.Out,
+        "far" => Zoom.Far,
+        _ => throw new McpException("zoom must be 'default', 'out' or 'far'"),
+    };
+
+    [McpServerTool(Name = "zoom")]
+    [Description("""
+        Sets the camera's zoom: 'default', 'out' (Z) or 'far' (Shift+Z, farther out). A hero-view
+        follow resets it to the default.
+        """)]
+    public async Task<object> SetZoom(
+        [Description("'default', 'out' or 'far'")] string zoom,
+        CancellationToken cancellationToken) {
+        await controller.SetZoomAsync(ParseZoom(zoom), cancellationToken);
+        return new { zoom = zoom.ToLowerInvariant() };
+    }
+
     [McpServerTool(Name = "playback")]
     [Description("Pauses, resumes, or changes the replay's speed by one step. Returns the resulting state.")]
     public async Task<object> Playback(

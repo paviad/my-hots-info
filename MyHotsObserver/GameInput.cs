@@ -18,6 +18,8 @@ public enum Key : ushort {
     Control = 0x1D,
     F = 0x21,
     Alt = 0x38,
+    Z = 0x2C,
+    Shift = 0x2A,
     F10 = 0x44,
 }
 

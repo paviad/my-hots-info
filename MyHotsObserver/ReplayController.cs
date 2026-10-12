@@ -7,6 +7,9 @@ namespace MyHotsObserver;
 
 public sealed record SeekResult(double Target, double Landed, double Seconds);
 
+/// <summary>The observer camera's zoom: the game's default, out (Z), or farther out (Shift+Z).</summary>
+public enum Zoom { Default, Out, Far }
+
 /// <summary>Drives the replay observer UI. One action at a time: they share the game's focus and clock.</summary>
 public sealed class ReplayController(
     GameWindow gameWindow,
@@ -27,6 +30,26 @@ public sealed class ReplayController(
 
     /// <summary>The replay <see cref="OpenAsync"/> last opened; null when it opened none.</summary>
     private string? _opened;
+
+    /// <summary>
+    /// Sets the camera's zoom. Z and Shift+Z toggle their levels and nothing shows which is on,
+    /// but Shift+Z, Z, Z always lands on the default, so this resets that way and then zooms.
+    /// </summary>
+    public async Task SetZoomAsync(Zoom zoom, CancellationToken cancellationToken) {
+        foreach (var shift in new[] { true, false, false }) {
+            await PressAsync(Key.Z, shift ? [Key.Shift] : [], cancellationToken);
+            await Task.Delay(200, cancellationToken);
+        }
+
+        await ZoomFromDefaultAsync(zoom, cancellationToken);
+    }
+
+    /// <summary>Zooms a camera at the default zoom: just reset, or just followed in hero view, which resets it.</summary>
+    public async Task ZoomFromDefaultAsync(Zoom zoom, CancellationToken cancellationToken) {
+        if (zoom != Zoom.Default) {
+            await PressAsync(Key.Z, zoom == Zoom.Far ? [Key.Shift] : [], cancellationToken);
+        }
+    }
 
     /// <summary>Opens a replay in the running client and waits until it plays.</summary>
     public async Task<ReplaySummary> OpenAsync(string path, CancellationToken cancellationToken) {
