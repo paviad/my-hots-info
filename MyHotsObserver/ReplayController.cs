@@ -48,22 +48,38 @@ public sealed class ReplayController(
                     await QuitReplayAsync(cancellationToken);
                 }
 
-                // With the client already running, the Switcher hands it the replay and exits.
+                // A replay from another build makes the Switcher close the client and start that
+                // build's client, which plays the replay once it's up. Otherwise the Switcher hands
+                // the running client the replay and exits.
+                var build = ReplayFiles.ReadBuild(path);
+                var running = GameWindow.RunningBuild();
+                var switching = running is not null && running != build;
                 using (var process = Process.Start(new ProcessStartInfo(switcher) { ArgumentList = { path }, UseShellExecute = false })!) {
                     await process.WaitForExitAsync(cancellationToken).WaitAsync(TimeSpan.FromSeconds(30), cancellationToken);
                 }
 
-                logger.LogInformation("Switcher handed over {path} (try {handoff})", path, handoff);
+                logger.LogInformation("Switcher handed over {path} (try {handoff}, build {build}, client {running})",
+                    path, handoff, build, running);
                 _opened = path;
 
-                // A loading screen first; a handover the client missed leaves it where it was.
+                if (switching) {
+                    await WaitForClientAsync(build, cancellationToken);
+                }
+
+                // A loading screen first; a handover the client missed leaves it where it was. A
+                // freshly started client takes longer to load the replay.
                 var watch = Stopwatch.StartNew();
-                while (watch.Elapsed < TimeSpan.FromSeconds(25)) {
+                while (watch.Elapsed < TimeSpan.FromSeconds(switching ? 120 : 25)) {
                     await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-                    var reading = await ReadAsync(cancellationToken);
-                    if (reading.Length is { } l && Math.Abs(l.TotalSeconds - length) <= 2) {
+                    var reading = await TryReadAsync(cancellationToken);
+                    if (reading?.Length is { } l && Math.Abs(l.TotalSeconds - length) <= 2) {
                         return summary;
                     }
+                }
+
+                if (switching) {
+                    // A restart that left the client on the home screen gets the usual handover next.
+                    logger.LogInformation("Build {build}'s client didn't start the replay", build);
                 }
             }
 
@@ -387,6 +403,36 @@ public sealed class ReplayController(
         // over before then is lost.
         await Task.Delay(TimeSpan.FromSeconds(3), cancellationToken);
         logger.LogInformation("Quit the replay on screen");
+    }
+
+    /// <summary>
+    /// Waits for the client to restart on <paramref name="build"/>: the old one exits, and the new
+    /// one shows its window. Starting an installed build takes a minute or two.
+    /// </summary>
+    private async Task WaitForClientAsync(int build, CancellationToken cancellationToken) {
+        var timeout = TimeSpan.FromMinutes(4);
+        var watch = Stopwatch.StartNew();
+        while (GameWindow.RunningBuild() != build) {
+            if (watch.Elapsed > timeout) {
+                throw new McpException(
+                    $"The client didn't restart on build {build} (the replay's) within {timeout.TotalMinutes:0} minutes; " +
+                    $"it's {(GameWindow.RunningBuild() is { } b ? $"on build {b}" : "not running")}.");
+            }
+
+            await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
+        }
+
+        logger.LogInformation("Client restarted on build {build} after {seconds:0}s", build, watch.Elapsed.TotalSeconds);
+    }
+
+    /// <summary>The clocks, or null while there's no game window to read, e.g. during a restart.</summary>
+    private async Task<ClockReading?> TryReadAsync(CancellationToken cancellationToken) {
+        try {
+            return await ReadAsync(cancellationToken);
+        }
+        catch (McpException) {
+            return null;
+        }
     }
 
     /// <summary>Whether a replay is on screen, including one that has played to its end.</summary>

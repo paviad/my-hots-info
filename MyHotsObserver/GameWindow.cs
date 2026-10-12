@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using ModelContextProtocol;
 
 namespace MyHotsObserver;
@@ -27,6 +28,28 @@ public sealed partial class GameWindow {
         GetClientRect(handle, out var rect);
         return (handle, rect.Right - rect.Left, rect.Bottom - rect.Top);
     }
+
+    /// <summary>
+    /// The build of the client that's running, from its install folder (Versions\Base98348);
+    /// null when no client with a window is running or its path can't be read.
+    /// </summary>
+    public static int? RunningBuild() {
+        foreach (var process in Process.GetProcessesByName(ProcessName).Where(p => p.MainWindowHandle != IntPtr.Zero)) {
+            try {
+                if (BuildFolder().Match(process.MainModule?.FileName ?? "") is { Success: true } m) {
+                    return int.Parse(m.Groups[1].Value);
+                }
+            }
+            catch (Exception e) when (e is System.ComponentModel.Win32Exception or InvalidOperationException) {
+                // Exited, or not ours to read.
+            }
+        }
+
+        return null;
+    }
+
+    [GeneratedRegex(@"\\Base(\d+)\\", RegexOptions.IgnoreCase)]
+    private static partial Regex BuildFolder();
 
     public ObserverLayout Layout() {
         var (_, width, height) = Find();
