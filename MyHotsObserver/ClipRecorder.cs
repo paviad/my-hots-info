@@ -149,6 +149,12 @@ public sealed class ClipRecorder(
             _last = null;
             _map = summary.Map;
             _zoom = zoom;
+
+            // The everyone view follows the clicked portrait only in camera follow mode (L).
+            if (everyone && target is not null) {
+                await controller.EnsureCameraFollowAsync(target, cancellationToken);
+            }
+
             if (all) {
                 await controller.PressAsync(Key.E, [], cancellationToken);
             }

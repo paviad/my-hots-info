@@ -49,6 +49,12 @@ public sealed class ObserverLayout {
         return (X(xs[Math.Clamp(slot, 0, xs.Length - 1)]), Y(28));
     }
 
+    /// <summary>Two minimap points on opposite sides (left and right middle), to point the camera away from a hero.</summary>
+    public (int X, int Y)[] MinimapProbes => [(X(1560), Y(930)), (X(1830), Y(930))];
+
+    /// <summary>The middle of the screen, clear of the top bar, the replay panel and the minimap.</summary>
+    public Rect MapView => Scale(new Rect(300, 200, 1100, 550));
+
     /// <summary>The replay panel's playback speed ("Normal", ...), right of the clock.</summary>
     public Rect SpeedLabel => Scale(new Rect(1790, 128, 105, 26));
 

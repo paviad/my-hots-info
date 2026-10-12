@@ -19,14 +19,19 @@ The tools are the `myhots-observer` MCP server (`MyHotsObserver/`, tools in
   to the running client. Never start `HeroesSwitcher_x64.exe` without a running client: that opens
   an unauthenticated client at the login screen. If the game isn't running, ask the user to start
   it, and wait.
-- **A replay from another game build restarts the client.** The Switcher closes the running
-  client and starts the replay's build (`Versions\Base<build>`), which takes a minute or two,
-  and the next replay from a different build switches it again. `open_replay`/`record_clip` wait
-  for this (up to 4 minutes). If one still fails with "isn't running" or "didn't restart" right
-  after opening such a replay, the client is probably still starting: check
-  `Get-Process HeroesOfTheStorm_x64 | select Path`, wait, and retry. Don't tell the user the game
-  closed. When clipping several replays, group them by build (oldest builds together) to switch
-  as few times as possible.
+- **A replay from an older game build restarts the client.** The Switcher closes the running
+  client and starts the replay's build (`Versions\Base<build>`), which takes a minute or two.
+  `open_replay`/`record_clip` wait for this (up to 4 minutes). If one still fails with "isn't
+  running" or "didn't restart" right after opening such a replay, the client is probably still
+  starting: check `Get-Process HeroesOfTheStorm_x64 | select Path`, wait, and retry. Don't tell
+  the user the game closed.
+- **Getting back to the current build is the user's job.** Through the Switcher it lands on the
+  login screen, so `open_replay` refuses it and says so. Ask the user to close the game and start
+  it from Battle.net. When a batch includes older builds, record all current-build clips first
+  and older builds last, then tell the user the client is left on an old build.
+- **Right after the user starts the game, wait for its window.** Battle.net starts it through the
+  Switcher, and the client's window appears some seconds later; "isn't running" in that gap
+  means "not up yet".
 - **OBS must be running** with its websocket on and the scene `MyHotsInfo Observer`. Don't touch
   the user's `Record Hots` scene.
 - **The server must be on the current build.** If the observer code was rebuilt during this
@@ -66,6 +71,11 @@ sets the camera, records to `end + tail` and saves the file.
 | `name` | `<Map> - <what happens> (<m-ss of the key moment>)`, plus ` - <Hero>'s view` or ` - everyone view` for alternative cameras, e.g. `Battlefield of Eternity - Chromie triple kill (1-20) - Valla's view`. An existing name gets a unique suffix; it's never overwritten. |
 
 **Caveats of the everyone view:**
+- A portrait click follows the hero only in camera follow mode (L), which only toggles. With it
+  off, the camera stays where it is, e.g. on a core. `record_clip` and `focus_player` test it
+  (point the camera away with a minimap click, click the portrait, and see whether the view
+  jumps) and press L when it's off. A screenshot of a paused replay can't show whether the camera
+  follows; check with the replay playing or in the clip.
 - It doesn't follow D.Va in her mech, and nothing follows Deathwing while he flies.
 - Death and flight holds work only on minimap-calibrated maps (Dragon Shire and Tomb of the
   Spider Queen; see `MyHotsObserver/Minimap.cs`). Elsewhere, the camera jumps to the core when the

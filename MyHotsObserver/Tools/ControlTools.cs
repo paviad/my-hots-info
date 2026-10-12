@@ -75,6 +75,11 @@ public sealed class ControlTools(ReplayController controller) {
         }
 
         var p = await controller.FocusPlayerAsync(player, Everyone(view), cancellationToken);
+        if (Everyone(view)) {
+            // The portrait click follows only in camera follow mode (L), which only toggles.
+            await controller.EnsureCameraFollowAsync(p, cancellationToken);
+        }
+
         return new { following = new { p.Index, p.FocusKey, p.Hero, p.Name, p.Team }, view };
     }
 

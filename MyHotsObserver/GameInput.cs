@@ -13,6 +13,7 @@ public enum Key : ushort {
     Tab = 0x0F,
     Q = 0x10,
     E = 0x12,
+    L = 0x26,
     T = 0x14,
     P = 0x19,
     Control = 0x1D,

@@ -22,7 +22,7 @@ public sealed class ReplayController(
     private const string DefaultHotsDir = @"C:\Program Files (x86)\Heroes of the Storm";
 
     /// <summary>The F/B keys jump this far.</summary>
-    private const double SkipSeconds = 10;
+    private const double SkipSeconds = 20;
 
     private static readonly TimeSpan PollInterval = TimeSpan.FromMilliseconds(400);
 
@@ -63,6 +63,18 @@ public sealed class ReplayController(
                 throw new McpException($"{switcher} not found; set {HotsDirEnvVar} to the HotS install folder.");
             }
 
+            // The Switcher restarts the client to switch builds. Onto an older build the client
+            // plays the replay, but back onto the current one it lands on the login screen, so
+            // that switch is the user's: through Battle.net.
+            var replayBuild = ReplayFiles.ReadBuild(path);
+            if (GameWindow.RunningBuild() is { } clientBuild && clientBuild != replayBuild
+                && replayBuild == CurrentBuild(hotsDir)) {
+                throw new McpException(
+                    $"The client is on build {clientBuild} (an older replay's), and this replay needs the current build " +
+                    $"{replayBuild}. Switching back through the Switcher lands on the login screen, so ask the user to " +
+                    "close the game and start it from Battle.net, then retry.");
+            }
+
             var length = summary.Length.TotalSeconds;
             for (var handoff = 1; handoff <= 3; handoff++) {
                 // The client ignores a replay handed to it while it plays another (or loads one we
@@ -74,19 +86,18 @@ public sealed class ReplayController(
                 // A replay from another build makes the Switcher close the client and start that
                 // build's client, which plays the replay once it's up. Otherwise the Switcher hands
                 // the running client the replay and exits.
-                var build = ReplayFiles.ReadBuild(path);
                 var running = GameWindow.RunningBuild();
-                var switching = running is not null && running != build;
+                var switching = running is not null && running != replayBuild;
                 using (var process = Process.Start(new ProcessStartInfo(switcher) { ArgumentList = { path }, UseShellExecute = false })!) {
                     await process.WaitForExitAsync(cancellationToken).WaitAsync(TimeSpan.FromSeconds(30), cancellationToken);
                 }
 
                 logger.LogInformation("Switcher handed over {path} (try {handoff}, build {build}, client {running})",
-                    path, handoff, build, running);
+                    path, handoff, replayBuild, running);
                 _opened = path;
 
                 if (switching) {
-                    await WaitForClientAsync(build, cancellationToken);
+                    await WaitForClientAsync(replayBuild, cancellationToken);
                 }
 
                 // A loading screen first; a handover the client missed leaves it where it was. A
@@ -102,7 +113,7 @@ public sealed class ReplayController(
 
                 if (switching) {
                     // A restart that left the client on the home screen gets the usual handover next.
-                    logger.LogInformation("Build {build}'s client didn't start the replay", build);
+                    logger.LogInformation("Build {build}'s client didn't start the replay", replayBuild);
                 }
             }
 
@@ -115,7 +126,7 @@ public sealed class ReplayController(
 
     /// <summary>
     /// Jumps to <paramref name="seconds"/>: a timeline click lands at or a few seconds before it,
-    /// then 10-second skips close a larger gap without passing it.
+    /// then 20-second skips (F) close a larger gap without passing it.
     /// </summary>
     public async Task<SeekResult> SeekAsync(double seconds, CancellationToken cancellationToken) {
         await _lock.WaitAsync(cancellationToken);
@@ -135,6 +146,18 @@ public sealed class ReplayController(
                 var settled = await SettleAsync(target, timeout, cancellationToken);
                 logger.LogInformation("Clicked to {target:0}s, landed at {landed:0}s", target, settled);
 
+                // A click can land past the target, which would cut the lead-in: click earlier by
+                // the overshoot plus a margin.
+                for (var retry = 0; settled - target > 2 && retry < 2; retry++) {
+                    var earlier = Math.Max(0, target - (settled - target) - 5);
+                    using (var session = input.Begin()) {
+                        session.Click(layout.TimelineX(earlier, length), layout.TimelineBar.Y);
+                    }
+
+                    settled = await SettleAsync(earlier, TimeSpan.FromSeconds(20), cancellationToken);
+                    logger.LogInformation("Landed past it; clicked to {earlier:0}s, landed at {landed:0}s", earlier, settled);
+                }
+
                 for (var skips = 0; target - settled >= SkipSeconds && skips < 6; skips++) {
                     using (var session = input.Begin()) {
                         session.Press(Key.F);
@@ -151,6 +174,82 @@ public sealed class ReplayController(
         finally {
             _lock.Release();
         }
+    }
+
+    /// <summary>
+    /// Makes sure camera follow mode (L) is on, so a click on a top-bar portrait follows that hero.
+    /// L only toggles it and nothing on screen shows which it is, so this tests it: point the camera
+    /// away (a minimap click), click <paramref name="target"/>'s portrait, and see whether the view
+    /// jumps. If it doesn't from either side of the minimap, press L and test again. Run it paused,
+    /// so moving units don't count as a jump. Leaves the camera following the target.
+    /// </summary>
+    public async Task EnsureCameraFollowAsync(PlayerSummary target, CancellationToken cancellationToken) {
+        var summary = await CurrentReplayAsync(cancellationToken);
+        var slot = summary.Players.Where(p => p.Team == target.Team).ToList().IndexOf(target);
+        await _lock.WaitAsync(cancellationToken);
+        try {
+            for (var attempt = 0; attempt < 2; attempt++) {
+                if (await PortraitClickMovesCameraAsync(target.Team, slot, cancellationToken)) {
+                    return;
+                }
+
+                using (var session = input.Begin()) {
+                    session.Press(Key.L);
+                }
+
+                logger.LogInformation("Camera follow was off; pressed L");
+                await Task.Delay(300, cancellationToken);
+            }
+
+            throw new McpException("Couldn't turn on camera follow mode (L): a portrait click doesn't move the camera.");
+        }
+        finally {
+            _lock.Release();
+        }
+    }
+
+    /// <summary>Whether a click on a portrait jumps the camera from either side of the minimap to the hero.</summary>
+    private async Task<bool> PortraitClickMovesCameraAsync(int team, int slot, CancellationToken cancellationToken) {
+        var layout = gameWindow.Layout();
+        var (px, py) = layout.Portrait(team, slot);
+        foreach (var (mx, my) in layout.MinimapProbes) {
+            using (var session = input.Begin()) {
+                session.Press(Key.E);
+                Thread.Sleep(150);
+                session.Press(Key.Backspace);
+                Thread.Sleep(150);
+                session.Click(mx, my);
+            }
+
+            await Task.Delay(400, cancellationToken);
+            using var away = await MapViewAsync(layout, cancellationToken);
+            using (var session = input.Begin()) {
+                session.Click(px, py);
+            }
+
+            await Task.Delay(400, cancellationToken);
+            using var after = await MapViewAsync(layout, cancellationToken);
+            using var diff = new OpenCvSharp.Mat();
+            OpenCvSharp.Cv2.Absdiff(away, after, diff);
+            var change = OpenCvSharp.Cv2.Mean(diff).Val0;
+            logger.LogInformation("Portrait click changed the view by {change:0.0}", change);
+            // A camera jump changes most of the view; a still, paused camera barely changes it.
+            if (change > 12) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// <summary>The middle of the screen in gray, scaled down.</summary>
+    private async Task<OpenCvSharp.Mat> MapViewAsync(ObserverLayout layout, CancellationToken cancellationToken) {
+        using var frame = await capture.FrameAsync(cancellationToken);
+        using var crop = new OpenCvSharp.Mat(frame, layout.MapView);
+        var gray = new OpenCvSharp.Mat();
+        OpenCvSharp.Cv2.CvtColor(crop, gray, OpenCvSharp.ColorConversionCodes.BGR2GRAY);
+        OpenCvSharp.Cv2.Resize(gray, gray, new OpenCvSharp.Size(), 0.25, 0.25, OpenCvSharp.InterpolationFlags.Area);
+        return gray;
     }
 
     /// <summary>Follows a player: by index (0-9), or by player or hero name in the open replay.</summary>
@@ -446,6 +545,16 @@ public sealed class ReplayController(
         }
 
         logger.LogInformation("Client restarted on build {build} after {seconds:0}s", build, watch.Elapsed.TotalSeconds);
+    }
+
+    /// <summary>The newest build installed (Versions\Base98348), the one Battle.net starts; null if none is found.</summary>
+    private static int? CurrentBuild(string hotsDir) {
+        var versions = Path.Combine(hotsDir, "Versions");
+        return Directory.Exists(versions)
+            ? Directory.EnumerateDirectories(versions, "Base*")
+                .Select(d => int.TryParse(Path.GetFileName(d)[4..], out var b) ? b : (int?)null)
+                .Max()
+            : null;
     }
 
     /// <summary>The clocks, or null while there's no game window to read, e.g. during a restart.</summary>
