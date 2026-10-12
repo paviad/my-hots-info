@@ -36,6 +36,28 @@ MYHOTSINFO_DB=W:/MyHotsInfo/my.db /w/MyHotsInfo/bin/pub/MyHotsCli.exe rq --last 
 **Within one known replay**, `find_moments(query, replay)` on the MCP server is equivalent. It
 avoids a CLI start, and its times are the same.
 
+**Limited to one hero ("my last 50 Chromie games"):** `rq` has no hero filter, so take the
+games from the database and run `--last K`, where K is the number of replays that reaches back
+to the oldest of them. Then keep only the matches from that hero's games:
+
+```bash
+sqlite3 W:/MyHotsInfo/my.db "select strftime('%Y%m%d%H%M%S', r.TimestampReplay, 'localtime'), c.CharacterId
+  from Replays r join ReplayCharacters c on c.ReplayId = r.Id where c.IsMe = 1
+  order by r.TimestampReplay desc limit 200"
+```
+
+- The DB time is UTC. Converted with `localtime`, it equals the digits of the replay file name's
+  first 19 characters (`2026-10-12 01.36.13 ...` gives `20261012013613`). Compare digits only,
+  because the user renames some files (`2026-07-23 205642 Garden of Terror funny stomp QM`).
+- Python is broken in the Bash shell (a bad `PYTHONHOME`), so do the filtering in PowerShell
+  (`ConvertFrom-Json`).
+- Parsing about 150 replays takes about 4 minutes. When the replays include an older build, its
+  ability table is built first.
+
+**"My triple kill":** the user means **killing blows** (`killer: me`), not takedowns
+(`credit: me`). Takedowns give about 20 times as many hits, mostly teamfights where the user was
+only credited.
+
 Times are on the **replay panel clock**, which is what `record_clip` and `seek` take. The in-game
 timer runs about 38 s behind it.
 
@@ -51,6 +73,8 @@ form(hero: Deathwing, unit: DeathwingDragonflightUnit)            # Deathwing ta
 talent(player: me, tier: 10)                                      # when I took my heroic
 ```
 
+- The patterns above are bare; a query must start with `let` or `find`
+  (`find death(victim: enemy, killer: me) count >= 3 within 12s`).
 - `me` is the user (the toon whose folder holds the replay; in-game name "Player"). `ally` means
   teammates **not** including the user; use `me|ally` for the whole team. `credit` is everyone
   credited with the kill; `killer` is the killing blow only.

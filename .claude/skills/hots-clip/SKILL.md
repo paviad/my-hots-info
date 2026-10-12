@@ -19,6 +19,14 @@ The tools are the `myhots-observer` MCP server (`MyHotsObserver/`, tools in
   to the running client. Never start `HeroesSwitcher_x64.exe` without a running client: that opens
   an unauthenticated client at the login screen. If the game isn't running, ask the user to start
   it, and wait.
+- **A replay from another game build restarts the client.** The Switcher closes the running
+  client and starts the replay's build (`Versions\Base<build>`), which takes a minute or two,
+  and the next replay from a different build switches it again. `open_replay`/`record_clip` wait
+  for this (up to 4 minutes). If one still fails with "isn't running" or "didn't restart" right
+  after opening such a replay, the client is probably still starting: check
+  `Get-Process HeroesOfTheStorm_x64 | select Path`, wait, and retry. Don't tell the user the game
+  closed. When clipping several replays, group them by build (oldest builds together) to switch
+  as few times as possible.
 - **OBS must be running** with its websocket on and the scene `MyHotsInfo Observer`. Don't touch
   the user's `Record Hots` scene.
 - **The server must be on the current build.** If the observer code was rebuilt during this
