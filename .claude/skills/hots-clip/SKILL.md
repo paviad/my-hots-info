@@ -67,15 +67,15 @@ sets the camera, records to `end + tail` and saves the file.
 | `leadIn` / `tail` | Default 5 / 3. Use about 2–3 s of lead-in, and 3–6 s of tail to show the aftermath (kill banner, taunt). |
 | `player` | Whose camera to follow. Default `me` for the user's own plays. For "from the victim's point of view", pass the victim's hero or player name. `all` gives the free camera; omit it to keep the current camera. |
 | `view` | `hero` (default): number-key follow, with that hero's ability panel. It's reliable, and the camera stays where the hero falls when they die. `everyone`: E plus a portrait click, with no hero panel. See the caveats below. |
-| `zoom` | `out` (Z) or `far` (Shift+Z) for a wider view, e.g. for long-range heroes like Chromie; `default` to reset. Omit to leave it as it is. The keys only toggle, so the tool resets first with Shift+Z, Z, Z, which always lands on the default. A hero-view follow also resets it. |
+| `zoom` | `out` (Z) or `far` (Shift+Z) for a wider view, e.g. for long-range heroes like Chromie; `default` to reset. Omit to leave it as it is. The keys only toggle, so the tool reads the current zoom off the minimap (the width of the white camera outline, against a per-map default width in `cacheminimap-zoom.json`, measured on the map's first zoomed clip) and presses the one key needed. Z goes to out or back from out; Shift+Z likewise for far. If the minimap can't be read it falls back to Shift+Z, Z, Z, which always lands on the default. A hero-view follow also resets the zoom. |
 | `name` | `<Map> - <what happens> (<m-ss of the key moment>)`, plus ` - <Hero>'s view` or ` - everyone view` for alternative cameras, e.g. `Battlefield of Eternity - Chromie triple kill (1-20) - Valla's view`. An existing name gets a unique suffix; it's never overwritten. |
 
 **Caveats of the everyone view:**
 - A portrait click follows the hero only in camera follow mode (L), which only toggles. With it
-  off, the camera stays where it is, e.g. on a core. `record_clip` and `focus_player` test it
-  (point the camera away with a minimap click, click the portrait, and see whether the view
-  jumps) and press L when it's off. A screenshot of a paused replay can't show whether the camera
-  follows; check with the replay playing or in the clip.
+  off, the camera stays where it is, e.g. on a core. The user's rule: right after the replay
+  starts, click the portrait once; if the camera doesn't move, press L, which centres it.
+  `record_clip` does this once per client process, reopening the replay if needed. A paused
+  replay's camera doesn't move, so a screenshot taken while paused can't show whether it follows.
 - It doesn't follow D.Va in her mech, and nothing follows Deathwing while he flies.
 - Death and flight holds work only on minimap-calibrated maps (Dragon Shire and Tomb of the
   Spider Queen; see `MyHotsObserver/Minimap.cs`). Elsewhere, the camera jumps to the core when the

@@ -55,6 +55,7 @@ public sealed class ClipRecorder(
     /// </summary>
     private Zoom? _zoom;
 
+
     /// <summary>
     /// A minimap hold the camera plan started. Let go only after the recording stops: the camera
     /// may move once it's released.
@@ -120,27 +121,40 @@ public sealed class ClipRecorder(
                 throw new McpException("Already recording; stop that recording first.");
             }
 
+            var opened = false;
             if (replay is not null) {
                 var path = ReplayCatalog.Resolve(replay);
                 if (await OnScreenAsync(cancellationToken) != path) {
                     await controller.OpenAsync(path, cancellationToken);
+                    opened = true;
                 }
             }
 
             var summary = await controller.CurrentReplayAsync(cancellationToken);
             var all = string.Equals(player, "all", StringComparison.OrdinalIgnoreCase);
-            var hero = player is null || all ? null : ReplayController.ResolvePlayer(summary, player).Hero;
+            var target = player is null || all ? null : ReplayController.ResolvePlayer(summary, player);
+            var hero = target?.Hero;
+
+            // The everyone view follows a clicked portrait only in camera follow mode (L). Turning
+            // it on is reliable only right after a replay starts, so reopen one already on screen.
+            if (everyone && target is not null && !controller.CameraFollowKnownOn) {
+                if (!opened) {
+                    await controller.OpenAsync(summary.Path, cancellationToken);
+                }
+
+                await controller.EnsureCameraFollowAsync(target, cancellationToken);
+            }
 
             // A timeline click lands up to a pixel (several seconds) early and leaves the replay
             // playing; let it play to the lead-in point and pause there, so the camera and the
             // recording are set up on the first frame of the clip.
             var from = Math.Max(0, start - Math.Max(0, leadIn));
             await controller.SeekAsync(from - 1.5, cancellationToken);
+
             from = await controller.PauseAtAsync(from, cancellationToken);
 
             // Following in the everyone view has a plan for the moments the game's own following
             // gets wrong (flying, dying); the first step sets the camera up.
-            var target = player is null || all ? null : ReplayController.ResolvePlayer(summary, player);
             var plan = new Queue<CameraStep>(everyone && target is not null
                 ? CameraPlan.EveryoneView(catalog.Timeline(summary.Path), target.Index, from, end + Math.Max(0, tail),
                     Minimap.For(summary.Map) is not null)
@@ -150,9 +164,9 @@ public sealed class ClipRecorder(
             _map = summary.Map;
             _zoom = zoom;
 
-            // The everyone view follows the clicked portrait only in camera follow mode (L).
-            if (everyone && target is not null) {
-                await controller.EnsureCameraFollowAsync(target, cancellationToken);
+            // A map's first zoomed clip measures its minimap outline at the default zoom.
+            if (zoom is not null) {
+                await controller.CalibrateZoomAsync(summary.Map, cancellationToken);
             }
 
             if (all) {
@@ -166,7 +180,7 @@ public sealed class ClipRecorder(
             }
 
             if (zoom is { } z) {
-                await controller.SetZoomAsync(z, cancellationToken);
+                await controller.SetZoomAsync(z, summary.Map, cancellationToken);
             }
 
             // Recording starts paused: starting it stalls the game for a moment, which shouldn't

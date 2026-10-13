@@ -32,16 +32,86 @@ public sealed class ReplayController(
     private string? _opened;
 
     /// <summary>
-    /// Sets the camera's zoom. Z and Shift+Z toggle their levels and nothing shows which is on,
-    /// but Shift+Z, Z, Z always lands on the default, so this resets that way and then zooms.
+    /// Sets the camera's zoom. Z and Shift+Z only toggle, so this reads the current zoom off the
+    /// minimap (<see cref="ZoomMeter"/>, against the map's <see cref="ZoomCalibration"/>), presses
+    /// the one key that gets there, and reads it again. Without a reading it falls back to
+    /// Shift+Z, Z, Z, which always lands on the default, and zooms from there.
     /// </summary>
-    public async Task SetZoomAsync(Zoom zoom, CancellationToken cancellationToken) {
+    public async Task SetZoomAsync(Zoom zoom, string map, CancellationToken cancellationToken) {
+        if (ZoomCalibration.DefaultWidth(map) is { } defaultWidth) {
+            for (var attempt = 0; attempt < 2; attempt++) {
+                if (await ReadZoomAsync(defaultWidth, cancellationToken) is not { } current) {
+                    break;
+                }
+
+                if (ZoomMeter.KeyFor(current, zoom) is not var (key, modifiers)) {
+                    return;
+                }
+
+                await PressAsync(key, modifiers, cancellationToken);
+                await Task.Delay(300, cancellationToken);
+            }
+
+            logger.LogInformation("Couldn't read the zoom off the minimap; resetting with Shift+Z, Z, Z");
+        }
+
         foreach (var shift in new[] { true, false, false }) {
             await PressAsync(Key.Z, shift ? [Key.Shift] : [], cancellationToken);
             await Task.Delay(200, cancellationToken);
         }
 
         await ZoomFromDefaultAsync(zoom, cancellationToken);
+    }
+
+    /// <summary>
+    /// Measures <paramref name="map"/>'s minimap outline at the default zoom, once per map: resets
+    /// with Shift+Z, Z, Z, reads the outline, then reads it again zoomed out (Z, and Z back) and
+    /// keeps the reading only if the two are <see cref="ZoomMeter.OutRatio"/> apart, which rules
+    /// out a misread. It leaves the zoom at the default and the camera where it was. (A hero-view
+    /// follow would reset the zoom too, but it spoils a following everyone-view follow.)
+    /// </summary>
+    public async Task CalibrateZoomAsync(string map, CancellationToken cancellationToken) {
+        if (ZoomCalibration.DefaultWidth(map) is not null) {
+            return;
+        }
+
+        foreach (var shift in new[] { true, false, false }) {
+            await PressAsync(Key.Z, shift ? [Key.Shift] : [], cancellationToken);
+            await Task.Delay(200, cancellationToken);
+        }
+
+        var atDefault = await MeasureViewportAsync(cancellationToken);
+        await PressAsync(Key.Z, [], cancellationToken);
+        var zoomedOut = await MeasureViewportAsync(cancellationToken);
+        await PressAsync(Key.Z, [], cancellationToken);
+        if (atDefault is { } d && zoomedOut is { } o && Math.Abs(o / d - ZoomMeter.OutRatio) < 0.1) {
+            ZoomCalibration.Save(map, d);
+            logger.LogInformation("{map}: minimap outline is {width:0} px at the default zoom", map, d);
+        }
+        else {
+            logger.LogInformation("{map}: couldn't calibrate the zoom (read {d} and {o})", map, atDefault, zoomedOut);
+        }
+    }
+
+    private async Task<double?> MeasureViewportAsync(CancellationToken cancellationToken) {
+        // The zoom eases in over most of a second.
+        await Task.Delay(1000, cancellationToken);
+        using var frame = await capture.FrameAsync(cancellationToken);
+        return ZoomMeter.ViewportWidth(frame, gameWindow.Layout());
+    }
+
+    /// <summary>The zoom the minimap shows; null when the outline can't be read or matches no level.</summary>
+    private async Task<Zoom?> ReadZoomAsync(double defaultWidth, CancellationToken cancellationToken) {
+        using var frame = await capture.FrameAsync(cancellationToken);
+        if (ZoomMeter.ViewportWidth(frame, gameWindow.Layout()) is not { } width) {
+            return null;
+        }
+
+        // A width far from every level means another minimap scale (Haunted Mines underground).
+        var ratio = width / defaultWidth;
+        return new[] { 1, ZoomMeter.OutRatio, ZoomMeter.FarRatio }.Any(r => Math.Abs(ratio - r) < 0.1)
+            ? ZoomMeter.Classify(width, defaultWidth)
+            : null;
     }
 
     /// <summary>Zooms a camera at the default zoom: just reset, or just followed in hero view, which resets it.</summary>
@@ -176,70 +246,67 @@ public sealed class ReplayController(
         }
     }
 
+    /// <summary>The client process <see cref="EnsureCameraFollowAsync"/> turned camera follow mode on in.</summary>
+    private int? _followOnIn;
+
+    /// <summary>Whether camera follow mode (L) is known to be on in the running client.</summary>
+    public bool CameraFollowKnownOn => _followOnIn is { } pid && pid == GameWindow.RunningProcessId();
+
     /// <summary>
-    /// Makes sure camera follow mode (L) is on, so a click on a top-bar portrait follows that hero.
-    /// L only toggles it and nothing on screen shows which it is, so this tests it: point the camera
-    /// away (a minimap click), click <paramref name="target"/>'s portrait, and see whether the view
-    /// jumps. If it doesn't from either side of the minimap, press L and test again. Run it paused,
-    /// so moving units don't count as a jump. Leaves the camera following the target.
+    /// Turns on camera follow mode (L), so a click on a top-bar portrait follows that hero. L only
+    /// toggles it and nothing on screen shows which it is, so: click <paramref name="target"/>'s
+    /// portrait, and if the view doesn't jump, press L, which centres the camera on the hero.
+    /// Run it right after the replay starts, when the camera isn't on the hero yet; the client
+    /// keeps the mode for later replays. Leaves the camera following the target.
     /// </summary>
     public async Task EnsureCameraFollowAsync(PlayerSummary target, CancellationToken cancellationToken) {
         var summary = await CurrentReplayAsync(cancellationToken);
         var slot = summary.Players.Where(p => p.Team == target.Team).ToList().IndexOf(target);
+        var layout = gameWindow.Layout();
+        var (px, py) = layout.Portrait(target.Team, slot);
         await _lock.WaitAsync(cancellationToken);
         try {
-            for (var attempt = 0; attempt < 2; attempt++) {
-                if (await PortraitClickMovesCameraAsync(target.Team, slot, cancellationToken)) {
-                    return;
-                }
-
-                using (var session = input.Begin()) {
-                    session.Press(Key.L);
-                }
-
-                logger.LogInformation("Camera follow was off; pressed L");
-                await Task.Delay(300, cancellationToken);
+            using var before = await MapViewAsync(layout, cancellationToken);
+            using (var session = input.Begin()) {
+                session.Click(px, py);
             }
 
-            throw new McpException("Couldn't turn on camera follow mode (L): a portrait click doesn't move the camera.");
+            var clicked = await ViewChangeAsync(before, layout, cancellationToken);
+            if (clicked > JumpThreshold) {
+                _followOnIn = GameWindow.RunningProcessId();
+                return;
+            }
+
+            using (var session = input.Begin()) {
+                session.Press(Key.L);
+            }
+
+            var pressed = await ViewChangeAsync(before, layout, cancellationToken);
+            logger.LogInformation("Portrait click changed the view by {clicked:0.0}; L by {pressed:0.0}", clicked, pressed);
+            if (pressed > JumpThreshold) {
+                _followOnIn = GameWindow.RunningProcessId();
+                return;
+            }
+
+            throw new McpException(
+                $"Couldn't turn on camera follow mode (L): neither the portrait click nor L moved the camera " +
+                $"(view changes {clicked:0.0} and {pressed:0.0}). Is the camera already on the hero?");
         }
         finally {
             _lock.Release();
         }
     }
 
-    /// <summary>Whether a click on a portrait jumps the camera from either side of the minimap to the hero.</summary>
-    private async Task<bool> PortraitClickMovesCameraAsync(int team, int slot, CancellationToken cancellationToken) {
-        var layout = gameWindow.Layout();
-        var (px, py) = layout.Portrait(team, slot);
-        foreach (var (mx, my) in layout.MinimapProbes) {
-            using (var session = input.Begin()) {
-                session.Press(Key.E);
-                Thread.Sleep(150);
-                session.Press(Key.Backspace);
-                Thread.Sleep(150);
-                session.Click(mx, my);
-            }
+    /// <summary>A camera jump changes most of the view; units moving under a still camera change it by under 10.</summary>
+    private const double JumpThreshold = 12;
 
-            await Task.Delay(400, cancellationToken);
-            using var away = await MapViewAsync(layout, cancellationToken);
-            using (var session = input.Begin()) {
-                session.Click(px, py);
-            }
-
-            await Task.Delay(400, cancellationToken);
-            using var after = await MapViewAsync(layout, cancellationToken);
-            using var diff = new OpenCvSharp.Mat();
-            OpenCvSharp.Cv2.Absdiff(away, after, diff);
-            var change = OpenCvSharp.Cv2.Mean(diff).Val0;
-            logger.LogInformation("Portrait click changed the view by {change:0.0}", change);
-            // A camera jump changes most of the view; a still, paused camera barely changes it.
-            if (change > 12) {
-                return true;
-            }
-        }
-
-        return false;
+    /// <summary>How much the view changed from <paramref name="before"/> a second later (mean gray level difference).</summary>
+    private async Task<double> ViewChangeAsync(OpenCvSharp.Mat before, ObserverLayout layout, CancellationToken cancellationToken) {
+        await Task.Delay(1000, cancellationToken);
+        using var after = await MapViewAsync(layout, cancellationToken);
+        using var diff = new OpenCvSharp.Mat();
+        OpenCvSharp.Cv2.Absdiff(before, after, diff);
+        return OpenCvSharp.Cv2.Mean(diff).Val0;
     }
 
     /// <summary>The middle of the screen in gray, scaled down.</summary>

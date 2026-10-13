@@ -48,6 +48,10 @@ public sealed partial class GameWindow {
         return null;
     }
 
+    /// <summary>The id of the running client with a window; null when none runs.</summary>
+    public static int? RunningProcessId() =>
+        Process.GetProcessesByName(ProcessName).FirstOrDefault(p => p.MainWindowHandle != IntPtr.Zero)?.Id;
+
     [GeneratedRegex(@"\\Base(\d+)\\", RegexOptions.IgnoreCase)]
     private static partial Regex BuildFolder();
 

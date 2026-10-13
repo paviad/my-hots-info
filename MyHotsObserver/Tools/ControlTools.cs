@@ -75,8 +75,9 @@ public sealed class ControlTools(ReplayController controller) {
         }
 
         var p = await controller.FocusPlayerAsync(player, Everyone(view), cancellationToken);
-        if (Everyone(view)) {
-            // The portrait click follows only in camera follow mode (L), which only toggles.
+        if (Everyone(view) && !controller.CameraFollowKnownOn) {
+            // The portrait click follows only in camera follow mode (L), which only toggles. The
+            // check is reliable only right after a replay starts (record_clip reopens for it).
             await controller.EnsureCameraFollowAsync(p, cancellationToken);
         }
 
@@ -104,7 +105,8 @@ public sealed class ControlTools(ReplayController controller) {
     public async Task<object> SetZoom(
         [Description("'default', 'out' or 'far'")] string zoom,
         CancellationToken cancellationToken) {
-        await controller.SetZoomAsync(ParseZoom(zoom), cancellationToken);
+        var summary = await controller.CurrentReplayAsync(cancellationToken);
+        await controller.SetZoomAsync(ParseZoom(zoom), summary.Map, cancellationToken);
         return new { zoom = zoom.ToLowerInvariant() };
     }
 
