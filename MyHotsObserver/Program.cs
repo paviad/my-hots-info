@@ -16,6 +16,8 @@ builder.Services.AddSingleton<ReplayCatalog>();
 builder.Services.AddSingleton<GameInput>();
 builder.Services.AddSingleton<ReplayController>();
 builder.Services.AddSingleton<ClipRecorder>();
+builder.Services.AddSingleton<ClientSession>();
+builder.Services.AddHostedService(sp => sp.GetRequiredService<ClientSession>());
 
 builder.Services.AddMcpServer()
     .WithStdioServerTransport()

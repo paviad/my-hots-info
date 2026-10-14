@@ -77,7 +77,8 @@ public sealed class ControlTools(ReplayController controller) {
         var p = await controller.FocusPlayerAsync(player, Everyone(view), cancellationToken);
         if (Everyone(view) && !controller.CameraFollowKnownOn) {
             // The portrait click follows only in camera follow mode (L), which only toggles. The
-            // check is reliable only right after a replay starts (record_clip reopens for it).
+            // client saves it in Variables.txt; without that, the on-screen check is reliable only
+            // right after a replay starts (record_clip reopens for it).
             await controller.EnsureCameraFollowAsync(p, cancellationToken);
         }
 

@@ -124,7 +124,7 @@ public sealed class ClipRecorder(
             var opened = false;
             if (replay is not null) {
                 var path = ReplayCatalog.Resolve(replay);
-                if (await OnScreenAsync(cancellationToken) != path) {
+                if (await OnScreenAsync(cancellationToken) != path && !await controller.AdoptIfOnScreenAsync(path, cancellationToken)) {
                     await controller.OpenAsync(path, cancellationToken);
                     opened = true;
                 }
@@ -135,10 +135,11 @@ public sealed class ClipRecorder(
             var target = player is null || all ? null : ReplayController.ResolvePlayer(summary, player);
             var hero = target?.Hero;
 
-            // The everyone view follows a clicked portrait only in camera follow mode (L). Turning
-            // it on is reliable only right after a replay starts, so reopen one already on screen.
+            // The everyone view follows a clicked portrait only in camera follow mode (L). When
+            // Variables.txt doesn't say whether it's on, checking is reliable only right after a
+            // replay starts, so reopen one that's further in.
             if (everyone && target is not null && !controller.CameraFollowKnownOn) {
-                if (!opened) {
+                if (!opened && ReplayController.CameraFollow() is null && (await controller.PanelTimeAsync(cancellationToken)).Now > 60) {
                     await controller.OpenAsync(summary.Path, cancellationToken);
                 }
 

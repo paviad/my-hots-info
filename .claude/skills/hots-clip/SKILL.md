@@ -15,23 +15,24 @@ The tools are the `myhots-observer` MCP server (`MyHotsObserver/`, tools in
 
 ## 0. Preconditions
 
-- **HotS must be running and signed in** (started from Battle.net). `open_replay` hands the replay
-  to the running client. Never start `HeroesSwitcher_x64.exe` without a running client: that opens
-  an unauthenticated client at the login screen. If the game isn't running, ask the user to start
-  it, and wait.
+- **The observer runs its own client.** When the game isn't running, `open_replay` (and
+  `record_clip` with a replay) swap in the observer's Variables.txt (`MyHotsObserver/ObserverVariables.txt`,
+  camera follow on, default hotkeys, 1920x1080 windowed fullscreen), start the game through
+  Battle.net signed in, and wait for it (about a minute). The user's own Variables.txt files go back
+  30s after the client closes. If the user's own client is running, every tool refuses: ask the
+  user to close the game, then retry. Never start `HeroesSwitcher_x64.exe` yourself without a
+  running client: that opens an unauthenticated client at the login screen.
 - **A replay from an older game build restarts the client.** The Switcher closes the running
   client and starts the replay's build (`Versions\Base<build>`), which takes a minute or two.
   `open_replay`/`record_clip` wait for this (up to 4 minutes). If one still fails with "isn't
   running" or "didn't restart" right after opening such a replay, the client is probably still
   starting: check `Get-Process HeroesOfTheStorm_x64 | select Path`, wait, and retry. Don't tell
   the user the game closed.
-- **Getting back to the current build is the user's job.** Through the Switcher it lands on the
-  login screen, so `open_replay` refuses it and says so. Ask the user to close the game and start
-  it from Battle.net. When a batch includes older builds, record all current-build clips first
-  and older builds last, then tell the user the client is left on an old build.
-- **Right after the user starts the game, wait for its window.** Battle.net starts it through the
-  Switcher, and the client's window appears some seconds later; "isn't running" in that gap
-  means "not up yet".
+- **More older-build clips work without the user.** A client started for an older build isn't signed in, and quitting its replay lands on the login screen. So `open_replay` doesn't quit there: it closes the client and starts the Switcher with the next replay, which goes through the current build to the replay's build (1-2 min; OBS shows black frames until its capture re-hooks). A replay the user opened is used as is when its length matches.
+- **Getting back to the current build restarts the client through Battle.net.** Through the
+  Switcher it would land on the login screen, so `open_replay` closes the old-build client and
+  starts the game again (about a minute). Still, record current-build clips first and older
+  builds last, to restart less.
 - **OBS must be running** with its websocket on and the scene `MyHotsInfo Observer`. Don't touch
   the user's `Record Hots` scene.
 - **The server must be on the current build.** If the observer code was rebuilt during this

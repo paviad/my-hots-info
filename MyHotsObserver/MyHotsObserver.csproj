@@ -17,6 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- The client's options while the observer runs it (ClientSession). -->
+    <None Update="ObserverVariables.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MyReplayLibrary\MyReplayLibrary.csproj" />
     <ProjectReference Include="..\MyReplayQuery\MyReplayQuery.csproj" />
   </ItemGroup>

@@ -14,11 +14,18 @@ public sealed partial class GameWindow {
         SetProcessDpiAwarenessContext(-4 /* DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 */);
     }
 
-    /// <summary>The client's window and its client-area size; throws when the game isn't running.</summary>
+    /// <summary>
+    /// The client's window and its client-area size; throws when the game isn't running, or runs
+    /// with the user's own settings rather than the observer's (<see cref="ClientSession"/>).
+    /// </summary>
     public (IntPtr Handle, int Width, int Height) Find() {
         var process = Process.GetProcessesByName(ProcessName).FirstOrDefault(p => p.MainWindowHandle != IntPtr.Zero)
                       ?? throw new McpException(
-                          "Heroes of the Storm isn't running. Start it from the Battle.net launcher and wait for the home screen.");
+                          "Heroes of the Storm isn't running. open_replay (or record_clip with a replay) starts it.");
+        if (!ClientSession.Swapped) {
+            throw new McpException(ClientSession.UsersClientMessage);
+        }
+
         var handle = process.MainWindowHandle;
         if (IsIconic(handle)) {
             throw new McpException(

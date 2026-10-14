@@ -17,12 +17,16 @@ public sealed class ReplayController(
     ObserverCapture capture,
     ReplayClock clock,
     ReplayCatalog catalog,
+    ClientSession session,
     ILogger<ReplayController> logger) {
     private const string HotsDirEnvVar = "MYHOTSINFO_HOTS_DIR";
     private const string DefaultHotsDir = @"C:\Program Files (x86)\Heroes of the Storm";
 
     /// <summary>The F/B keys jump this far.</summary>
     private const double SkipSeconds = 20;
+
+    private static string HotsDir =>
+        Environment.GetEnvironmentVariable(HotsDirEnvVar) is { Length: > 0 } dir ? dir : DefaultHotsDir;
 
     private static readonly TimeSpan PollInterval = TimeSpan.FromMilliseconds(400);
 
@@ -121,13 +125,14 @@ public sealed class ReplayController(
         }
     }
 
-    /// <summary>Opens a replay in the running client and waits until it plays.</summary>
+    /// <summary>Opens a replay in the observer's client, starting it when none runs, and waits until it plays.</summary>
     public async Task<ReplaySummary> OpenAsync(string path, CancellationToken cancellationToken) {
         var summary = catalog.Summary(path) ?? throw new McpException($"Can't read {Path.GetFileName(path)}");
+        await session.EnsureClientAsync(cancellationToken);
         gameWindow.Find();
         await _lock.WaitAsync(cancellationToken);
         try {
-            var hotsDir = Environment.GetEnvironmentVariable(HotsDirEnvVar) is { Length: > 0 } dir ? dir : DefaultHotsDir;
+            var hotsDir = HotsDir;
             var switcher = Path.Combine(hotsDir, "Support64", "HeroesSwitcher_x64.exe");
             if (!File.Exists(switcher)) {
                 throw new McpException($"{switcher} not found; set {HotsDirEnvVar} to the HotS install folder.");
@@ -135,17 +140,46 @@ public sealed class ReplayController(
 
             // The Switcher restarts the client to switch builds. Onto an older build the client
             // plays the replay, but back onto the current one it lands on the login screen, so
-            // that switch is the user's: through Battle.net.
+            // close it and start the current build through Battle.net, signed in.
             var replayBuild = ReplayFiles.ReadBuild(path);
             if (GameWindow.RunningBuild() is { } clientBuild && clientBuild != replayBuild
                 && replayBuild == CurrentBuild(hotsDir)) {
-                throw new McpException(
-                    $"The client is on build {clientBuild} (an older replay's), and this replay needs the current build " +
-                    $"{replayBuild}. Switching back through the Switcher lands on the login screen, so ask the user to " +
-                    "close the game and start it from Battle.net, then retry.");
+                foreach (var client in Process.GetProcessesByName(GameWindow.ProcessName)) {
+                    client.Kill();
+                    await client.WaitForExitAsync(cancellationToken);
+                }
+
+                logger.LogInformation("Closed the build {old} client to start the current build {build}", clientBuild, replayBuild);
+                await session.EnsureClientAsync(cancellationToken);
             }
 
             var length = summary.Length.TotalSeconds;
+
+            // A client on an older build was started by the Switcher and isn't signed in: quitting a
+            // replay there lands on the login screen. So don't quit; close the client and start the
+            // Switcher with the replay. It starts the current build, which restarts on the replay's
+            // build and plays it, so this takes a minute or two.
+            if (GameWindow.RunningBuild() is { } oldBuild && oldBuild != CurrentBuild(hotsDir)) {
+                foreach (var client in Process.GetProcessesByName(GameWindow.ProcessName)) {
+                    client.Kill();
+                    await client.WaitForExitAsync(cancellationToken);
+                }
+
+                Process.Start(new ProcessStartInfo(switcher) { ArgumentList = { path }, UseShellExecute = false })?.Dispose();
+                logger.LogInformation("Closed the build {old} client; the Switcher starts {path} from cold", oldBuild, path);
+                _opened = path;
+                await WaitForClientAsync(replayBuild, cancellationToken);
+                var watch = Stopwatch.StartNew();
+                while (watch.Elapsed < TimeSpan.FromMinutes(3)) {
+                    await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
+                    if ((await TryReadAsync(cancellationToken))?.Length is { } l && Math.Abs(l.TotalSeconds - length) <= 2) {
+                        return summary;
+                    }
+                }
+
+                throw new McpException($"Build {replayBuild}'s client didn't start {Path.GetFileName(path)} within 3 minutes.");
+            }
+
             for (var handoff = 1; handoff <= 3; handoff++) {
                 // The client ignores a replay handed to it while it plays another (or loads one we
                 // handed over before), so quit that first.
@@ -249,15 +283,25 @@ public sealed class ReplayController(
     /// <summary>The client process <see cref="EnsureCameraFollowAsync"/> turned camera follow mode on in.</summary>
     private int? _followOnIn;
 
+    /// <summary>
+    /// Camera follow mode (L) as the client saved it in Variables.txt, which it writes the moment
+    /// the mode changes; null when the file doesn't say. A client on the current build is signed
+    /// in and uses its account's file; one the Switcher started on an older build isn't.
+    /// </summary>
+    public static bool? CameraFollow() =>
+        bool.TryParse(GameVariables.Get("camerafollow", signedIn: GameWindow.RunningBuild() is { } b && b == CurrentBuild(HotsDir)),
+            out var on) ? on : null;
+
     /// <summary>Whether camera follow mode (L) is known to be on in the running client.</summary>
-    public bool CameraFollowKnownOn => _followOnIn is { } pid && pid == GameWindow.RunningProcessId();
+    public bool CameraFollowKnownOn => CameraFollow() ?? (_followOnIn is { } pid && pid == GameWindow.RunningProcessId());
 
     /// <summary>
-    /// Turns on camera follow mode (L), so a click on a top-bar portrait follows that hero. L only
-    /// toggles it and nothing on screen shows which it is, so: click <paramref name="target"/>'s
-    /// portrait, and if the view doesn't jump, press L, which centres the camera on the hero.
-    /// Run it right after the replay starts, when the camera isn't on the hero yet; the client
-    /// keeps the mode for later replays. Leaves the camera following the target.
+    /// Turns on camera follow mode (L), so a click on a top-bar portrait follows that hero, and
+    /// leaves the camera following <paramref name="target"/>. L only toggles it, so this goes by
+    /// <see cref="CameraFollow"/>: when it's off, press L and wait for the client to save it on.
+    /// When the file doesn't say, nothing on screen shows the mode either: click the portrait,
+    /// and if the view doesn't jump, press L, which centres the camera on the hero. That works
+    /// only right after the replay starts, when the camera isn't on the hero yet.
     /// </summary>
     public async Task EnsureCameraFollowAsync(PlayerSummary target, CancellationToken cancellationToken) {
         var summary = await CurrentReplayAsync(cancellationToken);
@@ -266,6 +310,31 @@ public sealed class ReplayController(
         var (px, py) = layout.Portrait(target.Team, slot);
         await _lock.WaitAsync(cancellationToken);
         try {
+            if (CameraFollow() is { } saved) {
+                if (!saved) {
+                    using (var session = input.Begin()) {
+                        session.Press(Key.L);
+                    }
+
+                    var watch = Stopwatch.StartNew();
+                    while (CameraFollow() != true) {
+                        if (watch.Elapsed > TimeSpan.FromSeconds(3)) {
+                            throw new McpException("Pressed L for camera follow mode, but the client didn't save it as on in Variables.txt.");
+                        }
+
+                        await Task.Delay(PollInterval, cancellationToken);
+                    }
+
+                    logger.LogInformation("Turned camera follow mode on (L)");
+                }
+
+                using (var session = input.Begin()) {
+                    session.Click(px, py);
+                }
+
+                return;
+            }
+
             using var before = await MapViewAsync(layout, cancellationToken);
             using (var session = input.Begin()) {
                 session.Click(px, py);
@@ -514,6 +583,20 @@ public sealed class ReplayController(
         var layout = gameWindow.Layout();
         using var frame = await capture.FrameAsync(cancellationToken);
         return clock.ReadSpeed(frame, layout);
+    }
+
+    /// <summary>
+    /// Takes the replay on screen to be <paramref name="path"/> when it's as long, e.g. one the
+    /// user opened, so it isn't reopened (on an older build's client, reopening means a restart).
+    /// </summary>
+    public async Task<bool> AdoptIfOnScreenAsync(string path, CancellationToken cancellationToken) {
+        if (catalog.Summary(path) is not { } summary || await TryReadAsync(cancellationToken) is not { Length: { } length }
+            || Math.Abs(summary.Length.TotalSeconds - length.TotalSeconds) > 2) {
+            return false;
+        }
+
+        _opened = path;
+        return true;
     }
 
     /// <summary>
