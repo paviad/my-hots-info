@@ -60,13 +60,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\Awards\*.png" />
 	  <None Remove="Resources\Images\Maps\*.png" />
 	  <None Remove="Resources\Images\Portraits\*.png" />
+	  <None Remove="Resources\Images\Scorescreen\*.png" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Awards\*.png" />
 	  <MauiImage Include="Resources\Images\Maps\*.png" />
 	  <MauiImage Include="Resources\Images\Portraits\*.png" />
+	  <MauiImage Include="Resources\Images\Scorescreen\*.png" />
 	</ItemGroup>
 
 	<ItemGroup>

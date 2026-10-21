@@ -43,7 +43,7 @@ public partial class ReplayPage : ContentPage, IQueryAttributable {
     }
 
     private void PlayerTapped(object? sender, TappedEventArgs e) {
-        if ((sender as BindableObject)?.BindingContext is ReplayCharacter { Player: { } player }) {
+        if ((sender as BindableObject)?.BindingContext is ReplaySummaryRow { Character.Player: { } player }) {
             _myNavigator.GoToPlayer($"{player.Name}#{player.BattleTag}");
         }
     }
