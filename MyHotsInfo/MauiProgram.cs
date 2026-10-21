@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 using MyHotsInfo.Pages;
 using MyHotsInfo.Utils;
 using MyReplayLibrary;
@@ -17,6 +18,11 @@ public static class MauiProgram {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
+
+#if WINDOWS
+        builder.ConfigureLifecycleEvents(events =>
+            events.AddWindows(windows => windows.OnWindowCreated(WinUI.WindowPlacement.Place)));
+#endif
 
 #if DEBUG
         builder.Logging.AddDebug();
