@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using MyHotsInfo.Pages;
 using MyHotsInfo.Utils;
 using MyReplayLibrary;
@@ -48,6 +49,65 @@ public partial class AppShell : Shell, IDisposable {
     public void Dispose() {
         _tks.Cancel();
         _watchScope?.Dispose();
+    }
+
+    /// <summary>The window's title bar, with buttons for the screenshots, the clips and the last game.</summary>
+    public TitleBar CreateTitleBar() {
+        var options = _svcp.GetRequiredService<GameRecorderOptions>();
+        return new TitleBar {
+            Title = "MyHotsInfo",
+            TrailingContent = new HorizontalStackLayout {
+                Spacing = 6,
+                Margin = new Thickness(0, 0, 6, 0),
+                VerticalOptions = LayoutOptions.Center,
+                Children = {
+                    TitleBarButton("Screenshots", () => OpenFolder(AppPaths.ScreenshotsPath)),
+                    TitleBarButton("Clips", () => OpenFolder(options.ClipsFolder)),
+                    TitleBarButton("Last game", OpenLastGame),
+                },
+            },
+        };
+
+        Button TitleBarButton(string text, Func<Task> action) {
+            var button = new Button {
+                Text = text,
+                FontSize = 12,
+                Padding = new Thickness(10, 0),
+                HeightRequest = 26,
+                MinimumHeightRequest = 0,
+            };
+            button.Clicked += async (_, _) => {
+                try {
+                    await action();
+                }
+                catch (Exception x) {
+                    await DisplayAlertAsync(text, x.Message, "Dismiss");
+                }
+            };
+            return button;
+        }
+    }
+
+    private static Task OpenFolder(string path) {
+        // The clips folder is only made by the first clip.
+        Directory.CreateDirectory(path);
+        Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+        return Task.CompletedTask;
+    }
+
+    private async Task OpenLastGame() {
+        using var scope = _svcp.CreateScope();
+        var dc = scope.ServiceProvider.GetRequiredService<ReplayDbContext>();
+        var lastId = await dc.Replays
+            .OrderByDescending(r => r.TimestampReplay)
+            .Select(r => (int?)r.Id)
+            .FirstOrDefaultAsync();
+        if (lastId is null) {
+            await DisplayAlertAsync("Last game", "There are no games yet", "Dismiss");
+            return;
+        }
+
+        _myNavigator.GoToReplay(lastId.Value);
     }
 
     private static async Task<FileResult?> PickAndShow(PickOptions options) {

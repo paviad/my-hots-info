@@ -67,7 +67,7 @@ public sealed class ClipRecorder(
     /// Next to the app's game recordings, which it prunes; it only prunes the files directly in
     /// that folder, not these.
     /// </summary>
-    public static string ClipsFolder => Path.Combine(new GameRecorderOptions().RecordingsFolder, "Clips");
+    public static string ClipsFolder => new GameRecorderOptions().ClipsFolder;
 
     public async Task StartAsync(string? name, CancellationToken cancellationToken) {
         await _lock.WaitAsync(cancellationToken);

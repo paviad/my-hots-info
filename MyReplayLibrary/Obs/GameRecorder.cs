@@ -22,6 +22,9 @@ public record GameRecorderOptions {
     /// </summary>
     public string KeptFolder => Path.Combine(RecordingsFolder, "Saved");
 
+    /// <summary>Where the observer records its clips. Not pruned, like <see cref="KeptFolder"/>.</summary>
+    public string ClipsFolder => Path.Combine(RecordingsFolder, "Clips");
+
     public int RecordingsToKeep { get; init; } = 3;
 
     /// <summary>Stops a recording whose game never produced a replay.</summary>

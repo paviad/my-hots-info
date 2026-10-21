@@ -13,7 +13,7 @@ namespace MyHotsInfo {
 
         protected override Window CreateWindow(IActivationState? activationState) {
             var appShell = new AppShell(_svcp, _myNavigator);
-            return new Window(appShell);
+            return new Window(appShell) { TitleBar = appShell.CreateTitleBar() };
         }
     }
 }
