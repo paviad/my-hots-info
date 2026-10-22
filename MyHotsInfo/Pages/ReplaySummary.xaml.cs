@@ -42,10 +42,8 @@ public partial class ReplayPage : ContentPage, IQueryAttributable {
         }
     }
 
-    private void PlayerTapped(object? sender, TappedEventArgs e) {
-        if ((sender as BindableObject)?.BindingContext is ReplaySummaryRow { Character.Player: { } player }) {
-            _myNavigator.GoToPlayer($"{player.Name}#{player.BattleTag}");
-        }
+    private void PlayerTapped(object? sender, PlayerEntry player) {
+        _myNavigator.GoToPlayer($"{player.Name}#{player.BattleTag}");
     }
 
     public async void ApplyQueryAttributes(IDictionary<string, object> query) {

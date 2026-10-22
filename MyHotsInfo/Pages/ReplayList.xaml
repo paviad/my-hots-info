@@ -4,6 +4,7 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:MyHotsInfo.Controls"
              xmlns:pages="clr-namespace:MyHotsInfo.Pages"
              xmlns:utils="clr-namespace:MyHotsInfo.Utils"
              xmlns:xaml="clr-namespace:Microsoft.Maui.Controls.Xaml;assembly=Microsoft.Maui.Controls.Xaml"
@@ -17,7 +18,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <utils:NullToBooleanConverter x:Key="NullToBooleanConverter" />
-            <utils:HeroToImageConverter x:Key="HeroToImageConverter" />
+            <utils:ReplayResultConverter x:Key="ReplayResultConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -28,95 +29,65 @@
 
         <Grid RowDefinitions="*" ColumnDefinitions="*,*" Grid.Row="1">
             <CollectionView
+                x:Name="ReplaysView"
                 VerticalScrollBarVisibility="Always"
                 ItemsSource="{Binding Replays}"
                 SelectionMode="Single"
-                SelectedItem="{Binding SelectedReplay, Mode=OneWayToSource}">
+                SelectedItem="{Binding SelectedReplay, Mode=TwoWay}">
 
                 <CollectionView.Header>
-                    <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,*">
-                        <Label Text="Date" />
-                        <Label Text="Map" Grid.Column="1" />
-                        <Label Text="Length" Grid.Column="2" />
+                    <Grid RowDefinitions="Auto" ColumnDefinitions="24,*,*,*">
+                        <Label Text="Date" Grid.Column="1" />
+                        <Label Text="Map" Grid.Column="2" />
+                        <Label Text="Length" Grid.Column="3" />
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:ReplayEntry">
-                        <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,*">
-                            <Label Text="{Binding TimestampReplay}" />
-                            <Label Text="{Binding MapId}" Grid.Column="1" />
-                            <Label Text="{Binding ReplayLength}" Grid.Column="2" />
+                        <Grid RowDefinitions="Auto" ColumnDefinitions="24,*,*,*">
+                            <!-- A smiley for a win, a frown for a loss; the face and eyes are shared. -->
+                            <Path WidthRequest="16" HeightRequest="16" VerticalOptions="Center"
+                                  Stroke="#4CC24A" StrokeThickness="1.5" StrokeLineCap="Round"
+                                  Data="M 1,8 A 7,7 0 1 1 15,8 A 7,7 0 1 1 1,8 M 5.5,5.5 L 5.5,6.5 M 10.5,5.5 L 10.5,6.5 M 5,10 Q 8,13 11,10"
+                                  IsVisible="{Binding ., Converter={StaticResource ReplayResultConverter}, ConverterParameter=Victory}"
+                                  ToolTipProperties.Text="Victory" />
+                            <Path WidthRequest="16" HeightRequest="16" VerticalOptions="Center"
+                                  Stroke="#E5484D" StrokeThickness="1.5" StrokeLineCap="Round"
+                                  Data="M 1,8 A 7,7 0 1 1 15,8 A 7,7 0 1 1 1,8 M 5.5,5.5 L 5.5,6.5 M 10.5,5.5 L 10.5,6.5 M 5,11.5 Q 8,8.5 11,11.5"
+                                  IsVisible="{Binding ., Converter={StaticResource ReplayResultConverter}, ConverterParameter=Defeat}"
+                                  ToolTipProperties.Text="Defeat" />
+                            <Label Text="{Binding TimestampReplay}" Grid.Column="1" />
+                            <Label Text="{Binding MapId}" Grid.Column="2" />
+                            <Label Text="{Binding ReplayLength}" Grid.Column="3" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <ScrollView Grid.Column="1">
-                <Grid
-                    IsVisible="{Binding SelectedReplay, Converter={StaticResource NullToBooleanConverter}}">
-                    <VerticalStackLayout>
-                        <Grid>
-                            <ImageButton
-                                Source="{Binding MapName}"
-                                Margin="5"
-                                HeightRequest="150"
-                                Clicked="GoToReplayClicked" />
-                            <Label Text="{Binding Result}" HorizontalOptions="Center" VerticalOptions="Center"
-                                   FontSize="20" />
-                        </Grid>
-                        <BoxView HeightRequest="1" Color="Gray" HorizontalOptions="FillAndExpand" />
-                        <Label>
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Id: " />
-                                    <Span Text="{Binding SelectedReplay.Id}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label>
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Duration: " />
-                                    <Span Text="{Binding SelectedReplay.ReplayLength}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label>
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Version: " />
-                                    <Span Text="{Binding SelectedReplay.ReplayBuild}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Border Stroke="White">
-                            <Grid>
-                                <CollectionView ItemsSource="{Binding SelectedReplay.ReplayCharacters }">
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate x:DataType="models:ReplayCharacter">
-                                            <Grid RowDefinitions="Auto" ColumnDefinitions="*,Auto,*">
-                                                <Label
-                                                    Text="{Binding Player.Name}" HorizontalTextAlignment="End"
-                                                    VerticalTextAlignment="Center" Margin="0,0,10,0"
-                                                    TextDecorations="Underline">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer Tapped="PlayerTapped" />
-                                                    </Label.GestureRecognizers>
-                                                </Label>
-                                                <Image
-                                                    Source="{Binding CharacterId, Converter={StaticResource HeroToImageConverter}, ConverterParameter='circle'}"
-                                                    HeightRequest="28" Grid.Column="1" />
-                                                <Label
-                                                    Text="{Binding CharacterId}" Grid.Column="2"
-                                                    VerticalTextAlignment="Center" Margin="5,0,0,0" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
-                            </Grid>
-                        </Border>
-                    </VerticalStackLayout>
+            <!-- The game's score screen, scaled to fit, with a button to open it full size. -->
+            <Grid Grid.Column="1" RowDefinitions="Auto,*" Padding="12,6,12,12"
+                  IsVisible="{Binding SelectedReplay, Converter={StaticResource NullToBooleanConverter}}">
+                <Grid.Background>
+                    <RadialGradientBrush Center="0.5,0.45" Radius="0.9">
+                        <GradientStop Color="#2A1763" Offset="0" />
+                        <GradientStop Color="#120A2C" Offset="0.7" />
+                        <GradientStop Color="#0A0619" Offset="1" />
+                    </RadialGradientBrush>
+                </Grid.Background>
+
+                <Grid HorizontalOptions="End" Padding="6" BackgroundColor="Transparent"
+                      ToolTipProperties.Text="Open the summary">
+                    <Path WidthRequest="16" HeightRequest="16"
+                          Stroke="#B8AEE8" StrokeThickness="2" StrokeLineCap="Round" StrokeLineJoin="Round"
+                          Data="M 9,7 L 15,1 M 10,1 L 15,1 L 15,6 M 7,9 L 1,15 M 1,10 L 1,15 L 6,15" />
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="FullscreenTapped" />
+                    </Grid.GestureRecognizers>
                 </Grid>
-            </ScrollView>
+
+                <controls:ScaleToFit Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start">
+                    <controls:ReplaySummaryView BindingContext="{Binding Summary}" PlayerTapped="PlayerTapped" />
+                </controls:ScaleToFit>
+            </Grid>
         </Grid>
     </Grid>
 

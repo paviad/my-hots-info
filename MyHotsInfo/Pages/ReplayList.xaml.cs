@@ -39,6 +39,10 @@ public partial class ReplayList : ContentPage {
     }
 
     private async Task InitAsync() {
+        // The list reloads whenever the page is shown, including on the way back from a game's
+        // summary; keep the same game selected.
+        var selectedId = _vm?.SelectedReplay?.Id;
+
         using var scope = _svcp.CreateScope();
         var dc = scope.ServiceProvider.GetRequiredService<ReplayDbContext>();
         _replays = await dc.Replays
@@ -74,16 +78,21 @@ public partial class ReplayList : ContentPage {
 
         _vm?.Replays.Clear();
         _replays.ForEach(r => _vm?.Replays.Add(r));
-    }
 
-    private void GoToReplayClicked(object? sender, EventArgs e) {
-        _myNavigator.GoToReplay(_vm!.SelectedReplay!.Id);
-    }
-
-    private void PlayerTapped(object? sender, TappedEventArgs e) {
-        if ((sender as BindableObject)?.BindingContext is ReplayCharacter { Player: { } player }) {
-            _myNavigator.GoToPlayer($"{player.Name}#{player.BattleTag}");
+        if (_vm is not null && _replays.Find(r => r.Id == selectedId) is { } selected) {
+            _vm.SelectedReplay = selected;
+            ReplaysView.ScrollTo(selected, position: ScrollToPosition.MakeVisible, animate: false);
         }
+    }
+
+    private void FullscreenTapped(object? sender, TappedEventArgs e) {
+        if (_vm?.SelectedReplay is { } replay) {
+            _myNavigator.GoToReplay(replay.Id);
+        }
+    }
+
+    private void PlayerTapped(object? sender, PlayerEntry player) {
+        _myNavigator.GoToPlayer($"{player.Name}#{player.BattleTag}");
     }
 
     private async void Refresh_Click(object? sender, EventArgs e) {
