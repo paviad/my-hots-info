@@ -79,11 +79,13 @@ public partial class Prematch : ContentPage, IQueryAttributable {
                     return PrematchSlot.Plain(name, "You");
                 }
 
-                if (GenericNames.Contains(name)) {
-                    return PrematchSlot.Plain(name, "Name hidden");
+                // Check after resolving: OCR often misreads "Player" as "PIayer" and the like.
+                var resolved = matcher.Resolve(name) ?? name;
+                if (GenericNames.Contains(resolved)) {
+                    return PrematchSlot.Plain(resolved, "Name hidden");
                 }
 
-                var results = await playerQuery.QueryByName(matcher.Resolve(name) ?? name, true);
+                var results = await playerQuery.QueryByName(resolved, true);
                 var players = results.Where(r => r.Totals.NumGames > 0).OrderByDescending(r => r.Totals.NumGames).ToList();
                 if (players.Count == 0) {
                     // Either a stranger or a misread name; can't tell which.
