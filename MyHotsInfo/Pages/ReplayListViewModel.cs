@@ -11,6 +11,10 @@ public sealed class ReplayListViewModel : INotifyPropertyChanged {
 
     public ObservableCollection<ReplayEntry> Replays { get; set; } = [];
 
+    /// <summary>The talents picked in <see cref="Replays" />, for the summary's talents tab.</summary>
+    public IReadOnlyDictionary<ReplayCharacterTalent, HeroTalentInformation> TalentInfos { get; set; } =
+        new Dictionary<ReplayCharacterTalent, HeroTalentInformation>();
+
     public ReplayEntry? SelectedReplay {
         get => _selectedReplay;
         set {
@@ -19,7 +23,7 @@ public sealed class ReplayListViewModel : INotifyPropertyChanged {
             }
 
             _selectedReplay = value;
-            Summary = value is null ? null : new ReplaySummaryViewModel(value);
+            Summary = value is null ? null : new ReplaySummaryViewModel(value, TalentInfos);
             OnPropertyChanged();
         }
     }

@@ -34,6 +34,25 @@
             <Style x:Key="Band" TargetType="BoxView">
                 <Setter Property="Color" Value="#26000000" />
             </Style>
+
+            <Style x:Key="TabLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="OpenSansSemibold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="TextColor" Value="#9C92CC" />
+                <Setter Property="Padding" Value="0,2,0,4" />
+            </Style>
+
+            <Style x:Key="TabUnderline" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="2" />
+                <Setter Property="Color" Value="#8E7CFF" />
+                <Setter Property="VerticalOptions" Value="End" />
+            </Style>
+
+            <Style x:Key="TierLabel" TargetType="Label" BasedOn="{StaticResource StatLabel}">
+                <Setter Property="WidthRequest" Value="78" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="TextColor" Value="#F0EBFF" />
+            </Style>
         </ResourceDictionary>
     </ContentView.Resources>
 
@@ -46,6 +65,37 @@
                    FontSize="10" TextColor="#8C80C0" VerticalTextAlignment="End" />
         </Grid>
 
+        <!-- Stats | Talents, like the score screen's tabs -->
+        <HorizontalStackLayout Spacing="12" Margin="2,-4,0,0">
+            <Grid>
+                <Label Text="Stats" Style="{StaticResource TabLabel}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Tab.ShowStats}" Value="True">
+                            <Setter Property="TextColor" Value="White" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnStatsTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView Style="{StaticResource TabUnderline}" IsVisible="{Binding Tab.ShowStats}" />
+            </Grid>
+            <Label Text="|" Style="{StaticResource TabLabel}" TextColor="#5A5090" />
+            <Grid>
+                <Label Text="Talents" Style="{StaticResource TabLabel}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Tab.ShowTalents}" Value="True">
+                            <Setter Property="TextColor" Value="White" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTalentsTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView Style="{StaticResource TabUnderline}" IsVisible="{Binding Tab.ShowTalents}" />
+            </Grid>
+        </HorizontalStackLayout>
+
         <Border StrokeThickness="2" Stroke="#6A5CC8" Padding="18,6,18,6">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -57,14 +107,28 @@
             <VerticalStackLayout Spacing="0">
                 <!-- Column headers -->
                 <Grid ColumnDefinitions="4,54,148,34,44,44,44,84,84,84,84,84,34" HeightRequest="30">
-                    <Image Grid.Column="4" Source="score_kill.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Kills" />
-                    <Image Grid.Column="5" Source="score_assist.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Assists" />
-                    <Image Grid.Column="6" Source="score_death.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Deaths" />
-                    <Image Grid.Column="7" Source="score_siegedamage.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Siege damage" />
-                    <Image Grid.Column="8" Source="score_herodamage.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Hero damage" />
-                    <Image Grid.Column="9" Source="score_healedandabsorbed.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Healing" />
-                    <Image Grid.Column="10" Source="score_selfhealingshielding.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Self healing" />
-                    <Image Grid.Column="11" Source="score_xpcontribution.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Experience contribution" />
+                    <Grid Grid.Column="4" Grid.ColumnSpan="8" ColumnDefinitions="44,44,44,84,84,84,84,84"
+                          IsVisible="{Binding Tab.ShowStats}">
+                        <Image Source="score_kill.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Kills" />
+                        <Image Grid.Column="1" Source="score_assist.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Assists" />
+                        <Image Grid.Column="2" Source="score_death.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Deaths" />
+                        <Image Grid.Column="3" Source="score_siegedamage.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Siege damage" />
+                        <Image Grid.Column="4" Source="score_herodamage.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Hero damage" />
+                        <Image Grid.Column="5" Source="score_healedandabsorbed.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Healing" />
+                        <Image Grid.Column="6" Source="score_selfhealingshielding.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Self healing" />
+                        <Image Grid.Column="7" Source="score_xpcontribution.png" Style="{StaticResource HeaderIcon}" ToolTipProperties.Text="Experience contribution" />
+                    </Grid>
+
+                    <!-- Seven 78-wide slots, as in the rows below -->
+                    <HorizontalStackLayout Grid.Column="4" Grid.ColumnSpan="8" IsVisible="{Binding Tab.ShowTalents}">
+                        <Label Text="1" Style="{StaticResource TierLabel}" />
+                        <Label Text="4" Style="{StaticResource TierLabel}" />
+                        <Label Text="7" Style="{StaticResource TierLabel}" />
+                        <Label Text="10" Style="{StaticResource TierLabel}" />
+                        <Label Text="13" Style="{StaticResource TierLabel}" />
+                        <Label Text="16" Style="{StaticResource TierLabel}" />
+                        <Label Text="20" Style="{StaticResource TierLabel}" />
+                    </HorizontalStackLayout>
                 </Grid>
 
                 <!-- Players -->
@@ -112,8 +176,10 @@
                                             </DataTrigger>
                                         </BoxView.Triggers>
                                     </BoxView>
-                                    <BoxView Grid.Column="4" Grid.ColumnSpan="3" Style="{StaticResource Band}" />
-                                    <BoxView Grid.Column="9" Grid.ColumnSpan="2" Style="{StaticResource Band}" />
+                                    <BoxView Grid.Column="4" Grid.ColumnSpan="3" Style="{StaticResource Band}"
+                                             IsVisible="{Binding Tab.ShowStats}" />
+                                    <BoxView Grid.Column="9" Grid.ColumnSpan="2" Style="{StaticResource Band}"
+                                             IsVisible="{Binding Tab.ShowStats}" />
 
                                     <Grid Grid.Column="1" IsClippedToBounds="True">
                                         <Image Source="{Binding Character.CharacterId, Converter={StaticResource HeroToImageConverter}}"
@@ -140,19 +206,41 @@
                                     <Image Grid.Column="3" Source="{Binding AwardImage}"
                                            WidthRequest="32" HeightRequest="32" />
 
-                                    <Grid Grid.Column="4" Grid.ColumnSpan="8"
-                                          ColumnDefinitions="44,44,44,84,84,84,84,84"
-                                          BindingContext="{Binding Character.ReplayCharacterScoreResult}"
-                                          x:DataType="models:ReplayCharacterScoreResult">
-                                        <Label Text="{Binding SoloKills}" Style="{StaticResource StatLabel}" />
-                                        <Label Text="{Binding Assists}" Grid.Column="1" Style="{StaticResource StatLabel}" />
-                                        <Label Text="{Binding Deaths}" Grid.Column="2" Style="{StaticResource StatLabel}" />
-                                        <Label Text="{Binding SiegeDamage, StringFormat='{0:N0}'}" Grid.Column="3" Style="{StaticResource StatLabel}" />
-                                        <Label Text="{Binding HeroDamage, StringFormat='{0:N0}'}" Grid.Column="4" Style="{StaticResource StatLabel}" />
-                                        <Label Text="{Binding Healing, StringFormat='{0:N0}', TargetNullValue='-'}" Grid.Column="5" Style="{StaticResource StatLabel}" />
-                                        <Label Text="{Binding SelfHealing, StringFormat='{0:0,0;;-}'}" Grid.Column="6" Style="{StaticResource StatLabel}" />
-                                        <Label Text="{Binding ExperienceContribution, StringFormat='{0:N0}'}" Grid.Column="7" Style="{StaticResource StatLabel}" />
-                                    </Grid>
+                                    <HorizontalStackLayout Grid.Column="4" Grid.ColumnSpan="8"
+                                                           IsVisible="{Binding Tab.ShowTalents}"
+                                                           BindableLayout.ItemsSource="{Binding Talents}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate x:DataType="pages:TalentSlot">
+                                                <Grid WidthRequest="78">
+                                                    <Border WidthRequest="32" HeightRequest="32" StrokeThickness="1"
+                                                            Stroke="#3A3170" BackgroundColor="#1A0F33" Padding="0"
+                                                            ToolTipProperties.Text="{Binding ToolTip}">
+                                                        <Border.Triggers>
+                                                            <DataTrigger TargetType="Border" Binding="{Binding IsPicked}" Value="True">
+                                                                <Setter Property="Stroke" Value="#A9A2D8" />
+                                                            </DataTrigger>
+                                                        </Border.Triggers>
+                                                        <Image Source="{Binding Image}" Aspect="AspectFill" />
+                                                    </Border>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </HorizontalStackLayout>
+
+                                    <ContentView Grid.Column="4" Grid.ColumnSpan="8" IsVisible="{Binding Tab.ShowStats}">
+                                        <Grid ColumnDefinitions="44,44,44,84,84,84,84,84"
+                                              BindingContext="{Binding Character.ReplayCharacterScoreResult}"
+                                              x:DataType="models:ReplayCharacterScoreResult">
+                                            <Label Text="{Binding SoloKills}" Style="{StaticResource StatLabel}" />
+                                            <Label Text="{Binding Assists}" Grid.Column="1" Style="{StaticResource StatLabel}" />
+                                            <Label Text="{Binding Deaths}" Grid.Column="2" Style="{StaticResource StatLabel}" />
+                                            <Label Text="{Binding SiegeDamage, StringFormat='{0:N0}'}" Grid.Column="3" Style="{StaticResource StatLabel}" />
+                                            <Label Text="{Binding HeroDamage, StringFormat='{0:N0}'}" Grid.Column="4" Style="{StaticResource StatLabel}" />
+                                            <Label Text="{Binding Healing, StringFormat='{0:N0}', TargetNullValue='-'}" Grid.Column="5" Style="{StaticResource StatLabel}" />
+                                            <Label Text="{Binding SelfHealing, StringFormat='{0:0,0;;-}'}" Grid.Column="6" Style="{StaticResource StatLabel}" />
+                                            <Label Text="{Binding ExperienceContribution, StringFormat='{0:N0}'}" Grid.Column="7" Style="{StaticResource StatLabel}" />
+                                        </Grid>
+                                    </ContentView>
 
                                     <Label Text="&#x2699;" Grid.Column="12" Style="{StaticResource StatLabel}" TextColor="#B8AEE8" />
                                 </Grid>

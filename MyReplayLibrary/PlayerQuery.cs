@@ -54,6 +54,40 @@ public class PlayerQuery(ReplayDbContext dc) {
         return replay;
     }
 
+    /// <summary>
+    /// The name, tier and description of each talent picked in these replays, as of the build each replay
+    /// ran on. Talents the scraped data doesn't know are left out.
+    /// </summary>
+    public async Task<Dictionary<ReplayCharacterTalent, HeroTalentInformation>> GetTalentInfos(
+        IReadOnlyCollection<ReplayEntry> replays) {
+        if (replays.Count == 0) {
+            return [];
+        }
+
+        var buildMin = replays.Min(r => r.ReplayBuild);
+        var buildMax = replays.Max(r => r.ReplayBuild);
+        var heroes = replays.SelectMany(r => r.ReplayCharacters).Select(r => r.CharacterId).Distinct().ToList();
+        var infos = (await dc.HeroTalentInformations
+                .Where(t => heroes.Contains(t.Character) && t.ReplayBuildFirst <= buildMax && t.ReplayBuildLast >= buildMin)
+                .ToListAsync())
+            .ToLookup(t => (t.Character, t.TalentId));
+
+        var dic = new Dictionary<ReplayCharacterTalent, HeroTalentInformation>();
+        foreach (var replay in replays) {
+            foreach (var character in replay.ReplayCharacters) {
+                foreach (var talent in character.ReplayCharacterTalents) {
+                    var info = infos[(character.CharacterId, talent.TalentId)].FirstOrDefault(t =>
+                        t.ReplayBuildFirst <= replay.ReplayBuild && replay.ReplayBuild <= t.ReplayBuildLast);
+                    if (info is not null) {
+                        dic[talent] = info;
+                    }
+                }
+            }
+        }
+
+        return dic;
+    }
+
     public async Task<IEnumerable<ReplayEntry>> ListReplays(string? since, string? to, int? skip, int? take,
         string? hero, string? map, bool? win) {
         IQueryable<ReplayEntry> q = dc.Replays

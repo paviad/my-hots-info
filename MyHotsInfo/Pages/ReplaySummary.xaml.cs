@@ -52,7 +52,7 @@ public partial class ReplayPage : ContentPage, IQueryAttributable {
             var playerQuery = scope.ServiceProvider.GetRequiredService<PlayerQuery>();
             var replayId = int.Parse((string)query["id"]);
             var replay = await playerQuery.GetReplay(replayId);
-            var vm = new ReplaySummaryViewModel(replay);
+            var vm = new ReplaySummaryViewModel(replay, await playerQuery.GetTalentInfos([replay]));
             BindingContext = vm;
 
             // The page is reused, so reset the button for this game.

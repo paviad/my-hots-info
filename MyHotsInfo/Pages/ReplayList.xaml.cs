@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyHotsInfo.Utils;
+using MyReplayLibrary;
 using MyReplayLibrary.Data;
 using MyReplayLibrary.Data.Models;
 
@@ -9,9 +10,6 @@ public partial class ReplayList : ContentPage {
     private readonly IServiceProvider _svcp;
     private readonly MyNavigator _myNavigator;
     private List<ReplayEntry>? _replays;
-    private readonly HeroTalentInformation _unknownTalent = new() {
-        TalentName = "<Unknown>",
-    };
 
     private readonly ReplayListViewModel? _vm;
 
@@ -56,25 +54,10 @@ public partial class ReplayList : ContentPage {
             .AsSplitQuery()
             .ToListAsync();
 
-        var buildMin = _replays.Min(r => r.ReplayBuild);
-        var buildMax = _replays.Max(r => r.ReplayBuild);
-
-        var talents = await dc.HeroTalentInformations
-            .Where(r =>
-                r.ReplayBuildFirst <= buildMin && r.ReplayBuildLast >= buildMin ||
-                r.ReplayBuildFirst <= buildMax && r.ReplayBuildLast >= buildMax)
-            .ToListAsync();
-
-        var dic = _replays
-            .SelectMany(r => r.ReplayCharacters)
-            .SelectMany(r => r.ReplayCharacterTalents)
-            .Select(r => (r, talents
-                .SingleOrDefault(z =>
-                    z.Character == r.ReplayCharacter.CharacterId &&
-                    z.TalentId == r.TalentId &&
-                    r.Replay.ReplayBuild >= z.ReplayBuildFirst &&
-                    r.Replay.ReplayBuild <= z.ReplayBuildLast)))
-            .ToDictionary(r => r.r, r => r.Item2 ?? _unknownTalent);
+        var talentInfos = await scope.ServiceProvider.GetRequiredService<PlayerQuery>().GetTalentInfos(_replays);
+        if (_vm is not null) {
+            _vm.TalentInfos = talentInfos;
+        }
 
         _vm?.Replays.Clear();
         _replays.ForEach(r => _vm?.Replays.Add(r));
