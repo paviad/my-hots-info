@@ -19,8 +19,11 @@ public partial class Ocr(OcrOptions? options = null) : IDisposable {
         var rc = ((List<string>[])[draft, loading])
             .Select(z => z.Select(w => w.Length >= 2 ? w : "").ToList())
             .MaxBy(z => z.Count(w => w != ""))!;
-        return rc.Count(w => w != "") < 5 ? [] : rc;
+        return rc.Count(w => w != "") < MinNames ? [] : rc;
     }
+
+    /// <summary>Fewer names than this means the screenshot is not a draft or loading screen.</summary>
+    private const int MinNames = 5;
 
     /// <summary>The names in <see cref="PickSlots"/>, without the unread slots.</summary>
     public static List<string> PickNames(List<string> draft, List<string> loading) =>
@@ -79,34 +82,42 @@ public partial class Ocr(OcrOptions? options = null) : IDisposable {
             _ => throw new ArgumentOutOfRangeException(nameof(ssKind), ssKind, null),
         };
 
-        var names = new List<string>();
+        var names = encoded.Select((enc, index) => ReadSlot(enc, index, ssKind, _options.PageSegMode)).ToList();
 
-        for (var index = 0; index < encoded.Count; index++) {
-            var enc = encoded[index];
-            using var image = Pix.LoadFromMemory(enc);
-            string[] text1;
-            lock (_ocrLock) {
-                using var page = _engine.Process(image, _options.PageSegMode);
-
-                // Drop the empty pieces a stray leading/trailing symbol leaves behind, so they
-                // don't get picked as the name below.
-                text1 = MyRegex().Split(page.GetText().Trim()).Where(s => s != "").DefaultIfEmpty("").ToArray();
+        // Tesseract's layout analysis can discard a short name outright ("Nia" came back empty in
+        // every mode but raw line), so give the empty slots of a real draft/loading screen a
+        // second, raw-line reading. Only then: on other screens it would read noise as names.
+        if (_options.RawLineRetry && names.Count(w => w.Length >= 2) >= MinNames) {
+            for (var index = 0; index < names.Count; index++) {
+                if (names[index].Length < 2) {
+                    names[index] = ReadSlot(encoded[index], index, ssKind, PageSegMode.RawLine);
+                }
             }
-
-            var chin2 = text1.Where(s => ChinCh().IsMatch(s)).ToArray();
-            var chin1 = string.Join("", chin2);
-            var text = ssKind switch {
-                _ when chin1 is { Length: > 0 } => chin1,
-                ScreenShotKind.Draft => text1[0],
-                ScreenShotKind.Loading when index < 5 => text1[0],
-                ScreenShotKind.Loading => text1[^1],
-                _ => throw new ArgumentOutOfRangeException(nameof(ssKind), ssKind, null),
-            };
-            names.Add(text);
-            continue;
         }
 
         return names;
+    }
+
+    private string ReadSlot(byte[] enc, int index, ScreenShotKind ssKind, PageSegMode? pageSegMode) {
+        using var image = Pix.LoadFromMemory(enc);
+        string[] text1;
+        lock (_ocrLock) {
+            using var page = _engine!.Process(image, pageSegMode);
+
+            // Drop the empty pieces a stray leading/trailing symbol leaves behind, so they
+            // don't get picked as the name below.
+            text1 = MyRegex().Split(page.GetText().Trim()).Where(s => s != "").DefaultIfEmpty("").ToArray();
+        }
+
+        var chin2 = text1.Where(s => ChinCh().IsMatch(s)).ToArray();
+        var chin1 = string.Join("", chin2);
+        return ssKind switch {
+            _ when chin1 is { Length: > 0 } => chin1,
+            ScreenShotKind.Draft => text1[0],
+            ScreenShotKind.Loading when index < 5 => text1[0],
+            ScreenShotKind.Loading => text1[^1],
+            _ => throw new ArgumentOutOfRangeException(nameof(ssKind), ssKind, null),
+        };
     }
 
     private byte[] GetBytes(string latestSs, int cornerX, int cornerY, bool redTeam = false) {

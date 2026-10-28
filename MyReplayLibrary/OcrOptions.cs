@@ -36,4 +36,10 @@ public record OcrOptions {
 
     /// <summary>White margin added around each crop, in pixels of the final image.</summary>
     public int Border { get; init; }
+
+    /// <summary>
+    /// Read the slots that came out empty again as a raw line, on screenshots that are clearly
+    /// draft or loading screens.
+    /// </summary>
+    public bool RawLineRetry { get; init; } = true;
 }

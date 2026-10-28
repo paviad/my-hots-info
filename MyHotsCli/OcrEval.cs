@@ -32,6 +32,7 @@ public class OcrEval(string screenshotsDir, string truthPath, int parallel) {
         ["scale3"] = o => o with { Scale = 3 },
         ["scale5"] = o => o with { Scale = 5 },
         ["scale6"] = o => o with { Scale = 6 },
+        ["noretry"] = o => o with { RawLineRetry = false },
     };
 
     public static IEnumerable<string> TweakNames => Tweaks.Keys;
