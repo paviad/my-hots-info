@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- ReSharper disable Xaml.PossibleNullReferenceException -->
+
+<!-- Every hero's talents as of a scraped build, marked with what changed since the build before. -->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:MyHotsInfo.Pages"
+             xmlns:utils="clr-namespace:MyHotsInfo.Utils"
+             x:DataType="pages:HeroBrowserViewModel"
+             x:Class="MyHotsInfo.Pages.HeroBrowser"
+             Title="Heroes">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <utils:HeroToImageConverter x:Key="HeroToImageConverter" />
+            <utils:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+
+            <Style x:Key="Dim" TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid ColumnDefinitions="260,*" ColumnSpacing="30" Padding="30,12,30,0">
+        <!-- Build, search and the heroes -->
+        <Grid RowDefinitions="Auto,Auto,Auto,*" RowSpacing="8">
+            <Picker Title="Build" ItemsSource="{Binding BuildLabels}" SelectedIndex="{Binding SelectedBuildIndex}" />
+            <Entry Grid.Row="1" Placeholder="Search heroes" Text="{Binding SearchText}"
+                   ClearButtonVisibility="WhileEditing" />
+            <HorizontalStackLayout Grid.Row="2" IsVisible="{Binding HasPreviousBuild}">
+                <CheckBox IsChecked="{Binding ChangedOnly}" />
+                <Label Text="Changed in this build" VerticalTextAlignment="Center" />
+            </HorizontalStackLayout>
+
+            <CollectionView Grid.Row="3"
+                            ItemsSource="{Binding Heroes}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedHero, Mode=TwoWay}"
+                            VerticalScrollBarVisibility="Always">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="pages:HeroBrowserHero">
+                        <Grid ColumnDefinitions="36,*,Auto" Padding="4,3,10,3" ColumnSpacing="8">
+                            <Image Source="{Binding Id, Converter={StaticResource HeroToImageConverter}, ConverterParameter='circle'}"
+                                   HeightRequest="28" WidthRequest="28" />
+                            <Label Grid.Column="1" Text="{Binding Id}" VerticalTextAlignment="Center" />
+                            <Border Grid.Column="2" IsVisible="{Binding IsChanged}" VerticalOptions="Center"
+                                    StrokeThickness="0" BackgroundColor="#E8B04A" Padding="7,0"
+                                    StrokeShape="RoundRectangle 8"
+                                    ToolTipProperties.Text="Talents changed since the build before">
+                                <Label Text="{Binding ChangeLabel}" FontSize="11" FontFamily="OpenSansSemibold"
+                                       TextColor="#1A1200" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+        <!-- The hero's talents, tier by tier -->
+        <Grid Grid.Column="1" RowDefinitions="Auto,*" RowSpacing="12">
+            <HorizontalStackLayout Spacing="14">
+                <Image Source="{Binding HeroName, Converter={StaticResource HeroToImageConverter}}"
+                       IsVisible="{Binding HeroName, Converter={StaticResource NullToBooleanConverter}}"
+                       HeightRequest="64" WidthRequest="64" />
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label Text="{Binding HeroName}" FontSize="24" FontFamily="OpenSansSemibold" />
+                    <Label Text="{Binding HeroSummary}" Style="{StaticResource Dim}" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Tiers}" VerticalScrollBarVisibility="Always">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="pages:HeroBrowserTier">
+                        <VerticalStackLayout Margin="0,0,16,18">
+                            <Label Text="{Binding Title}" FontSize="16" FontFamily="OpenSansSemibold"
+                                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDarkText}}" />
+                            <BoxView HeightRequest="1" Color="Gray" Margin="0,2,0,4" />
+                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Talents}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="pages:HeroBrowserTalent">
+                                        <Grid ColumnDefinitions="48,*" ColumnSpacing="12" Padding="0,6"
+                                              Opacity="{Binding Opacity}">
+                                            <Border WidthRequest="48" HeightRequest="48" VerticalOptions="Start"
+                                                    StrokeThickness="1" Stroke="#A9A2D8" BackgroundColor="#1A0F33"
+                                                    Padding="0">
+                                                <Image Source="{Binding Image}" Aspect="AspectFill" />
+                                            </Border>
+                                            <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                                <HorizontalStackLayout Spacing="8">
+                                                    <Label Text="{Binding Name}" FontFamily="OpenSansSemibold" />
+                                                    <Border IsVisible="{Binding Badge, Converter={StaticResource NullToBooleanConverter}}"
+                                                            VerticalOptions="Center" StrokeThickness="1"
+                                                            Stroke="{Binding BadgeColor}" Padding="6,0"
+                                                            StrokeShape="RoundRectangle 4">
+                                                        <Label Text="{Binding Badge}" FontSize="11"
+                                                               TextColor="{Binding BadgeColor}" />
+                                                    </Border>
+                                                </HorizontalStackLayout>
+                                                <Label Text="{Binding Description}" LineBreakMode="WordWrap" />
+                                                <Label Text="{Binding Was}" LineBreakMode="WordWrap" FontAttributes="Italic"
+                                                       Style="{StaticResource Dim}"
+                                                       IsVisible="{Binding Was, Converter={StaticResource NullToBooleanConverter}}" />
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</ContentPage>

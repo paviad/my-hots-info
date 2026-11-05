@@ -39,8 +39,10 @@ public static class MauiProgram {
         builder.Services.AddSingleton<ReplayPage>();
         builder.Services.AddSingleton<Prematch>();
         builder.Services.AddSingleton<PlayerStats>();
+        builder.Services.AddSingleton<HeroBrowser>();
         builder.Services.AddScoped<Scanner>();
         builder.Services.AddScoped<PlayerQuery>();
+        builder.Services.AddScoped<TalentQuery>();
         builder.Services.AddSingleton<Ocr>();
         builder.Services.AddSingleton<ScannedFileList>();
         builder.Services.AddSingleton(_ => TimeProvider.System);

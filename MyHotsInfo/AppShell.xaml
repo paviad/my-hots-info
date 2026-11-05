@@ -14,6 +14,10 @@
             Title="Replays"
             ContentTemplate="{DataTemplate pages:ReplayList}"
             Route="Replays" />
+        <ShellContent
+            Title="Heroes"
+            ContentTemplate="{DataTemplate pages:HeroBrowser}"
+            Route="Heroes" />
     </TabBar>
 
 </Shell>
