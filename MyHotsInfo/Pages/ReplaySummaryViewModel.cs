@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using Heroes.ReplayParser;
-using MyHotsInfo.Extensions;
+using MyHotsInfo.Utils;
 using MyReplayLibrary.Data.Models;
 
 namespace MyHotsInfo.Pages;
@@ -133,10 +133,6 @@ public class TalentSlot {
     public static readonly int[] Tiers = [1, 4, 7, 10, 13, 16, 20];
     public static readonly TalentSlot Empty = new();
 
-    // The icons from MyHotsCli\Scripts\talent_icons.py, named like the scraper names them: talent_x.jpg, then
-    // talent_x_{build}.jpg for each later build that redrew it. By name, the versions oldest first.
-    private static readonly Dictionary<string, List<(int Build, string Path)>> Icons = LoadIcons();
-
     private TalentSlot() { }
 
     public TalentSlot(string characterId, int replayBuild, HeroTalentInformation? info) {
@@ -146,38 +142,13 @@ public class TalentSlot {
             return;
         }
 
-        // TalentsLib suffixes Alarak's level 20 upgrades of his heroics; the icon is the heroic's.
-        var name = info.TalentName.Replace(" (Lvl 20)", "");
-        if (Icons.TryGetValue($"talent_{$"{characterId}{name}".Strip()}", out var versions)) {
-            // The art as of the game's build; games older than the first scrape get the oldest we have.
-            Image = versions.LastOrDefault(v => v.Build <= replayBuild, versions[0]).Path;
-        }
-
+        Image = TalentIcons.Find(characterId, info.TalentName, replayBuild);
         ToolTip = $"{info.TalentName}\n{info.TalentDescription}";
     }
 
     public bool IsPicked { get; }
     public string? Image { get; }
     public string? ToolTip { get; }
-
-    private static Dictionary<string, List<(int Build, string Path)>> LoadIcons() {
-        var dir = Path.Combine(AppContext.BaseDirectory, "Talents");
-        if (!Directory.Exists(dir)) {
-            return [];
-        }
-
-        return Directory.EnumerateFiles(dir, "talent_*.jpg")
-            .Select(path => {
-                // Names are [a-z0-9] after "talent_", so a later "_" can only start a build.
-                var file = Path.GetFileNameWithoutExtension(path);
-                var sep = file.LastIndexOf('_');
-                return sep > "talent".Length && int.TryParse(file.AsSpan(sep + 1), out var build)
-                    ? (Name: file[..sep], Build: build, Path: path)
-                    : (Name: file, Build: 0, Path: path);
-            })
-            .GroupBy(v => v.Name)
-            .ToDictionary(g => g.Key, g => g.OrderBy(v => v.Build).Select(v => (v.Build, v.Path)).ToList());
-    }
 }
 
 public class TeamSummary(string name, IReadOnlyCollection<ReplayCharacter> team) {
