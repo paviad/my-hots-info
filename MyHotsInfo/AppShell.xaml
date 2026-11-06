@@ -18,6 +18,10 @@
             Title="Heroes"
             ContentTemplate="{DataTemplate pages:HeroBrowser}"
             Route="Heroes" />
+        <ShellContent
+            Title="Settings"
+            ContentTemplate="{DataTemplate pages:SettingsPage}"
+            Route="Settings" />
     </TabBar>
 
 </Shell>

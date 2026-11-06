@@ -27,6 +27,7 @@ Everything the tools write lives in the repo. The programs find it by walking up
 | Path | In git | Written by | Contents |
 |---|---|---|---|
 | `my.db` | no | CLI, MAUI app | The replay database, unless `MYHOTSINFO_DB` points elsewhere. |
+| `settings.json` | no | MAUI app's Settings tab | Which replay folders (account + region) are your games, where you changed the default. Read by the app and by `scan` in the CLI. |
 | `cache\abil-slots\<build>.json` | no | `rq` (CLI and the observer MCP server) | Each build's ability slot table: per-replay votes for which hotkey slot each ability id was cast with, and the tallied slots. Rebuilt from the replays if deleted, but that parses every replay of the build; new replays of the build are added on load. |
 | `cache\abil-names.json` | yes | You | Optional real names for ability ids, by build: `{ "98348": { "1315": "Dragonflight" } }`. |
 | `MyHotsObserver\runs\` | no | `MyHotsObserver\run.cmd` | Copies of the observer MCP server's build that it runs from, so rebuilding isn't blocked by locked files. Stale copies are removed on the next start; safe to delete when no server is running. |
@@ -35,7 +36,9 @@ Everything the tools write lives in the repo. The programs find it by walking up
 
 When starting the MAUI application it will first prompt you to pick the database file location.
 
-Thereafter it will present the list of 40 most recent replays, and identify the most likely account and region, and will begin monitoring for new replays, and new screenshots.
+Thereafter it will present the list of 40 most recent replays, import the replays of your folders, and begin monitoring them for new replays, and for new screenshots.
+
+Your folders are, by default, every account's folder in the region with the most replays. The *Settings* tab lists every account and region folder found under `Documents\Heroes of the Storm\Accounts`, with the player name and replay count, and lets you tick which ones are your games; changes apply right away. It also shows the database file and can switch to another one.
 
 When a screenshot is taken of a draft screen (by default using F12), the app will try to detect the names on the screenshot and display what it knows about them in a *Prematch* screen.
 

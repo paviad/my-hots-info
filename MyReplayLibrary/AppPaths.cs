@@ -23,6 +23,13 @@ public static class AppPaths {
     public static string? RepoRoot { get; } = FindRepoRoot();
 
     /// <summary>
+    /// Where the tools keep their own files: <see cref="RepoRoot"/>, or
+    /// <c>%LocalAppData%\MyHotsInfo</c> outside a checkout.
+    /// </summary>
+    public static string DataDir => RepoRoot
+        ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MyHotsInfo");
+
+    /// <summary>
     /// <see cref="DbEnvVar"/> if set, otherwise <c>my.db</c> in <see cref="RepoRoot"/>, or
     /// <c>%LocalAppData%\MyHotsInfo\my.db</c> outside a checkout.
     /// </summary>
@@ -33,9 +40,7 @@ public static class AppPaths {
                 return Path.GetFullPath(fromEnv);
             }
 
-            return RepoRoot is { } root
-                ? Path.Combine(root, "my.db")
-                : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MyHotsInfo", "my.db");
+            return Path.Combine(DataDir, "my.db");
         }
     }
 

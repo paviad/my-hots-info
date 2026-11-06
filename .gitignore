@@ -17,6 +17,8 @@ sixlabors.lic
 casc/
 .antlr/
 ocr-truth.json
+# The app's and CLI's settings (which replay folders are mine), written by the Settings tab.
+/settings.json
 MyHotsObserver/runs/
 # Rebuildable caches; abil-names.json is written by hand and kept.
 cache/*

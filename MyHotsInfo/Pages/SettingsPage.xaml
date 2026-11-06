@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- ReSharper disable Xaml.PossibleNullReferenceException -->
+
+<!-- Whose replay folders are the owner's, and the database file. -->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:MyHotsInfo.Pages"
+             x:DataType="pages:SettingsViewModel"
+             x:Class="MyHotsInfo.Pages.SettingsPage"
+             Title="Settings">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Dim" TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+            </Style>
+            <Style x:Key="SectionTitle" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="OpenSansSemibold" />
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+            </Style>
+            <Style x:Key="SmallButton" TargetType="Button">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="Padding" Value="14,0" />
+                <Setter Property="HeightRequest" Value="32" />
+                <Setter Property="MinimumHeightRequest" Value="0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,16,30,30" Spacing="10" MaximumWidthRequest="860" HorizontalOptions="Start">
+
+            <!-- Replay folders -->
+            <Label Text="My replay folders" Style="{StaticResource SectionTitle}" />
+            <Label Style="{StaticResource Dim}" LineBreakMode="WordWrap"
+                   Text="Each folder holds one account's games in one region. Checked folders are imported as your games and watched for new ones. A folder you haven't set follows the default: every account in the region with the most replays. Unchecking a folder doesn't remove games already imported from it." />
+
+            <Label Text="No Heroes of the Storm account folders were found in Documents\Heroes of the Storm\Accounts."
+                   IsVisible="{Binding HasNoFolders}" />
+
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Folders}" Spacing="6" Margin="0,4,0,0">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="pages:SettingsFolder">
+                        <Border StrokeThickness="1" StrokeShape="RoundRectangle 6" Padding="8,6,14,6"
+                                Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}">
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                                <CheckBox IsChecked="{Binding IsMine}" VerticalOptions="Center" />
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="1">
+                                    <Label Text="{Binding Title}" FontFamily="OpenSansSemibold" />
+                                    <Label Text="{Binding Details}" FontSize="12" Style="{StaticResource Dim}" />
+                                </VerticalStackLayout>
+                                <Label Grid.Column="2" Text="{Binding Source}" FontSize="12" VerticalOptions="Center"
+                                       Style="{StaticResource Dim}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsChosen}" Value="True">
+                                            <Setter Property="FontFamily" Value="OpenSansSemibold" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+
+            <Button Text="Reset all to default" Style="{StaticResource SmallButton}" HorizontalOptions="Start"
+                    IsVisible="{Binding HasChoices}" Clicked="OnResetFoldersClicked" />
+
+            <!-- Database -->
+            <Label Text="Database" Style="{StaticResource SectionTitle}" Margin="0,22,0,0" />
+            <Label Style="{StaticResource Dim}" LineBreakMode="WordWrap"
+                   Text="The file your imported games are kept in. Switching to another file takes effect when the app restarts." />
+            <Entry Text="{Binding DatabasePath}" IsReadOnly="True" />
+            <HorizontalStackLayout Spacing="8">
+                <Button Text="Open folder" Style="{StaticResource SmallButton}" Clicked="OnOpenDatabaseFolderClicked" />
+                <Button Text="Use another file…" Style="{StaticResource SmallButton}" Clicked="OnChangeDatabaseClicked" />
+            </HorizontalStackLayout>
+
+            <!-- Where these are kept -->
+            <Label Text="Settings file" Style="{StaticResource SectionTitle}" Margin="0,22,0,0" />
+            <Label Style="{StaticResource Dim}" LineBreakMode="WordWrap"
+                   Text="The replay folder choices are saved here, where the command-line tool reads them too." />
+            <Entry Text="{Binding SettingsPath}" IsReadOnly="True" />
+            <Button Text="Open folder" Style="{StaticResource SmallButton}" HorizontalOptions="Start"
+                    Clicked="OnOpenSettingsFolderClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

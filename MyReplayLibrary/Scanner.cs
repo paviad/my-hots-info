@@ -17,7 +17,8 @@ public partial class Scanner(
     TimeProvider timeProvider,
     ILogger<Scanner> logger,
     Ocr ocr,
-    ScannedFileList scannedFileList) : IDisposable {
+    ScannedFileList scannedFileList,
+    SettingsStore settings) : IDisposable {
     private readonly GameMode[] _validGameModes = [
         GameMode.StormLeague,
         GameMode.ARAM,
@@ -25,12 +26,15 @@ public partial class Scanner(
         GameMode.UnrankedDraft,
     ];
 
-    private FileSystemWatcher? _fswReplays;
+    private readonly List<FileSystemWatcher> _fswReplays = [];
 
     private FileSystemWatcher? _fswScreenshots;
 
     public void Dispose() {
-        _fswReplays?.Dispose();
+        lock (_fswReplays) {
+            _fswReplays.ForEach(f => f.Dispose());
+        }
+
         _fswScreenshots?.Dispose();
     }
 
@@ -70,37 +74,91 @@ public partial class Scanner(
         return message;
     }
 
-    public List<(string Account, int Region, int NumReplays)> GetAllFolders() {
-        var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        string[] hots = ["Heroes of the Storm", "Accounts"];
-        var intPath = Path.Combine([basePath, .. hots]);
-        var dirs = Directory.GetDirectories(intPath).Select(Path.GetFileName);
-        var pairs =
-            from d in dirs
-            let pidPath = Path.Combine([basePath, .. hots, d])
-            let pidsFull = Directory.GetDirectories(pidPath, "*-*")
-            from pid1 in pidsFull
-            let pid = Path.GetFileName(pid1)
-            let path = Path.Combine(pid1, "Replays", "Multiplayer")
-            let reg = int.Parse(pid.Split('-')[0])
-            let num = Directory.GetFiles(path, "*.StormReplay").Length
-            select (Account: d, Region: reg, NumReplays: num);
-        return pairs.ToList();
+    private static string AccountsPath => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Heroes of the Storm", "Accounts");
+
+    /// <summary>
+    /// Every toon folder (Accounts\&lt;account&gt;\&lt;region&gt;-Hero-…) on this machine, sorted by
+    /// account and region, with whether it holds the owner's games: their choice in
+    /// <see cref="AppSettings.ReplayFolders"/>, else the default, which is every account in the region
+    /// with the most replays.
+    /// </summary>
+    public List<ReplayFolder> GetFolders() {
+        if (!Directory.Exists(AccountsPath)) {
+            return [];
+        }
+
+        var found = (
+            from accountDir in Directory.GetDirectories(AccountsPath)
+            from toonDir in Directory.GetDirectories(accountDir, "*-Hero-*")
+            let replayDir = ReplayDir(toonDir)
+            let parts = Path.GetFileName(toonDir).Split('-')
+            where parts.Length == 4 && int.TryParse(parts[0], out _) && int.TryParse(parts[3], out _)
+            select (Account: Path.GetFileName(accountDir), Region: int.Parse(parts[0]), ToonId: int.Parse(parts[3]),
+                ToonDir: toonDir,
+                NumReplays: Directory.Exists(replayDir) ? Directory.GetFiles(replayDir, "*.StormReplay").Length : 0)
+        ).ToList();
+        if (found.Count == 0) {
+            return [];
+        }
+
+        var mainRegion = found.MaxBy(f => f.NumReplays).Region;
+        var choices = settings.Current.ReplayFolders;
+        return found
+            .Select(f => new ReplayFolder(f.Account, f.Region, f.ToonId, f.ToonDir, f.NumReplays,
+                MineByDefault: f.Region == mainRegion,
+                Chosen: choices.TryGetValue(ReplayFolder.KeyOf(f.Account, f.Region), out var c) ? c : null))
+            .OrderBy(f => f.Account, StringComparer.Ordinal)
+            .ThenBy(f => f.Region)
+            .ToList();
     }
+
+    /// <summary>The folders whose games are the owner's, to import and watch.</summary>
+    public List<(string Account, int Region)> GetMyFolders() =>
+        GetFolders().Where(f => f.IsMine).Select(f => (f.Account, f.Region)).ToList();
+
+    internal static string ReplayDir(string toonDir) => Path.Combine(toonDir, "Replays", "Multiplayer");
+
+    private static string ToonDir(string accountId, int region) =>
+        Directory.GetDirectories(Path.Combine(AccountsPath, accountId), $"{region}-Hero-*").Single();
 
     /// <param name="replayFileCallback">
     /// Called with each new or changed replay file while watching, before it's imported.
     /// </param>
-    public async Task Scan(string accountId, int region, bool watch, Func<int, Task>? replayCallback = null,
+    public Task Scan(string accountId, int region, bool watch, Func<int, Task>? replayCallback = null,
         Func<List<string>, Task>? screenShotCallback = null, Func<string, Task>? replayFileCallback = null,
-        CancellationToken cancellationToken = default) {
-        var basePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        string[] hots = ["Heroes of the Storm", "Accounts", accountId];
-        var intPath = Path.Combine([basePath, .. hots]);
-        var dirs = Directory.GetDirectories(intPath);
-        var euDir = dirs.Single(r => Path.GetFileName(r).StartsWith($"{region}-"));
-        string[] endPaths = ["Replays", "Multiplayer"];
-        var finalPath = Path.Combine([euDir, .. endPaths]);
+        CancellationToken cancellationToken = default) =>
+        Scan([(accountId, region)], watch, replayCallback, screenShotCallback, replayFileCallback, cancellationToken);
+
+    /// <summary>Imports the replays of several toon folders, then optionally watches them all for new ones.</summary>
+    /// <param name="replayFileCallback">
+    /// Called with each new or changed replay file while watching, before it's imported.
+    /// </param>
+    public async Task Scan(IReadOnlyList<(string Account, int Region)> folders, bool watch,
+        Func<int, Task>? replayCallback = null, Func<List<string>, Task>? screenShotCallback = null,
+        Func<string, Task>? replayFileCallback = null, CancellationToken cancellationToken = default) {
+        var toonDirs = folders.Select(f => ToonDir(f.Account, f.Region)).ToList();
+        foreach (var toonDir in toonDirs) {
+            await ScanFolder(toonDir, cancellationToken);
+        }
+
+        if (watch) {
+            logger.LogInformation("Watching for new replays...");
+
+            var screenshots = WatchScreenshots(screenShotCallback ?? NoOp, cancellationToken);
+            var replays = toonDirs.Select(d =>
+                Watch(d, replayCallback ?? NoOp, replayFileCallback ?? NoOp, cancellationToken));
+
+            await Task.WhenAll([screenshots, .. replays]);
+        }
+    }
+
+    private async Task ScanFolder(string toonDir, CancellationToken cancellationToken) {
+        var finalPath = ReplayDir(toonDir);
+        if (!Directory.Exists(finalPath)) {
+            logger.LogInformation("No replays yet in {path}", toonDir);
+            return;
+        }
 
         var replays = Directory.GetFiles(finalPath, "*.StormReplay");
 
@@ -127,15 +185,6 @@ public partial class Scanner(
         // One last time
         if (processed is not null) {
             scannedFileList.Add(processed);
-        }
-
-        if (watch) {
-            logger.LogInformation("Watching for new replays...");
-
-            var t2 = WatchScreenshots(screenShotCallback ?? NoOp, cancellationToken);
-            var t1 = Watch(finalPath, replayCallback ?? NoOp, replayFileCallback ?? NoOp, cancellationToken);
-
-            await Task.WhenAll(t1, t2);
         }
     }
 
@@ -659,17 +708,27 @@ public partial class Scanner(
         await dc.SaveChangesAsync();
     }
 
-    private async Task Watch(string s, Func<int, Task> callBack, Func<string, Task> fileCallBack,
+    /// <summary>
+    /// Watches a toon folder for new replays. It watches the toon folder rather than its
+    /// Replays\Multiplayer folder, which the client creates only after the toon's first game.
+    /// </summary>
+    private async Task Watch(string toonDir, Func<int, Task> callBack, Func<string, Task> fileCallBack,
         CancellationToken cancellationToken) {
+        var replayDir = ReplayDir(toonDir);
         var subj = new Subject<string>();
-        var inp = subj.GroupBy(z => z)
+        var inp = subj
+            .Where(fn => string.Equals(Path.GetDirectoryName(fn), replayDir, StringComparison.OrdinalIgnoreCase))
+            .GroupBy(z => z)
             .SelectMany(z => z.Throttle(TimeSpan.FromSeconds(1)));
 
-        _fswReplays = new FileSystemWatcher(s, "*.StormReplay");
+        var fsw = new FileSystemWatcher(toonDir, "*.StormReplay") { IncludeSubdirectories = true };
+        lock (_fswReplays) {
+            _fswReplays.Add(fsw);
+        }
 
         var subs = inp.SelectMany(async fn => {
             scannedFileList.Add(fn);
-            logger.LogInformation("Scanning {replay} {fsw}", fn, _fswReplays.EnableRaisingEvents);
+            logger.LogInformation("Scanning {replay} {fsw}", fn, fsw.EnableRaisingEvents);
             try {
                 await fileCallBack(fn);
                 var replayId = await ScanOneReplay(fn, cancellationToken);
@@ -685,15 +744,15 @@ public partial class Scanner(
             return true;
         }).Subscribe();
 
-        logger.LogInformation("Setting up file system watch on {path}", s);
+        logger.LogInformation("Setting up file system watch on {path}", replayDir);
 
-        _fswReplays.Created += FswCreated;
-        _fswReplays.Changed += FswChanged;
-        _fswReplays.Renamed += FswRenamed;
-        _fswReplays.Error += FswError;
-        _fswReplays.EnableRaisingEvents = true;
-        _fswReplays.Disposed += FswDisposed;
-        _fswReplays.Deleted += FswDeleted;
+        fsw.Created += FswCreated;
+        fsw.Changed += FswChanged;
+        fsw.Renamed += FswRenamed;
+        fsw.Error += FswError;
+        fsw.EnableRaisingEvents = true;
+        fsw.Disposed += FswDisposed;
+        fsw.Deleted += FswDeleted;
 
         try {
             await Task.Delay(-1, cancellationToken);

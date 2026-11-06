@@ -40,6 +40,8 @@ public static class MauiProgram {
         builder.Services.AddSingleton<Prematch>();
         builder.Services.AddSingleton<PlayerStats>();
         builder.Services.AddSingleton<HeroBrowser>();
+        builder.Services.AddSingleton<SettingsPage>();
+        builder.Services.AddSingleton<SettingsStore>();
         builder.Services.AddScoped<Scanner>();
         builder.Services.AddScoped<PlayerQuery>();
         builder.Services.AddScoped<TalentQuery>();

@@ -81,6 +81,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
 
                 services.AddSingleton(TimeProvider.System);
                 services.AddSingleton<ScannedFileList>();
+                services.AddSingleton<SettingsStore>();
                 services.AddScoped<Scanner>();
                 services.AddScoped<PlayerQuery>();
                 services.AddSingleton<Ocr>();
@@ -450,15 +451,16 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
             }
 
             if (list) {
-                var pairs = scanner.GetAllFolders();
+                var pairs = scanner.GetFolders();
                 var count = 1;
                 foreach (var pair in pairs) {
-                    Console.WriteLine("{2}. Account {0}, Region {1} ({3} replays)", pair.Account, pair.Region, count++,
-                        pair.NumReplays);
+                    var mine = pair.IsMine ? "mine" : "not mine";
+                    Console.WriteLine("{2}. Account {0}, Region {1} ({3} replays) - {4}{5}", pair.Account, pair.Region,
+                        count++, pair.NumReplays, mine, pair.Chosen is null ? " by default" : "");
                 }
             }
             else if (seq is not null) {
-                var pairs = scanner.GetAllFolders();
+                var pairs = scanner.GetFolders();
                 if (seq.Value > pairs.Count || seq.Value < 1) {
                     Console.Error.WriteLine("Sequence must be 1-{0}, use --list to see the list", pairs.Count);
                     return;
@@ -473,8 +475,17 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                     screenShotCallback: ScreenshotCallback, cancellationToken: token);
                 await WatchOrRunOnce(watch, cts, token, t1);
             }
+            else if (account is null || region is null) {
+                var folders = scanner.GetMyFolders();
+                Console.WriteLine("Scanning {0}", string.Join(", ", folders.Select(f => $"account {f.Account} region {f.Region}")));
+                var cts = new CancellationTokenSource();
+                var token = cts.Token;
+                var t1 = scanner.Scan(folders, watch, replayCallback: ReplayCallback,
+                    screenShotCallback: ScreenshotCallback, cancellationToken: token);
+                await WatchOrRunOnce(watch, cts, token, t1);
+            }
             else {
-                Console.WriteLine("Scanning account {0}, region {1}", account, region!.Value);
+                Console.WriteLine("Scanning account {0}, region {1}", account, region.Value);
                 var cts = new CancellationTokenSource();
                 var token = cts.Token;
                 var t1 = scanner.Scan(account!, region.Value, watch, replayCallback: ReplayCallback,
