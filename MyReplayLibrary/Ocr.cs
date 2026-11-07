@@ -54,8 +54,8 @@ public partial class Ocr(OcrOptions? options = null) : IDisposable {
         var path = Path.GetDirectoryName(ssName1);
         var latestSs = ssName1;
 
-        List<byte[]> encoded = ssKind switch {
-            ScreenShotKind.Draft => [
+        List<List<byte[]>> layouts = ssKind switch {
+            ScreenShotKind.Draft => [[
                 GetBytes(latestSs, 12, 181),
                 GetBytes(latestSs, 111, 349),
                 GetBytes(latestSs, 12, 519),
@@ -66,23 +66,24 @@ public partial class Ocr(OcrOptions? options = null) : IDisposable {
                 GetBytes(latestSs, 1786, 519, redTeam: true),
                 GetBytes(latestSs, 1690, 689, redTeam: true),
                 GetBytes(latestSs, 1786, 857, redTeam: true),
-            ],
+            ]],
             ScreenShotKind.Loading => [
-                GetBytes2(latestSs, 110, 269),
-                GetBytes2(latestSs, 110, 401),
-                GetBytes2(latestSs, 110, 533),
-                GetBytes2(latestSs, 110, 665),
-                GetBytes2(latestSs, 110, 797),
-                GetBytes2(latestSs, 1605, 269, redTeam: true),
-                GetBytes2(latestSs, 1605, 401, redTeam: true),
-                GetBytes2(latestSs, 1605, 533, redTeam: true),
-                GetBytes2(latestSs, 1605, 665, redTeam: true),
-                GetBytes2(latestSs, 1605, 797, redTeam: true),
+                LoadingCrops(latestSs, 269, 28),
+                // ARAM hides the heroes until the game starts, so the player name is the panel's
+                // only line: bigger and higher up. The normal crop cuts through its letters.
+                LoadingCrops(latestSs, 256, 36),
             ],
             _ => throw new ArgumentOutOfRangeException(nameof(ssKind), ssKind, null),
         };
 
-        var names = encoded.Select((enc, index) => ReadSlot(enc, index, ssKind, _options.PageSegMode)).ToList();
+        // Each crop also reads something on the other kind of screen, often all ten slots, but
+        // Tesseract is far less sure of it: on 18 ARAM and 20 normal loading screens the mean
+        // confidence picked the right layout every time, by at least 0.15.
+        var best = layouts
+            .Select(enc => (enc, reads: enc.Select((e, index) => ReadSlot(e, index, ssKind, _options.PageSegMode)).ToList()))
+            .MaxBy(z => z.reads.Sum(r => r.Confidence));
+        var encoded = best.enc;
+        var names = best.reads.Select(r => r.Text).ToList();
 
         // Tesseract's layout analysis can discard a short name outright ("Nia" came back empty in
         // every mode but raw line), so give the empty slots of a real draft/loading screen a
@@ -90,7 +91,7 @@ public partial class Ocr(OcrOptions? options = null) : IDisposable {
         if (_options.RawLineRetry && names.Count(w => w.Length >= 2) >= MinNames) {
             for (var index = 0; index < names.Count; index++) {
                 if (names[index].Length < 2) {
-                    names[index] = ReadSlot(encoded[index], index, ssKind, PageSegMode.RawLine);
+                    names[index] = ReadSlot(encoded[index], index, ssKind, PageSegMode.RawLine).Text;
                 }
             }
         }
@@ -98,26 +99,29 @@ public partial class Ocr(OcrOptions? options = null) : IDisposable {
         return names;
     }
 
-    private string ReadSlot(byte[] enc, int index, ScreenShotKind ssKind, PageSegMode? pageSegMode) {
+    /// <summary>The name in one slot's crop, and Tesseract's mean confidence (0-1) in the crop's text.</summary>
+    private (string Text, float Confidence) ReadSlot(byte[] enc, int index, ScreenShotKind ssKind, PageSegMode? pageSegMode) {
         using var image = Pix.LoadFromMemory(enc);
         string[] text1;
+        float confidence;
         lock (_ocrLock) {
             using var page = _engine!.Process(image, pageSegMode);
 
             // Drop the empty pieces a stray leading/trailing symbol leaves behind, so they
             // don't get picked as the name below.
             text1 = MyRegex().Split(page.GetText().Trim()).Where(s => s != "").DefaultIfEmpty("").ToArray();
+            confidence = page.GetMeanConfidence();
         }
 
         var chin2 = text1.Where(s => ChinCh().IsMatch(s)).ToArray();
         var chin1 = string.Join("", chin2);
-        return ssKind switch {
+        return (ssKind switch {
             _ when chin1 is { Length: > 0 } => chin1,
             ScreenShotKind.Draft => text1[0],
             ScreenShotKind.Loading when index < 5 => text1[0],
             ScreenShotKind.Loading => text1[^1],
             _ => throw new ArgumentOutOfRangeException(nameof(ssKind), ssKind, null),
-        };
+        }, confidence);
     }
 
     private byte[] GetBytes(string latestSs, int cornerX, int cornerY, bool redTeam = false) {
@@ -140,9 +144,13 @@ public partial class Ocr(OcrOptions? options = null) : IDisposable {
         return Finish(img, redTeam ? 100 : 110);
     }
 
-    private byte[] GetBytes2(string latestSs, int cornerX, int cornerY, bool redTeam = false) {
+    /// <summary>The ten loading screen name crops, the first <paramref name="height"/> pixels from <paramref name="top"/> in each panel.</summary>
+    private List<byte[]> LoadingCrops(string latestSs, int top, int height) =>
+        [.. Enumerable.Range(0, 10).Select(i => GetBytes2(latestSs, i < 5 ? 110 : 1605, top + 132 * (i % 5), height, redTeam: i >= 5))];
+
+    private byte[] GetBytes2(string latestSs, int cornerX, int cornerY, int height, bool redTeam = false) {
         var img = new ImagePipeline(latestSs, cornerX, cornerY, redTeam);
-        img.FromFile(203, 28);
+        img.FromFile(203, height);
         img.Scale(_options.Scale);
         return Finish(img, redTeam ? 90 : 110);
     }
