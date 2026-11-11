@@ -153,6 +153,7 @@ public class TalentSlot {
 
 public class TeamSummary(string name, IReadOnlyCollection<ReplayCharacter> team) {
     public string Name { get; } = name;
-    public int Kills { get; } = team.Sum(r => r.ReplayCharacterScoreResult.SoloKills);
-    public int Level { get; } = team.Select(r => r.ReplayCharacterScoreResult.Level).DefaultIfEmpty().Max();
+    // A replay whose statistics couldn't be parsed has no score results; it still shows, with no numbers.
+    public int Kills { get; } = team.Sum(r => r.ReplayCharacterScoreResult?.SoloKills ?? 0);
+    public int Level { get; } = team.Select(r => r.ReplayCharacterScoreResult?.Level ?? 0).DefaultIfEmpty().Max();
 }
