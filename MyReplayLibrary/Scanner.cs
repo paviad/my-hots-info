@@ -142,6 +142,8 @@ public partial class Scanner(
             await ScanFolder(toonDir, cancellationToken);
         }
 
+        await BackfillScoreResults(toonDirs, cancellationToken);
+
         if (watch) {
             logger.LogInformation("Watching for new replays...");
 
@@ -437,59 +439,7 @@ public partial class Scanner(
 
             // Add Player Statistics
             if (replayParseData.IsStatisticsParsedSuccessfully == true) {
-                var scoreResult = replayParseData.Players[i].ScoreResult;
-
-                // Adjust for Blizzard bugs they haven't fixed yet
-                if (replayParseData.Players[i].Character == "Thrall") {
-                    scoreResult.Healing = null;
-                }
-
-                var rcsr = new ReplayCharacterScoreResult {
-                    ReplayId = replay.Id,
-                    PlayerId = thePlayer.Id,
-                    Level = scoreResult.Level,
-                    Takedowns = scoreResult.Takedowns,
-                    SoloKills = scoreResult.SoloKills,
-                    Assists = scoreResult.Assists,
-                    Deaths = scoreResult.Deaths,
-                    HighestKillStreak = scoreResult.HighestKillStreak,
-                    HeroDamage = scoreResult.HeroDamage,
-                    SiegeDamage = scoreResult.SiegeDamage,
-                    StructureDamage = scoreResult.StructureDamage,
-                    MinionDamage = scoreResult.MinionDamage,
-                    CreepDamage = scoreResult.CreepDamage,
-                    SummonDamage = scoreResult.SummonDamage,
-
-                    // TODO: REVISIT THIS NOW THAT THERE IS MATCH AWARD FOR CC
-                    // (Currently bugged, Stitches can have hours of CC time: https://github.com/Blizzard/heroprotocol/issues/21)
-                    // TimeCCdEnemyHeroes = scoreResult.TimeCCdEnemyHeroes,
-                    Healing = scoreResult.Healing,
-                    SelfHealing = scoreResult.SelfHealing,
-                    DamageTaken = scoreResult.DamageTaken,
-                    ExperienceContribution = scoreResult.ExperienceContribution,
-                    TownKills = scoreResult.TownKills,
-                    TimeSpentDead = scoreResult.TimeSpentDead,
-                    MercCampCaptures = scoreResult.MercCampCaptures,
-                    WatchTowerCaptures = scoreResult.WatchTowerCaptures,
-                    MetaExperience = scoreResult.MetaExperience,
-                };
-
-                if (replayCharacters[i] is not null) {
-                    replayCharacters[i]!.ReplayCharacterScoreResult = rcsr;
-                }
-
-                dc.ReplayCharacterScoreResults.Add(rcsr);
-
-                foreach (var matchAward in scoreResult.MatchAwards) {
-                    var rcma = new ReplayCharacterMatchAward {
-                        ReplayId = replay.Id,
-                        Player = thePlayer,
-                        MatchAwardType = matchAward,
-                    };
-                    if (replayCharacters[i] is not null) {
-                        replayCharacters[i]!.ReplayCharacterMatchAwards.Add(rcma);
-                    }
-                }
+                AddScoreResult(dc, replay.Id, thePlayer, replayCharacters[i], replayParseData.Players[i]);
             }
 
             await dc.SaveChangesAsync();
@@ -500,6 +450,113 @@ public partial class Scanner(
         await UpdateChats(dc, replayParseData, replay);
 
         return replay.Id;
+    }
+
+    /// <summary>Adds one player's end of game score and match awards; the caller saves.</summary>
+    private static void AddScoreResult(ReplayDbContext dc, int replayId, PlayerEntry player,
+        ReplayCharacter? replayCharacter, Player parsedPlayer) {
+        var scoreResult = parsedPlayer.ScoreResult;
+
+        // Adjust for Blizzard bugs they haven't fixed yet
+        if (parsedPlayer.Character == "Thrall") {
+            scoreResult.Healing = null;
+        }
+
+        var rcsr = new ReplayCharacterScoreResult {
+            ReplayId = replayId,
+            PlayerId = player.Id,
+            Level = scoreResult.Level,
+            Takedowns = scoreResult.Takedowns,
+            SoloKills = scoreResult.SoloKills,
+            Assists = scoreResult.Assists,
+            Deaths = scoreResult.Deaths,
+            HighestKillStreak = scoreResult.HighestKillStreak,
+            HeroDamage = scoreResult.HeroDamage,
+            SiegeDamage = scoreResult.SiegeDamage,
+            StructureDamage = scoreResult.StructureDamage,
+            MinionDamage = scoreResult.MinionDamage,
+            CreepDamage = scoreResult.CreepDamage,
+            SummonDamage = scoreResult.SummonDamage,
+
+            // TODO: REVISIT THIS NOW THAT THERE IS MATCH AWARD FOR CC
+            // (Currently bugged, Stitches can have hours of CC time: https://github.com/Blizzard/heroprotocol/issues/21)
+            // TimeCCdEnemyHeroes = scoreResult.TimeCCdEnemyHeroes,
+            Healing = scoreResult.Healing,
+            SelfHealing = scoreResult.SelfHealing,
+            DamageTaken = scoreResult.DamageTaken,
+            ExperienceContribution = scoreResult.ExperienceContribution,
+            TownKills = scoreResult.TownKills,
+            TimeSpentDead = scoreResult.TimeSpentDead,
+            MercCampCaptures = scoreResult.MercCampCaptures,
+            WatchTowerCaptures = scoreResult.WatchTowerCaptures,
+            MetaExperience = scoreResult.MetaExperience,
+        };
+
+        if (replayCharacter is not null) {
+            replayCharacter.ReplayCharacterScoreResult = rcsr;
+        }
+
+        dc.ReplayCharacterScoreResults.Add(rcsr);
+
+        foreach (var matchAward in scoreResult.MatchAwards) {
+            var rcma = new ReplayCharacterMatchAward {
+                ReplayId = replayId,
+                Player = player,
+                MatchAwardType = matchAward,
+            };
+            replayCharacter?.ReplayCharacterMatchAwards.Add(rcma);
+        }
+    }
+
+    /// <summary>
+    /// Fills in the scores and match awards of replays imported without them (their statistics
+    /// failed to parse at the time), for those whose file is still in one of the folders. The file
+    /// is found by the name the game gave it: the local start time and the map.
+    /// </summary>
+    private async Task BackfillScoreResults(IReadOnlyList<string> toonDirs, CancellationToken cancellationToken) {
+        await using var dc = await dcFactory.CreateDbContextAsync(cancellationToken);
+        var missing = await dc.Replays
+            .Where(r => !dc.ReplayCharacterScoreResults.Any(s => s.ReplayId == r.Id))
+            .Select(r => new { r.Id, r.ReplayHash, r.TimestampReplay, r.MapId })
+            .ToListAsync(cancellationToken);
+
+        foreach (var m in missing) {
+            var name = $"{m.TimestampReplay.ToLocalTime():yyyy-MM-dd HH.mm.ss} {m.MapId}.StormReplay";
+            var file = toonDirs.Select(d => Path.Combine(ReplayDir(d), name)).FirstOrDefault(File.Exists);
+            if (file is null) {
+                continue;
+            }
+
+            try {
+                var (result, parsed) = DataParser.ParseReplay(file, false, ParseOptions.FullParsing);
+                if (result != DataParser.ReplayParseResult.Success || parsed.IsStatisticsParsedSuccessfully != true ||
+                    parsed.HashReplay() != m.ReplayHash) {
+                    logger.LogInformation("Replay id {id} still has no statistics", m.Id);
+                    continue;
+                }
+
+                var characters = await dc.ReplayCharacters
+                    .Include(r => r.Player)
+                    .Where(r => r.ReplayId == m.Id)
+                    .ToListAsync(cancellationToken);
+                foreach (var character in characters) {
+                    var parsedPlayer = parsed.Players.SingleOrDefault(j =>
+                        j.PlayerType != PlayerType.Computer &&
+                        j.BattleNetRegionId == character.Player.BattleNetRegionId &&
+                        j.BattleNetId == character.Player.BattleNetId);
+                    if (parsedPlayer is not null) {
+                        AddScoreResult(dc, m.Id, character.Player, character, parsedPlayer);
+                    }
+                }
+
+                await dc.SaveChangesAsync(cancellationToken);
+                logger.LogInformation("Filled in the statistics of replay id {id}", m.Id);
+            }
+            catch (Exception e) when (e is not OperationCanceledException) {
+                logger.LogWarning(e, "Couldn't fill in the statistics of replay id {id}", m.Id);
+                dc.ChangeTracker.Clear();
+            }
+        }
     }
 
     private async Task RetroUpdateChat(
