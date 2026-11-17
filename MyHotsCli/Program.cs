@@ -200,7 +200,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                               ----------------------------------------------------------------------------------------------------------
                               """);
             foreach (var z in results) {
-                var dateTime = z.TimestampReplay;
+                var dateTime = z.TimestampReplay.ToLocalTime();
                 var gameMode = z.GameMode switch {
                     GameMode.QuickMatch => "QM",
                     GameMode.UnrankedDraft => "UD",
@@ -331,7 +331,7 @@ public class Program : IDesignTimeDbContextFactory<ReplayDbContext> {
                               ----------------------------------------------------------------------------------------------------------
                               """);
             foreach (var z in results) {
-                var dateTime = z.TimestampReplay;
+                var dateTime = z.TimestampReplay.ToLocalTime();
                 var gameMode = z.GameMode switch {
                     GameMode.QuickMatch => "QM",
                     GameMode.UnrankedDraft => "UD",

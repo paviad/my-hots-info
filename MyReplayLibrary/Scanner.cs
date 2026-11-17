@@ -45,7 +45,7 @@ public partial class Scanner(
         var sb = new StringBuilder();
         sb.AppendLine($"""
                        Id: {replay.Id}
-                       Game Time: {replay.TimestampReplay}
+                       Game Time: {replay.TimestampReplay.ToLocalTime()}
                        Game Mode: {replay.GameMode}
                        Map: {replay.MapId}
                        Mvp: {mvp?.Name ?? "???"}#{mvp?.BattleTag ?? 0}

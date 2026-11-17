@@ -19,6 +19,7 @@
         <ResourceDictionary>
             <utils:NullToBooleanConverter x:Key="NullToBooleanConverter" />
             <utils:ReplayResultConverter x:Key="ReplayResultConverter" />
+            <utils:LocalTimeConverter x:Key="LocalTimeConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -56,7 +57,7 @@
                                   Data="M 1,8 A 7,7 0 1 1 15,8 A 7,7 0 1 1 1,8 M 5.5,5.5 L 5.5,6.5 M 10.5,5.5 L 10.5,6.5 M 5,11.5 Q 8,8.5 11,11.5"
                                   IsVisible="{Binding ., Converter={StaticResource ReplayResultConverter}, ConverterParameter=Defeat}"
                                   ToolTipProperties.Text="Defeat" />
-                            <Label Text="{Binding TimestampReplay}" Grid.Column="1" />
+                            <Label Text="{Binding TimestampReplay, Converter={StaticResource LocalTimeConverter}}" Grid.Column="1" />
                             <Label Text="{Binding MapId}" Grid.Column="2" />
                             <Label Text="{Binding ReplayLength}" Grid.Column="3" />
                         </Grid>
