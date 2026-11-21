@@ -40,7 +40,9 @@
                             VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="pages:HeroBrowserHero">
-                        <Grid ColumnDefinitions="36,*,Auto" Padding="4,3,10,3" ColumnSpacing="8">
+                        <!-- Not selectable text: a click on it has to select the hero. -->
+                        <Grid ColumnDefinitions="36,*,Auto" Padding="4,3,10,3" ColumnSpacing="8"
+                              utils:Selectable.Disabled="True">
                             <Image Source="{Binding Id, Converter={StaticResource HeroToImageConverter}, ConverterParameter='circle'}"
                                    HeightRequest="28" WidthRequest="28" />
                             <Label Grid.Column="1" Text="{Binding Id}" VerticalTextAlignment="Center" />

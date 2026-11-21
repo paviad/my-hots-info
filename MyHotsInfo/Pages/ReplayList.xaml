@@ -45,7 +45,8 @@
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:ReplayEntry">
-                        <Grid RowDefinitions="Auto" ColumnDefinitions="24,*,*,*">
+                        <!-- Not selectable text: a click on it has to select the row. -->
+                        <Grid RowDefinitions="Auto" ColumnDefinitions="24,*,*,*" utils:Selectable.Disabled="True">
                             <!-- A smiley for a win, a frown for a loss; the face and eyes are shared. -->
                             <Path WidthRequest="16" HeightRequest="16" VerticalOptions="Center"
                                   Stroke="#4CC24A" StrokeThickness="1.5" StrokeLineCap="Round"

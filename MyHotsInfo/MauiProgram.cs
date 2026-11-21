@@ -19,6 +19,8 @@ public static class MauiProgram {
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        Selectable.Register();
+
 #if WINDOWS
         builder.ConfigureLifecycleEvents(events =>
             events.AddWindows(windows => windows.OnWindowCreated(WinUI.WindowPlacement.Place)));
