@@ -32,7 +32,12 @@ public sealed class CascFileSystem {
             casc.Root.LoadListFile("");
         }
 
-        var root = casc.Root.SetFlags(LocaleFlags.enUS, ContentFlags.None);
+        // MYHOTSINFO_CASC_LOCALE (e.g. "zhCN", or "enUS, zhCN") exposes other installed locales' files
+        var locale = Enum.TryParse<LocaleFlags>(
+            Environment.GetEnvironmentVariable("MYHOTSINFO_CASC_LOCALE"), true, out var parsed)
+            ? parsed
+            : LocaleFlags.enUS;
+        var root = casc.Root.SetFlags(locale, ContentFlags.None);
         casc.Root.MergeInstall(casc.Install);
 
         GC.Collect();
