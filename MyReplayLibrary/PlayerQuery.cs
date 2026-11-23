@@ -189,6 +189,40 @@ public class PlayerQuery(ReplayDbContext dc) {
         }
     }
 
+    /// <summary>
+    /// Every appearance of the hero in my games: played by me, by an ally or by an enemy, with the map, the mode
+    /// and whether my team won. A game where the hero was on both teams counts once for each side.
+    /// </summary>
+    public async Task<List<HeroGame>> GetHeroGames(string hero) {
+        var rows = await dc.ReplayCharacters
+            .Where(c => c.CharacterId == hero)
+            .Select(c => new {
+                c.IsMe,
+                c.IsWinner,
+                c.Replay.GameMode,
+                c.Replay.MapId,
+                MeWon = c.Replay.ReplayCharacters.Where(m => m.IsMe).Select(m => (bool?)m.IsWinner).FirstOrDefault(),
+            })
+            .AsNoTracking()
+            .ToListAsync();
+
+        return [
+            .. rows
+                .Where(r => r.MeWon is not null)
+                .Select(r => new HeroGame(r.GameMode, r.MapId,
+                    r.IsMe ? HeroSide.Me : r.IsWinner == r.MeWon ? HeroSide.Ally : HeroSide.Enemy, r.MeWon!.Value)),
+        ];
+    }
+
+    /// <summary>The maps and the modes of my games, most played first.</summary>
+    public async Task<(List<string> Maps, List<Heroes.ReplayParser.GameMode> Modes)> GetMapsAndModes() {
+        var maps = await dc.Replays.GroupBy(r => r.MapId).OrderByDescending(g => g.Count()).Select(g => g.Key)
+            .ToListAsync();
+        var modes = await dc.Replays.GroupBy(r => r.GameMode).OrderByDescending(g => g.Count()).Select(g => g.Key)
+            .ToListAsync();
+        return (maps, modes);
+    }
+
     /// <summary>A <see cref="NameMatcher"/> over every player met, for resolving names read by OCR.</summary>
     public async Task<NameMatcher> GetNameMatcher() {
         var counts = await dc.ReplayCharacters
@@ -339,6 +373,12 @@ public class PlayerQuery(ReplayDbContext dc) {
 
     public record HeroRecord(string Hero, ResultRecord Totals, Dictionary<string, ResultRecord> ByHero);
 }
+
+/// <summary>Who played the hero, as seen from my side.</summary>
+public enum HeroSide { Me, Ally, Enemy }
+
+/// <summary>One appearance of a hero in one of my games; <see cref="Won"/> is whether my team won.</summary>
+public record HeroGame(GameMode GameMode, string MapId, HeroSide Side, bool Won);
 
 public record TalentRecord(
     int BuildNumberFirst,

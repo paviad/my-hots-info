@@ -19,6 +19,45 @@
                 <Setter Property="TextColor"
                         Value="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
             </Style>
+
+            <Style x:Key="TabLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="OpenSansSemibold" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Padding" Value="0,2,0,6" />
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" />
+            </Style>
+
+            <Style x:Key="TabUnderline" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="2" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="Color"
+                        Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+            </Style>
+
+            <!-- A map or mode to count; tap to pick it or drop it. Not selectable text: the tap has to reach it. -->
+            <DataTemplate x:Key="FilterChip" x:DataType="pages:StatsFilter">
+                <Border Padding="10,3" Margin="0,0,6,6" StrokeThickness="1" StrokeShape="RoundRectangle 12"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray500}}"
+                        BackgroundColor="Transparent" utils:Selectable.Disabled="True">
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                            <Setter Property="Stroke" Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleCommand}" />
+                    </Border.GestureRecognizers>
+                    <Label Text="{Binding Label}" FontSize="13">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding IsSelected}" Value="True">
+                                <Setter Property="TextColor" Value="White" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </Border>
+            </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -59,8 +98,8 @@
             </CollectionView>
         </Grid>
 
-        <!-- The hero's talents, tier by tier -->
-        <Grid Grid.Column="1" RowDefinitions="Auto,*" RowSpacing="12">
+        <!-- The hero: its talents tier by tier, or how my games with and against it went -->
+        <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*" RowSpacing="12">
             <HorizontalStackLayout Spacing="14">
                 <Image Source="{Binding HeroName, Converter={StaticResource HeroToImageConverter}}"
                        IsVisible="{Binding HeroName, Converter={StaticResource NullToBooleanConverter}}"
@@ -71,7 +110,40 @@
                 </VerticalStackLayout>
             </HorizontalStackLayout>
 
-            <CollectionView Grid.Row="1" ItemsSource="{Binding Tiers}" VerticalScrollBarVisibility="Always">
+            <!-- Talents | Statistics -->
+            <HorizontalStackLayout Grid.Row="1" Spacing="18">
+                <Grid>
+                    <Label Text="Talents" Style="{StaticResource TabLabel}">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding ShowTalents}" Value="True">
+                                <Setter Property="TextColor"
+                                        Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTalentsTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <BoxView Style="{StaticResource TabUnderline}" IsVisible="{Binding ShowTalents}" />
+                </Grid>
+                <Grid>
+                    <Label Text="Statistics" Style="{StaticResource TabLabel}">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding ShowStatistics}" Value="True">
+                                <Setter Property="TextColor"
+                                        Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnStatisticsTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <BoxView Style="{StaticResource TabUnderline}" IsVisible="{Binding ShowStatistics}" />
+                </Grid>
+            </HorizontalStackLayout>
+
+            <CollectionView Grid.Row="2" ItemsSource="{Binding Tiers}" VerticalScrollBarVisibility="Always"
+                            IsVisible="{Binding ShowTalents}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="pages:HeroBrowserTier">
                         <VerticalStackLayout Margin="0,0,16,18">
@@ -112,6 +184,89 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <!-- My win rate playing the hero, with it and against it, over the modes and maps picked -->
+            <ScrollView Grid.Row="2" IsVisible="{Binding ShowStatistics}" VerticalScrollBarVisibility="Always">
+                <VerticalStackLayout BindingContext="{Binding Stats}">
+                    <VerticalStackLayout x:DataType="pages:HeroStatsViewModel" Spacing="14" Padding="0,0,16,20">
+                        <Grid ColumnDefinitions="64,*,Auto" ColumnSpacing="10">
+                            <Label Text="Modes" FontFamily="OpenSansSemibold" Margin="0,4,0,0" />
+                            <FlexLayout Grid.Column="1" Wrap="Wrap" BindableLayout.ItemsSource="{Binding Modes}"
+                                        BindableLayout.ItemTemplate="{StaticResource FilterChip}" />
+                            <Label Grid.Column="2" Text="{Binding ModesLabel}" Style="{StaticResource Dim}"
+                                   Margin="0,4,0,0" />
+                        </Grid>
+                        <Grid ColumnDefinitions="64,*,Auto" ColumnSpacing="10">
+                            <Label Text="Maps" FontFamily="OpenSansSemibold" Margin="0,4,0,0" />
+                            <FlexLayout Grid.Column="1" Wrap="Wrap" BindableLayout.ItemsSource="{Binding Maps}"
+                                        BindableLayout.ItemTemplate="{StaticResource FilterChip}" />
+                            <Label Grid.Column="2" Text="{Binding MapsLabel}" Style="{StaticResource Dim}"
+                                   Margin="0,4,0,0" />
+                        </Grid>
+                        <HorizontalStackLayout Spacing="16" Margin="74,-6,0,0">
+                            <Label Text="Clear modes" TextDecorations="Underline" Style="{StaticResource Dim}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ClearModesCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label Text="Clear maps" TextDecorations="Underline" Style="{StaticResource Dim}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ClearMapsCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </HorizontalStackLayout>
+
+                        <Label Text="{Binding Status}" FontSize="16"
+                               IsVisible="{Binding Status, Converter={StaticResource NullToBooleanConverter}}" />
+
+                        <!-- Playing it | With it | Against it -->
+                        <HorizontalStackLayout Spacing="14" BindableLayout.ItemsSource="{Binding Cards}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="pages:HeroStatsCard">
+                                    <Border WidthRequest="200" Padding="16,10" StrokeThickness="1"
+                                            Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}"
+                                            StrokeShape="RoundRectangle 6">
+                                        <VerticalStackLayout Spacing="2">
+                                            <Label Text="{Binding Title}" FontFamily="OpenSansSemibold" FontSize="16" />
+                                            <Label Text="{Binding Result.WinRateText}" FontSize="32"
+                                                   FontFamily="OpenSansSemibold" TextColor="{Binding Result.Color}" />
+                                            <Label Text="{Binding Result.Record, StringFormat='{0} (wins–losses)'}" />
+                                            <Label Text="{Binding Hint}" Style="{StaticResource Dim}" FontSize="12" />
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </HorizontalStackLayout>
+
+                        <!-- Map by map: win rate (games) -->
+                        <VerticalStackLayout IsVisible="{Binding HasByMap}">
+                            <Grid ColumnDefinitions="220,140,140,140" Padding="0,8,0,4">
+                                <Label Text="Map" FontFamily="OpenSansSemibold" />
+                                <Label Grid.Column="1" Text="Playing it" FontFamily="OpenSansSemibold" />
+                                <Label Grid.Column="2" Text="With it" FontFamily="OpenSansSemibold" />
+                                <Label Grid.Column="3" Text="Against it" FontFamily="OpenSansSemibold" />
+                            </Grid>
+                            <BoxView HeightRequest="1" Color="Gray" Margin="0,0,0,2" HorizontalOptions="Start"
+                                     WidthRequest="640" />
+                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding ByMap}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="pages:HeroStatsMapRow">
+                                        <Grid ColumnDefinitions="220,140,140,140" Padding="0,4">
+                                            <Label Text="{Binding Map}" />
+                                            <Label Grid.Column="1" Text="{Binding Me.Cell}" TextColor="{Binding Me.Color}"
+                                                   ToolTipProperties.Text="{Binding Me.Record}" />
+                                            <Label Grid.Column="2" Text="{Binding Ally.Cell}" TextColor="{Binding Ally.Color}"
+                                                   ToolTipProperties.Text="{Binding Ally.Record}" />
+                                            <Label Grid.Column="3" Text="{Binding Enemy.Cell}" TextColor="{Binding Enemy.Color}"
+                                                   ToolTipProperties.Text="{Binding Enemy.Record}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
         </Grid>
     </Grid>
 </ContentPage>

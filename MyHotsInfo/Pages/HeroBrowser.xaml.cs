@@ -1,3 +1,4 @@
+using Heroes.ReplayParser;
 using MyReplayLibrary;
 using MyReplayLibrary.Data.Models;
 
@@ -11,7 +12,7 @@ public partial class HeroBrowser : ContentPage {
     public HeroBrowser(IServiceProvider svcp) {
         _svcp = svcp;
         InitializeComponent();
-        BindingContext = _vm = new HeroBrowserViewModel(LoadTalents);
+        BindingContext = _vm = new HeroBrowserViewModel(LoadTalents, new HeroStatsViewModel(LoadGames, LoadFilters));
     }
 
     protected override async void OnNavigatedTo(NavigatedToEventArgs args) {
@@ -30,6 +31,20 @@ public partial class HeroBrowser : ContentPage {
         catch (Exception x) {
             await DisplayAlertAsync("Heroes", $"Couldn't read the talent builds: {x.Message}", "Dismiss");
         }
+    }
+
+    private void OnTalentsTapped(object? sender, TappedEventArgs e) => _vm.ShowStatistics = false;
+
+    private void OnStatisticsTapped(object? sender, TappedEventArgs e) => _vm.ShowStatistics = true;
+
+    private async Task<List<HeroGame>> LoadGames(string hero) {
+        using var scope = _svcp.CreateScope();
+        return await scope.ServiceProvider.GetRequiredService<PlayerQuery>().GetHeroGames(hero);
+    }
+
+    private async Task<(List<string> Maps, List<GameMode> Modes)> LoadFilters() {
+        using var scope = _svcp.CreateScope();
+        return await scope.ServiceProvider.GetRequiredService<PlayerQuery>().GetMapsAndModes();
     }
 
     private async Task<List<HeroTalentInformation>> LoadTalents(int build) {

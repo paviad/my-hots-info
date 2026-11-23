@@ -8,9 +8,11 @@ using MyReplayLibrary.Data.Models;
 namespace MyHotsInfo.Pages;
 
 /// <summary>
-/// Every hero's talents as of a scraped build, and what changed since the build scraped before it.
+/// Every hero's talents as of a scraped build, and what changed since the build scraped before it; and, on the
+/// Statistics tab, how my games with and against the selected hero went.
 /// </summary>
-public class HeroBrowserViewModel(Func<int, Task<List<HeroTalentInformation>>> loadTalents) : INotifyPropertyChanged {
+public class HeroBrowserViewModel(Func<int, Task<List<HeroTalentInformation>>> loadTalents, HeroStatsViewModel stats)
+    : INotifyPropertyChanged {
     private readonly Dictionary<int, Task<List<HeroTalentInformation>>> _talentsByBuild = [];
     private List<TalentQuery.ScrapedBuild> _builds = [];
     private List<HeroBrowserHero> _allHeroes = [];
@@ -61,6 +63,21 @@ public class HeroBrowserViewModel(Func<int, Task<List<HeroTalentInformation>>> l
             }
         }
     }
+
+    public HeroStatsViewModel Stats { get; } = stats;
+
+    /// <summary>The Statistics tab rather than the Talents tab.</summary>
+    public bool ShowStatistics {
+        get;
+        set {
+            if (SetField(ref field, value)) {
+                OnPropertyChanged(nameof(ShowTalents));
+                Stats.SetActive(value);
+            }
+        }
+    }
+
+    public bool ShowTalents => !ShowStatistics;
 
     public string? HeroName { get; private set => SetField(ref field, value); }
     public string? HeroSummary { get; private set => SetField(ref field, value); }
@@ -157,6 +174,7 @@ public class HeroBrowserViewModel(Func<int, Task<List<HeroTalentInformation>>> l
     }
 
     private void ShowHero() {
+        Stats.SetHero(SelectedHero?.Id);
         if (SelectedHero is not { } hero || Build is not { } build) {
             HeroName = null;
             HeroSummary = null;
