@@ -464,6 +464,16 @@ public partial class Scraper {
         }
     }
 
+    // Cooldown values can be literals or references to a <const id="$Name" value="..."/> in the same document.
+    private static int ParseCooldownValue(XmlNode xdoc, string value) {
+        if (value.StartsWith('$')) {
+            value = xdoc.SelectSingleNode($"//const[@id='{value}']")?.RequiredAttr("value") ??
+                    throw new InvalidOperationException($"Cooldown constant '{value}' not found");
+        }
+
+        return int.Parse(value);
+    }
+
     private int GetCooldown(XmlNode xdoc, string abilKey) {
         if (abilKey == "HeroGenericSpellShield") {
             var refDoc = _referenceCatalog["Effect"];
@@ -481,18 +491,18 @@ public partial class Scraper {
                 var xCooldown2 = xdoc.SelectSingleNode($"//CEffectModifyPlayer[@id='{key1}']/Cost");
                 if (xCooldown2 != null) {
                     var xTimeUse = xCooldown2.SelectSingleNode("./Cooldown/TimeUse")!.RequiredAttr("value");
-                    return int.Parse(xTimeUse);
+                    return ParseCooldownValue(xdoc, xTimeUse);
                 }
             }
             else {
-                return int.Parse(cdMaybe);
+                return ParseCooldownValue(xdoc, cdMaybe);
             }
 
             var xAbilEffect = xdoc.SelectSingleNode($"//CAbilEffectInstant[@id='{key1}']/Cost/Cooldown");
             if (xAbilEffect != null) {
                 var xTimeUse = xAbilEffect.Attr("TimeUse");
                 if (xTimeUse != null) {
-                    return int.Parse(xTimeUse);
+                    return ParseCooldownValue(xdoc, xTimeUse);
                 }
             }
 
