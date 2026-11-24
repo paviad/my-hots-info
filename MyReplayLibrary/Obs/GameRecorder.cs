@@ -85,6 +85,14 @@ public sealed class GameRecorder(GameRecorderOptions options, TimeProvider timeP
     }
 
     /// <summary>
+    /// The kept recording of the game with this replay hash, or null when it was never kept or
+    /// has since been moved or deleted.
+    /// </summary>
+    public string? FindKeptRecording(Guid replayHash) {
+        return ReadKeptIndex().TryGetValue(replayHash, out var path) && File.Exists(path) ? path : null;
+    }
+
+    /// <summary>
     /// Moves the game's recording to <see cref="GameRecorderOptions.KeptFolder"/> as
     /// <paramref name="name"/>, and returns its new path.
     /// </summary>
@@ -99,6 +107,7 @@ public sealed class GameRecorder(GameRecorderOptions options, TimeProvider timeP
             // Off the UI thread: across drives this is a copy of several GB.
             await Task.Run(() => File.Move(source, target));
             logger.LogInformation("Kept recording {path}", target);
+            WriteKeptIndex(replayHash, target);
             return target;
         }
         finally {
@@ -257,6 +266,37 @@ public sealed class GameRecorder(GameRecorderOptions options, TimeProvider timeP
             catch (Exception x) {
                 logger.LogWarning(x, "Couldn't delete old recording {path}", file.FullName);
             }
+        }
+    }
+
+    /// <summary>
+    /// Kept recordings are named for people, so this maps each one back to its game. It sits
+    /// directly in <see cref="GameRecorderOptions.RecordingsFolder"/>, which pruning leaves alone
+    /// because its name isn't a replay hash.
+    /// </summary>
+    private string KeptIndexPath => Path.Combine(options.RecordingsFolder, "kept.json");
+
+    private Dictionary<Guid, string> ReadKeptIndex() {
+        try {
+            return File.Exists(KeptIndexPath)
+                ? JsonSerializer.Deserialize<Dictionary<Guid, string>>(File.ReadAllText(KeptIndexPath)) ?? []
+                : [];
+        }
+        catch (Exception x) {
+            logger.LogWarning(x, "Couldn't read the kept recordings index {path}", KeptIndexPath);
+            return [];
+        }
+    }
+
+    /// <summary>Must hold <see cref="_lock"/>. Drops entries whose file is gone.</summary>
+    private void WriteKeptIndex(Guid replayHash, string path) {
+        try {
+            var index = ReadKeptIndex().Where(kv => File.Exists(kv.Value)).ToDictionary();
+            index[replayHash] = path;
+            File.WriteAllText(KeptIndexPath, JsonSerializer.Serialize(index, new JsonSerializerOptions { WriteIndented = true }));
+        }
+        catch (Exception x) {
+            logger.LogWarning(x, "Couldn't update the kept recordings index {path}", KeptIndexPath);
         }
     }
 

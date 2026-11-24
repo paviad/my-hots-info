@@ -57,9 +57,19 @@ public partial class ReplayPage : ContentPage, IQueryAttributable {
 
             // The page is reused, so reset the button for this game.
             _replay = replay;
-            KeepRecordingButton.Text = "Keep recording";
-            KeepRecordingButton.IsEnabled = true;
-            KeepRecordingButton.IsVisible = _gameRecorder.FindRecording(replay.ReplayHash) is not null;
+            if (_gameRecorder.FindRecording(replay.ReplayHash) is not null) {
+                KeepRecordingButton.Text = "Keep recording";
+                KeepRecordingButton.IsEnabled = true;
+                KeepRecordingButton.IsVisible = true;
+            }
+            else if (_gameRecorder.FindKeptRecording(replay.ReplayHash) is not null) {
+                KeepRecordingButton.Text = "Saved";
+                KeepRecordingButton.IsEnabled = false;
+                KeepRecordingButton.IsVisible = true;
+            }
+            else {
+                KeepRecordingButton.IsVisible = false;
+            }
         }
         catch (Exception e) {
             await DisplayAlertAsync("Error", $"Can't show summary {e}", "Dismiss");
