@@ -267,7 +267,18 @@ public partial class AppShell : Shell, IDisposable {
         // Empty when the screenshot wasn't of a draft or loading screen.
         if (slots.Count > 0) {
             _myNavigator.GoToPrematch(slots);
+            BringToFront();
             await _gameRecorder.OnGameScreenshotAsync();
         }
+    }
+
+    private void BringToFront() {
+#if WINDOWS
+        MainThread.BeginInvokeOnMainThread(() => {
+            if (Window?.Handler?.PlatformView is Microsoft.UI.Xaml.Window window) {
+                WinUI.WindowPlacement.BringToFront(window);
+            }
+        });
+#endif
     }
 }
