@@ -204,8 +204,10 @@ public partial class AppShell : Shell, IDisposable {
         }
     }
 
+    /// <summary>A replay the game just saved: the game is over, so its summary is shown.</summary>
     private Task ReplayCallback(int replayId) {
         _myNavigator.GoToReplay(replayId);
+        BringToFront();
         return Task.CompletedTask;
     }
 

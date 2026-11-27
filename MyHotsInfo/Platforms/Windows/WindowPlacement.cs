@@ -5,7 +5,7 @@ namespace MyHotsInfo.WinUI;
 
 /// <summary>Where the main window opens: 20% taller than the WinUI default, centered on the
 /// monitor just left of the primary one when there is one, otherwise on its own monitor; and
-/// raising it when a game starts.</summary>
+/// raising it when a game starts or ends.</summary>
 public static class WindowPlacement {
     public static void Place(Microsoft.UI.Xaml.Window window) {
         var appWindow = window.AppWindow;
